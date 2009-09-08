@@ -63,10 +63,11 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1704321135" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
 <option defaultValue="true" id="gnu.cpp.link.option.shared.1250305200" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
-<option id="gnu.cpp.link.option.libs.1561144783" superClass="gnu.cpp.link.option.libs" valueType="libs">
+<option id="gnu.cpp.link.option.libs.1561144783" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 <listOptionValue builtIn="false" value="gcc"/>
 <listOptionValue builtIn="false" value="ws2_32"/>
 </option>
+<option id="gnu.cpp.link.option.flags.670619428" superClass="gnu.cpp.link.option.flags" value="-Wl,-Map,barchart-udt4.map" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.12493630" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
