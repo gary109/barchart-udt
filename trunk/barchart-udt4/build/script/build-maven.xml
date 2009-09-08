@@ -106,29 +106,40 @@
 
 	<versioninfo id="build-version" fileversion="${mvn.mavenStamp}" productversion="${mvn.version}" compatibilityversion="${mvn.version}" legalcopyright="Copyright (C) ${mvn.licenceOrganization}; Developers: ${mvn.licenceDevelopers}" productname="${mvn.nativeLibName}" companyname="${mvn.licenceOrganization} ( ${mvn.licenceWebsite} )" />
 
-	<property name="libname" value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
-	<property name="objdir" value="${mvn.target}/cpptasks" />
-	<property name="libfolder" value="${mvn.resources}" />
+	<!-- word "root" of library name -->
+	<property name="name.root" value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
 
-	<!-- make own matching prefix/suffix; 
-	note: cpptasks will produce lib...so on both linux and windows, 
-	based on 'g++' compiler type -->
-	<property name="outname" value="lib${libname}.so" />
+	<!-- cpptasks working directory; will contain compilation result -->
+	<property name="work.cpptasks" value="${mvn.target}/cpptasks" />
 
-	<condition property="realname" value="${libname}.dll">
+	<!-- cpptasks nees both folder and root name provided to "outfile"; 
+	cpptasks will add prefix/suffix to the root - based on compiler name, 
+	not platform type; note: must porvie "name.root" - hence all this mess -->
+	<property name="path.cpptasks.root" value="${work.cpptasks}/${name.root}" />
+
+	<!-- make own name with prefix/suffix that will match cpptasks name; 
+	note: cpptasks will produce libXXX.so on both linux and windows, 
+	based on 'g++' compiler type, not build platform type -->
+	<property name="name.cpptasks" value="lib${name.root}.so" />
+	<property name="name.cpptasks.map" value="${name.cpptasks}.map" />
+
+	<!-- full path to the artifacts produceced by cpptasks: *.so and *.map -->
+	<property name="path.cpptasks" value="${work.cpptasks}/${name.cpptasks}" />
+	<property name="path.cpptasks.map" value="${work.cpptasks}/${name.cpptasks.map}" />
+
+	<!-- real name with prefix/suffix that is requered by current platform -->
+	<condition property="name.real" value="${name.root}.dll">
 		<isset property="isWindows" />
 	</condition>
-	<condition property="realname" value="$lib{libname}.so">
+	<condition property="name.real" value="$lib{name.root}.so">
 		<isset property="isWindows" />
 	</condition>
+	<property name="name.real.map" value="${name.real}.map" />
 
-	<property name="mapname" value="${outname}.map" />
+	<!-- full path to the artifacts locations in maven: *.so and *.map -->
+	<property name="path.real" value="${mvn.resources}/${name.real}" />
+	<property name="path.real.map" value="${mvn.resources}/${name.real.map}" />
 
-	<!-- cpptasks will add prefix/suffix -->
-	<property name="outfile" value="${objdir}/${libname}" />
-
-	<property name="outpath" value="${objdir}/${outname}" />
-	<property name="mappath" value="${objdir}/${mapname}" />
 
 	<!-- ####################################################### -->
 
@@ -205,8 +216,8 @@
 	</compiler>
 
 	<linker id="gcc-linker" name="g++">
-		<!-- map file for crash analysis -->
-		<linkerarg location="end" value="-Wl,-Map,${mapname}" />
+		<!-- map file for crash analysis; note: will be located in work directory -->
+		<linkerarg location="end" value="-Wl,-Map,${name.cpptasks.map}" />
 		<!-- core libraries -->
 		<linkerarg location="end" value="--library=gcc" />
 		<linkerarg location="end" value="--library=stdc++" />
@@ -230,15 +241,13 @@
 
 	<target name="target-info">
 
-		<echo message="java.class.path = ${java.class.path}" />
+		<echo message="java.class.path 	: ${java.class.path}" />
 		<echo message="plugin.classpath : ${mvn.plugin.classpath}" />
 
 		<echo message="basedir     : ${basedir}" />
 		<echo message="os.name     : ${os.name}" />
 		<echo message="os.arch     : ${os.arch}" />
 		<echo message="os.version  : ${os.version}" />
-		<echo message="isWindows : ${isWindows}" />
-		<echo message="isX86     : ${isX86}" />
 		<echo message="isToolReady : ${isToolReady}" />
 		<echo message="isSupported : ${isSupported}" />
 
@@ -254,13 +263,17 @@
 		<echo message="nativeSrcUDT  : ${mvn.nativeSrcUDT}" />
 		<echo message="nativeInclude : ${mvn.nativeInclude}" />
 
-
-		<echo message="libname : ${libname}" />
-		<echo message="outname : ${outname}" />
-		<echo message="mapname : ${mapname}" />
-		<echo message="objdir  : ${objdir}" />
-		<echo message="outfile : ${outfile}" />
-		<echo message="outpath : ${outpath}" />
+		<echo message="name.root     : ${name.root}" />
+		<echo message="name.real     : ${name.real}" />
+		<echo message="name.real.map : ${name.real.map}" />
+		<echo message="name.cpptasks     : ${name.cpptasks}" />
+		<echo message="name.cpptasks.map : ${name.cpptasks.map}" />
+		<echo message="work.cpptasks  : ${work.cpptasks}" />
+		<echo message="path.cpptasks.root : ${path.cpptasks.root}" />
+		<echo message="path.real      : ${path.real}" />
+		<echo message="path.real.map  : ${path.real.map}" />
+		<echo message="path.cpptasks      : ${path.cpptasks}" />
+		<echo message="path.cpptasks.map  : ${path.cpptasks.map}" />
 
 	</target>
 
@@ -297,9 +310,9 @@
 
 		<echo message="### COMPILE ARTIFACT" />
 
-		<mkdir dir="${objdir}" />
+		<mkdir dir="${work.cpptasks}" />
 
-		<cc outtype="shared" objdir="${objdir}" outfile="${outfile}">
+		<cc outtype="shared" objdir="${work.cpptasks}" outfile="${path.cpptasks.root}">
 			<fileset dir="${mvn.nativeSrcJNI}" includes="*.cpp" />
 			<fileset dir="${mvn.nativeSrcUDT}/src" includes="*.cpp" />
 			<versioninfo refid="build-version" />
@@ -311,13 +324,13 @@
 
 		<exec executable="ldd" osfamily="unix">
 			<arg value="-r" />
-			<arg value="${outpath}" />
+			<arg value="${path.cpptasks}" />
 		</exec>
 
 		<echo message="### COPY ARTIFACT" />
 
-		<copy file="${outpath}" tofile="${libfolder}/${realname}" />
-		<copy file="${mappath}" todir="${libfolder}" />
+		<copy file="${path.cpptasks}" tofile="${path.real}" />
+		<copy file="${path.cpptasks.map}" tofile="${path.real.map}" />
 
 	</target>
 

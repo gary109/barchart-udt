@@ -16,7 +16,7 @@ toUpper() {
 KIND=$1
 
 LIB_NAME="SocketUDT"
-LIB_FOLDER="$PWD/../src/main/resources"
+LIB_FOLDER="$PWD/../target/classes"
 
 ARTIFACT=""
 ARTIFACT_MAP=""
