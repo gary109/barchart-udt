@@ -110,11 +110,23 @@
 	<property name="objdir" value="${mvn.target}/cpptasks" />
 	<property name="libfolder" value="${mvn.resources}" />
 
-	<!-- make own matching prefix/suffix -->
+	<!-- make own matching prefix/suffix; 
+	note: cpptasks will produce lib...so on both linux and windows, 
+	based on 'g++' compiler type -->
 	<property name="outname" value="lib${libname}.so" />
+
+	<condition property="realname" value="${libname}.dll">
+		<isset property="isWindows" />
+	</condition>
+	<condition property="realname" value="$lib{libname}.so">
+		<isset property="isWindows" />
+	</condition>
+
 	<property name="mapname" value="${outname}.map" />
+
 	<!-- cpptasks will add prefix/suffix -->
 	<property name="outfile" value="${objdir}/${libname}" />
+
 	<property name="outpath" value="${objdir}/${outname}" />
 	<property name="mappath" value="${objdir}/${mapname}" />
 
@@ -304,7 +316,7 @@
 
 		<echo message="### COPY ARTIFACT" />
 
-		<copy file="${outpath}" todir="${libfolder}" />
+		<copy file="${outpath}" tofile="${libfolder}/${realname}" />
 		<copy file="${mappath}" todir="${libfolder}" />
 
 	</target>
