@@ -81,7 +81,7 @@ class ChannelServerSocketUDT extends ServerSocketChannel implements ChannelUDT {
 	public ServerSocket socket() {
 		if (serverSocketAdapter == null) {
 			try {
-				serverSocketAdapter = new AdapterServerSocket(this,
+				serverSocketAdapter = new AdapterServerSocketUDT(this,
 						serverSocketUDT);
 			} catch (IOException e) {
 				return null;
