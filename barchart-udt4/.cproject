@@ -8,7 +8,9 @@
 <externalSettings>
 <externalSetting>
 <entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/sourceforge-udt-wrapper"/>
+<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/barchart-udt4"/>
 <entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/sourceforge-udt-wrapper/Debug"/>
+<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-windows-x86-32"/>
 </externalSetting>
 </externalSettings>
 <extensions>
@@ -69,7 +71,7 @@
 </toolChain>
 </folderInfo>
 <sourceEntries>
-<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/main/cpp"/>
+<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 </sourceEntries>
 </configuration>
 </storageModule>
