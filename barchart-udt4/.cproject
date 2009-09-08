@@ -67,7 +67,7 @@
 <listOptionValue builtIn="false" value="gcc"/>
 <listOptionValue builtIn="false" value="ws2_32"/>
 </option>
-<option id="gnu.cpp.link.option.flags.670619428" superClass="gnu.cpp.link.option.flags" value="-Wl,-Map,barchart-udt4.map" valueType="string"/>
+<option id="gnu.cpp.link.option.flags.670619428" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-Wl,-Map,barchart-udt4.map   -Wl,--kill-at   -Wl,--add-stdcall-alias" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.12493630" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
