@@ -1,0 +1,300 @@
+<project name="project-compile" default="target-info" basedir="${mvn.basedir}">
+
+	<!-- 
+		used by maven ant builder; keep in sync with eclipse cdt builder 
+	-->
+
+	<!-- ####################################################### -->
+
+	<!-- setup ant-contrib -->
+
+	<path id="plugin.classpath" path="${mvn.plugin.classpath}" />
+	<!-- http://ant-contrib.sourceforge.net/cpptasks/ -->
+	<typedef resource="cpptasks.tasks" classpathref="plugin.classpath" />
+	<typedef resource="cpptasks.types" classpathref="plugin.classpath" />
+	<!-- http://ant-contrib.sourceforge.net/ -->
+	<typedef resource="net/sf/antcontrib/antcontrib.properties"
+	         classpathref="plugin.classpath" />
+
+	<!-- ####################################################### -->
+
+	<!-- detect build environment -->
+
+	<condition property="isWindows">
+		<os family="windows" />
+	</condition>
+	<condition property="isLinux">
+		<os family="unix" />
+	</condition>
+	<condition property="is64">
+		<or>
+			<os arch="x86_64" />
+			<os arch="amd64" />
+		</or>
+	</condition>
+	<condition property="is32">
+		<not>
+			<isset property="is64" />
+		</not>
+	</condition>
+	<condition property="isX86">
+		<or>
+			<os arch="i386" />
+			<os arch="i486" />
+			<os arch="i586" />
+			<os arch="i686" />
+			<os arch="x86_64" />
+			<os arch="amd64" />
+		</or>
+	</condition>
+	<condition property="libOS" value="linux">
+		<isset property="isLinux" />
+	</condition>
+	<condition property="libOS" value="windows">
+		<isset property="isWindows" />
+	</condition>
+	<condition property="libBITS" value="32">
+		<isset property="is32" />
+	</condition>
+	<condition property="libBITS" value="64">
+		<isset property="is64" />
+	</condition>
+	<condition property="libARCH" value="x86">
+		<isset property="isX86" />
+	</condition>
+
+	<property name="mingwdir" value="C:/MinGW" />
+
+	<available property="isMINGW" file="${mingwdir}" type="dir" />
+	<available property="isGCC" file="/usr/bin/g++" type="file" />
+
+	<condition property="isToolReady">
+		<or>
+			<and>
+				<isset property="isLinux" />
+				<isset property="isGCC" />
+			</and>
+			<and>
+				<isset property="isWindows" />
+				<isset property="isX86" />
+				<isset property="is32" />
+				<isset property="isMINGW" />
+			</and>
+		</or>
+	</condition>
+
+	<condition property="isSupported">
+		<or>
+			<and>
+				<isset property="isLinux" />
+				<isset property="isX86" />
+				<isset property="is64" />
+			</and>
+			<and>
+				<isset property="isWindows" />
+				<isset property="isX86" />
+				<isset property="is32" />
+			</and>
+		</or>
+	</condition>
+
+	<!-- ####################################################### -->
+
+	<!-- naming convention -->
+
+	<versioninfo id="build-version"
+	             fileversion="${mvn.mavenStamp}"
+	             productversion="${mvn.version}"
+	             compatibilityversion="${mvn.version}"
+	             legalcopyright="Copyright (C) ${mvn.licenceOrganization}; Developers: ${mvn.licenceDevelopers}"
+	             productname="${mvn.nativeLibName}"
+	             companyname="${mvn.licenceOrganization} ( ${mvn.licenceWebsite} )" />
+
+	<property name="libname"
+	          value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
+	<property name="objdir" value="${mvn.target}/cpptasks" />
+	<property name="libfolder" value="${mvn.resources}" />
+
+	<!-- make own matching prefix/suffix -->
+	<property name="outname" value="lib${libname}.so" />
+	<property name="mapname" value="${outname}.map" />
+	<!-- cpptasks will add prefix/suffix -->
+	<property name="outfile" value="${objdir}/${libname}" />
+	<property name="outpath" value="${objdir}/${outname}" />
+	<property name="mappath" value="${objdir}/${mapname}" />
+
+	<!-- ####################################################### -->
+
+	<!-- compiler setup -->
+
+	<compiler id="gcc-compiler" name="g++" debug="false">
+		<!-- header files -->
+		<includepath path="${mvn.nativeInclude}" />
+		<includepath path="${mvn.nativeSrcUDT}/src" />
+		<!-- core libraries -->
+		<compilerarg value="-static-libgcc" />
+		<!-- optimizations & JNI compatibility -->
+		<compilerarg value="-O2" />
+		<compilerarg value="-finline-functions" />
+		<compilerarg value="-fno-strict-aliasing" />
+		<compilerarg value="-fno-omit-frame-pointer" />
+		<!-- code quality -->
+		<compilerarg value="-Wall" />
+		<compilerarg value="-Werror" />
+		<compilerarg value="-Wno-unused" />
+		<compilerarg value="-Wno-parentheses" />
+		<compilerarg value="-fmessage-length=0" />
+	</compiler>
+
+	<compiler id="gcc-compiler-linux" extends="gcc-compiler">
+		<!-- header files -->
+		<includepath path="${mvn.nativeInclude}/linux" />
+		<!-- core libraries -->
+		<compilerarg value="-pthread" />
+		<!-- compiler definitions -->
+		<defineset>
+			<define name="LINUX" />
+			<define name="_GNU_SOURCE" />
+			<define name="_REENTRANT" />
+		</defineset>
+	</compiler>
+
+	<compiler id="gcc-compiler-linux-x86-32" extends="gcc-compiler-linux">
+		<!-- not tested -->
+	</compiler>
+
+	<compiler id="gcc-compiler-linux-x86-64" extends="gcc-compiler-linux">
+		<!-- compiler definitions -->
+		<defineset>
+			<define name="AMD64" />
+			<define name="ARCH" value="AMD64" />
+		</defineset>
+	</compiler>
+
+	<compiler id="gcc-compiler-windows" extends="gcc-compiler">
+		<!-- header files -->
+		<includepath path="${mvn.nativeInclude}/win32" />
+	</compiler>
+
+	<compiler id="gcc-compiler-windows-x86-32" extends="gcc-compiler-windows">
+		<!-- compiler definitions -->
+		<defineset>
+			<define name="__MINGW__" />
+		</defineset>
+
+	</compiler>
+
+	<compiler id="gcc-compiler-windows-x86-64" extends="gcc-compiler-windows">
+		<!-- not tested -->
+	</compiler>
+
+	<linker id="gcc-linker" name="g++">
+		<!-- core libraries -->
+		<linkerarg value="--library=gcc" />
+		<linkerarg value="--library=stdc++" />
+		<!-- map file for crash analysis -->
+		<linkerarg value="-Wl,-Map,${mapname}" />
+	</linker>
+
+	<linker id="gcc-linker-linux" extends="gcc-linker">
+		<linkerarg value="--library=pthread" />
+	</linker>
+
+	<linker id="gcc-linker-windows" extends="gcc-linker">
+		<!-- not tested -->
+		<linkerarg value="--library-path=${mingwdir}/lib" />
+		<linkerarg value="--library-path=${mingwdir}/lib/gcc/mingw32/3.4.5" />
+		<linkerarg value="--library=crtdll" />
+		<linkerarg value="--library=ws2_32" />
+		<linkerarg value="-Wl,--kill-at" />
+		<linkerarg value="-Wl,--add-stdcall-alias" />
+	</linker>
+
+	<!-- ####################################################### -->
+
+	<!-- targets -->
+
+	<target name="target-info">
+
+		<echo message="java.class.path = ${java.class.path}" />
+		<echo message="plugin.classpath : ${mvn.plugin.classpath}" />
+
+		<echo message="basedir     : ${basedir}" />
+		<echo message="os.name     : ${os.name}" />
+		<echo message="os.arch     : ${os.arch}" />
+		<echo message="os.version  : ${os.version}" />
+		<echo message="isToolReady : ${isToolReady}" />
+		<echo message="isSupported : ${isSupported}" />
+
+		<echo message="licenceYear         : ${mvn.licenceYear}" />
+		<echo message="licenceOrganization : ${mvn.licenceOrganization}" />
+		<echo message="licenceWebsite      : ${mvn.licenceWebsite}" />
+		<echo message="licenceDevelopers   : ${mvn.licenceDevelopers}" />
+		<echo message="mavenStamp          : ${mvn.mavenStamp}" />
+
+		<echo message="target        : ${mvn.target}" />
+		<echo message="nativeLibName : ${mvn.nativeLibName}" />
+		<echo message="nativeSrcJNI  : ${mvn.nativeSrcJNI}" />
+		<echo message="nativeSrcUDT  : ${mvn.nativeSrcUDT}" />
+		<echo message="nativeInclude : ${mvn.nativeInclude}" />
+
+
+		<echo message="libname : ${libname}" />
+		<echo message="outname : ${outname}" />
+		<echo message="mapname : ${mapname}" />
+		<echo message="objdir  : ${objdir}" />
+		<echo message="outfile : ${outfile}" />
+		<echo message="outpath : ${outpath}" />
+
+	</target>
+
+	<target name="target-run-javah">
+		<javah classpath="${mvn.target}/classes"
+		       implementation="sun"
+		       destdir="${mvn.nativeSrcJNI}"
+		       verbose="yes">
+			<class name="com.barchart.udt.${mvn.nativeLibName}" />
+		</javah>
+	</target>
+
+	<target name="diagnostics" description="diagnostics">
+		<diagnostics />
+	</target>
+
+	<target name="target-compile" depends="target-info,target-run-javah">
+
+		<echo message="### CHECK PRE-REQUISITES" />
+
+		<fail unless="isToolReady"
+		      message="compiler tool chain is not available" />
+
+		<fail unless="isSupported"
+		      message="this platform is not yet supported" />
+
+		<echo message="### COMPILE ARTIFACT" />
+
+		<mkdir dir="${objdir}" />
+
+		<cc outtype="shared" objdir="${objdir}" outfile="${outfile}">
+			<fileset dir="${mvn.nativeSrcJNI}" includes="*.cpp" />
+			<fileset dir="${mvn.nativeSrcUDT}/src" includes="*.cpp" />
+			<versioninfo refid="build-version" />
+			<compiler refid="gcc-compiler-${libOS}-${libARCH}-${libBITS}" />
+			<linker refid="gcc-linker-${libOS}" />
+		</cc>
+
+		<echo message="### CHECK LIBRARY" />
+
+		<exec executable="ldd" osfamily="unix">
+			<arg value="-r" />
+			<arg value="${outpath}" />
+		</exec>
+
+		<echo message="### COPY ARTIFACT" />
+
+		<copy file="${outpath}" todir="${libfolder}" />
+		<copy file="${mappath}" todir="${libfolder}" />
+
+	</target>
+
+</project>
