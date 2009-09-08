@@ -13,12 +13,13 @@
 	<typedef resource="cpptasks.tasks" classpathref="plugin.classpath" />
 	<typedef resource="cpptasks.types" classpathref="plugin.classpath" />
 	<!-- http://ant-contrib.sourceforge.net/ -->
-	<typedef resource="net/sf/antcontrib/antcontrib.properties"
-	         classpathref="plugin.classpath" />
+	<typedef resource="net/sf/antcontrib/antcontrib.properties" classpathref="plugin.classpath" />
 
 	<!-- ####################################################### -->
 
 	<!-- detect build environment -->
+
+	<property environment="env" />
 
 	<condition property="isWindows">
 		<os family="windows" />
@@ -39,6 +40,7 @@
 	</condition>
 	<condition property="isX86">
 		<or>
+			<os arch="x86" />
 			<os arch="i386" />
 			<os arch="i486" />
 			<os arch="i586" />
@@ -63,9 +65,9 @@
 		<isset property="isX86" />
 	</condition>
 
-	<property name="mingwdir" value="C:/MinGW" />
+	<property name="mingw.home" value="${env.MINGW_HOME}" />
 
-	<available property="isMINGW" file="${mingwdir}" type="dir" />
+	<available property="isMINGW" file="${mingw.home}" type="dir" />
 	<available property="isGCC" file="/usr/bin/g++" type="file" />
 
 	<condition property="isToolReady">
@@ -102,16 +104,9 @@
 
 	<!-- naming convention -->
 
-	<versioninfo id="build-version"
-	             fileversion="${mvn.mavenStamp}"
-	             productversion="${mvn.version}"
-	             compatibilityversion="${mvn.version}"
-	             legalcopyright="Copyright (C) ${mvn.licenceOrganization}; Developers: ${mvn.licenceDevelopers}"
-	             productname="${mvn.nativeLibName}"
-	             companyname="${mvn.licenceOrganization} ( ${mvn.licenceWebsite} )" />
+	<versioninfo id="build-version" fileversion="${mvn.mavenStamp}" productversion="${mvn.version}" compatibilityversion="${mvn.version}" legalcopyright="Copyright (C) ${mvn.licenceOrganization}; Developers: ${mvn.licenceDevelopers}" productname="${mvn.nativeLibName}" companyname="${mvn.licenceOrganization} ( ${mvn.licenceWebsite} )" />
 
-	<property name="libname"
-	          value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
+	<property name="libname" value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
 	<property name="objdir" value="${mvn.target}/cpptasks" />
 	<property name="libfolder" value="${mvn.resources}" />
 
@@ -128,22 +123,30 @@
 	<!-- compiler setup -->
 
 	<compiler id="gcc-compiler" name="g++" debug="false">
+
 		<!-- header files -->
 		<includepath path="${mvn.nativeInclude}" />
 		<includepath path="${mvn.nativeSrcUDT}/src" />
+
+		<!-- debug -->
+		<!-- compilerarg value="-v" /-->
+
 		<!-- core libraries -->
 		<compilerarg value="-static-libgcc" />
+
 		<!-- optimizations & JNI compatibility -->
 		<compilerarg value="-O2" />
 		<compilerarg value="-finline-functions" />
 		<compilerarg value="-fno-strict-aliasing" />
 		<compilerarg value="-fno-omit-frame-pointer" />
+
 		<!-- code quality -->
 		<compilerarg value="-Wall" />
-		<compilerarg value="-Werror" />
+		<!-- <compilerarg value="-Werror" /> -->
 		<compilerarg value="-Wno-unused" />
 		<compilerarg value="-Wno-parentheses" />
 		<compilerarg value="-fmessage-length=0" />
+
 	</compiler>
 
 	<compiler id="gcc-compiler-linux" extends="gcc-compiler">
@@ -180,6 +183,7 @@
 		<!-- compiler definitions -->
 		<defineset>
 			<define name="__MINGW__" />
+			<define name="_WIN32_WINNT" value="0x0502" />
 		</defineset>
 
 	</compiler>
@@ -189,11 +193,11 @@
 	</compiler>
 
 	<linker id="gcc-linker" name="g++">
-		<!-- core libraries -->
-		<linkerarg value="--library=gcc" />
-		<linkerarg value="--library=stdc++" />
 		<!-- map file for crash analysis -->
-		<linkerarg value="-Wl,-Map,${mapname}" />
+		<linkerarg location="end" value="-Wl,-Map,${mapname}" />
+		<!-- core libraries -->
+		<linkerarg location="end" value="--library=gcc" />
+		<linkerarg location="end" value="--library=stdc++" />
 	</linker>
 
 	<linker id="gcc-linker-linux" extends="gcc-linker">
@@ -202,12 +206,10 @@
 
 	<linker id="gcc-linker-windows" extends="gcc-linker">
 		<!-- not tested -->
-		<linkerarg value="--library-path=${mingwdir}/lib" />
-		<linkerarg value="--library-path=${mingwdir}/lib/gcc/mingw32/3.4.5" />
-		<linkerarg value="--library=crtdll" />
-		<linkerarg value="--library=ws2_32" />
-		<linkerarg value="-Wl,--kill-at" />
-		<linkerarg value="-Wl,--add-stdcall-alias" />
+		<linkerarg location="end" value="--library=crtdll" />
+		<linkerarg location="end" value="--library=ws2_32" />
+		<linkerarg location="end" value="-Wl,--kill-at" />
+		<linkerarg location="end" value="-Wl,--add-stdcall-alias" />
 	</linker>
 
 	<!-- ####################################################### -->
@@ -223,6 +225,8 @@
 		<echo message="os.name     : ${os.name}" />
 		<echo message="os.arch     : ${os.arch}" />
 		<echo message="os.version  : ${os.version}" />
+		<echo message="isWindows : ${isWindows}" />
+		<echo message="isX86     : ${isX86}" />
 		<echo message="isToolReady : ${isToolReady}" />
 		<echo message="isSupported : ${isSupported}" />
 
@@ -249,10 +253,7 @@
 	</target>
 
 	<target name="target-run-javah">
-		<javah classpath="${mvn.target}/classes"
-		       implementation="sun"
-		       destdir="${mvn.nativeSrcJNI}"
-		       verbose="yes">
+		<javah classpath="${mvn.target}/classes" implementation="sun" destdir="${mvn.nativeSrcJNI}" verbose="yes">
 			<class name="com.barchart.udt.${mvn.nativeLibName}" />
 		</javah>
 	</target>
@@ -261,15 +262,26 @@
 		<diagnostics />
 	</target>
 
-	<target name="target-compile" depends="target-info,target-run-javah">
+	<target name="target-linker-search-path">
+		<echo message="GCC:" />
+		<exec executable="bash">
+			<arg value="-c" />
+			<arg value="g++ -print-search-dirs | sed '/^lib/b 1;d;:1;s,/[^/.][^/]*/\.\./,/,;t 1;s,:[^=]*=,:;,;s,;,;  ,g' | tr '\;' '\n'  |  grep -v '^ */' " />
+		</exec>
+		<echo message="LD:" />
+		<exec executable="bash">
+			<arg value="-c" />
+			<arg value="ld --verbose | grep SEARCH_DIR | tr -s ' ;' '\n'" />
+		</exec>
+	</target>
+
+	<target name="target-compile" depends="target-info,target-run-javah,target-linker-search-path">
 
 		<echo message="### CHECK PRE-REQUISITES" />
 
-		<fail unless="isToolReady"
-		      message="compiler tool chain is not available" />
+		<fail unless="isToolReady" message="compiler tool chain is not available" />
 
-		<fail unless="isSupported"
-		      message="this platform is not yet supported" />
+		<fail unless="isSupported" message="this platform is not yet supported" />
 
 		<echo message="### COMPILE ARTIFACT" />
 
