@@ -3,7 +3,7 @@
 
     BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
 
-    ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-08_14-26-03'
+    ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-08_18-25-45'
 
     Copyright (C) 2009, Barchart, Inc. (http://www.barchart.com/)
 
