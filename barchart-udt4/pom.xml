@@ -5,6 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4</artifactId>
+	<name>barchart-udt</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
@@ -27,6 +28,27 @@
 		<nativeLibName>SocketUDT</nativeLibName>
 		<nativeInclude>include</nativeInclude>
 	</properties>
+	<description>Java wrapper around native c++ UDT protocl implementaion
+	</description>
+	<url>http://code.google.com/p/barchart-udt/</url>
+	<inceptionYear>2009</inceptionYear>
+	<issueManagement>
+		<system>google</system>
+		<url>http://code.google.com/p/barchart-udt/</url>
+	</issueManagement>
+	<scm>
+		<connection>
+			http://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4
+		</connection>
+		<developerConnection>
+			https://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4
+		</developerConnection>
+		<url> http://code.google.com/p/barchart-udt/</url>
+	</scm>
+	<organization>
+		<name>Barchart, Inc.</name>
+		<url>http://www.barchart.com</url>
+	</organization>
 	<build>
 		<plugins>
 			<plugin>
@@ -35,6 +57,7 @@
 				<version>1.0</version>
 				<executions>
 					<execution>
+						<id></id>
 						<phase>validate</phase>
 						<goals>
 							<goal>execute</goal>

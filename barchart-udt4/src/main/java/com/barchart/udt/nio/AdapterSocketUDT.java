@@ -54,12 +54,12 @@ import com.barchart.udt.SocketUDT;
 import com.barchart.udt.jdk.IceSocket;
 
 
-class AdapterSocket extends Socket implements IceSocket {
+class AdapterSocketUDT extends Socket implements IceSocket {
 
 	final ChannelSocketUDT channelUDT;
 	final SocketUDT socketUDT;
 
-	AdapterSocket(ChannelSocketUDT channelSocketUDT, SocketUDT socketUDT) {
+	AdapterSocketUDT(ChannelSocketUDT channelSocketUDT, SocketUDT socketUDT) {
 		this.channelUDT = channelSocketUDT;
 		this.socketUDT = socketUDT;
 	}

@@ -52,12 +52,12 @@ import com.barchart.udt.ExceptionUDT;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.jdk.IceServerSocket;
 
-class AdapterServerSocket extends ServerSocket implements IceServerSocket {
+class AdapterServerSocketUDT extends ServerSocket implements IceServerSocket {
 
 	final ChannelServerSocketUDT serverChannelUDT;
 	final SocketUDT serverSocketUDT;
 
-	AdapterServerSocket(ChannelServerSocketUDT channelSocketUDT,
+	AdapterServerSocketUDT(ChannelServerSocketUDT channelSocketUDT,
 			SocketUDT socketUDT) throws IOException {
 		this.serverChannelUDT = channelSocketUDT;
 		this.serverSocketUDT = socketUDT;

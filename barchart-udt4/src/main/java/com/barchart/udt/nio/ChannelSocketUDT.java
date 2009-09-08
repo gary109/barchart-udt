@@ -198,7 +198,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	@Override
 	public Socket socket() {
 		if (socketAdapter == null) {
-			socketAdapter = new AdapterSocket(this, socketUDT);
+			socketAdapter = new AdapterSocketUDT(this, socketUDT);
 		}
 		return socketAdapter;
 	}
