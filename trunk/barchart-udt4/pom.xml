@@ -9,9 +9,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<properties>
-		<mavenStamp>
-			ARTIFACT='${artifactId}'.VERSION='${version}'.TIMESTAMP='${timestamp}'
-		</mavenStamp>
+		<mavenStamp>ARTIFACT='${artifactId}'.VERSION='${version}'.TIMESTAMP='${timestamp}'</mavenStamp>
 		<licenceYear>2009</licenceYear>
 		<licenceOrganization>Barchart, Inc.</licenceOrganization>
 		<licenceWebsite>http://www.barchart.com/</licenceWebsite>
@@ -19,9 +17,7 @@
 		<moduleUDT>UDT4</moduleUDT>
 		<target>${project.build.directory}</target>
 		<checkoutUDT>${target}/checkout</checkoutUDT>
-		<connectionUDT>
-			scm:cvs:pserver:anonymous:@udt.cvs.sourceforge.net:/cvsroot/udt:${moduleUDT}
-		</connectionUDT>
+		<connectionUDT>scm:cvs:pserver:anonymous:@udt.cvs.sourceforge.net:/cvsroot/udt:${moduleUDT}</connectionUDT>
 		<nativeSrc>native</nativeSrc>
 		<nativeSrcJNI>${nativeSrc}/jni</nativeSrcJNI>
 		<nativeSrcUDT>${nativeSrc}/udt</nativeSrcUDT>
@@ -37,12 +33,8 @@
 		<url>http://code.google.com/p/barchart-udt/</url>
 	</issueManagement>
 	<scm>
-		<connection>
-			http://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4
-		</connection>
-		<developerConnection>
-			https://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4
-		</developerConnection>
+		<connection>http://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4</connection>
+		<developerConnection>https://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4</developerConnection>
 		<url> http://code.google.com/p/barchart-udt/</url>
 	</scm>
 	<organization>
@@ -57,7 +49,7 @@
 				<version>1.0</version>
 				<executions>
 					<execution>
-						<id></id>
+						<id>make-timestamp-property</id>
 						<phase>validate</phase>
 						<goals>
 							<goal>execute</goal>
@@ -103,7 +95,7 @@
 				</dependencies>
 				<executions>
 					<execution>
-						<id>report-timestamp</id>
+						<id>report-timestamp-value</id>
 						<phase>validate</phase>
 						<goals>
 							<goal>run</goal>
