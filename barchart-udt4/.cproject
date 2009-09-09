@@ -2120,11 +2120,12 @@
 <option defaultValue="true" id="gnu.cpp.link.option.shared.1129599721" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
 <option id="gnu.cpp.link.option.libs.731695058" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs"/>
 <option id="gnu.cpp.link.option.paths.510538033" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
-<option id="gnu.cpp.link.option.flags.936782874" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-static-libgcc -fPIC -pthread -D_REENTRANT -Wl,-Map,barchart.map" valueType="string"/>
+<option id="gnu.cpp.link.option.flags.936782874" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-static-libgcc -fPIC -pthread -D_REENTRANT -Wl,-Map,barchart-udt4.map" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1143733746" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
 </inputType>
+<outputType id="cdt.managedbuild.tool.gnu.cpp.linker.output.so.406366420" outputPrefix="" superClass="cdt.managedbuild.tool.gnu.cpp.linker.output.so"/>
 </tool>
 <tool command="as" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.base.1416200017" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.base">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1700184839" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
