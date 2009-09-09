@@ -1,12 +1,9 @@
 <project name="run-maven" default="target-run-maven" basedir=".">
 
-	<!-- used by eclipse cdt builder -->
+	<!-- used by external tools -->
 
 	<property environment="env" />
-
-	<target name="target-info">
-		<echo message="hello" />
-	</target>
+	<property name="M2_HOME" value="${env.M2_HOME}" />
 
 	<condition property="mvnExec" value="mvn">
 		<os family="unix" />
@@ -15,13 +12,19 @@
 		<os family="windows" />
 	</condition>
 
+	<property name="M2_PATH" value="${M2_HOME}/bin/${mvnExec}" />
+
+	<available property="isMVN" file="${M2_PATH}" />
+
+
 	<target name="target-run-maven">
 
-		<echo message="M2_HOME : ${env.M2_HOME}" />
+		<echo message="M2_HOME : ${M2_HOME}" />
+		<echo message="M2_PATH : ${M2_PATH}" />
 
-		<fail unless="env.M2_HOME" />
+		<fail unless="isMVN" message="maven installation is not found"/>
 
-		<exec executable="${env.M2_HOME}/bin/${mvnExec}">
+		<exec executable="${M2_PATH}">
 			<arg value="package" />
 		</exec>
 
