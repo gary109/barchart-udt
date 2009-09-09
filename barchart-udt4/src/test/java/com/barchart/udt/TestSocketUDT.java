@@ -76,7 +76,7 @@ public class TestSocketUDT {
 			socket.setOption(option, intValue);
 			assertEquals(intValue, socket.getOption(option));
 
-			log.info("int pass");
+			log.info("int pass;");
 
 			option = OptionUDT.UDT_SNDSYN;
 			boolean booleanValue = true;
