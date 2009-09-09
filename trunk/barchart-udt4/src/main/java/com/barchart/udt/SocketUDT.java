@@ -137,15 +137,15 @@ public class SocketUDT {
 	protected volatile InetSocketAddress remoteSocketAddress;
 
 	/**
-	 * JNI wrapper exceptin codes
+	 * UDT::select() sizeArray indexes
 	 */
-	public static final int UDT_EXCEPT_INDEX = 2;
-	public static final int UDT_WRITE_INDEX = 1;
 	public static final int UDT_READ_INDEX = 0;
+	public static final int UDT_WRITE_INDEX = 1;
+	public static final int UDT_EXCEPT_INDEX = 2;
 	public static final int UDT_SIZE_COUNT = 3;
 
 	/**
-	 * selectEx result status
+	 * UDT::selectEx() result status
 	 */
 	protected boolean isSelectedRead;
 	protected boolean isSelectedWrite;
