@@ -90,7 +90,6 @@
 			<and>
 				<isset property="isLinux" />
 				<isset property="isX86" />
-				<isset property="is64" />
 			</and>
 			<and>
 				<isset property="isWindows" />
