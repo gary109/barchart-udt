@@ -130,7 +130,7 @@
 	<condition property="name.real" value="${name.root}.dll">
 		<isset property="isWindows" />
 	</condition>
-	<condition property="name.real" value="$lib{name.root}.so">
+	<condition property="name.real" value="lib${name.root}.so">
 		<isset property="isLinux" />
 	</condition>
 	<property name="name.real.map" value="${name.real}.map" />
