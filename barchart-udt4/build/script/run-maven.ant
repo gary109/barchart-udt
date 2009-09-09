@@ -1,0 +1,30 @@
+<project name="run-maven" default="target-run-maven" basedir=".">
+
+	<!-- used by eclipse cdt builder -->
+
+	<property environment="env" />
+
+	<target name="target-info">
+		<echo message="hello" />
+	</target>
+
+	<condition property="mvnExec" value="mvn">
+		<os family="unix" />
+	</condition>
+	<condition property="mvnExec" value="mvn.bat">
+		<os family="windows" />
+	</condition>
+
+	<target name="target-run-maven">
+
+		<echo message="M2_HOME : ${env.M2_HOME}" />
+
+		<fail unless="env.M2_HOME" />
+
+		<exec executable="${env.M2_HOME}/bin/${mvnExec}">
+			<arg value="package" />
+		</exec>
+
+	</target>
+
+</project>
