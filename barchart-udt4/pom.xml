@@ -158,7 +158,7 @@
 									name="mvn.target"
 									value="${project.build.directory}" />
 								<ant
-									antfile="${basedir}/build/script/build-maven.xml">
+									antfile="${basedir}/build/script/build-maven.ant">
 									<target
 										name="target-compile" />
 								</ant>
