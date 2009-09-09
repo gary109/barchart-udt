@@ -50,9 +50,9 @@ import org.slf4j.LoggerFactory;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.TypeUDT;
 
-public class MainTestFinalize {
+public class MainFinalize {
 
-	private static Logger log = LoggerFactory.getLogger(MainTestFinalize.class);
+	private static Logger log = LoggerFactory.getLogger(MainFinalize.class);
 
 	static final String PATH = "java.library.path";
 

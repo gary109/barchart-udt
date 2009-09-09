@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/barchart-udt4/src/dev/java/com/barchart/udt/MainTestFinalize.java"/>
+<listEntry value="/barchart-udt4/src/dev/java/com/barchart/udt/MainCore.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
@@ -10,8 +10,8 @@
 <mapEntry key="LD_LIBRARY_PATH" value="./lib"/>
 </mapAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.classpathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.barchart.udt.MainTestFinalize"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.barchart.udt.MainCore"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="barchart-udt4"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea&#13;&#10;-Xcheck:jni&#13;&#10;-Xms32m&#13;&#10;-Xmx32m"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-ea&#10;-Xcheck:jni"/>
 </launchConfiguration>

@@ -49,9 +49,9 @@ import com.barchart.udt.OptionUDT;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.TypeUDT;
 
-public class MainTest {
+public class MainCore {
 
-	private static Logger log = LoggerFactory.getLogger(MainTest.class);
+	private static Logger log = LoggerFactory.getLogger(MainCore.class);
 
 	// static {
 	// try {
