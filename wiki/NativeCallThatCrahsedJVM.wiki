@@ -4,7 +4,7 @@
 
 follow these steps to find which of your native JNI calls crashes JVM:
 <p>
-1) barchart-udt build comes with [sample/SampleLinkerMap liker map] stored inside the jar; find the map that matches your current platform.
+1) barchart-udt build comes with [/sample/SampleLinkerMap liker map] stored inside the jar; find the map that matches your current platform.
 <p>
 2) inside [SampleJvmCrashLog jvm crash log] look for *Problematic frame* call offset:
 {{{
