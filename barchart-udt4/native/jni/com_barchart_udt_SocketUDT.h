@@ -13,7 +13,7 @@ extern "C" {
 #undef com_barchart_udt_SocketUDT_INFINITE_TIMEOUT
 #define com_barchart_udt_SocketUDT_INFINITE_TIMEOUT -1L
 #undef com_barchart_udt_SocketUDT_UNLIMITED_BW
-#define com_barchart_udt_SocketUDT_UNLIMITED_BW -1i64
+#define com_barchart_udt_SocketUDT_UNLIMITED_BW -1LL
 #undef com_barchart_udt_SocketUDT_DEFAULT_ACCEPT_QUEUE_SIZE
 #define com_barchart_udt_SocketUDT_DEFAULT_ACCEPT_QUEUE_SIZE 256L
 #undef com_barchart_udt_SocketUDT_DEFAULT_MAX_SELECTOR_SIZE
