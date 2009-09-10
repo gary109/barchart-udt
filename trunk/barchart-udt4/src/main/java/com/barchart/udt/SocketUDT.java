@@ -746,6 +746,8 @@ public class SocketUDT {
 
 	protected native void testInvalidClose0(int socketID) throws ExceptionUDT;
 
+	protected native void testCrashJVM0();
+
 	// used for development only
 	// #############################
 

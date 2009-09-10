@@ -1651,6 +1651,15 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testInvalidClose0(
 
 }
 
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0(
+		JNIEnv *env, jobject self) {
+
+	jint *array = NULL;
+
+	array[0] = 1;
+
+}
+
 // finish - used for development only
 // #########################################
 
