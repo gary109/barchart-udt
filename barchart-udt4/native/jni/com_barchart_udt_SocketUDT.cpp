@@ -644,7 +644,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_initClass0(JNIEnv *env,
 
 }
 
-// TODO called on class unload
+// called on class unload
 void JNICALL Java_com_barchart_udt_SocketUDT_stopClass0(JNIEnv *env,
 		jclass clsSocketUDT) {
 
