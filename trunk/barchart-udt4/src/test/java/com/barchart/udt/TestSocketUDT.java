@@ -3,7 +3,7 @@
  *
  * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
  *
- * ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-09_16-24-35'
+ * ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-09_23-19-15'
  *
  * Copyright (C) 2009, Barchart, Inc. (http://www.barchart.com/)
  *
@@ -165,6 +165,25 @@ public class TestSocketUDT {
 		} catch (Exception e) {
 			fail("SocketException; " + e.getMessage());
 		}
+
+	}
+
+	@Test(expected = ExceptionUDT.class)
+	public void testInvalidClose0() throws ExceptionUDT {
+
+		SocketUDT socket = null;
+
+		try {
+			socket = new SocketUDT(TypeUDT.DATAGRAM);
+		} catch (ExceptionUDT e) {
+			fail("SocketException; " + e.getMessage());
+		}
+
+		int socketID = socket.socketID;
+
+		socketID += 10;
+
+		socket.testInvalidClose0(socketID);
 
 	}
 

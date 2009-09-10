@@ -3,7 +3,7 @@
  *
  * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
  *
- * ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-09_16-24-35'
+ * ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-09_23-19-15'
  *
  * Copyright (C) 2009, Barchart, Inc. (http://www.barchart.com/)
  *
@@ -701,30 +701,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance1(
 	}
 
 	return socketID;
-
-}
-
-// for development only
-JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_test0(JNIEnv *env,
-		jobject self) {
-
-	printf("udt-test0\n");
-
-	//	int rv = NET_InetAddressToSockaddr(env, iaObj, localport,
-	//			(struct sockaddr *) &remoteSocketAddress, &len, JNI_TRUE);
-	//	cout << "udt-TEST" << endl;
-	//	jlong nanoTime = JVM_NanoTime(env, cls);
-	//	Java_java_net_InetAddress_init(env, 0);
-	//	printf("nanoTime=%d\n", nanoTime);
-	//		pdsi_fdID = env->GetFieldID(cls, "fd", "Ljava/io/FileDescriptor;");
-	//	Java_java_net_InetAddress_init(env, 0);
-	//	Java_java_net_Inet4Address_init(env, 0);
-	//	Java_java_net_Inet6Address_init(env, 0);
-	//	Java_java_net_NetworkInterface_init(env, 0);
-
-	UDT::ERRORINFO errorInfo = UDT::getlasterror();
-	UDT_ThrowExceptionUDT_ErrorInfo(env, 0, "test0", &errorInfo);
-	return;
 
 }
 
@@ -1605,6 +1581,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 // #########################################3
 // start - used for development only
 
+
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testEmptyCall0(
 		JNIEnv *enf, jobject self) {
 	// test cost of JNI call
@@ -1654,6 +1631,20 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testGetSetArray0(
 		env->ReleaseIntArrayElements(objArray, data, JNI_UPDATE);
 	} else {
 		env->ReleaseIntArrayElements(objArray, data, JNI_ABORT);
+	}
+
+}
+
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testInvalidClose0(
+		JNIEnv *env, jobject self, jint socketID) {
+
+	const int rv = UDT::close(socketID);
+
+	if (rv == UDT::ERROR) {
+		UDT::ERRORINFO errorInfo = UDT::getlasterror();
+		UDT_ThrowExceptionUDT_ErrorInfo(env, socketID, "testInvalidClose0 - close failed",
+				&errorInfo);
+		return;
 	}
 
 }

@@ -3,7 +3,7 @@
  *
  * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
  *
- * ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-09_16-24-35'
+ * ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-09_23-19-15'
  *
  * Copyright (C) 2009, Barchart, Inc. (http://www.barchart.com/)
  *
@@ -743,6 +743,8 @@ public class SocketUDT {
 	protected native int[] testMakeArray0(int size);
 
 	protected native void testGetSetArray0(int[] array, boolean isReturn);
+
+	protected native void testInvalidClose0(int socketID) throws ExceptionUDT;
 
 	// used for development only
 	// #############################
