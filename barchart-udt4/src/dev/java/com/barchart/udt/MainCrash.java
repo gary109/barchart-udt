@@ -56,6 +56,7 @@ public class MainCrash {
 
 			SocketUDT socket = new SocketUDT(type);
 
+			// this will kill the jvm
 			socket.testCrashJVM0();
 
 		} catch (Throwable e) {
