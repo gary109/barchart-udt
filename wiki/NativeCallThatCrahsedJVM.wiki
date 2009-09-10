@@ -2,7 +2,7 @@
 
 = Native Call Crashes JVM =
 
-follow these steps to find which of your native JNI calls crashes JVM, :
+follow these steps to find which of your native JNI calls crashes JVM:
 <p>
 1) barchart-udt build comes with [SampleLinkerMap1 liker map] stored inside the jar; find the map that matches your current platform.
 <p>
