@@ -35,7 +35,7 @@ entry point =  base address + call offset
 {{{
 0x70e64d28 = 0x70e40000 + 0x24d28
 }}}
-note call address = *0x70e64D28*
+note call address = *0x70e64d28*
 <p>
 5) look through [SampleLinkerMap1 liker map] and find *address range* around your calculated *call address*:
 {{{
