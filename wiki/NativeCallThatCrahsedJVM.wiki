@@ -31,7 +31,7 @@ note library base: *0x70e40000*
 entry point =  base address + call offset
 }}}
 {{{
-0x70e64D28 = 0x70e40000 + 0x24d28
+0x70e64d28 = 0x70e40000 + 0x24d28
 }}}
 call address = *0x70e64D28*
 <p>
@@ -48,7 +48,7 @@ note:
 
 // location of a crash:
 start      <= crash      <= finish
-0x70e64d20 <= 0x70e64D28 <= 0x70e656f0
+0x70e64d20 <= 0x70e64d28 <= 0x70e656f0
 
 // hence crashed in the following call:
 0x70e64d20                Java_com_barchart_udt_SocketUDT_testCrashJVM0@8
