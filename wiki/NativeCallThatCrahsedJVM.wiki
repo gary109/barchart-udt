@@ -4,7 +4,7 @@
 
 follow these steps to find which of your native JNI calls crashes JVM:
 <p>
-1) barchart-udt build comes with [SampleLinkerMap1 liker map] stored inside the jar; find the map that matches your current platform.
+1) barchart-udt build comes with [SampleLinkerMap liker map] stored inside the jar; find the map that matches your current platform.
 <p>
 2) inside [SampleJvmCrashLog jvm crash log] look for *Problematic frame* call offset:
 {{{
@@ -37,7 +37,7 @@ entry point =  base address + call offset
 }}}
 note call address = *0x70e64d28*
 <p>
-5) look through [SampleLinkerMap1 liker map] and find *address range* around your calculated *call address*:
+5) look through [SampleLinkerMap liker map] and find *address range* around your calculated *call address*:
 {{{
                 0x70e62df0                Java_com_barchart_udt_SocketUDT_bind0@12
                 0x70e62f90                Java_com_barchart_udt_SocketUDT_close0@8
