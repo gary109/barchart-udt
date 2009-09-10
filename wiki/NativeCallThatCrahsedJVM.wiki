@@ -11,7 +11,7 @@ follow these steps to find which of your native JNI calls crashes JVM:
 # Problematic frame:
 # C  [SocketUDT-windows-x86-32.dll+0x24d28]
 }}}
-note call offset: *0x24d28*
+note call offset = *0x24d28*
 <p>
 3) inside [SampleJvmCrashLog jvm crash log] look for *Dynamic libraries* base address:
 {{{
@@ -24,7 +24,7 @@ Dynamic libraries:
       0x71ab0000 - 0x71ac7000 	C:\WINDOWS\system32\WS2_32.DLL
 ...
 }}}
-note library base: *0x70e40000*
+note library base = *0x70e40000*
 <p>
 4) calculate call address:
 {{{
@@ -33,7 +33,7 @@ entry point =  base address + call offset
 {{{
 0x70e64d28 = 0x70e40000 + 0x24d28
 }}}
-call address = *0x70e64D28*
+note call address = *0x70e64D28*
 <p>
 5) look through [SampleLinkerMap1 liker map] and find *address range* around your calculated *call address*:
 {{{
