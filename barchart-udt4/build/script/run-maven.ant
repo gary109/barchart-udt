@@ -1,6 +1,6 @@
 <project name="run-maven" default="check-maven" basedir=".">
 
-	<!-- used by external tools -->
+	<!-- used by "run external tools" -->
 
 	<property environment="env" />
 	<property name="M2_HOME" value="${env.M2_HOME}" />
