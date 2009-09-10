@@ -1,4 +1,4 @@
-<project name="run-maven" default="target-run-maven" basedir=".">
+<project name="run-maven" default="check-maven" basedir=".">
 
 	<!-- used by external tools -->
 
@@ -17,17 +17,43 @@
 	<available property="isMVN" file="${M2_PATH}" />
 
 
-	<target name="target-run-maven">
-
+	<target name="check-maven">
 		<echo message="M2_HOME : ${M2_HOME}" />
 		<echo message="M2_PATH : ${M2_PATH}" />
+		<fail unless="isMVN" message="maven installation is not found" />
+	</target>
 
-		<fail unless="isMVN" message="maven installation is not found"/>
-
+	<target name="maven-package" depends="check-maven">
 		<exec executable="${M2_PATH}">
 			<arg value="package" />
 		</exec>
+	</target>
 
+	<target name="maven-package-checkout" depends="check-maven">
+		<exec executable="${M2_PATH}">
+			<arg value="package" />
+			<arg value="-P checkout" />
+		</exec>
+	</target>
+
+	<target name="maven-package-license" depends="check-maven">
+		<exec executable="${M2_PATH}">
+			<arg value="package" />
+			<arg value="-P license" />
+		</exec>
+	</target>
+
+	<target name="maven-deploy" depends="check-maven">
+		<exec executable="${M2_PATH}">
+			<arg value="deploy" />
+		</exec>
+	</target>
+
+	<target name="maven-deploy-documents" depends="check-maven">
+		<exec executable="${M2_PATH}">
+			<arg value="deploy" />
+			<arg value="-P documents" />
+		</exec>
 	</target>
 
 </project>
