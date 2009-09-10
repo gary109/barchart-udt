@@ -32,14 +32,14 @@
 	<target name="maven-package-checkout" depends="check-maven" description="package with udt checkout">
 		<exec executable="${M2_PATH}">
 			<arg value="package" />
-			<arg value="-P checkout" />
+			<arg value="--activate-profiles checkout" />
 		</exec>
 	</target>
 
 	<target name="maven-package-license" depends="check-maven" description="package with license update">
 		<exec executable="${M2_PATH}">
 			<arg value="package" />
-			<arg value="-P license" />
+			<arg value="--activate-profiles license" />
 		</exec>
 	</target>
 
@@ -52,7 +52,7 @@
 	<target name="maven-deploy-documents" depends="check-maven" description="deploy with documents upload">
 		<exec executable="${M2_PATH}">
 			<arg value="deploy" />
-			<arg value="-P documents" />
+			<arg value="--activate-profiles documents" />
 		</exec>
 	</target>
 
