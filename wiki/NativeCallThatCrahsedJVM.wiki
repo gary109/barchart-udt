@@ -35,8 +35,8 @@ call address = *0x70e64D28*
 {{{
                 0x70e62df0                Java_com_barchart_udt_SocketUDT_bind0@12
                 0x70e62f90                Java_com_barchart_udt_SocketUDT_close0@8
-                0x70e64d20                Java_com_barchart_udt_SocketUDT_testCrashJVM0@8
-                0x70e656f0                Java_com_barchart_udt_SocketUDT_selectEx1@24
+   start   ->   0x70e64d20                Java_com_barchart_udt_SocketUDT_testCrashJVM0@8
+   finish  ->   0x70e656f0                Java_com_barchart_udt_SocketUDT_selectEx1@24
                 0x70e64b70                Java_com_barchart_udt_SocketUDT_testGetSetArray0@16
 }}}
 note:
