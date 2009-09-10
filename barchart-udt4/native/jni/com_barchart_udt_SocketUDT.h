@@ -256,6 +256,14 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testGetSetArray0
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testInvalidClose0
   (JNIEnv *, jobject, jint);
 
+/*
+ * Class:     com_barchart_udt_SocketUDT
+ * Method:    testCrashJVM0
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
