@@ -611,7 +611,7 @@ bool UDT_IsSocketOpen(JNIEnv *env, jobject self) {
 
 	UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
-	int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
+	const int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
 
 	if (rv == UDT::ERROR) {
 		return false;
@@ -650,7 +650,7 @@ void JNICALL Java_com_barchart_udt_SocketUDT_stopClass0(JNIEnv *env,
 
 	// TODO release JNI global references
 
-	int rv = UDT::cleanup();
+	const int rv = UDT::cleanup();
 
 	if (rv == UDT::ERROR) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
@@ -865,7 +865,8 @@ JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedRemoteSocket
 	UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	// "peer" means remote
-	int rv = UDT::getpeername(socketID, &remoteSockAddr, &remoteSockAddrSize);
+	const int rv = UDT::getpeername(socketID, &remoteSockAddr,
+			&remoteSockAddrSize);
 
 	if (rv == UDT::ERROR) {
 		// no exceptions
@@ -900,7 +901,8 @@ JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedLocalSocketA
 	UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	// "sock" means local
-	int rv = UDT::getsockname(socketID, &localSockAddr, &localSockAddrSize);
+	const int rv = UDT::getsockname(socketID, &localSockAddr,
+			&localSockAddrSize);
 
 	if (rv == UDT::ERROR) {
 		// no exceptions
@@ -944,8 +946,8 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_getOption0(
 
 	UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
-	int rv = UDT::getsockopt(socketID, 0, optionName, (void*) &optionValue,
-			&optionValueSize);
+	const int rv = UDT::getsockopt(socketID, 0, optionName,
+			(void*) &optionValue, &optionValueSize);
 
 	if (rv == UDT::ERROR) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
@@ -1036,8 +1038,8 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_setOption0(JNIEnv *env,
 		return;
 	}
 
-	int rv = UDT::setsockopt(socketID, 0, optionName, (void*) &optionValue,
-			optionValueSize);
+	const int rv = UDT::setsockopt(socketID, 0, optionName,
+			(void*) &optionValue, optionValueSize);
 
 	if (rv == UDT::ERROR) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
@@ -1054,7 +1056,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_listen0(JNIEnv *env,
 
 	UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
-	int rv = UDT::listen(socketID, queueSize);
+	const int rv = UDT::listen(socketID, queueSize);
 
 	if (rv == UDT::ERROR) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
@@ -1221,7 +1223,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 
 	UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
-	int rv = UDT::perfmon(socketID, &monitor, BOOL(makeClear));
+	const int rv = UDT::perfmon(socketID, &monitor, BOOL(makeClear));
 
 	if (rv == UDT::ERROR) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
@@ -1294,10 +1296,10 @@ void UDT_CopySetToArray(UDSET *udSet, jint *array, jint size) {
 }
 
 // sizeArray parameters
-#define UDT_SIZE_COUNT 3
-#define UDT_READ_INDEX 0
-#define UDT_WRITE_INDEX 1
-#define UDT_EXCEPT_INDEX 2
+#define UDT_READ_INDEX		com_barchart_udt_SocketUDT_UDT_READ_INDEX
+#define UDT_WRITE_INDEX		com_barchart_udt_SocketUDT_UDT_WRITE_INDEX
+#define UDT_EXCEPT_INDEX	com_barchart_udt_SocketUDT_UDT_EXCEPT_INDEX
+#define UDT_SIZE_COUNT		com_barchart_udt_SocketUDT_UDT_SIZE_COUNT
 
 // note: relies on input parameters consistency checking in java
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
@@ -1341,7 +1343,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 
 	// interested in read
 	jint *readArray = NULL;
-	bool isInterestedInRead = readSize > 0;
+	const bool isInterestedInRead = readSize > 0;
 	if (isInterestedInRead) {
 		//		cout << "udt-select0; readSize=" << readSize << EOL;
 		readArray = (jint *) malloc(sizeof(jint) * readSize);
@@ -1351,7 +1353,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 
 	// interested in write
 	jint *writeArray = NULL;
-	bool isInterestedInWrite = writeSize > 0;
+	const bool isInterestedInWrite = writeSize > 0;
 	if (isInterestedInWrite) {
 		//		cout << "udt-select0; writeSize=" << writeSize << EOL;
 		writeArray = (jint *) malloc(sizeof(jint) * writeSize);
@@ -1363,14 +1365,14 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 	const int rv = UDT::select(0, &readSet, &writeSet, &exceptSet, timeValue);
 
 	// process timeout & errors
-	if (rv <= 0) { // UDT::ERROR is -1; UDT_TIMEOUT is 0;
-		free(sizeArray);
+	if (rv <= 0) { // UDT::ERROR is '-1'; UDT_TIMEOUT is '=0';
 		if (isInterestedInRead) {
 			free(readArray);
 		}
 		if (isInterestedInWrite) {
 			free(writeArray);
 		}
+		free(sizeArray);
 		if (rv == UDT_TIMEOUT) { // timeout
 			return UDT_TIMEOUT;
 		} else {
@@ -1464,7 +1466,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx0(JNIEnv *env,
 	// XXX exceptions from exceptFDs?
 	//	int rv = UDT::selectEx(//
 	//			selectFDs, &readFDs, &writeFDs, &exceptFDs, msTimeOut);
-	int rv = UDT::selectEx(//
+	const int rv = UDT::selectEx(//
 			selectFDs, &readFDs, &writeFDs, NULL, msTimeOut);
 
 	if (rv == UDT::ERROR) {
@@ -1558,7 +1560,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 	std::vector<UDTSOCKET> exceptFDs;
 
 	// make select
-	int rv = UDT::selectEx(//
+	const int rv = UDT::selectEx(//
 			selectFDs, &readFDs, &writeFDs, NULL, msTimeOut);
 
 	// process errors
@@ -1642,15 +1644,15 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testInvalidClose0(
 
 	if (rv == UDT::ERROR) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
-		UDT_ThrowExceptionUDT_ErrorInfo(env, socketID, "testInvalidClose0 - close failed",
-				&errorInfo);
+		UDT_ThrowExceptionUDT_ErrorInfo(env, socketID,
+				"testInvalidClose0 - close failed", &errorInfo);
 		return;
 	}
 
 }
 
 // finish - used for development only
-// #########################################3
+// #########################################
 
 
 } // extern "C"
