@@ -31,7 +31,7 @@ entry point =  base address + call offset
 }}}
 call address = *0x70e64D28*
 <p>
-5) look through [SampleLinkerMap1 liker map] and find address range around your calculated call address:
+5) look through [SampleLinkerMap1 liker map] and find *address range* around your calculated *call address*:
 {{{
                 0x70e62df0                Java_com_barchart_udt_SocketUDT_bind0@12
                 0x70e62f90                Java_com_barchart_udt_SocketUDT_close0@8
