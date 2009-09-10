@@ -17,39 +17,39 @@
 	<available property="isMVN" file="${M2_PATH}" />
 
 
-	<target name="check-maven">
+	<target name="check-maven" description="check maven installation">
 		<echo message="M2_HOME : ${M2_HOME}" />
 		<echo message="M2_PATH : ${M2_PATH}" />
 		<fail unless="isMVN" message="maven installation is not found" />
 	</target>
 
-	<target name="maven-package" depends="check-maven">
+	<target name="maven-package" depends="check-maven" description="package">
 		<exec executable="${M2_PATH}">
 			<arg value="package" />
 		</exec>
 	</target>
 
-	<target name="maven-package-checkout" depends="check-maven">
+	<target name="maven-package-checkout" depends="check-maven" description="package with udt checkout">
 		<exec executable="${M2_PATH}">
 			<arg value="package" />
 			<arg value="-P checkout" />
 		</exec>
 	</target>
 
-	<target name="maven-package-license" depends="check-maven">
+	<target name="maven-package-license" depends="check-maven" description="package with license update">
 		<exec executable="${M2_PATH}">
 			<arg value="package" />
 			<arg value="-P license" />
 		</exec>
 	</target>
 
-	<target name="maven-deploy" depends="check-maven">
+	<target name="maven-deploy" depends="check-maven" description="deploy">
 		<exec executable="${M2_PATH}">
 			<arg value="deploy" />
 		</exec>
 	</target>
 
-	<target name="maven-deploy-documents" depends="check-maven">
+	<target name="maven-deploy-documents" depends="check-maven" description="deploy with documents upload">
 		<exec executable="${M2_PATH}">
 			<arg value="deploy" />
 			<arg value="-P documents" />
