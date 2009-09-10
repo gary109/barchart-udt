@@ -17,7 +17,11 @@ note call offset: *0x24d28*
 {{{
 Dynamic libraries:
 ...
-0x70e40000 - 0x71273000 	C:\user1\workspace\workspace-barchart-3.5\barchart-udt4\lib\bin\SocketUDT-windows-x86-32.dll
+      0x76bf0000 - 0x76bfb000 	C:\WINDOWS\system32\PSAPI.DLL
+      0x6d8a0000 - 0x6d8af000 	C:\Program Files\Java\jdk1.6.0_14\jre\bin\zip.dll
+   -> 0x70e40000 - 0x71273000 	C:\user1\workspace\workspace-barchart-3.5\barchart-udt4\lib\bin\SocketUDT-windows-x86-32.dll
+      0x77c10000 - 0x77c68000 	C:\WINDOWS\system32\msvcrt.dll
+      0x71ab0000 - 0x71ac7000 	C:\WINDOWS\system32\WS2_32.DLL
 ...
 }}}
 note library base: *0x70e40000*
@@ -41,8 +45,12 @@ call address = *0x70e64D28*
 }}}
 note:
 {{{
+
 // location of a crash:
+start      <= crash      <= finish
 0x70e64d20 <= 0x70e64D28 <= 0x70e656f0
+
 // hence crashed in the following call:
 0x70e64d20                Java_com_barchart_udt_SocketUDT_testCrashJVM0@8
+
 }}}
