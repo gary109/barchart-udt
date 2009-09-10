@@ -260,7 +260,7 @@ public class SelectorUDT extends AbstractSelector {
 	 * connector thread pool limit
 	 */
 	public final int maximumConnectorSize;
-	protected final ConnectorPoolUDT connectorPool;
+	protected final ConnectorThreadPoolUDT connectorPool;
 
 	protected SelectorUDT(SelectorProvider provider, //
 			int maximumSelectorSize, int maximumConnectorSize) {
@@ -283,7 +283,7 @@ public class SelectorUDT extends AbstractSelector {
 		sizeArray = new int[SocketUDT.UDT_SIZE_COUNT];
 
 		this.maximumConnectorSize = maximumConnectorSize;
-		connectorPool = new ConnectorPoolUDT(maximumConnectorSize);
+		connectorPool = new ConnectorThreadPoolUDT(maximumConnectorSize);
 
 	}
 

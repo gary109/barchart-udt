@@ -45,9 +45,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-class ConnectorPoolUDT {
+class ConnectorThreadPoolUDT {
 
 	final ConnectorThreadFactoryUDT factory;
 
@@ -63,9 +62,14 @@ class ConnectorPoolUDT {
 
 	final int THREAD_PRIORITY = Thread.NORM_PRIORITY;
 
-	ConnectorPoolUDT(int poolSize) {
+	final int MINIMUM_POOL_SIZE = 1; // threads
+
+	final int TRHREAD_TIME_TO_LIVE = 30; // seconds
+
+	ConnectorThreadPoolUDT(int poolSize) {
 		factory = new ConnectorThreadFactoryUDT(THREAD_PREFIX, THREAD_PRIORITY);
-		service = Executors.newFixedThreadPool(poolSize, factory);
+		service = ConnectorExecutorsUDT.newCachedThreadPool(//
+				MINIMUM_POOL_SIZE, poolSize, TRHREAD_TIME_TO_LIVE, factory);
 	}
 
 	void submitRequest(SelectionKeyUDT keyUDT, InetSocketAddress remote) {
