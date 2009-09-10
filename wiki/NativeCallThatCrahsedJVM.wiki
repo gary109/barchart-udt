@@ -8,8 +8,10 @@ follow these steps to find which of your native JNI calls crashes JVM:
 <p>
 2) inside [SampleJvmCrashLog jvm crash log] look for *Problematic frame* call offset:
 {{{
+...
 # Problematic frame:
 # C  [SocketUDT-windows-x86-32.dll+0x24d28]
+...
 }}}
 note call offset = *0x24d28*
 <p>
