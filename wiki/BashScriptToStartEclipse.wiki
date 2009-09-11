@@ -7,6 +7,6 @@ When you need to use a new eclipse version, not yet available for your linux dis
 = eclipse-start.sh =
 {{{
 #!/bin/bash
-BASH_ENV="~/.bashrc"
+export BASH_ENV="~/.bashrc"
 bash -c "env | sort > ~/.eclipse/eclipse.env; /opt/eclipse-3.6/eclipse" &
 }}}
