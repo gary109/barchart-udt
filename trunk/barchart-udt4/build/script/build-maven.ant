@@ -257,6 +257,8 @@
 
 	<target name="target-info">
 
+		<echo message="### BUILD INFO" />
+
 		<echo message="java.class.path 	: ${java.class.path}" />
 		<echo message="plugin.classpath : ${mvn.plugin.classpath}" />
 
@@ -294,6 +296,7 @@
 	</target>
 
 	<target name="target-run-javah">
+		<echo message="### JNI HEADERS" />
 		<javah classpath="${mvn.target}/classes"
 		       implementation="sun"
 		       destdir="${mvn.nativeSrcJNI}"
@@ -303,10 +306,12 @@
 	</target>
 
 	<target name="diagnostics" description="diagnostics">
+		<!-- internal ant diagnostics; used for build debugging -->
 		<diagnostics />
 	</target>
 
 	<target name="target-linker-search-path">
+		<echo message="### LINKER PATH" />
 		<echo message="GCC:" />
 		<exec executable="bash">
 			<arg value="-c" />
@@ -319,21 +324,17 @@
 		</exec>
 	</target>
 
-	<target name="target-compile"
-	        depends="target-info,target-run-javah,target-linker-search-path">
-
+	<target name="target-check-pre-requisites" depends="target-info, target-linker-search-path">
 		<echo message="### CHECK PRE-REQUISITES" />
-
 		<fail unless="isToolReady"
 		      message="compiler tool chain is not available" />
-
 		<fail unless="isSupported"
 		      message="this platform is not yet supported" />
+	</target>
 
+	<target name="target-compile" depends="target-check-pre-requisites,target-run-javah">
 		<echo message="### COMPILE ARTIFACT" />
-
 		<mkdir dir="${work.cpptasks}" />
-
 		<cc outtype="shared"
 		    objdir="${work.cpptasks}"
 		    outfile="${path.cpptasks.root}">
@@ -343,19 +344,28 @@
 			<compiler refid="gcc-compiler-${libOS}-${libARCH}-${libBITS}" />
 			<linker refid="gcc-linker-${libOS}" />
 		</cc>
+	</target>
 
+	<target name="target-check-library" depends="target-compile">
 		<echo message="### CHECK LIBRARY" />
-
 		<exec executable="ldd" osfamily="unix">
 			<arg value="-r" />
 			<arg value="${path.cpptasks}" />
 		</exec>
+	</target>
 
+	<target name="target-copy-artifact" depends="target-check-library">
 		<echo message="### COPY ARTIFACT" />
-
 		<copy file="${path.cpptasks}" tofile="${path.real}" />
 		<copy file="${path.cpptasks.map}" tofile="${path.real.map}" />
-
 	</target>
+
+	<!-- ================================= 
+          target-build              
+         ================================= -->
+	<target name="target-build" depends="target-copy-artifact">
+		<echo message="### SUCESS" />
+	</target>
+
 
 </project>
