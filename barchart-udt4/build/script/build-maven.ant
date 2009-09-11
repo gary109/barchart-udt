@@ -13,7 +13,8 @@
 	<typedef resource="cpptasks.tasks" classpathref="plugin.classpath" />
 	<typedef resource="cpptasks.types" classpathref="plugin.classpath" />
 	<!-- http://ant-contrib.sourceforge.net/ -->
-	<typedef resource="net/sf/antcontrib/antcontrib.properties" classpathref="plugin.classpath" />
+	<typedef resource="net/sf/antcontrib/antcontrib.properties"
+	         classpathref="plugin.classpath" />
 
 	<!-- ####################################################### -->
 
@@ -103,10 +104,17 @@
 
 	<!-- naming convention -->
 
-	<versioninfo id="build-version" fileversion="${mvn.mavenStamp}" productversion="${mvn.version}" compatibilityversion="${mvn.version}" legalcopyright="Copyright (C) ${mvn.licenceOrganization}; Developers: ${mvn.licenceDevelopers}" productname="${mvn.nativeLibName}" companyname="${mvn.licenceOrganization} ( ${mvn.licenceWebsite} )" />
+	<versioninfo id="build-version"
+	             fileversion="${mvn.mavenStamp}"
+	             productversion="${mvn.version}"
+	             compatibilityversion="${mvn.version}"
+	             legalcopyright="Copyright (C) ${mvn.licenceOrganization}; Developers: ${mvn.licenceDevelopers}"
+	             productname="${mvn.nativeLibName}"
+	             companyname="${mvn.licenceOrganization} ( ${mvn.licenceWebsite} )" />
 
 	<!-- word "root" of library name -->
-	<property name="name.root" value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
+	<property name="name.root"
+	          value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
 
 	<!-- cpptasks working directory; will contain compilation result -->
 	<property name="work.cpptasks" value="${mvn.target}/cpptasks" />
@@ -124,7 +132,8 @@
 
 	<!-- full path to the artifacts produceced by cpptasks: *.so and *.map -->
 	<property name="path.cpptasks" value="${work.cpptasks}/${name.cpptasks}" />
-	<property name="path.cpptasks.map" value="${work.cpptasks}/${name.cpptasks.map}" />
+	<property name="path.cpptasks.map"
+	          value="${work.cpptasks}/${name.cpptasks.map}" />
 
 	<!-- real name with prefix/suffix that is requered by current platform -->
 	<condition property="name.real" value="${name.root}.dll">
@@ -288,7 +297,10 @@
 
 	<target name="target-run-javah">
 		<echo message="### JNI HEADERS" />
-		<javah classpath="${mvn.target}/classes" implementation="sun" destdir="${mvn.nativeSrcJNI}" verbose="yes">
+		<javah classpath="${mvn.target}/classes"
+		       implementation="sun"
+		       destdir="${mvn.nativeSrcJNI}"
+		       verbose="yes">
 			<class name="com.barchart.udt.${mvn.nativeLibName}" />
 		</javah>
 	</target>
@@ -312,16 +324,22 @@
 		</exec>
 	</target>
 
-	<target name="target-check-pre-requisites" depends="target-info, target-linker-search-path">
+	<target name="target-check-pre-requisites"
+	        depends="target-info, target-linker-search-path">
 		<echo message="### CHECK PRE-REQUISITES" />
-		<fail unless="isToolReady" message="compiler tool chain is not available" />
-		<fail unless="isSupported" message="this platform is not yet supported" />
+		<fail unless="isToolReady"
+		      message="compiler tool chain is not available" />
+		<fail unless="isSupported"
+		      message="this platform is not yet supported" />
 	</target>
 
-	<target name="target-compile" depends="target-check-pre-requisites,target-run-javah">
+	<target name="target-compile"
+	        depends="target-check-pre-requisites,target-run-javah">
 		<echo message="### COMPILE ARTIFACT" />
 		<mkdir dir="${work.cpptasks}" />
-		<cc outtype="shared" objdir="${work.cpptasks}" outfile="${path.cpptasks.root}">
+		<cc outtype="shared"
+		    objdir="${work.cpptasks}"
+		    outfile="${path.cpptasks.root}">
 			<fileset dir="${mvn.nativeSrcJNI}" includes="*.cpp" />
 			<fileset dir="${mvn.nativeSrcUDT}/src" includes="*.cpp" />
 			<versioninfo refid="build-version" />
@@ -332,13 +350,14 @@
 
 	<target name="target-check-library" depends="target-compile">
 		<echo message="### CHECK LIBRARY" />
+		<echo message="      ${path.cpptasks}" />
 		<exec executable="bash" failonerror="true" osfamily="unix">
 			<arg value="-c" />
-			<arg value="echo 'dependency:'; ldd --data-relocs --function-relocs '${path.cpptasks}';" />
+			<arg value="echo 'tryint to load dependency libs:'; ldd --data-relocs --function-relocs '${path.cpptasks}';" />
 		</exec>
 		<exec executable="bash" failonerror="true" osfamily="unix">
 			<arg value="-c" />
-			<arg value="echo 'versions:'; objdump --dynamic-syms '${path.cpptasks}' | grep 'GLIB' | sed 's/^.*\(GLIB[A-Z]*_[0-9\.]*\).*$/\1/' | sort -u;" />
+			<arg value="echo 'checking stdc++ versions in use:'; objdump --dynamic-syms '${path.cpptasks}' | grep 'GLIB' | sed 's/^.*\(GLIB[A-Z]*_[0-9\.]*\).*$/\t\1/' | sort -u;" />
 		</exec>
 	</target>
 
