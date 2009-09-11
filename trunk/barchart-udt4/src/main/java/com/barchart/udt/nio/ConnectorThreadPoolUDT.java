@@ -64,12 +64,14 @@ class ConnectorThreadPoolUDT {
 
 	final int MINIMUM_POOL_SIZE = 1; // threads
 
-	final int TRHREAD_TIME_TO_LIVE = 30; // seconds
+	final int THREAD_TIME_TO_LIVE = 30; // seconds
 
-	ConnectorThreadPoolUDT(int poolSize) {
+	ConnectorThreadPoolUDT(int maximumPoolSize) {
 		factory = new ConnectorThreadFactoryUDT(THREAD_PREFIX, THREAD_PRIORITY);
-		service = ConnectorExecutorsUDT.newCachedThreadPool(//
-				MINIMUM_POOL_SIZE, poolSize, TRHREAD_TIME_TO_LIVE, factory);
+		service = ConnectorExecutorsUDT.newCachedThreadPool(
+				//
+				MINIMUM_POOL_SIZE, maximumPoolSize, THREAD_TIME_TO_LIVE,
+				factory);
 	}
 
 	void submitRequest(SelectionKeyUDT keyUDT, InetSocketAddress remote) {

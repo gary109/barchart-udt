@@ -56,12 +56,12 @@ class ConnectorThreadFactoryUDT implements ThreadFactory {
 	public final String namePrefix;
 	public final int defaultPriority;
 
-	public ConnectorThreadFactoryUDT(String namePrefix, int defaultPriority) {
+	ConnectorThreadFactoryUDT(String namePrefix, int defaultPriority) {
 		this.namePrefix = namePrefix;
 		this.defaultPriority = defaultPriority;
 	}
 
-	public ConnectorThreadFactoryUDT(String namePrefix) {
+	ConnectorThreadFactoryUDT(String namePrefix) {
 		this(namePrefix, Thread.NORM_PRIORITY);
 	}
 

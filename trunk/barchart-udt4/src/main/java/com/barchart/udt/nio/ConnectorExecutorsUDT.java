@@ -13,12 +13,12 @@ class ConnectorExecutorsUDT {
 
 	private static final RejectedExecutionHandler defaultHandler = new AbortPolicy();
 
-	public static ExecutorService newCachedThreadPool(int corePoolSize,
+	public static ExecutorService newCachedThreadPool(int minimumPoolSize,
 			int maximumPoolSize, long keepAliveTime, ThreadFactory threadFactory) {
 
 		BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>();
 
-		return new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
+		return new ThreadPoolExecutor(minimumPoolSize, maximumPoolSize,
 				keepAliveTime, TimeUnit.SECONDS, workQueue, threadFactory,
 				defaultHandler);
 
