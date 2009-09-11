@@ -353,7 +353,7 @@
 		<echo message="      ${path.cpptasks}" />
 		<exec executable="bash" failonerror="true" osfamily="unix">
 			<arg value="-c" />
-			<arg value="echo 'tryint to load dependency libs:'; ldd --data-relocs --function-relocs '${path.cpptasks}';" />
+			<arg value="echo 'trying to load dependency libs:'; ldd --data-relocs --function-relocs '${path.cpptasks}';" />
 		</exec>
 		<exec executable="bash" failonerror="true" osfamily="unix">
 			<arg value="-c" />
