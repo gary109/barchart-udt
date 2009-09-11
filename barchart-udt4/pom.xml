@@ -164,7 +164,7 @@
 								<ant
 									antfile="${basedir}/build/script/build-maven.ant">
 									<target
-										name="target-compile" />
+										name="target-build" />
 								</ant>
 							</tasks>
 						</configuration>
