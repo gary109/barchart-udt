@@ -10,7 +10,7 @@
 	<repositories>
 		<repository>
 			<id>com.googlecode.barchart-udt</id>
-			<url>https://barchart-udt.googlecode.com/svn/repo</url>
+			<url>http://barchart-udt.googlecode.com/svn/repo</url>
 		</repository>
 	</repositories>
 	<dependencies>
