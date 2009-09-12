@@ -201,10 +201,11 @@
 	</compiler>
 
 	<compiler id="gcc-compiler-linux-x86-32" extends="gcc-compiler-linux">
-		<!-- not tested -->
+		<compilerarg value="-m32" />
 	</compiler>
 
 	<compiler id="gcc-compiler-linux-x86-64" extends="gcc-compiler-linux">
+		<compilerarg value="-m64" />
 		<!-- compiler definitions -->
 		<defineset>
 			<define name="AMD64" />
