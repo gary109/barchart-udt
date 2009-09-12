@@ -6,11 +6,18 @@
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>test-deps</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
-	<description>sample project that shows how to inlcude barchart-udt as dependency to your maven project</description>
+	<description>sample project that shows how to inlcude barchart-udt as
+		dependency to your maven project</description>
 	<repositories>
 		<repository>
 			<id>com.googlecode.barchart-udt</id>
 			<url>http://barchart-udt.googlecode.com/svn/repo</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
 		</repository>
 	</repositories>
 	<dependencies>
