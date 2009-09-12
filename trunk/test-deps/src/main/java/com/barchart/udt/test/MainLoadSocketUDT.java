@@ -24,8 +24,6 @@ public class MainLoadSocketUDT {
 
 			log.error("can not make socket", e);
 
-			System.exit(1);
-
 		}
 
 	}
