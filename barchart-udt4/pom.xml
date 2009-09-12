@@ -31,15 +31,24 @@
 	<url>http://code.google.com/p/barchart-udt/</url>
 	<inceptionYear>2009</inceptionYear>
 	<issueManagement>
-		<system>google</system>
-		<url>http://code.google.com/p/barchart-udt/</url>
+		<system>google code</system>
+		<url>http://code.google.com/p/barchart-udt/issues/list</url>
 	</issueManagement>
+	<developers>
+		<developer>
+			<id>andrei.pozolotin</id>
+			<name>Andrei Pozolotin</name>
+			<roles>
+				<role>Project Owner</role>
+			</roles>
+		</developer>
+	</developers>
 	<scm>
 		<connection>http://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4
 		</connection>
 		<developerConnection>https://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4
 		</developerConnection>
-		<url> http://code.google.com/p/barchart-udt/</url>
+		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
 	</scm>
 	<organization>
 		<name>Barchart, Inc.</name>
@@ -202,7 +211,7 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<!-- used to set m2e properties -->
+				<!-- used to set m2e properties http://m2eclipse.sonatype.org/ -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
