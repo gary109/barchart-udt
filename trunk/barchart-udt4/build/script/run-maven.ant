@@ -29,14 +29,18 @@
 		</exec>
 	</target>
 
-	<target name="maven-package-checkout" depends="check-maven" description="package with udt checkout">
+	<target name="maven-package-checkout"
+	        depends="check-maven"
+	        description="package with udt checkout">
 		<exec executable="${M2_PATH}">
 			<arg value="package" />
 			<arg value="--activate-profiles checkout" />
 		</exec>
 	</target>
 
-	<target name="maven-package-license" depends="check-maven" description="package with license update">
+	<target name="maven-package-license"
+	        depends="check-maven"
+	        description="package with license update">
 		<exec executable="${M2_PATH}">
 			<arg value="package" />
 			<arg value="--activate-profiles license" />
@@ -49,10 +53,27 @@
 		</exec>
 	</target>
 
-	<target name="maven-deploy-documents" depends="check-maven" description="deploy with documents upload">
+	<target name="maven-deploy-documents"
+	        depends="check-maven"
+	        description="deploy with documents upload">
 		<exec executable="${M2_PATH}">
 			<arg value="deploy" />
 			<arg value="--activate-profiles documents" />
+		</exec>
+	</target>
+
+	<target name="maven-deploy-to-google"
+	        depends="check-maven"
+	        description="deploy to google code repository">
+		<exec executable="${M2_PATH}">
+			<arg value="deploy:deploy-file" />
+			<arg value="-f pom.deploy.xml" />
+			<arg value="-D pomFile=pom.xml" />
+			<arg value="-D repositoryId=com.googlecode.barchart-udt" />
+			<arg value="-D url=https://barchart-udt.googlecode.com/svn/repo" />
+			<arg value="-D file=target/barchart-udt4-1.0.0-SNAPSHOT.jar" />
+			<arg value="-D uniqueVersion=false" />
+			<arg value="-D generatePom=false" />
 		</exec>
 	</target>
 
