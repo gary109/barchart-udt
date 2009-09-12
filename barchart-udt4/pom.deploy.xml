@@ -1,0 +1,16 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.barchart.udt</groupId>
+	<artifactId>barchart-udt-deploy</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0</version>
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.8</version>
+			</extension>
+		</extensions>
+	</build>
+</project>
