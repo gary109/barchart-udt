@@ -2,15 +2,17 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4</artifactId>
 	<name>barchart-udt</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
+
 	<properties>
-		<mavenStamp>ARTIFACT='${artifactId}'.VERSION='${version}'.TIMESTAMP='${timestamp}'
-		</mavenStamp>
+		<mavenStamp>ARTIFACT='${artifactId}'.VERSION='${version}'.TIMESTAMP='${timestamp}'</mavenStamp>
 		<licenceYear>2009</licenceYear>
 		<licenceOrganization>Barchart, Inc.</licenceOrganization>
 		<licenceWebsite>http://www.barchart.com/</licenceWebsite>
@@ -26,14 +28,18 @@
 		<nativeLibName>SocketUDT</nativeLibName>
 		<nativeInclude>include</nativeInclude>
 	</properties>
-	<description>Java wrapper around native c++ UDT protocl implementaion
-	</description>
+
+	<description>Java wrapper around native c++ UDT protocl implementaion</description>
+
 	<url>http://code.google.com/p/barchart-udt/</url>
+
 	<inceptionYear>2009</inceptionYear>
+
 	<issueManagement>
 		<system>google code</system>
 		<url>http://code.google.com/p/barchart-udt/issues/list</url>
 	</issueManagement>
+
 	<developers>
 		<developer>
 			<id>andrei.pozolotin</id>
@@ -43,17 +49,18 @@
 			</roles>
 		</developer>
 	</developers>
+
 	<scm>
-		<connection>http://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4
-		</connection>
-		<developerConnection>https://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4
-		</developerConnection>
+		<connection>http://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4</connection>
+		<developerConnection>https://barchart-udt.code.google.com/p/barchart-udt/trunk/barchart-udt4</developerConnection>
 		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
 	</scm>
+
 	<organization>
 		<name>Barchart, Inc.</name>
 		<url>http://www.barchart.com</url>
 	</organization>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -422,17 +429,12 @@
 	</profiles>
 </project>
 	<!--
-		NOT USED; call make, to build or clean <plugin>
-		<groupId>org.codehaus.mojo</groupId>
-		<artifactId>exec-maven-plugin</artifactId> <version>1.1</version>
-		<executions> <execution> <id>make-all</id> <phase>XXXcompile</phase>
-		<goals> <goal>exec</goal> </goals> <configuration>
-		<executable>make</executable> <arguments> <argument>all</argument>
-		<argument> - - makefile=${nativeSrc}/makefile-barchart.mk </argument>
-		</arguments> </configuration> </execution> <execution>
-		<id>make-clean</id> <phase>clean</phase> <goals> <goal>exec</goal>
-		</goals> <configuration> <executable>make</executable> <arguments>
-		<argument>clean</argument> <argument> - -
-		makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments>
-		</configuration> </execution> </executions> </plugin>
+		NOT USED; call make, to build or clean <plugin> <groupId>org.codehaus.mojo</groupId>
+		<artifactId>exec-maven-plugin</artifactId> <version>1.1</version> <executions> <execution> <id>make-all</id>
+		<phase>XXXcompile</phase> <goals> <goal>exec</goal> </goals> <configuration> <executable>make</executable> <arguments>
+		<argument>all</argument> <argument> - - makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments>
+		</configuration> </execution> <execution> <id>make-clean</id> <phase>clean</phase> <goals> <goal>exec</goal> </goals>
+		<configuration> <executable>make</executable> <arguments> <argument>clean</argument> <argument> - -
+		makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments> </configuration> </execution> </executions>
+		</plugin>
 	-->
