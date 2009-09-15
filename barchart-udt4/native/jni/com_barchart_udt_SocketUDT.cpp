@@ -402,6 +402,7 @@ void UDT_ThrowExceptionUDT_Message(JNIEnv *env, int socketID,
 	env->Throw(exception);
 }
 
+// socketID == 0 means not applicable/ not known
 void UDT_ThrowExceptionUDT_ErrorInfo(JNIEnv *env, int socketID,
 		const char *comment, UDT::ERRORINFO *errorInfo) {
 	CHK_NUL_RET(env,"env");

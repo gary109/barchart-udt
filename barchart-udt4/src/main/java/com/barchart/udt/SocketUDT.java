@@ -360,13 +360,6 @@ public class SocketUDT {
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/select.htm
 	 * 
-	 * timeout in milliseconds
-	 * 
-	 * return value, when NOT exception
-	 * 
-	 * =0 : timeout, no ready sockets
-	 * 
-	 * >0 : total number or reads, writes, exceptions
 	 */
 	protected static native int select0( //
 			int[] readArray, //
@@ -378,6 +371,12 @@ public class SocketUDT {
 
 	/**
 	 * timeout in milliseconds
+	 * 
+	 * return value, when NOT exception
+	 * 
+	 * =0 : timeout, no ready sockets
+	 * 
+	 * >0 : total number or reads, writes, exceptions
 	 */
 	// asserts are contracts
 	public static int select( //
@@ -491,7 +490,7 @@ public class SocketUDT {
 	}
 
 	/**
-	 * not yet available in UDT; use a hack to detect open state
+	 * not yet available in UDT; use a native hack to detect open state
 	 */
 	protected native boolean isOpen0();
 

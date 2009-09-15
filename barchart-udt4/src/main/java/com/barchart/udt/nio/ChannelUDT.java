@@ -43,8 +43,7 @@ import java.io.IOException;
 
 import com.barchart.udt.SocketUDT;
 
-
-// NOTE: 1<->1 mappig between: ChannelUDT -> SocketUDT  
+// NOTE: 1<->1 mapping between: ChannelUDT -> SocketUDT  
 interface ChannelUDT {
 
 	SocketUDT getSocketUDT();
@@ -52,5 +51,7 @@ interface ChannelUDT {
 	KindUDT getChannelKind();
 
 	void close() throws IOException;
+
+	boolean isOpenSocketUDT();
 
 }

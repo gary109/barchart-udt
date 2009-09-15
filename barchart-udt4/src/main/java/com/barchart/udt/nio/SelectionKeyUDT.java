@@ -50,7 +50,7 @@ import com.barchart.udt.ExceptionUDT;
 import com.barchart.udt.SocketUDT;
 
 /**
- * NOTE: 1<->1 mappig between: SelectionKeyUDT -> ChannelUDT -> SocketUDT
+ * NOTE: 1<->1 mapping between: SelectionKeyUDT -> ChannelUDT -> SocketUDT
  */
 class SelectionKeyUDT extends AbstractSelectionKey {
 
@@ -60,8 +60,8 @@ class SelectionKeyUDT extends AbstractSelectionKey {
 	/**
 	 * used by JNI
 	 */
-	protected final SocketUDT socketUDT;
 	protected final int socketID;
+	protected final SocketUDT socketUDT;
 
 	protected SelectionKeyUDT(SelectorUDT selector, ChannelUDT channel,
 			Object attachment, int ops) {
