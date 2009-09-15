@@ -51,7 +51,6 @@ import java.nio.channels.SocketChannel;
 import java.nio.channels.UnresolvedAddressException;
 import java.nio.channels.spi.SelectorProvider;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -261,6 +260,11 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 
 	protected void setConnectException(IOException exception) {
 		this.connectException = exception;
+	}
+
+	@Override
+	public boolean isOpenSocketUDT() {
+		return socketUDT.isOpen();
 	}
 
 }

@@ -149,7 +149,7 @@ public class SelectorUDT extends AbstractSelector {
 			SelectionKeyUDT keyUDT = new SelectionKeyUDT(//
 					this, channelUDT, attachment, interestOps);
 
-			// the only place with "add"
+			// XXX the only place with "add/put"
 			registeredKeyMap.put(socketUDT.socketID, keyUDT);
 			registeredKeySet.add(keyUDT);
 
@@ -199,8 +199,8 @@ public class SelectorUDT extends AbstractSelector {
 
 	/**
 	 * NOTE: it is recommended to user timed select(timeout) (timeout = 100
-	 * millis) to avoid missed wakeup() which rare but are possible in current
-	 * implentation (accepted in favor of design simplicity / performance)
+	 * millis) to avoid missed wakeup() which are rare but possible in current
+	 * implementation (accepted in favor of design simplicity / performance)
 	 */
 	@Override
 	public Selector wakeup() {
@@ -211,6 +211,7 @@ public class SelectorUDT extends AbstractSelector {
 
 	protected volatile int wakeupStepCount;
 
+	// guarded by doSelectInsideLock
 	protected int wakeupBaseCount;
 
 	protected void saveWakeupBase() {
@@ -318,13 +319,13 @@ public class SelectorUDT extends AbstractSelector {
 	 * 
 	 * ==0 : means nothing was selected/timeout
 	 * 
-	 * !=0 : number of pending r/w ops, NOT number of selected keys
-	 * */
+	 * >=0 : number of pending r/w ops, NOT number of selected keys
+	 */
 	protected int doSelectReally(long millisTimeout) throws IOException {
 
-		processCancelled();
-
 		selectedKeySet.clear();
+
+		processCancelled();
 
 		int updateCount = 0;
 
@@ -338,27 +339,40 @@ public class SelectorUDT extends AbstractSelector {
 			int writeSize = 0;
 
 			for (SelectionKeyUDT keyUDT : registeredKeySet) {
+
+				final ChannelUDT channelUDT = keyUDT.channelUDT;
 				keyUDT.readyOps = 0; // publisher for volatile
-				final int interestOps = keyUDT.interestOps;
-				final int socketID = keyUDT.socketID;
-				final KindUDT channelType = keyUDT.channelUDT.getChannelKind();
-				if ((interestOps & (OP_ACCEPT)) != 0) {
-					assert channelType == KindUDT.ACCEPTOR;
-					readArray[readSize++] = socketID;
-				}
-				if ((interestOps & (OP_READ)) != 0) {
-					assert channelType == KindUDT.CONNECTOR;
-					readArray[readSize++] = socketID;
-				}
-				if ((interestOps & (OP_WRITE)) != 0) {
-					assert channelType == KindUDT.CONNECTOR;
-					writeArray[writeSize++] = socketID;
-				}
-				if ((interestOps & (OP_CONNECT)) != 0) {
-					assert channelType == KindUDT.CONNECTOR;
-					assert (interestOps & (OP_READ | OP_WRITE | OP_ACCEPT)) == 0;
-					// UDT does not support select() for connect() operation
-					// using thread pool instead
+
+				if (channelUDT.isOpenSocketUDT()) {
+
+					final int interestOps = keyUDT.interestOps;
+					final int socketID = keyUDT.socketID;
+					final KindUDT channelType = channelUDT.getChannelKind();
+
+					if ((interestOps & (OP_ACCEPT)) != 0) {
+						assert channelType == KindUDT.ACCEPTOR;
+						readArray[readSize++] = socketID;
+					}
+					if ((interestOps & (OP_READ)) != 0) {
+						assert channelType == KindUDT.CONNECTOR;
+						readArray[readSize++] = socketID;
+					}
+					if ((interestOps & (OP_WRITE)) != 0) {
+						assert channelType == KindUDT.CONNECTOR;
+						writeArray[writeSize++] = socketID;
+					}
+					if ((interestOps & (OP_CONNECT)) != 0) {
+						assert channelType == KindUDT.CONNECTOR;
+						assert (interestOps & (OP_READ | OP_WRITE | OP_ACCEPT)) == 0;
+						/*
+						 * UDT does not support select() for connect() operation
+						 * as yet; using thread pool instead
+						 */
+					}
+				} else {
+					synchronized (cancelledKeySet) {
+						cancelledKeySet.add(keyUDT);
+					}
 				}
 			}
 
@@ -372,7 +386,7 @@ public class SelectorUDT extends AbstractSelector {
 			saveWakeupBase();
 
 			if (millisTimeout < 0) {
-				/* infinite; do select in slices; check for wakeup; */
+				/* infinite: do select in slices; check for wakeup; */
 				do {
 					updateCount = SocketUDT.select(readArray, writeArray,
 							exceptArray, sizeArray,
@@ -382,7 +396,7 @@ public class SelectorUDT extends AbstractSelector {
 					}
 				} while (true);
 			} else if (millisTimeout > 0) {
-				/* finite; do select in slices; check for wakeup; */
+				/* finite: do select in slices; check for wakeup; */
 				do {
 					updateCount = SocketUDT.select(readArray, writeArray,
 							exceptArray, sizeArray,
@@ -393,7 +407,7 @@ public class SelectorUDT extends AbstractSelector {
 					millisTimeout -= SocketUDT.DEFAULT_MIN_SELECTOR_TIMEOUT;
 				} while (millisTimeout > 0);
 			} else { // millisTimeout == 0
-				/* immedeate; one shot select */
+				/* immediate: one shot select */
 				updateCount = SocketUDT.select(readArray, writeArray,
 						exceptArray, sizeArray, 0);
 			}
@@ -519,7 +533,7 @@ public class SelectorUDT extends AbstractSelector {
 
 					SelectionKeyUDT keyUDT = (SelectionKeyUDT) key;
 
-					// the only place with "remove"
+					// XXX the only place with "remove"
 					SelectionKeyUDT removed = registeredKeyMap
 							.remove(keyUDT.socketID);
 					boolean isRemoved = registeredKeySet.remove(keyUDT);

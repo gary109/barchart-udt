@@ -47,7 +47,6 @@ import java.nio.channels.spi.SelectorProvider;
 
 import com.barchart.udt.SocketUDT;
 
-
 class ChannelServerSocketUDT extends ServerSocketChannel implements ChannelUDT {
 
 	protected final SocketUDT serverSocketUDT;
@@ -98,6 +97,11 @@ class ChannelServerSocketUDT extends ServerSocketChannel implements ChannelUDT {
 	@Override
 	public KindUDT getChannelKind() {
 		return KindUDT.ACCEPTOR;
+	}
+
+	@Override
+	public boolean isOpenSocketUDT() {
+		return serverSocketUDT.isOpen();
 	}
 
 }
