@@ -187,4 +187,42 @@ public class TestSocketUDT {
 
 	}
 
+	@Test
+	public void testIsOpen() {
+		try {
+
+			SocketUDT socket = null;
+
+			socket = new SocketUDT(TypeUDT.DATAGRAM);
+			assertTrue(socket.isOpen());
+
+			socket.setOption(OptionUDT.Is_Receive_Synchronous, false);
+			socket.setOption(OptionUDT.Is_Send_Synchronous, false);
+			assertTrue(socket.isOpen());
+
+			InetSocketAddress localSocketAddress = new InetSocketAddress(
+					"0.0.0.0", 0);
+
+			socket.bind(localSocketAddress);
+			assertTrue(socket.isOpen());
+
+			socket.listen(128);
+			assertTrue(socket.isOpen());
+
+			SocketUDT connector = socket.accept();
+			assertNull(connector);
+			assertTrue(socket.isOpen());
+
+			socket.close();
+			assertFalse(socket.isOpen());
+			assertTrue(socket.isClosed());
+
+			log.info("isOpen pass");
+
+		} catch (ExceptionUDT e) {
+			fail("SocketException; " + e.getMessage());
+		}
+
+	}
+
 }

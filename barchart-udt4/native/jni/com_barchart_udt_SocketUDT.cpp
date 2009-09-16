@@ -713,9 +713,9 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv *env,
 	sockaddr remoteSockAddr;
 	int remoteSockAddrSize = sizeof(remoteSockAddr);
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
-	UDTSOCKET socketACC = UDT::accept(socketID, &remoteSockAddr,
+	const UDTSOCKET socketACC = UDT::accept(socketID, &remoteSockAddr,
 			&remoteSockAddrSize);
 
 	if (socketACC == UDT::INVALID_SOCK) {

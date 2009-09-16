@@ -180,6 +180,14 @@ public class SocketUDT {
 	 */
 	protected native SocketUDT accept0() throws ExceptionUDT;
 
+	/**
+	 * return value, when NOT exception:
+	 * 
+	 * null : no incoming connections (in non-blocking mode only)
+	 * 
+	 * non null : newly accepted connection (both blocking and non-blocking)
+	 * 
+	 */
 	public SocketUDT accept() throws ExceptionUDT {
 		return accept0();
 	}
