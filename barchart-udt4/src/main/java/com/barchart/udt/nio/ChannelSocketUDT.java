@@ -165,21 +165,40 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		throw new RuntimeException("feature not available");
 	}
 
+	/**
+	 * See SocketChannel contract; note: this does not return (-1) as EOS end of
+	 * stream
+	 */
+	// TODO use UDT buffer size as max for array, NOT just remaining
 	@Override
 	public int read(ByteBuffer buffer) throws IOException {
 		if (buffer.hasRemaining()) {
 
 			final int remaining = buffer.remaining();
 
-			byte[] array = new byte[remaining];
+			final byte[] array = new byte[remaining];
 
-			final int size = socketUDT.receive(array);
+			final int sizeReceived = socketUDT.receive(array);
 
-			assert size <= remaining;
+			// see contract for receive()
 
-			buffer.put(array, 0, size);
+			if (sizeReceived < 0) {
+				log.debug("nothing was received");
+				return 0;
+			}
 
-			return size;
+			if (sizeReceived == 0) {
+				log.debug("receive timeout");
+				return 0;
+			}
+
+			if (sizeReceived <= remaining) {
+				buffer.put(array, 0, sizeReceived);
+				return sizeReceived;
+			} else { // should not happen
+				log.error("unexpected sizeReceived={}", sizeReceived);
+				return 0;
+			}
 
 		} else {
 			return 0;
@@ -202,7 +221,11 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		return socketAdapter;
 	}
 
-	// NOTE: in message mode, remaining must be under UDT_MSS size
+	/**
+	 * See SocketChannel contract;
+	 */
+	// TODO use UDT buffer size as max for array
+	// NOTE: in DATAGRAM mode, remaining must be under UDT_MSS size
 	@Override
 	public int write(ByteBuffer buffer) throws IOException {
 		if (buffer.hasRemaining()) {
@@ -211,17 +234,31 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 
 			final int remaining = buffer.remaining();
 
-			byte[] array = new byte[remaining];
+			final byte[] array = new byte[remaining];
 
 			buffer.get(array);
 
-			final int size = socketUDT.send(array);
+			final int sizeSent = socketUDT.send(array);
 
-			assert size <= remaining;
+			// see contract for send()
 
-			buffer.position(position + size);
+			if (sizeSent < 0) {
+				log.debug("no buffer space for send");
+				return 0;
+			}
 
-			return size;
+			if (sizeSent == 0) {
+				log.debug("send timeout");
+				return 0;
+			}
+
+			if (sizeSent <= remaining) {
+				buffer.position(position + sizeSent);
+				return sizeSent;
+			} else { // should not happen
+				log.error("unexpected sizeSent={}", sizeSent);
+				return 0;
+			}
 
 		} else {
 			return 0;

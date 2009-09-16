@@ -1070,18 +1070,23 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_listen0(JNIEnv *env,
 
 }
 
+/*
+ * this call is shared between for both receive() and receivemsg()
+ */
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
-		jobject self, jint socketID, jint socketType, jbyteArray array) {
+		jobject self, const jint socketID, const jint socketType,
+		jbyteArray arrayObj) {
 
 	//	printf("udt-receive0\n");
 
-	jint mode = JNI_UPDATE; // make copy back
+	jint mode = JNI_UPDATE; // make copy back, by default
 	jboolean isCopy; // whether JVM returns a reference or a copy
-	jbyte *data = env->GetByteArrayElements(array, &isCopy); // note: must release
-	jsize size = env->GetArrayLength(array);
+	jbyte *data = env->GetByteArrayElements(arrayObj, &isCopy); // note: must release
+	jsize size = env->GetArrayLength(arrayObj);
 
 	int rv;
 
+	// do not use this; will increase performance
 	// UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	switch (socketType) {
@@ -1094,7 +1099,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 		rv = UDT::recvmsg(socketID, (char*) data, (int) size);
 		break;
 	default:
-		env->ReleaseByteArrayElements(array, data, JNI_ABORT); // do not copy back
+		env->ReleaseByteArrayElements(arrayObj, data, JNI_ABORT); // do not copy back
 		UDT_ThrowExceptionUDT_Message(env, socketID,
 				"recv/recvmsg : unexpected socketType");
 		return JNI_ERR;
@@ -1113,7 +1118,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 			rv = JNI_ERR;
 		} else {
 			// really exception
-			env->ReleaseByteArrayElements(array, data, JNI_ABORT); // do not copy back
+			env->ReleaseByteArrayElements(arrayObj, data, JNI_ABORT); // do not copy back
 			UDT_ThrowExceptionUDT_ErrorInfo(env, socketID, "recv/recvmsg",
 					&errorInfo);
 			return JNI_ERR;
@@ -1125,28 +1130,32 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 
 	}
 
-	env->ReleaseByteArrayElements(array, data, mode); // copy/not depends on mode
+	env->ReleaseByteArrayElements(arrayObj, data, mode); // copy(not) depends on mode
 
 	// return values, if exception is NOT thrown
-	// -1 : non-blocking-only - nothing received
-	// =0 : timeout expired
+	// -1 : nothing received (non-blocking only)
+	// =0 : timeout expired (blocking only)
 	// >0 : normal receive
 	return rv;
 
 }
 
+/*
+ * this call is shared between for both send() and sendmsg()
+ */
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
-		jobject self, jint socketID, jint socketType, jint timeToLive,
-		jboolean isOrdered, jbyteArray array) {
+		jobject self, const jint socketID, const jint socketType,
+		const jint timeToLive, const jboolean isOrdered, jbyteArray arrayObj) {
 
 	//	printf("udt-send0\n");
 
 	jboolean isCopy; // whether JVM returned reference or copy
-	jbyte *data = env->GetByteArrayElements(array, &isCopy); // note: must release
-	jsize size = env->GetArrayLength(array);
+	jbyte *data = env->GetByteArrayElements(arrayObj, &isCopy); // note: must release
+	jsize size = env->GetArrayLength(arrayObj);
 
 	int rv;
 
+	// do not use this; will increase performance
 	// UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	switch (socketType) {
@@ -1160,13 +1169,13 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 				BOOL(isOrdered));
 		break;
 	default:
-		env->ReleaseByteArrayElements(array, data, JNI_ABORT); // do not copy back
+		env->ReleaseByteArrayElements(arrayObj, data, JNI_ABORT); // do not copy back
 		UDT_ThrowExceptionUDT_Message(env, socketID,
 				"send/sendmsg : unexpected socketType");
 		return JNI_ERR;
 	}
 
-	env->ReleaseByteArrayElements(array, data, JNI_ABORT); // do not copy back
+	env->ReleaseByteArrayElements(arrayObj, data, JNI_ABORT); // do not copy back
 
 	if (rv == UDT::ERROR) {
 
@@ -1186,9 +1195,9 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 	}
 
 	// return values, if exception is NOT thrown
-	// -1 : non-blocking-only - no buffer space
-	// =0 : timeout expired
-	// >0 : normal send
+	// -1 : no buffer space (non-blocking only )
+	// =0 : timeout expired (blocking only)
+	// >0 : normal send, byte count
 	return rv;
 
 }

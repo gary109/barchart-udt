@@ -338,18 +338,19 @@ public class SocketUDT {
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
-	 * 
-	 * * return values, if exception is NOT thrown
-	 * 
-	 * -1 : non-blocking-only - nothing received
-	 * 
-	 * =0 : timeout expired
-	 * 
-	 * >0 : normal receive / // /**
 	 */
 	protected native int receive0(int socketID, int socketType, byte[] array)
 			throws ExceptionUDT;
 
+	/**
+	 * return values, if exception is NOT thrown
+	 * 
+	 * -1 : nothing received (non-blocking only)
+	 * 
+	 * =0 : timeout expired (blocking only)
+	 * 
+	 * >0 : normal receive, byte count
+	 */
 	public int receive(byte[] array) throws ExceptionUDT {
 		if (array == null) {
 			throw new NullPointerException("array == null");
@@ -367,7 +368,6 @@ public class SocketUDT {
 
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/select.htm
-	 * 
 	 */
 	protected static native int select0( //
 			int[] readArray, //
@@ -381,6 +381,8 @@ public class SocketUDT {
 	 * timeout in milliseconds
 	 * 
 	 * return value, when NOT exception
+	 * 
+	 * <0 : should not happen
 	 * 
 	 * =0 : timeout, no ready sockets
 	 * 
@@ -425,18 +427,19 @@ public class SocketUDT {
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
-	 * 
-	 * return values, if exception is NOT thrown
-	 * 
-	 * -1 : non-blocking-only - no buffer space
-	 * 
-	 * =0 : timeout expired
-	 * 
-	 * >0 : normal send
 	 */
 	protected native int send0(int socketID, int socketType, int timeToLive,
 			boolean isOrdered, byte[] array) throws ExceptionUDT;
 
+	/**
+	 * return values, if exception is NOT thrown
+	 * 
+	 * -1 : no buffer space (non-blocking only)
+	 * 
+	 * =0 : timeout expired (blocking only)
+	 * 
+	 * >0 : normal send, actual byte count
+	 */
 	public int send(byte[] array) throws ExceptionUDT {
 		if (array == null) {
 			throw new NullPointerException("array == null");
