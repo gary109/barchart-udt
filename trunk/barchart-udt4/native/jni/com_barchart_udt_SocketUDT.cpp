@@ -344,6 +344,7 @@ bool X_IsSockaddrEqualsInetSocketAddress(JNIEnv *env, sockaddr *sockAddr,
 
 }
 
+// not used
 void XXX_ThrowSocketExceptionMessage(JNIEnv *env, const char *message) {
 	CHK_NUL_RET(env,"env");
 	CHK_NUL_RET(message,"message");
@@ -367,7 +368,7 @@ jobject UDT_NewLingerUDT(JNIEnv *env, linger *lingerValue) {
 			(jint) value);
 }
 
-// java wrapper exception error codes; in in sync with ErrorUDT.java
+// java wrapper exception error codes; keep in sync with ErrorUDT.java
 #define UDT_WRAPPER_UNKNOWN -1 // WRAPPER_UNKNOWN(-1, "unknown error code"), //
 #define UDT_WRAPPER_UNIMPLEMENTED -2 // WRAPPER_UNIMPLEMENTED(-2, "this feature is not yet implemented"), //
 #define UDT_WRAPPER_MESSAGE -3 // WRAPPER_MESSAGE(-3, "wrapper generated error"), //
@@ -610,7 +611,7 @@ bool UDT_IsSocketOpen(JNIEnv *env, jobject self) {
 	int value = 0;
 	int valueSize = sizeof(value);
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	const int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
 
@@ -636,7 +637,9 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_initClass0(JNIEnv *env,
 
 	UDT_InitMethodRefAll(env);
 
-	if (UDT::ERROR == UDT::startup()) {
+	const int rv = UDT::startup();
+
+	if (rv == UDT::ERROR) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
 		UDT_ThrowExceptionUDT_ErrorInfo(env, 0, "initClass0:startup()",
 				&errorInfo);
@@ -672,7 +675,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance0(
 
 	//	printf("init instance; type=%d\n", type);
 
-	UDTSOCKET socketID = UDT::socket(socketAddressFamily, socketType, 0);
+	const UDTSOCKET socketID = UDT::socket(socketAddressFamily, socketType, 0);
 
 	UDT_SetSocketID(env, self, socketID);
 
@@ -692,7 +695,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance1(
 
 	//	printf("udt-initInstance1\n");
 
-	UDTSOCKET socketID = (UDTSOCKET) descriptor;
+	const UDTSOCKET socketID = (UDTSOCKET) descriptor;
 
 	if (socketID == UDT::INVALID_SOCK) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
@@ -754,7 +757,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_bind0(JNIEnv *env,
 
 	//	cout << "udt-bind0;" << EOL;
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	int rv;
 
@@ -817,7 +820,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_connect0(JNIEnv *env,
 
 	//	cout << "udt-connect0;" << EOL;
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	if (objRemoteSocketAddress == NULL) {
 		UDT_ThrowExceptionUDT_Message(env, socketID,
@@ -863,7 +866,7 @@ JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedRemoteSocket
 	sockaddr remoteSockAddr;
 	int remoteSockAddrSize = sizeof(remoteSockAddr);
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	// "peer" means remote
 	const int rv = UDT::getpeername(socketID, &remoteSockAddr,
@@ -899,7 +902,7 @@ JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedLocalSocketA
 	sockaddr localSockAddr;
 	int localSockAddrSize = sizeof(localSockAddr);
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	// "sock" means local
 	const int rv = UDT::getsockname(socketID, &localSockAddr,
@@ -945,7 +948,7 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_getOption0(
 	UDT_OptVal optionValue;
 	int optionValueSize = sizeof(optionValue);
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	const int rv = UDT::getsockopt(socketID, 0, optionName,
 			(void*) &optionValue, &optionValueSize);
@@ -988,7 +991,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_setOption0(JNIEnv *env,
 
 	//	printf("udt-setSocketOption\n");
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	UDT::SOCKOPT optionName = (UDT::SOCKOPT) enumCode;
 	UDT_OptVal optionValue;
@@ -1055,7 +1058,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_listen0(JNIEnv *env,
 
 	//	printf("udt-listen\n");
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	const int rv = UDT::listen(socketID, queueSize);
 
@@ -1222,7 +1225,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 
 	UDT::TRACEINFO monitor;
 
-	UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
 
 	const int rv = UDT::perfmon(socketID, &monitor, BOOL(makeClear));
 
