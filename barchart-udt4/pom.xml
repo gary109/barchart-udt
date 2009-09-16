@@ -20,8 +20,7 @@
 		<moduleUDT>UDT4</moduleUDT>
 		<target>${project.build.directory}</target>
 		<checkoutUDT>${target}/checkout</checkoutUDT>
-		<connectionUDT>scm:cvs:pserver:anonymous:@udt.cvs.sourceforge.net:/cvsroot/udt:${moduleUDT}
-		</connectionUDT>
+		<connectionUDT>scm:cvs:pserver:anonymous:@udt.cvs.sourceforge.net:/cvsroot/udt:${moduleUDT}</connectionUDT>
 		<nativeSrc>native</nativeSrc>
 		<nativeSrcJNI>${nativeSrc}/jni</nativeSrcJNI>
 		<nativeSrcUDT>${nativeSrc}/udt</nativeSrcUDT>
@@ -63,6 +62,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>groovy-maven-plugin</artifactId>
@@ -80,6 +80,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -187,6 +188,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
@@ -217,6 +219,7 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<!-- used to set m2e properties http://m2eclipse.sonatype.org/ -->
 				<groupId>org.apache.maven.plugins</groupId>
@@ -226,8 +229,10 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -251,6 +256,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<distributionManagement>
 		<repository>
 			<id>barchart-central.libs-releases-local</id>
@@ -261,6 +267,7 @@
 			<url>https://moe.barchart.com/artifactory/libs-snapshots-local</url>
 		</snapshotRepository>
 	</distributionManagement>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>mc-release</id>
@@ -274,18 +281,22 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
+
 	<repositories>
 		<repository>
 			<id>barchart-central.repo</id>
 			<url>https://moe.barchart.com/artifactory/repo</url>
 		</repository>
 	</repositories>
+
 	<profiles>
+
 		<profile>
 			<!-- update documents -->
 			<id>documents</id>
 			<build>
 				<plugins>
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
@@ -302,6 +313,7 @@
 							</execution>
 						</executions>
 					</plugin>
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
@@ -315,14 +327,17 @@
 							</execution>
 						</executions>
 					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
+
 		<profile>
 			<!-- update license -->
 			<id>license</id>
 			<build>
 				<plugins>
+
 					<plugin>
 						<groupId>com.google.code.maven-license-plugin</groupId>
 						<artifactId>maven-license-plugin</artifactId>
@@ -364,14 +379,17 @@
 							</execution>
 						</executions>
 					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
+
 		<profile>
 			<!-- get updated UDT sources form CVS -->
 			<id>checkout</id>
 			<build>
 				<plugins>
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-scm-plugin</artifactId>
@@ -396,6 +414,7 @@
 							</execution>
 						</executions>
 					</plugin>
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-resources-plugin</artifactId>
@@ -423,6 +442,7 @@
 							</execution>
 						</executions>
 					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
