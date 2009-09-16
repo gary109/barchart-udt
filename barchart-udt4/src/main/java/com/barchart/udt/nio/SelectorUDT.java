@@ -338,7 +338,7 @@ public class SelectorUDT extends AbstractSelector {
 			int readSize = 0;
 			int writeSize = 0;
 
-			for (SelectionKeyUDT keyUDT : registeredKeySet) {
+			for (final SelectionKeyUDT keyUDT : registeredKeySet) {
 
 				final ChannelUDT channelUDT = keyUDT.channelUDT;
 				keyUDT.readyOps = 0; // publisher for volatile
