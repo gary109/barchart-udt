@@ -13,7 +13,7 @@ extern "C" {
 #undef com_barchart_udt_SocketUDT_INFINITE_TIMEOUT
 #define com_barchart_udt_SocketUDT_INFINITE_TIMEOUT -1L
 #undef com_barchart_udt_SocketUDT_UNLIMITED_BW
-#define com_barchart_udt_SocketUDT_UNLIMITED_BW -1LL
+#define com_barchart_udt_SocketUDT_UNLIMITED_BW -1i64
 #undef com_barchart_udt_SocketUDT_DEFAULT_ACCEPT_QUEUE_SIZE
 #define com_barchart_udt_SocketUDT_DEFAULT_ACCEPT_QUEUE_SIZE 256L
 #undef com_barchart_udt_SocketUDT_DEFAULT_MAX_SELECTOR_SIZE
@@ -171,10 +171,10 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0
 /*
  * Class:     com_barchart_udt_SocketUDT
  * Method:    send1
- * Signature: (IIIZLjava/nio/ByteBuffer;)I
+ * Signature: (IIIZLjava/nio/ByteBuffer;II)I
  */
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1
-  (JNIEnv *, jobject, jint, jint, jint, jboolean, jobject);
+  (JNIEnv *, jobject, jint, jint, jint, jboolean, jobject, jint, jint);
 
 /*
  * Class:     com_barchart_udt_SocketUDT

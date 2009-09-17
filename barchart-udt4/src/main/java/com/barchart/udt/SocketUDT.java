@@ -449,8 +449,10 @@ public class SocketUDT {
 	 * 
 	 * send direct buffer
 	 */
-	protected native int send1(int socketID, int socketType, int timeToLive,
-			boolean isOrdered, ByteBuffer buffer) throws ExceptionUDT;
+	protected native int send1(int socketID, int socketType, //
+			int timeToLive, boolean isOrdered, //
+			ByteBuffer buffer, int bufferPosition, int bufferLimit)
+			throws ExceptionUDT;
 
 	/**
 	 * return values, if exception is NOT thrown
