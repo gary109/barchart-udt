@@ -437,9 +437,20 @@ public class SocketUDT {
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
+	 * 
+	 * send array
 	 */
 	protected native int send0(int socketID, int socketType, int timeToLive,
 			boolean isOrdered, byte[] array) throws ExceptionUDT;
+
+	/**
+	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
+	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
+	 * 
+	 * send direct buffer
+	 */
+	protected native int send1(int socketID, int socketType, int timeToLive,
+			boolean isOrdered, ByteBuffer buffer) throws ExceptionUDT;
 
 	/**
 	 * return values, if exception is NOT thrown
@@ -769,6 +780,10 @@ public class SocketUDT {
 	protected native void testCrashJVM0();
 
 	protected native void testDirectBufferAccess0(ByteBuffer buffer);
+
+	protected native void testFillArray0(byte[] array);
+
+	protected native void testFillBuffer0(ByteBuffer buffer);
 
 	// used for development only
 	// #############################

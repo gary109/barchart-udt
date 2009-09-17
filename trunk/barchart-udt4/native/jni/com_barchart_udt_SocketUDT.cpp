@@ -1202,6 +1202,16 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 
 }
 
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
+		jobject self, const jint socketID, const jint socketType,
+		const jint timeToLive, const jboolean isOrdered, jobject bufferObj) {
+
+	printf("TODO");
+
+	return 0;
+
+}
+
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_getErrorCode0(
 		JNIEnv *env, jobject self) {
 	//	printf("udt-getErrorCode\n");
@@ -1676,7 +1686,8 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0(
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectBufferAccess0(
 		JNIEnv *env, jobject self, jobject bufferObj) {
 
-	char* buffer = static_cast<char*> (env->GetDirectBufferAddress(bufferObj));
+	jbyte* buffer =
+			static_cast<jbyte*> (env->GetDirectBufferAddress(bufferObj));
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
 
@@ -1685,6 +1696,34 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectBufferAccess0(
 	buffer[0] = 'A';
 	buffer[1] = 'B';
 	buffer[2] = 'C';
+
+}
+
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillArray0(
+		JNIEnv *env, jobject self, jbyteArray arrayObj) {
+
+	jboolean isCopy;
+	jbyte* array = env->GetByteArrayElements(arrayObj, &isCopy);
+	jsize size = env->GetArrayLength(arrayObj);
+
+	for (int k = 0; k < size; k++) {
+		array[k] = (char) k;
+	}
+
+	env->ReleaseByteArrayElements(arrayObj, array, JNI_UPDATE);
+
+}
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillBuffer0(
+		JNIEnv *env, jobject self, jobject bufferObj) {
+
+	jbyte* buffer =
+			static_cast<jbyte*> (env->GetDirectBufferAddress(bufferObj));
+
+	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
+
+	for (int k = 0; k < capacity; k++) {
+		buffer[k] = (char) k;
+	}
 
 }
 

@@ -170,6 +170,14 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0
 
 /*
  * Class:     com_barchart_udt_SocketUDT
+ * Method:    send1
+ * Signature: (IIIZLjava/nio/ByteBuffer;)I
+ */
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1
+  (JNIEnv *, jobject, jint, jint, jint, jboolean, jobject);
+
+/*
+ * Class:     com_barchart_udt_SocketUDT
  * Method:    updateMonitor0
  * Signature: (Z)V
  */
@@ -270,6 +278,22 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0
  * Signature: (Ljava/nio/ByteBuffer;)V
  */
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectBufferAccess0
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     com_barchart_udt_SocketUDT
+ * Method:    testFillArray0
+ * Signature: ([B)V
+ */
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillArray0
+  (JNIEnv *, jobject, jbyteArray);
+
+/*
+ * Class:     com_barchart_udt_SocketUDT
+ * Method:    testFillBuffer0
+ * Signature: (Ljava/nio/ByteBuffer;)V
+ */
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillBuffer0
   (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus
