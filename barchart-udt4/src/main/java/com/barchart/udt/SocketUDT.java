@@ -353,6 +353,8 @@ public class SocketUDT {
 			throws ExceptionUDT;
 
 	/**
+	 * receive into byte[] array upto array.length bytes
+	 * 
 	 * return values, if exception is NOT thrown
 	 * 
 	 * -1 : nothing received (non-blocking only)
@@ -366,6 +368,46 @@ public class SocketUDT {
 			throw new NullPointerException("array == null");
 		}
 		return receive0(socketID, socketType, array);
+	}
+
+	/**
+	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
+	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
+	 * 
+	 * note: DirectByteBuffer only
+	 */
+	protected native int receive1(int socketID, int socketType, //
+			ByteBuffer buffer, int bufferPosition, int bufferLimit)
+			throws ExceptionUDT;
+
+	/**
+	 * receive into DirectByteBuffer; upto remaining() bytes
+	 * 
+	 * return values, if exception is NOT thrown
+	 * 
+	 * -1 : nothing received (non-blocking only)
+	 * 
+	 * =0 : timeout expired (blocking only)
+	 * 
+	 * >0 : normal receive, byte count
+	 */
+	public int receive(ByteBuffer buffer) throws ExceptionUDT {
+		checkBuffer(buffer);
+		final int position = buffer.position();
+		final int limit = buffer.limit();
+		final int remaining = buffer.remaining();
+		final int sizeReceived = receive1(socketID, socketType, //
+				buffer, position, limit);
+		if (sizeReceived <= 0) {
+			return sizeReceived;
+		}
+		if (sizeReceived <= remaining) {
+			buffer.position(position + sizeReceived);
+			return sizeReceived;
+		} else { // should not happen
+			log.error("sizeReceived > remaining");
+			return 0;
+		}
 	}
 
 	/**
@@ -434,6 +476,17 @@ public class SocketUDT {
 			int[] exceptionArray, //
 			long timeout) throws ExceptionUDT;
 
+	//
+
+	protected void checkBuffer(ByteBuffer buffer) {
+		if (buffer == null) {
+			throw new NullPointerException("buffer == null");
+		}
+		if (!buffer.isDirect()) {
+			throw new IllegalArgumentException("must use DirectByteBuffer");
+		}
+	}
+
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
@@ -442,7 +495,7 @@ public class SocketUDT {
 			boolean isOrdered, byte[] array) throws ExceptionUDT;
 
 	/**
-	 * send array
+	 * send from byte[] array upto array.length
 	 * 
 	 * return values, if exception is NOT thrown
 	 * 
@@ -472,7 +525,7 @@ public class SocketUDT {
 			throws ExceptionUDT;
 
 	/**
-	 * send DirectByteBuffer, from position() to limit()
+	 * send from DirectByteBuffer, upto remaining() bytes
 	 * 
 	 * return values, if exception is NOT thrown
 	 * 
@@ -483,15 +536,23 @@ public class SocketUDT {
 	 * >0 : normal send, actual byte count
 	 */
 	public int send(ByteBuffer buffer) throws ExceptionUDT {
-		if (buffer == null) {
-			throw new NullPointerException("buffer == null");
-		}
-		if (!buffer.isDirect()) {
-			throw new IllegalArgumentException("must use DirectByteBuffer");
-		}
-		return send1(socketID, socketType, //
+		checkBuffer(buffer);
+		final int position = buffer.position();
+		final int limit = buffer.limit();
+		final int remaining = buffer.remaining();
+		final int sizeSent = send1(socketID, socketType, //
 				messageTimeTolive, messageIsOrdered, //
-				buffer, buffer.position(), buffer.limit());
+				buffer, position, limit);
+		if (sizeSent <= 0) {
+			return sizeSent;
+		}
+		if (sizeSent <= remaining) {
+			buffer.position(position + sizeSent);
+			return sizeSent;
+		} else { // should not happen
+			log.error("sizeSent > remaining");
+			return 0;
+		}
 	}
 
 	/**

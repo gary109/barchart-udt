@@ -229,6 +229,14 @@ int X_InitSockAddr(sockaddr *sockAddr) {
 	return JNI_OK;
 }
 
+bool X_IsInRange(jlong min, jlong var, jlong max) {
+	if (min <= var && var <= max) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 // NOTE: ipv4 only
 int X_ConvertInetSocketAddressToSockaddr(JNIEnv *env,
 		jobject objInetSocketAddress, sockaddr *sockAddr) {
@@ -728,7 +736,7 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv *env,
 		int errorCode = errorInfo.getErrorCode();
 
 		if (errorCode == CUDTException::EASYNCRCV) {
-			// not an exception: non-blocking mode return
+			// not a java exception: non-blocking mode return, when not connections in the queue
 		} else {
 			// really exception
 			UDT_ThrowExceptionUDT_ErrorInfo(env, socketID,
@@ -1071,8 +1079,9 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_listen0(JNIEnv *env,
 }
 
 /*
- * this call is shared between for both receive() and receivemsg()
+ * receiveX call is shared for both receive() and receivemsg()
  */
+
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 		jobject self, const jint socketID, const jint socketType,
 		jbyteArray arrayObj) {
@@ -1084,7 +1093,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 	jbyte *data = env->GetByteArrayElements(arrayObj, &isCopy); // note: must release
 	jsize size = env->GetArrayLength(arrayObj);
 
-	int rv;
+	jint rv;
 
 	// do not use this; will increase performance
 	// UDTSOCKET socketID = UDT_GetSocketID(env, self);
@@ -1114,7 +1123,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 		int errorCode = errorInfo.getErrorCode();
 
 		if (errorCode == CUDTException::EASYNCRCV) {
-			// not an exception: non-blocking mode return when nothing is received
+			// not a java exception: non-blocking mode return when nothing is received
 			rv = JNI_ERR;
 		} else {
 			// really exception
@@ -1140,9 +1149,84 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 
 }
 
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive1(JNIEnv *env,
+		jobject self, const jint socketID, const jint socketType,
+		const jobject bufferObj, const jint bufferPosition,
+		const jint bufferLimit) {
+
+	//	printf("udt-receive1\n");
+
+	// TODO remove these checks ?
+	const jlong bufferCapacity = env->GetDirectBufferCapacity(bufferObj);
+	if (!X_IsInRange(0, bufferPosition, bufferCapacity)) {
+		UDT_ThrowExceptionUDT_Message(env, socketID,
+				"bufferPosition is out of range");
+		return JNI_ERR;
+	}
+	if (!X_IsInRange(0, bufferLimit, bufferCapacity)) {
+		UDT_ThrowExceptionUDT_Message(env, socketID,
+				"bufferLimit is out of range");
+		return JNI_ERR;
+	}
+	if (bufferPosition > bufferLimit) {
+		UDT_ThrowExceptionUDT_Message(env, socketID,
+				"bufferPosition > bufferLimit");
+		return JNI_ERR;
+	}
+
+	jbyte* bufferAddress = static_cast<jbyte*> (env->GetDirectBufferAddress(
+			bufferObj));
+
+	const jbyte* data = bufferAddress + bufferPosition;
+	const jsize size = (jsize) (bufferLimit - bufferPosition);
+
+	int rv;
+
+	switch (socketType) {
+	case SOCK_STREAM:
+		//		printf("udt-receive1; SOCK_STREAM; socketID=%d\n", socketID);
+		rv = UDT::recv(socketID, (char*) data, (int) size, 0);
+		break;
+	case SOCK_DGRAM:
+		//		printf("udt-receive1; SOCK_DGRAM; socketID=%d\n", socketID);
+		rv = UDT::recvmsg(socketID, (char*) data, (int) size);
+		break;
+	default:
+		UDT_ThrowExceptionUDT_Message(env, socketID,
+				"recv/recvmsg : unexpected socketType");
+		return JNI_ERR;
+	}
+
+	if (rv == UDT::ERROR) {
+
+		UDT::ERRORINFO errorInfo = UDT::getlasterror();
+
+		int errorCode = errorInfo.getErrorCode();
+
+		if (errorCode == CUDTException::EASYNCRCV) {
+			// not a java exception: non-blocking mode return when nothing is received
+			rv = JNI_ERR;
+		} else {
+			// really exception
+			UDT_ThrowExceptionUDT_ErrorInfo(env, socketID, "recv/recvmsg",
+					&errorInfo);
+			return JNI_ERR;
+		}
+
+	}
+
+	// return values, if exception is NOT thrown
+	// -1 : nothing received (non-blocking only)
+	// =0 : timeout expired (blocking only)
+	// >0 : normal receive
+	return rv;
+
+}
+
 /*
- * this call is shared between for both send() and sendmsg()
+ * sendX call is shared for both send() and sendmsg()
  */
+
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 		jobject self, const jint socketID, const jint socketType,
 		const jint timeToLive, const jboolean isOrdered, jbyteArray arrayObj) {
@@ -1153,7 +1237,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 	jbyte *data = env->GetByteArrayElements(arrayObj, &isCopy); // note: must release
 	jsize size = env->GetArrayLength(arrayObj);
 
-	int rv;
+	jint rv;
 
 	// do not use this; will increase performance
 	// UDTSOCKET socketID = UDT_GetSocketID(env, self);
@@ -1184,7 +1268,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 		int errorCode = errorInfo.getErrorCode();
 
 		if (errorCode == CUDTException::EASYNCSND) {
-			// not an exception: non-blocking mode return when no space in UDT buffer
+			// not a java exception: non-blocking mode return when no space in UDT buffer
 			rv = JNI_ERR;
 		} else {
 			// really exception
@@ -1202,14 +1286,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 
 }
 
-bool X_IsInRange(jlong min, jlong var, jlong max) {
-	if (min <= var && var <= max) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 		jobject self, const jint socketID, const jint socketType,
 		const jint timeToLive, const jboolean isOrdered, //
@@ -1217,10 +1293,8 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 
 	//	printf("udt-send1\n");
 
-	jbyte* bufferAddress = static_cast<jbyte*> (env->GetDirectBufferAddress(
-			bufferObj));
+	// TODO remove these checks ?
 	const jlong bufferCapacity = env->GetDirectBufferCapacity(bufferObj);
-
 	if (!X_IsInRange(0, bufferPosition, bufferCapacity)) {
 		UDT_ThrowExceptionUDT_Message(env, socketID,
 				"bufferPosition is out of range");
@@ -1237,11 +1311,13 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 		return JNI_ERR;
 	}
 
-	const jsize size = (jsize) (bufferLimit - bufferPosition);
+	jbyte* bufferAddress = static_cast<jbyte*> (env->GetDirectBufferAddress(
+			bufferObj));
 
 	const jbyte* data = bufferAddress + bufferPosition;
+	const jsize size = (jsize) (bufferLimit - bufferPosition);
 
-	int rv;
+	jint rv;
 
 	// do not use this; will increase performance
 	// UDTSOCKET socketID = UDT_GetSocketID(env, self);
@@ -1253,8 +1329,8 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 		break;
 	case SOCK_DGRAM:
 		//		printf("udt-send1; SOCK_DGRAM; socketID=%d\n", socketID);
-		rv = UDT::sendmsg(socketID, (char*) data, (int) size,
-				(int) timeToLive, BOOL(isOrdered));
+		rv = UDT::sendmsg(socketID, (char*) data, (int) size, (int) timeToLive,
+				BOOL(isOrdered));
 		break;
 	default:
 		UDT_ThrowExceptionUDT_Message(env, socketID,
@@ -1269,7 +1345,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 		int errorCode = errorInfo.getErrorCode();
 
 		if (errorCode == CUDTException::EASYNCSND) {
-			// not an exception: non-blocking mode return when no space in UDT buffer
+			// not a java exception: non-blocking mode return when no space in UDT buffer
 			rv = JNI_ERR;
 		} else {
 			// really exception
