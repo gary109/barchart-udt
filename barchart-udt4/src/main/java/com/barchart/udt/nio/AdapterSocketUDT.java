@@ -53,7 +53,6 @@ import com.barchart.udt.ExceptionUDT;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.jdk.IceSocket;
 
-
 class AdapterSocketUDT extends Socket implements IceSocket {
 
 	final ChannelSocketUDT channelUDT;

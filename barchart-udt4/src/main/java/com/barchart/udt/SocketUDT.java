@@ -58,23 +58,33 @@ public class SocketUDT {
 	 */
 	public static final int INFINITE_TTL = -1;
 
-	// blocking send/receive infinite call timeout
+	/**
+	 * blocking send/receive infinite call timeout
+	 */
 	public static final int INFINITE_TIMEOUT = -1;
 
-	// bandwidth option
+	/**
+	 * bandwidth option
+	 */
 	public static final long UNLIMITED_BW = -1L;
 
-	// number of connections queued in listening mode
+	/**
+	 * number of connections queued in listening mode
+	 */
 	public static final int DEFAULT_ACCEPT_QUEUE_SIZE = 256;
 
-	// maximum number sockets participating in a select() operation
+	/**
+	 * maximum number sockets participating in a select() operation
+	 */
 	public static final int DEFAULT_MAX_SELECTOR_SIZE = 1024;
 
-	// maximum number of threads doing connect() operation
+	/**
+	 * maximum number of threads doing connect() operation
+	 */
 	public static final int DEFAULT_CONNECTOR_POOL_SIZE = 16;
 
 	/**
-	 * minimum timeout of a select() operation, millis == 10; since UDT ::
+	 * minimum timeout of a select() operation, milliseconds == 10; since UDT ::
 	 * common.cpp :: void CTimer::waitForEvent() :: is using 10 ms resolution
 	 */
 	public static final int DEFAULT_MIN_SELECTOR_TIMEOUT = 10;
@@ -84,13 +94,13 @@ public class SocketUDT {
 		try {
 			LibraryUDT.load("./lib/bin");
 		} catch (Throwable e) {
-			log.error("failed to load native library; terminating", e);
+			log.error("failed to LOAD native library; terminating", e);
 			System.exit(1);
 		}
 		try {
 			initClass0();
 		} catch (Throwable e) {
-			log.error("failed to init native library; terminating", e);
+			log.error("failed to INIT native library; terminating", e);
 			System.exit(2);
 		}
 		log.debug("native library load & init OK");
@@ -125,13 +135,13 @@ public class SocketUDT {
 	public final MonitorUDT monitor;
 
 	/**
-	 * message send mode; read by JNI on each message send
+	 * message send mode parameters; read by JNI on each message send
 	 */
 	protected volatile int messageTimeTolive;
 	protected volatile boolean messageIsOrdered;
 
 	/**
-	 * end points; written by JNI after hasXXX returns
+	 * end points; loaded by JNI after hasXXX returns
 	 */
 	protected volatile InetSocketAddress localSocketAddress;
 	protected volatile InetSocketAddress remoteSocketAddress;
@@ -183,7 +193,7 @@ public class SocketUDT {
 	/**
 	 * return value, when NOT exception:
 	 * 
-	 * null : no incoming connections (in non-blocking mode only)
+	 * null : no incoming connections (non-blocking mode only)
 	 * 
 	 * non null : newly accepted connection (both blocking and non-blocking)
 	 * 
