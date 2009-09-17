@@ -1673,6 +1673,21 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0(
 
 }
 
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectBufferAccess0(
+		JNIEnv *env, jobject self, jobject bufferObj) {
+
+	char* buffer = static_cast<char*> (env->GetDirectBufferAddress(bufferObj));
+
+	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
+
+	printf("capacity=%ld", capacity);
+
+	buffer[0] = 'A';
+	buffer[1] = 'B';
+	buffer[2] = 'C';
+
+}
+
 // finish - used for development only
 // #########################################
 

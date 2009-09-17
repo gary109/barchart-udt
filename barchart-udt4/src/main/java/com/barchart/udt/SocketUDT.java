@@ -768,6 +768,8 @@ public class SocketUDT {
 
 	protected native void testCrashJVM0();
 
+	protected native void testDirectBufferAccess0(ByteBuffer buffer);
+
 	// used for development only
 	// #############################
 
