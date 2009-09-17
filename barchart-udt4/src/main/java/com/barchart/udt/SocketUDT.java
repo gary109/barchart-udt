@@ -437,24 +437,13 @@ public class SocketUDT {
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
-	 * 
-	 * send array
 	 */
 	protected native int send0(int socketID, int socketType, int timeToLive,
 			boolean isOrdered, byte[] array) throws ExceptionUDT;
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
-	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
+	 * send array
 	 * 
-	 * send direct buffer
-	 */
-	protected native int send1(int socketID, int socketType, //
-			int timeToLive, boolean isOrdered, //
-			ByteBuffer buffer, int bufferPosition, int bufferLimit)
-			throws ExceptionUDT;
-
-	/**
 	 * return values, if exception is NOT thrown
 	 * 
 	 * -1 : no buffer space (non-blocking only)
@@ -469,6 +458,40 @@ public class SocketUDT {
 		}
 		return send0(socketID, socketType, //
 				messageTimeTolive, messageIsOrdered, array);
+	}
+
+	/**
+	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
+	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
+	 * 
+	 * note: DirectByteBuffer only
+	 */
+	protected native int send1(int socketID, int socketType, //
+			int timeToLive, boolean isOrdered, //
+			ByteBuffer buffer, int bufferPosition, int bufferLimit)
+			throws ExceptionUDT;
+
+	/**
+	 * send DirectByteBuffer, from position() to limit()
+	 * 
+	 * return values, if exception is NOT thrown
+	 * 
+	 * -1 : no buffer space (non-blocking only)
+	 * 
+	 * =0 : timeout expired (blocking only)
+	 * 
+	 * >0 : normal send, actual byte count
+	 */
+	public int send(ByteBuffer buffer) throws ExceptionUDT {
+		if (buffer == null) {
+			throw new NullPointerException("buffer == null");
+		}
+		if (!buffer.isDirect()) {
+			throw new IllegalArgumentException("must use DirectByteBuffer");
+		}
+		return send1(socketID, socketType, //
+				messageTimeTolive, messageIsOrdered, //
+				buffer, buffer.position(), buffer.limit());
 	}
 
 	/**
