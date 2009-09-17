@@ -1237,7 +1237,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 		return JNI_ERR;
 	}
 
-	const jsize size = (jint) (bufferLimit - bufferPosition);
+	const jsize size = (jsize) (bufferLimit - bufferPosition);
 
 	const jbyte* data = bufferAddress + bufferPosition;
 
