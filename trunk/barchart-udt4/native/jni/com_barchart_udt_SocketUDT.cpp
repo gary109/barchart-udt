@@ -1842,7 +1842,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectBufferAccess0(
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
 
-	printf("capacity=%ld", capacity);
+	printf("capacity=%lld", capacity);
 
 	buffer[0] = 'A';
 	buffer[1] = 'B';
