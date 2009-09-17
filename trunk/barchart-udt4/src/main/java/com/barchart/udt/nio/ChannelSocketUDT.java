@@ -61,9 +61,9 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	private static final Logger log = LoggerFactory
 			.getLogger(ChannelSocketUDT.class);
 
-	protected final SocketUDT socketUDT;
+	final SocketUDT socketUDT;
 
-	protected ChannelSocketUDT(SelectorProvider provider, SocketUDT socketUDT) {
+	ChannelSocketUDT(SelectorProvider provider, SocketUDT socketUDT) {
 		super(provider);
 		this.socketUDT = socketUDT;
 	}
@@ -78,7 +78,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		socketUDT.configureBlocking(block);
 	}
 
-	volatile boolean isConnectionPending;
+	private volatile boolean isConnectionPending;
 
 	@Override
 	public boolean connect(SocketAddress remote) throws IOException {
@@ -211,14 +211,17 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		throw new RuntimeException("feature not available");
 	}
 
-	protected volatile Socket socketAdapter;
+	// guarded by 'this'
+	protected Socket socketAdapter;
 
 	@Override
 	public Socket socket() {
-		if (socketAdapter == null) {
-			socketAdapter = new AdapterSocketUDT(this, socketUDT);
+		synchronized (this) {
+			if (socketAdapter == null) {
+				socketAdapter = new AdapterSocketUDT(this, socketUDT);
+			}
+			return socketAdapter;
 		}
-		return socketAdapter;
 	}
 
 	/**

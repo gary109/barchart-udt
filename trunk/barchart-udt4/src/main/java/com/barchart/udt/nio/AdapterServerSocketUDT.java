@@ -57,6 +57,7 @@ class AdapterServerSocketUDT extends ServerSocket implements IceServerSocket {
 	final ChannelServerSocketUDT serverChannelUDT;
 	final SocketUDT serverSocketUDT;
 
+	// exception thanks to JDK designers
 	AdapterServerSocketUDT(ChannelServerSocketUDT channelSocketUDT,
 			SocketUDT socketUDT) throws IOException {
 		this.serverChannelUDT = channelSocketUDT;
@@ -78,7 +79,7 @@ class AdapterServerSocketUDT extends ServerSocket implements IceServerSocket {
 		bind(endpoint, backlog);
 	}
 
-	// NOTE: bind() means listen() for server socket
+	// NOTE: bind() means listen() for UDT server socket
 	/*
 	 * The listen method lets a UDT socket enter listening state. The socket
 	 * must call bind before a listen call.

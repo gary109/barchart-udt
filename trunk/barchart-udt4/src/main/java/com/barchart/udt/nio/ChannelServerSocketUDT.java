@@ -49,10 +49,9 @@ import com.barchart.udt.SocketUDT;
 
 class ChannelServerSocketUDT extends ServerSocketChannel implements ChannelUDT {
 
-	protected final SocketUDT serverSocketUDT;
+	final SocketUDT serverSocketUDT;
 
-	protected ChannelServerSocketUDT(SelectorProvider provider,
-			SocketUDT socketUDT) {
+	ChannelServerSocketUDT(SelectorProvider provider, SocketUDT socketUDT) {
 		super(provider);
 		this.serverSocketUDT = socketUDT;
 	}
@@ -74,19 +73,21 @@ class ChannelServerSocketUDT extends ServerSocketChannel implements ChannelUDT {
 		return new ChannelSocketUDT(provider, socketUDT);
 	}
 
-	protected volatile ServerSocket serverSocketAdapter;
+	private ServerSocket serverSocketAdapter;
 
 	@Override
 	public ServerSocket socket() {
-		if (serverSocketAdapter == null) {
-			try {
-				serverSocketAdapter = new AdapterServerSocketUDT(this,
-						serverSocketUDT);
-			} catch (IOException e) {
-				return null;
+		synchronized (this) {
+			if (serverSocketAdapter == null) {
+				try {
+					serverSocketAdapter = new AdapterServerSocketUDT(this,
+							serverSocketUDT);
+				} catch (IOException e) {
+					return null;
+				}
 			}
+			return serverSocketAdapter;
 		}
-		return serverSocketAdapter;
 	}
 
 	@Override
