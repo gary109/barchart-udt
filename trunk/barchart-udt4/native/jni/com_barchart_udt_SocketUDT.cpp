@@ -1184,7 +1184,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 		int errorCode = errorInfo.getErrorCode();
 
 		if (errorCode == CUDTException::EASYNCSND) {
-			// not an exception: non-blocking mode return when no space in buffer
+			// not an exception: non-blocking mode return when no space in UDT buffer
 			rv = JNI_ERR;
 		} else {
 			// really exception
@@ -1202,13 +1202,88 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 
 }
 
+bool X_IsInRange(jlong min, jlong var, jlong max) {
+	if (min <= var && var <= max) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 		jobject self, const jint socketID, const jint socketType,
-		const jint timeToLive, const jboolean isOrdered, jobject bufferObj) {
+		const jint timeToLive, const jboolean isOrdered, //
+		jobject bufferObj, const jint bufferPosition, const jint bufferLimit) {
 
-	printf("TODO");
+	//	printf("udt-send1\n");
 
-	return 0;
+	jbyte* bufferAddress = static_cast<jbyte*> (env->GetDirectBufferAddress(
+			bufferObj));
+	const jlong bufferCapacity = env->GetDirectBufferCapacity(bufferObj);
+
+	if (!X_IsInRange(0, bufferPosition, bufferCapacity)) {
+		UDT_ThrowExceptionUDT_Message(env, socketID,
+				"bufferPosition is out of range");
+		return JNI_ERR;
+	}
+	if (!X_IsInRange(0, bufferLimit, bufferCapacity)) {
+		UDT_ThrowExceptionUDT_Message(env, socketID,
+				"bufferLimit is out of range");
+		return JNI_ERR;
+	}
+	if (bufferPosition > bufferLimit) {
+		UDT_ThrowExceptionUDT_Message(env, socketID,
+				"bufferPosition > bufferLimit");
+		return JNI_ERR;
+	}
+
+	const jsize size = (jint) (bufferLimit - bufferPosition);
+
+	const jbyte* data = bufferAddress + bufferPosition;
+
+	int rv;
+
+	// do not use this; will increase performance
+	// UDTSOCKET socketID = UDT_GetSocketID(env, self);
+
+	switch (socketType) {
+	case SOCK_STREAM:
+		//		printf("udt-send1; SOCK_STREAM; socketID=%d\n", socketID);
+		rv = UDT::send(socketID, (char*) data, (int) size, 0);
+		break;
+	case SOCK_DGRAM:
+		//		printf("udt-send1; SOCK_DGRAM; socketID=%d\n", socketID);
+		rv = UDT::sendmsg(socketID, (char*) data, (int) size,
+				(int) timeToLive, BOOL(isOrdered));
+		break;
+	default:
+		UDT_ThrowExceptionUDT_Message(env, socketID,
+				"send/sendmsg : unexpected socketType");
+		return JNI_ERR;
+	}
+
+	if (rv == UDT::ERROR) {
+
+		UDT::ERRORINFO errorInfo = UDT::getlasterror();
+
+		int errorCode = errorInfo.getErrorCode();
+
+		if (errorCode == CUDTException::EASYNCSND) {
+			// not an exception: non-blocking mode return when no space in UDT buffer
+			rv = JNI_ERR;
+		} else {
+			// really exception
+			UDT_ThrowExceptionUDT_ErrorInfo(env, socketID, "send/sendmsg",
+					&errorInfo);
+		}
+
+	}
+
+	// return values, if exception is NOT thrown
+	// -1 : no buffer space (non-blocking only )
+	// =0 : timeout expired (blocking only)
+	// >0 : normal send, byte count
+	return rv;
 
 }
 
