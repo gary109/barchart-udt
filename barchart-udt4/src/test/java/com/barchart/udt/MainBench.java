@@ -39,15 +39,13 @@
  */
 package com.barchart.udt;
 
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.barchart.udt.SocketUDT;
-import com.barchart.udt.TypeUDT;
 
 public class MainBench {
 
@@ -74,6 +72,7 @@ public class MainBench {
 	}
 
 	static void testJava() throws Exception {
+
 		long nanos;
 		StopWatch timer = new StopWatch();
 
@@ -213,6 +212,28 @@ public class MainBench {
 		timer.stop();
 		nanos = timer.nanoTime() / COUNT / SIZE * 10;
 		log.info("iterate object set; nanos={}", nanos);
+
+		//
+
+		final int FILL_SIZE = 16;
+
+		byte[] fillArray = new byte[FILL_SIZE];
+		timer.start();
+		for (int k = 0; k < COUNT; k++) {
+			socket.testFillArray0(fillArray);
+		}
+		timer.stop();
+		nanos = timer.nanoTime() / COUNT;
+		log.info("fillArray; nanos={}", nanos);
+
+		ByteBuffer fillBuffer = ByteBuffer.allocateDirect(FILL_SIZE);
+		timer.start();
+		for (int k = 0; k < COUNT; k++) {
+			socket.testFillBuffer0(fillBuffer);
+		}
+		timer.stop();
+		nanos = timer.nanoTime() / COUNT;
+		log.info("fillBuffer; nanos={}", nanos);
 
 	}
 
