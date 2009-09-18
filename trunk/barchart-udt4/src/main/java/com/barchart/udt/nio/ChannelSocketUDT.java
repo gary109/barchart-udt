@@ -183,12 +183,13 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			// see contract for receive()
 
 			if (sizeReceived < 0) {
-				log.debug("nothing was received");
+				log.debug("nothing was received; socketID={}",
+						socketUDT.socketID);
 				return 0;
 			}
 
 			if (sizeReceived == 0) {
-				log.debug("receive timeout");
+				log.debug("receive timeout; socketID={}", socketUDT.socketID);
 				return 0;
 			}
 
@@ -196,7 +197,8 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				buffer.put(array, 0, sizeReceived);
 				return sizeReceived;
 			} else { // should not happen
-				log.error("unexpected sizeReceived={}", sizeReceived);
+				log.error("unexpected; sizeReceived={} socketID={}",
+						sizeReceived, socketUDT.socketID);
 				return 0;
 			}
 
@@ -246,12 +248,13 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			// see contract for send()
 
 			if (sizeSent < 0) {
-				log.debug("no buffer space for send");
+				log.debug("no buffer space for send; socketID={}",
+						socketUDT.socketID);
 				return 0;
 			}
 
 			if (sizeSent == 0) {
-				log.debug("send timeout");
+				log.debug("send timeout; socketID={}", socketUDT.socketID);
 				return 0;
 			}
 
@@ -259,7 +262,8 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				buffer.position(position + sizeSent);
 				return sizeSent;
 			} else { // should not happen
-				log.error("unexpected sizeSent={}", sizeSent);
+				log.error("unexpected; sizeSent={} socketID={}", sizeSent,
+						socketUDT.socketID);
 				return 0;
 			}
 
