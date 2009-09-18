@@ -172,13 +172,22 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	// TODO use UDT buffer size as max for array, NOT just remaining
 	@Override
 	public int read(ByteBuffer buffer) throws IOException {
-		if (buffer.hasRemaining()) {
 
-			final int remaining = buffer.remaining();
+		final int remaining = buffer.remaining();
 
-			final byte[] array = new byte[remaining];
+		if (remaining > 0) {
 
-			final int sizeReceived = socketUDT.receive(array);
+			final int sizeReceived;
+			if (buffer.isDirect()) {
+				sizeReceived = socketUDT.receive(buffer);
+			} else {
+				// TODO eliminate array copy
+				final byte[] array = new byte[remaining];
+				sizeReceived = socketUDT.receive(array);
+				if (0 < sizeReceived && sizeReceived <= remaining) {
+					buffer.put(array, 0, sizeReceived);
+				}
+			}
 
 			// see contract for receive()
 
@@ -194,7 +203,6 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			}
 
 			if (sizeReceived <= remaining) {
-				buffer.put(array, 0, sizeReceived);
 				return sizeReceived;
 			} else { // should not happen
 				log.error("unexpected: sizeReceived > remaining; socketID={}",
@@ -233,17 +241,24 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	// NOTE: in DATAGRAM mode, remaining must be under UDT_MSS size
 	@Override
 	public int write(ByteBuffer buffer) throws IOException {
-		if (buffer.hasRemaining()) {
 
-			final int position = buffer.position();
+		final int remaining = buffer.remaining();
 
-			final int remaining = buffer.remaining();
+		if (remaining > 0) {
 
-			final byte[] array = new byte[remaining];
-
-			buffer.get(array);
-
-			final int sizeSent = socketUDT.send(array);
+			final int sizeSent;
+			if (buffer.isDirect()) {
+				sizeSent = socketUDT.send(buffer);
+			} else {
+				// TODO eliminate array copy
+				int position = buffer.position();
+				byte[] array = new byte[remaining];
+				buffer.get(array);
+				sizeSent = socketUDT.send(array);
+				if (0 < sizeSent && sizeSent <= remaining) {
+					buffer.position(position + sizeSent);
+				}
+			}
 
 			// see contract for send()
 
@@ -259,7 +274,6 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			}
 
 			if (sizeSent <= remaining) {
-				buffer.position(position + sizeSent);
 				return sizeSent;
 			} else { // should not happen
 				log.error("unexpected: sizeSent > remaining; socketID={}",

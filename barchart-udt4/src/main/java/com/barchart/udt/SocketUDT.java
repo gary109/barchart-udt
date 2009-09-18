@@ -480,7 +480,7 @@ public class SocketUDT {
 
 	protected void checkBuffer(ByteBuffer buffer) {
 		if (buffer == null) {
-			throw new NullPointerException("buffer == null");
+			throw new IllegalArgumentException("buffer == null");
 		}
 		if (!buffer.isDirect()) {
 			throw new IllegalArgumentException("must use DirectByteBuffer");
