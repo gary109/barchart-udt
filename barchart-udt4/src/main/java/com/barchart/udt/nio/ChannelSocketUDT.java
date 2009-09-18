@@ -197,8 +197,8 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				buffer.put(array, 0, sizeReceived);
 				return sizeReceived;
 			} else { // should not happen
-				log.error("unexpected; sizeReceived={} socketID={}",
-						sizeReceived, socketUDT.socketID);
+				log.error("unexpected: sizeReceived > remaining; socketID={}",
+						socketUDT.socketID);
 				return 0;
 			}
 
@@ -262,7 +262,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				buffer.position(position + sizeSent);
 				return sizeSent;
 			} else { // should not happen
-				log.error("unexpected; sizeSent={} socketID={}", sizeSent,
+				log.error("unexpected: sizeSent > remaining; socketID={}",
 						socketUDT.socketID);
 				return 0;
 			}
