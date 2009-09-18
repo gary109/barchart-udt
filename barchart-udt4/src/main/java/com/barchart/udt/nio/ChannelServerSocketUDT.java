@@ -73,6 +73,7 @@ class ChannelServerSocketUDT extends ServerSocketChannel implements ChannelUDT {
 		return new ChannelSocketUDT(provider, socketUDT);
 	}
 
+	// guarded by 'this'
 	private ServerSocket serverSocketAdapter;
 
 	@Override
