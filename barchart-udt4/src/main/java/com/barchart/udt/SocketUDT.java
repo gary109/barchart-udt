@@ -476,7 +476,7 @@ public class SocketUDT {
 			int[] exceptionArray, //
 			long timeout) throws ExceptionUDT;
 
-	//
+	// #############################
 
 	protected void checkBuffer(ByteBuffer buffer) {
 		if (buffer == null) {
@@ -487,15 +487,61 @@ public class SocketUDT {
 		}
 	}
 
+	protected void checkArray(byte[] array) {
+		if (array == null) {
+			throw new IllegalArgumentException("array == null");
+		}
+	}
+
+	protected void checkArray(byte[] array, int position, int limit) {
+		if (array == null) {
+			throw new IllegalArgumentException("array == null");
+		}
+		final int size = array.length;
+		if (position < 0 || size < position) {
+			throw new IllegalArgumentException(
+					"position < 0 ||  size < position");
+		}
+		if (limit < 0 || size < limit) {
+			throw new IllegalArgumentException("limit < 0 ||  size < limit");
+		}
+	}
+
+	//
+
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
+	 * 
+	 * send complete array
 	 */
-	protected native int send0(int socketID, int socketType, int timeToLive,
-			boolean isOrdered, byte[] array) throws ExceptionUDT;
+	protected native int send0(int socketID, int socketType, //
+			int timeToLive, boolean isOrdered, //
+			byte[] array) throws ExceptionUDT;
 
 	/**
-	 * send from byte[] array upto array.length
+	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
+	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
+	 * 
+	 * send portion of array
+	 */
+	protected native int send1(int socketID, int socketType, //
+			int timeToLive, boolean isOrdered, //
+			byte[] array, int arayPosition, int arrayLimit) throws ExceptionUDT;
+
+	/**
+	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
+	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
+	 * 
+	 * send DirectByteBuffer
+	 */
+	protected native int send2(int socketID, int socketType, //
+			int timeToLive, boolean isOrdered, //
+			ByteBuffer buffer, int bufferPosition, int bufferLimit)
+			throws ExceptionUDT;
+
+	/**
+	 * send from byte[] array upto array.length bytes
 	 * 
 	 * return values, if exception is NOT thrown
 	 * 
@@ -506,23 +552,29 @@ public class SocketUDT {
 	 * >0 : normal send, actual byte count
 	 */
 	public int send(byte[] array) throws ExceptionUDT {
-		if (array == null) {
-			throw new NullPointerException("array == null");
-		}
+		checkArray(array);
 		return send0(socketID, socketType, //
-				messageTimeTolive, messageIsOrdered, array);
+				messageTimeTolive, messageIsOrdered, //
+				array);
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
-	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
+	 * send from byte[] array upto (limit-position) bytes
 	 * 
-	 * note: DirectByteBuffer only
+	 * return values, if exception is NOT thrown
+	 * 
+	 * -1 : no buffer space (non-blocking only)
+	 * 
+	 * =0 : timeout expired (blocking only)
+	 * 
+	 * >0 : normal send, actual byte count
 	 */
-	protected native int send1(int socketID, int socketType, //
-			int timeToLive, boolean isOrdered, //
-			ByteBuffer buffer, int bufferPosition, int bufferLimit)
-			throws ExceptionUDT;
+	public int send(byte[] array, int position, int limit) throws ExceptionUDT {
+		checkArray(array);
+		return send1(socketID, socketType, //
+				messageTimeTolive, messageIsOrdered, //
+				array, position, limit);
+	}
 
 	/**
 	 * send from DirectByteBuffer, upto remaining() bytes
@@ -540,7 +592,7 @@ public class SocketUDT {
 		final int position = buffer.position();
 		final int limit = buffer.limit();
 		final int remaining = buffer.remaining();
-		final int sizeSent = send1(socketID, socketType, //
+		final int sizeSent = send2(socketID, socketType, //
 				messageTimeTolive, messageIsOrdered, //
 				buffer, position, limit);
 		if (sizeSent <= 0) {

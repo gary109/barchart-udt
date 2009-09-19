@@ -179,9 +179,17 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0
 /*
  * Class:     com_barchart_udt_SocketUDT
  * Method:    send1
- * Signature: (IIIZLjava/nio/ByteBuffer;II)I
+ * Signature: (IIIZ[BII)I
  */
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1
+  (JNIEnv *, jobject, jint, jint, jint, jboolean, jbyteArray, jint, jint);
+
+/*
+ * Class:     com_barchart_udt_SocketUDT
+ * Method:    send2
+ * Signature: (IIIZLjava/nio/ByteBuffer;II)I
+ */
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send2
   (JNIEnv *, jobject, jint, jint, jint, jboolean, jobject, jint, jint);
 
 /*
