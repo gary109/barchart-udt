@@ -39,52 +39,61 @@
  */
 package com.barchart.udt;
 
-import java.net.InetSocketAddress;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HelperTestUtilities {
+public class TestSendRecv1 extends TestSendRecvAbstract<byte[]> {
 
-	private static Logger log = LoggerFactory
-			.getLogger(HelperTestUtilities.class);
+	final static Logger log = LoggerFactory.getLogger(TestSendRecv1.class);
 
-	static String getProperty(String name) {
+	final static int POSITION = 1234;
+	final static int LIMIT = POSITION + SIZE;
+	final static int CAPACITY = 3 * 1024;
 
-		String value = System.getProperty(name);
-
-		if (value == null) {
-			log.error("property '{}' not defined; terminating", name);
-			System.exit(1);
-		}
-
-		return value;
-
+	@Override
+	protected void doClientReader() throws Exception {
+		// blocks here
+		byte[] arraySent = clientQueue.take();
+		byte[] arrayReceived = new byte[CAPACITY];
+		// blocks here
+		int size = client.receive(arrayReceived, POSITION, LIMIT);
+		assertEquals(size, SIZE);
+		byte[] dataSent = new byte[SIZE];
+		byte[] dataReceived = new byte[SIZE];
+		System.arraycopy(//
+				arraySent, POSITION, dataSent, 0, SIZE);
+		System.arraycopy(//
+				arrayReceived, POSITION, dataReceived, 0, SIZE);
+		assertTrue(Arrays.equals(dataSent, dataReceived));
 	}
 
-	static final AtomicInteger portCounter = new AtomicInteger(12345);
-
-	static InetSocketAddress getLocalSocketAddress() {
-
-		InetSocketAddress address = new InetSocketAddress("localhost",
-				portCounter.getAndIncrement());
-
-		return address;
-
+	@Override
+	protected void doClientWriter() throws Exception {
+		byte[] array = new byte[CAPACITY];
+		generator.nextBytes(array);
+		// blocks here
+		client.send(array, POSITION, LIMIT);
+		clientQueue.put(array);
 	}
 
-	static int[] randomIntArray(int length, int range) {
-		int[] array = new int[length];
-		Random generator = new Random();
-		// for each item in the list
-		for (int i = 0; i < array.length; i++) {
-			// create a new random number and populate the
-			// current location in the list with it
-			array[i] = generator.nextInt(range);
-		}
-		return array;
+	@Override
+	protected void doServerReader() throws Exception {
+		byte[] array = new byte[CAPACITY];
+		// blocks here
+		connector.receive(array, POSITION, LIMIT);
+		serverQueue.put(array);
+	}
+
+	@Override
+	protected void doServerWriter() throws Exception {
+		// blocks here
+		byte[] array = serverQueue.take();
+		// blocks here
+		connector.send(array, POSITION, LIMIT);
 	}
 
 }
