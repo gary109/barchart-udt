@@ -86,6 +86,7 @@ public class TestSendRecv2 extends TestSendRecvAbstract<ByteBuffer> {
 	protected void doClientWriter() throws Exception {
 
 		byte[] array = new byte[SIZE];
+
 		generator.nextBytes(array);
 
 		ByteBuffer buffer = ByteBuffer.allocateDirect(CAPACITY);
@@ -98,8 +99,8 @@ public class TestSendRecv2 extends TestSendRecvAbstract<ByteBuffer> {
 
 		// blocks here
 		int size = client.send(buffer);
-
 		assertEquals(size, SIZE);
+
 		assertEquals(buffer.position(), buffer.limit());
 		assertEquals(LIMIT, buffer.limit());
 
@@ -111,14 +112,13 @@ public class TestSendRecv2 extends TestSendRecvAbstract<ByteBuffer> {
 	protected void doServerReader() throws Exception {
 
 		ByteBuffer buffer = ByteBuffer.allocateDirect(CAPACITY);
-
 		buffer.position(POSITION);
 		buffer.limit(LIMIT);
 
 		// blocks here
 		int size = connector.receive(buffer);
-
 		assertEquals(size, SIZE);
+
 		assertEquals(buffer.position(), buffer.limit());
 		assertEquals(LIMIT, buffer.limit());
 
@@ -131,14 +131,13 @@ public class TestSendRecv2 extends TestSendRecvAbstract<ByteBuffer> {
 
 		// blocks here
 		ByteBuffer buffer = serverQueue.take();
-
 		buffer.position(POSITION);
 		buffer.limit(LIMIT);
 
 		// blocks here
 		int size = connector.send(buffer);
-
 		assertEquals(size, SIZE);
+
 		assertEquals(buffer.position(), buffer.limit());
 		assertEquals(LIMIT, buffer.limit());
 

@@ -52,38 +52,58 @@ public class TestSendRecv0 extends TestSendRecvAbstract<byte[]> {
 
 	@Override
 	protected void doClientReader() throws Exception {
+
 		// blocks here
 		byte[] arraySent = clientQueue.take();
+
 		byte[] arrayReceived = new byte[SIZE];
+
 		// blocks here
 		int size = client.receive(arrayReceived);
 		assertEquals(size, SIZE);
+
 		assertTrue(Arrays.equals(arraySent, arrayReceived));
+
 	}
 
 	@Override
 	protected void doClientWriter() throws Exception {
+
 		byte[] array = new byte[SIZE];
+
 		generator.nextBytes(array);
+
 		// blocks here
-		client.send(array);
+		int size = client.send(array);
+		assertEquals(size, SIZE);
+
 		clientQueue.put(array);
+
 	}
 
 	@Override
 	protected void doServerReader() throws Exception {
+
 		byte[] array = new byte[SIZE];
+
 		// blocks here
-		connector.receive(array);
+		int size = connector.receive(array);
+		assertEquals(size, SIZE);
+
 		serverQueue.put(array);
+
 	}
 
 	@Override
 	protected void doServerWriter() throws Exception {
+
 		// blocks here
 		byte[] array = serverQueue.take();
+
 		// blocks here
-		connector.send(array);
+		int size = connector.send(array);
+		assertEquals(size, SIZE);
+
 	}
 
 }
