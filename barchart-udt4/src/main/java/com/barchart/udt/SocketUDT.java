@@ -135,13 +135,13 @@ public class SocketUDT {
 	public final MonitorUDT monitor;
 
 	/**
-	 * message send mode parameters; read by JNI on each message send
+	 * message send mode parameters; used by JNI on each message send
 	 */
 	protected volatile int messageTimeTolive;
 	protected volatile boolean messageIsOrdered;
 
 	/**
-	 * end points; loaded by JNI after hasXXX returns
+	 * end points; loaded by JNI after hasLoadedXXX() returns
 	 */
 	protected volatile InetSocketAddress localSocketAddress;
 	protected volatile InetSocketAddress remoteSocketAddress;
@@ -176,7 +176,7 @@ public class SocketUDT {
 	protected static native void stopClass0() throws ExceptionUDT;
 
 	/**
-	 * used by api users
+	 * used by default constructor
 	 */
 	protected native int initInstance0(int typeCode) throws ExceptionUDT;
 
@@ -211,13 +211,6 @@ public class SocketUDT {
 			throw new IllegalArgumentException("socketAddress is unresolved : "
 					+ socketAddress + " : check your DNS settings");
 		}
-		//
-		// InetAddress inetAddress = socketAddress.getAddress();
-		// if (inetAddress.isAnyLocalAddress()) {
-		// log.warn("trying to use an ANY(0.0.0.0) address; "
-		// + "this may interfere with UDT connections; "
-		// + "please use concrete address instead");
-		// }
 	}
 
 	/**
@@ -349,7 +342,7 @@ public class SocketUDT {
 	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
 	 * 
-	 * receive complete array
+	 * receive into a complete array
 	 */
 	protected native int receive0(int socketID, int socketType, //
 			byte[] array) throws ExceptionUDT;
@@ -358,7 +351,7 @@ public class SocketUDT {
 	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
 	 * 
-	 * receive portion of array
+	 * receive into a portion of an array
 	 */
 	protected native int receive1(int socketID, int socketType, //
 			byte[] array, int position, int limit) throws ExceptionUDT;
@@ -367,11 +360,10 @@ public class SocketUDT {
 	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
 	 * 
-	 * note: DirectByteBuffer only
+	 * receive into a DirectByteBuffer
 	 */
 	protected native int receive2(int socketID, int socketType, //
-			ByteBuffer buffer, int bufferPosition, int bufferLimit)
-			throws ExceptionUDT;
+			ByteBuffer buffer, int position, int limit) throws ExceptionUDT;
 
 	/**
 	 * receive into byte[] array upto array.length bytes
@@ -519,27 +511,13 @@ public class SocketUDT {
 		}
 	}
 
-	protected void checkArray(byte[] array, int position, int limit) {
-		if (array == null) {
-			throw new IllegalArgumentException("array == null");
-		}
-		final int size = array.length;
-		if (position < 0 || size < position) {
-			throw new IllegalArgumentException(
-					"position < 0 ||  size < position");
-		}
-		if (limit < 0 || size < limit) {
-			throw new IllegalArgumentException("limit < 0 ||  size < limit");
-		}
-	}
-
 	//
 
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
 	 * 
-	 * send complete array
+	 * send from a complete array
 	 */
 	protected native int send0(int socketID, int socketType, //
 			int timeToLive, boolean isOrdered, //
@@ -549,7 +527,7 @@ public class SocketUDT {
 	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
 	 * 
-	 * send portion of array
+	 * send from a portion of an array
 	 */
 	protected native int send1(int socketID, int socketType, //
 			int timeToLive, boolean isOrdered, //
@@ -559,7 +537,7 @@ public class SocketUDT {
 	 * http://www.cs.uic.edu/~ygu1/doc/send.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm
 	 * 
-	 * send DirectByteBuffer
+	 * send from DirectByteBuffer
 	 */
 	protected native int send2(int socketID, int socketType, //
 			int timeToLive, boolean isOrdered, //
@@ -637,6 +615,7 @@ public class SocketUDT {
 	 * default timeToLive value used by sendmsg mode
 	 */
 	public void setMessageTimeTolLive(int timeToLive) {
+		// publisher to volatile
 		messageTimeTolive = timeToLive;
 	}
 
@@ -644,6 +623,7 @@ public class SocketUDT {
 	 * default isOrdered value used by sendmsg mode
 	 */
 	public void setMessageIsOdered(boolean isOrdered) {
+		// publisher to volatile
 		messageIsOrdered = isOrdered;
 	}
 
@@ -660,6 +640,9 @@ public class SocketUDT {
 	 */
 	protected native void updateMonitor0(boolean makeClear) throws ExceptionUDT;
 
+	/**
+	 * http://www.cs.uic.edu/~ygu1/doc/perfmon.htm
+	 */
 	public void updateMonitor(boolean makeClear) throws ExceptionUDT {
 		updateMonitor0(makeClear);
 	}
@@ -704,10 +687,10 @@ public class SocketUDT {
 
 	public void setDefaultMessageSendMode() {
 		setMessageIsOdered(true);
-		setMessageTimeTolLive(SocketUDT.INFINITE_TTL);
+		setMessageTimeTolLive(INFINITE_TTL);
 	}
 
-	// primary socket
+	// primary socket; default constructor
 	public SocketUDT(TypeUDT type) throws ExceptionUDT {
 		synchronized (SocketUDT.class) {
 			this.type = type;
@@ -799,7 +782,7 @@ public class SocketUDT {
 			log.error("sendTimeout != receiveTimeout");
 			millisTimeout = Math.max(sendTimeout, receiveTimeout);
 		} else {
-			// map form UDT value convention to java value convention
+			// map from UDT value convention to java value convention
 			if (sendTimeout < 0) {
 				// UDT infinite
 				millisTimeout = 0;
@@ -826,7 +809,7 @@ public class SocketUDT {
 		setOption(OptionUDT.Is_Address_Reuse_Enabled, on);
 	}
 
-	static final LingerUDT LINGER_ZERO = new LingerUDT(0);
+	protected static final LingerUDT LINGER_ZERO = new LingerUDT(0);
 
 	public void setSoLinger(boolean on, int linger) throws ExceptionUDT {
 		if (on) {
@@ -867,6 +850,7 @@ public class SocketUDT {
 				return remote.getAddress();
 			}
 		} catch (ExceptionUDT e) {
+			log.debug("unexpected", e);
 			return null;
 		}
 	}
@@ -880,6 +864,7 @@ public class SocketUDT {
 				return remote.getPort();
 			}
 		} catch (ExceptionUDT e) {
+			log.debug("unexpected", e);
 			return 0;
 		}
 	}
@@ -893,6 +878,7 @@ public class SocketUDT {
 				return local.getAddress();
 			}
 		} catch (ExceptionUDT e) {
+			log.debug("unexpected", e);
 			return null;
 		}
 	}
@@ -906,6 +892,7 @@ public class SocketUDT {
 				return local.getPort();
 			}
 		} catch (ExceptionUDT e) {
+			log.debug("unexpected", e);
 			return 0;
 		}
 	}
@@ -953,19 +940,3 @@ public class SocketUDT {
 	// #############################
 
 }
-
-// TODO memory mapped buffers
-// public int sendMessage(ByteBuffer buffer, int timeToLive, boolean
-// isOrdered)
-// throws ExceptionUDT {
-// int position = buffer.position();
-// int limit = buffer.limit();
-// assert (position <= limit);
-// int remaining = (position <= limit ? limit - position : 0);
-// long offset = ((DirectBuffer) buffer).address() + position;
-// int written = sendMessage1(offset, remaining, timeToLive, isOrdered);
-// if (written > 0) {
-// buffer.position(position + written);
-// }
-// return written;
-// }
