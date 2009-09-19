@@ -1180,7 +1180,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive1(JNIEnv *env,
 	}
 
 	const jsize size = limit - position;
-
 	jbyte* data = (jbyte*) malloc(sizeof(jbyte) * size);
 	if (data == NULL) {
 		UDT_ThrowExceptionUDT_Message(env, socketID,
@@ -1408,9 +1407,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send2(JNIEnv *env,
 
 	jint rv;
 
-	// do not use this; will increase performance
-	// UDTSOCKET socketID = UDT_GetSocketID(env, self);
-
 	switch (socketType) {
 	case SOCK_STREAM:
 		//		printf("udt-send1; SOCK_STREAM; socketID=%d\n", socketID);
@@ -1525,16 +1521,16 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 
 }
 
-// #define UDT_NONE 0 // end of list inside array marker
+// #########################################################################
 
-void UDT_CopyArrayToSet(jint *array, UDSET *udSet, jint size) {
+void UDT_CopyArrayToSet(jint* array, UDSET* udSet, jint size) {
 	for (jint index = 0; index < size; index++) {
 		UDTSOCKET socketID = array[index];
 		UD_SET(socketID, udSet);
 	}
 }
 
-void UDT_CopySetToArray(UDSET *udSet, jint *array, jint size) {
+void UDT_CopySetToArray(UDSET* udSet, jint* array, jint size) {
 	UDSET::iterator iterator = udSet->begin();
 	for (jint index = 0; index < size; index++) {
 		UDTSOCKET socketID = *iterator;
@@ -1550,6 +1546,12 @@ void UDT_CopySetToArray(UDSET *udSet, jint *array, jint size) {
 #define UDT_SIZE_COUNT		com_barchart_udt_SocketUDT_UDT_SIZE_COUNT
 
 // note: relies on input parameters consistency checking in java
+//
+// return value, when NOT exception
+// <0 : should not happen
+// =0 : timeout, no ready sockets
+// >0 : total number or reads, writes, exceptions
+//
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 		jclass clsSocketUDT, //
 		const jintArray objReadArray, //
@@ -1562,8 +1564,8 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 
 	// convert timeout
 
-	timeval *timeValue;
 	timeval finiteValue;
+	timeval *timeValue;
 
 	if (millisTimeout < 0) { // infinite wait
 		timeValue = NULL;
@@ -1586,8 +1588,9 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 		return JNI_ERR;
 	}
 	env->GetIntArrayRegion(objSizeArray, 0, UDT_SIZE_COUNT, sizeArray);
-	const jint readSize = sizeArray[UDT_READ_INDEX];
-	const jint writeSize = sizeArray[UDT_WRITE_INDEX];
+
+	const jsize readSize = sizeArray[UDT_READ_INDEX];
+	const jsize writeSize = sizeArray[UDT_WRITE_INDEX];
 
 	const bool isInterestedInRead = readSize > 0;
 	const bool isInterestedInWrite = writeSize > 0;
@@ -1649,7 +1652,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 
 	// return read interest
 	if (isInterestedInRead) {
-		const jint readSizeReturn = readSet.size();
+		const jsize readSizeReturn = readSet.size();
 		//		cout << "udt-select0; readSizeReturn=" << readSizeReturn << EOL;
 		sizeArray[UDT_READ_INDEX] = readSizeReturn;
 		if (readSizeReturn > 0) {
@@ -1661,7 +1664,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 
 	// return write interest
 	if (isInterestedInWrite) {
-		const jint writeSizeReturn = writeSet.size();
+		const jsize writeSizeReturn = writeSet.size();
 		//		cout << "udt-select0; writeSizeReturtn=" << writeSizeReturn << EOL;
 		sizeArray[UDT_WRITE_INDEX] = writeSizeReturn;
 		if (writeSizeReturn > 0) {
@@ -1673,7 +1676,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 	}
 
 	// exceptions report
-	const jint exceptSizeReturn = exceptSet.size();
+	const jsize exceptSizeReturn = exceptSet.size();
 	sizeArray[UDT_EXCEPT_INDEX] = exceptSizeReturn;
 	if (exceptSizeReturn > 0) {
 		//		cout << "udt-select0; exceptSizeReturn=" << exceptSizeReturn << EOL;
@@ -1693,10 +1696,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 	env->SetIntArrayRegion(objSizeArray, 0, UDT_SIZE_COUNT, sizeArray);
 	free(sizeArray);
 
-	// return value, when NOT exception
-	// <0 : should not happen
-	// =0 : timeout, no ready sockets
-	// >0 : total number or reads, writes, exceptions
 	return rv;
 
 }
