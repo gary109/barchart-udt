@@ -56,44 +56,65 @@ public class TestSendRecv1 extends TestSendRecvAbstract<byte[]> {
 
 	@Override
 	protected void doClientReader() throws Exception {
+
 		// blocks here
 		byte[] arraySent = clientQueue.take();
+
 		byte[] arrayReceived = new byte[CAPACITY];
+
 		// blocks here
 		int size = client.receive(arrayReceived, POSITION, LIMIT);
 		assertEquals(size, SIZE);
+
 		byte[] dataSent = new byte[SIZE];
 		byte[] dataReceived = new byte[SIZE];
+
 		System.arraycopy(//
 				arraySent, POSITION, dataSent, 0, SIZE);
 		System.arraycopy(//
 				arrayReceived, POSITION, dataReceived, 0, SIZE);
+
 		assertTrue(Arrays.equals(dataSent, dataReceived));
 	}
 
 	@Override
 	protected void doClientWriter() throws Exception {
+
 		byte[] array = new byte[CAPACITY];
+
 		generator.nextBytes(array);
+
 		// blocks here
-		client.send(array, POSITION, LIMIT);
+		int size = client.send(array, POSITION, LIMIT);
+		assertEquals(size, SIZE);
+
 		clientQueue.put(array);
+
 	}
 
 	@Override
 	protected void doServerReader() throws Exception {
+
 		byte[] array = new byte[CAPACITY];
+
 		// blocks here
-		connector.receive(array, POSITION, LIMIT);
+		int size = connector.receive(array, POSITION, LIMIT);
+		assertEquals(size, SIZE);
+
 		serverQueue.put(array);
+
 	}
 
 	@Override
 	protected void doServerWriter() throws Exception {
+
 		// blocks here
 		byte[] array = serverQueue.take();
+
 		// blocks here
-		connector.send(array, POSITION, LIMIT);
+		int size = connector.send(array, POSITION, LIMIT);
+		assertEquals(size, SIZE);
+
 	}
 
 }
