@@ -1131,7 +1131,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 
 	//	printf("udt-receive0\n");
 
-	jint mode = JNI_UPDATE; // make copy back, by default
 	jboolean isCopy; // whether JVM returns a reference or a copy
 	jbyte* data = env->GetByteArrayElements(arrayObj, &isCopy); // note: must release
 	const jsize size = env->GetArrayLength(arrayObj);
