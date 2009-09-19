@@ -348,8 +348,29 @@ public class SocketUDT {
 	/**
 	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
 	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
+	 * 
+	 * receive complete array
 	 */
-	protected native int receive0(int socketID, int socketType, byte[] array)
+	protected native int receive0(int socketID, int socketType, //
+			byte[] array) throws ExceptionUDT;
+
+	/**
+	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
+	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
+	 * 
+	 * receive portion of array
+	 */
+	protected native int receive1(int socketID, int socketType, //
+			byte[] array, int position, int limit) throws ExceptionUDT;
+
+	/**
+	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
+	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
+	 * 
+	 * note: DirectByteBuffer only
+	 */
+	protected native int receive2(int socketID, int socketType, //
+			ByteBuffer buffer, int bufferPosition, int bufferLimit)
 			throws ExceptionUDT;
 
 	/**
@@ -364,21 +385,26 @@ public class SocketUDT {
 	 * >0 : normal receive, byte count
 	 */
 	public int receive(byte[] array) throws ExceptionUDT {
-		if (array == null) {
-			throw new NullPointerException("array == null");
-		}
+		checkArray(array);
 		return receive0(socketID, socketType, array);
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
-	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
+	 * receive into byte[] array upto (limit-position) bytes
 	 * 
-	 * note: DirectByteBuffer only
+	 * return values, if exception is NOT thrown
+	 * 
+	 * -1 : nothing received (non-blocking only)
+	 * 
+	 * =0 : timeout expired (blocking only)
+	 * 
+	 * >0 : normal receive, byte count
 	 */
-	protected native int receive1(int socketID, int socketType, //
-			ByteBuffer buffer, int bufferPosition, int bufferLimit)
-			throws ExceptionUDT;
+	public int receive(byte[] array, int position, int limit)
+			throws ExceptionUDT {
+		checkArray(array);
+		return receive1(socketID, socketType, array, position, limit);
+	}
 
 	/**
 	 * receive into DirectByteBuffer; upto remaining() bytes
@@ -396,7 +422,7 @@ public class SocketUDT {
 		final int position = buffer.position();
 		final int limit = buffer.limit();
 		final int remaining = buffer.remaining();
-		final int sizeReceived = receive1(socketID, socketType, //
+		final int sizeReceived = receive2(socketID, socketType, //
 				buffer, position, limit);
 		if (sizeReceived <= 0) {
 			return sizeReceived;
