@@ -39,52 +39,51 @@
  */
 package com.barchart.udt;
 
-import java.net.InetSocketAddress;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HelperTestUtilities {
+public class TestSendRecv0 extends TestSendRecvAbstract<byte[]> {
 
-	private static Logger log = LoggerFactory
-			.getLogger(HelperTestUtilities.class);
+	final static Logger log = LoggerFactory.getLogger(TestSendRecv0.class);
 
-	static String getProperty(String name) {
-
-		String value = System.getProperty(name);
-
-		if (value == null) {
-			log.error("property '{}' not defined; terminating", name);
-			System.exit(1);
-		}
-
-		return value;
-
+	@Override
+	protected void doClientReader() throws Exception {
+		// blocks here
+		byte[] arraySent = clientQueue.take();
+		byte[] arrayReceived = new byte[SIZE];
+		// blocks here
+		int size = client.receive(arrayReceived);
+		assertEquals(size, SIZE);
+		assertTrue(Arrays.equals(arraySent, arrayReceived));
 	}
 
-	static final AtomicInteger portCounter = new AtomicInteger(12345);
-
-	static InetSocketAddress getLocalSocketAddress() {
-
-		InetSocketAddress address = new InetSocketAddress("localhost",
-				portCounter.getAndIncrement());
-
-		return address;
-
+	@Override
+	protected void doClientWriter() throws Exception {
+		byte[] array = new byte[SIZE];
+		generator.nextBytes(array);
+		// blocks here
+		client.send(array);
+		clientQueue.put(array);
 	}
 
-	static int[] randomIntArray(int length, int range) {
-		int[] array = new int[length];
-		Random generator = new Random();
-		// for each item in the list
-		for (int i = 0; i < array.length; i++) {
-			// create a new random number and populate the
-			// current location in the list with it
-			array[i] = generator.nextInt(range);
-		}
-		return array;
+	@Override
+	protected void doServerReader() throws Exception {
+		byte[] array = new byte[SIZE];
+		// blocks here
+		connector.receive(array);
+		serverQueue.put(array);
+	}
+
+	@Override
+	protected void doServerWriter() throws Exception {
+		// blocks here
+		byte[] array = serverQueue.take();
+		// blocks here
+		connector.send(array);
 	}
 
 }
