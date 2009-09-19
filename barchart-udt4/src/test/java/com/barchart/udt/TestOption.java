@@ -39,93 +39,71 @@
  */
 package com.barchart.udt;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
+import static org.junit.Assert.*;
 
+import java.net.SocketException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MainFinalize {
+public class TestOption {
 
-	private static Logger log = LoggerFactory.getLogger(MainFinalize.class);
+	Logger log = LoggerFactory.getLogger(TestOption.class);
 
-	static final String PATH = "java.library.path";
+	@Before
+	public void setUp() throws Exception {
+	}
 
-	static BlockingQueue<SocketUDT> queue = new LinkedBlockingQueue<SocketUDT>();
+	@After
+	public void tearDown() throws Exception {
+	}
 
-	static ExecutorService service = Executors.newSingleThreadExecutor();
-
-	static Runnable task = new Runnable() {
-
-		@Override
-		public void run() {
-			while (true) {
-				try {
-					SocketUDT socket = queue.take();
-					// socket.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
-
-	};
-
-	public static void main(String[] args) {
-
-		Logger root = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-
-		log.info("started");
-
-		service.execute(task);
+	@Test
+	public void testOptionBasic() {
 
 		try {
 
-			TypeUDT type = TypeUDT.STREAM;
+			SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
 
-			long count = 0;
+			OptionUDT option;
 
-			while (true) {
+			option = OptionUDT.UDP_RCVBUF;
+			int intValue = 123456789;
+			socket.setOption(option, intValue);
+			assertEquals(intValue, socket.getOption(option));
 
-				SocketUDT socket = new SocketUDT(type);
+			log.info("int pass.");
 
-				queue.put(socket);
+			option = OptionUDT.UDT_SNDSYN;
+			boolean booleanValue = true;
+			socket.setOption(option, booleanValue);
+			assertEquals(booleanValue, socket.getOption(option));
 
-				// socket.close();
-				// socket = null;
+			log.info("boolean pass");
 
-				if (count % 100000 == 0) {
+			option = OptionUDT.UDT_MAXBW;
+			long longValue = 1234567890123456789L;
+			socket.setOption(option, longValue);
+			assertEquals(longValue, socket.getOption(option));
 
-					Runtime runtime = Runtime.getRuntime();
+			log.info("long pass");
 
-					runtime.gc();
+			option = OptionUDT.UDT_LINGER;
+			LingerUDT linger1 = new LingerUDT(1);
+			socket.setOption(option, linger1);
+			assertEquals(linger1, socket.getOption(option));
+			LingerUDT linger2 = new LingerUDT(-1);
+			socket.setOption(option, linger2);
+			assertEquals(new LingerUDT(0), socket.getOption(option));
 
-					Thread.sleep(100);
+			log.info("linger pass");
 
-					long totalMemory = runtime.totalMemory();
-					long freeMemory = runtime.freeMemory();
-					double ratio = (double) freeMemory / (double) totalMemory;
-
-					Object[] values = new Object[] { totalMemory, freeMemory,
-							count, ratio };
-
-					log
-							.info(
-									"mark; totalMemory={} freeMemory={} count={} free/total={}",
-									values);
-
-				}
-
-				count++;
-
-			}
-
-		} catch (Throwable e) {
-			log.error("unexpected", e);
+		} catch (SocketException e) {
+			fail("SocketException; " + e.getMessage());
 		}
-
 	}
 
 }
