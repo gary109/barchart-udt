@@ -181,11 +181,13 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			if (buffer.isDirect()) {
 				sizeReceived = socketUDT.receive(buffer);
 			} else {
-				// TODO eliminate array copy
-				final byte[] array = new byte[remaining];
-				sizeReceived = socketUDT.receive(array);
+				assert buffer.hasArray();
+				byte[] array = buffer.array();
+				int position = buffer.position();
+				int limit = buffer.limit();
+				sizeReceived = socketUDT.receive(array, position, limit);
 				if (0 < sizeReceived && sizeReceived <= remaining) {
-					buffer.put(array, 0, sizeReceived);
+					buffer.position(position + sizeReceived);
 				}
 			}
 
@@ -250,11 +252,11 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			if (buffer.isDirect()) {
 				sizeSent = socketUDT.send(buffer);
 			} else {
-				// TODO eliminate array copy
+				assert buffer.hasArray();
+				byte[] array = buffer.array();
 				int position = buffer.position();
-				byte[] array = new byte[remaining];
-				buffer.get(array);
-				sizeSent = socketUDT.send(array);
+				int limit = buffer.limit();
+				sizeSent = socketUDT.send(array, position, limit);
 				if (0 < sizeSent && sizeSent <= remaining) {
 					buffer.position(position + sizeSent);
 				}
