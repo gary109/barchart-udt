@@ -70,36 +70,36 @@ public class TestOption {
 
 			OptionUDT option;
 
-			option = OptionUDT.UDP_RCVBUF;
-			int intValue = 123456789;
-			socket.setOption(option, intValue);
-			assertEquals(intValue, socket.getOption(option));
-
-			log.info("int pass.");
-
 			option = OptionUDT.UDT_SNDSYN;
 			boolean booleanValue = true;
 			socket.setOption(option, booleanValue);
 			assertEquals(booleanValue, socket.getOption(option));
 
-			log.info("boolean pass");
+			log.info("pass: boolean");
+
+			option = OptionUDT.UDP_RCVBUF;
+			int intValue = 123456789;
+			socket.setOption(option, intValue);
+			assertEquals(intValue, socket.getOption(option));
+
+			log.info("pass: int");
 
 			option = OptionUDT.UDT_MAXBW;
 			long longValue = 1234567890123456789L;
 			socket.setOption(option, longValue);
 			assertEquals(longValue, socket.getOption(option));
 
-			log.info("long pass");
+			log.info("pass: long");
 
 			option = OptionUDT.UDT_LINGER;
-			LingerUDT linger1 = new LingerUDT(1);
+			LingerUDT linger1 = new LingerUDT(12345678);
 			socket.setOption(option, linger1);
 			assertEquals(linger1, socket.getOption(option));
 			LingerUDT linger2 = new LingerUDT(-1);
 			socket.setOption(option, linger2);
 			assertEquals(new LingerUDT(0), socket.getOption(option));
 
-			log.info("linger pass");
+			log.info("pass: linger");
 
 		} catch (SocketException e) {
 			fail("SocketException; " + e.getMessage());
