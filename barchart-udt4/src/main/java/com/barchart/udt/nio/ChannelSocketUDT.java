@@ -73,9 +73,12 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		socketUDT.close();
 	}
 
+	private volatile boolean isBlockingMode;
+
 	@Override
 	protected void implConfigureBlocking(boolean block) throws IOException {
 		socketUDT.configureBlocking(block);
+		isBlockingMode = block;
 	}
 
 	private volatile boolean isConnectionPending;
@@ -111,19 +114,25 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			} else {
 				isConnectionPending = true;
 			}
-			socketUDT.connect(remoteSocket);
+			try {
+				begin();
+				socketUDT.connect(remoteSocket);
+			} finally {
+				end(true);
+			}
 			isConnectionPending = false;
 			return socketUDT.isConnected();
 		} else { // non Blocking
-			if (channelKey == null) {
+			final SelectionKeyUDT key = channelKey;
+			if (key == null) {
 				// this channel is independent of any selector
-				log.error("must register non blocking UDT channel "
-						+ "with a selector before trying to connect()");
+				log.error("UDT channel is in non blocking mode;"
+						+ "must register with a selector "
+						+ "before trying to connect()");
 				throw new IllegalBlockingModeException();
 			} else {
 				// this channel is registered with a selector
-				channelKey.selectorUDT.submitConnectRequest(channelKey,
-						remoteSocket);
+				key.selectorUDT.submitConnectRequest(key, remoteSocket);
 				/*
 				 * connection operation must later be completed by invoking the
 				 * finishConnect() method.
@@ -173,40 +182,49 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	@Override
 	public int read(ByteBuffer buffer) throws IOException {
 
+		if (buffer == null) {
+			throw new NullPointerException("buffer == null");
+		}
+
 		final int remaining = buffer.remaining();
 
 		if (remaining > 0) {
 
-			final int sizeReceived;
+			final SocketUDT socket = socketUDT;
+			final boolean isBlocking = isBlockingMode;
 
+			final int sizeReceived;
 			try {
-				begin();
+				if (isBlocking) {
+					begin();
+				}
 				if (buffer.isDirect()) {
-					sizeReceived = socketUDT.receive(buffer);
+					sizeReceived = socket.receive(buffer);
 				} else {
 					assert buffer.hasArray();
 					byte[] array = buffer.array();
 					int position = buffer.position();
 					int limit = buffer.limit();
-					sizeReceived = socketUDT.receive(array, position, limit);
+					sizeReceived = socket.receive(array, position, limit);
 					if (0 < sizeReceived && sizeReceived <= remaining) {
 						buffer.position(position + sizeReceived);
 					}
 				}
 			} finally {
-				end(true);
+				if (isBlocking) {
+					end(true);
+				}
 			}
 
 			// see contract for receive()
 
 			if (sizeReceived < 0) {
-				log.debug("nothing was received; socketID={}",
-						socketUDT.socketID);
+				log.debug("nothing was received; socketID={}", socket.socketID);
 				return 0;
 			}
 
 			if (sizeReceived == 0) {
-				log.debug("receive timeout; socketID={}", socketUDT.socketID);
+				log.debug("receive timeout; socketID={}", socket.socketID);
 				return 0;
 			}
 
@@ -214,7 +232,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				return sizeReceived;
 			} else { // should not happen
 				log.error("unexpected: sizeReceived > remaining; socketID={}",
-						socketUDT.socketID);
+						socket.socketID);
 				return 0;
 			}
 
@@ -250,39 +268,50 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	@Override
 	public int write(ByteBuffer buffer) throws IOException {
 
+		if (buffer == null) {
+			throw new NullPointerException("buffer == null");
+		}
+
 		final int remaining = buffer.remaining();
 
 		if (remaining > 0) {
 
+			final SocketUDT socket = socketUDT;
+			final boolean isBlocking = isBlockingMode;
+
 			final int sizeSent;
 			try {
-				begin();
+				if (isBlocking) {
+					begin();
+				}
 				if (buffer.isDirect()) {
-					sizeSent = socketUDT.send(buffer);
+					sizeSent = socket.send(buffer);
 				} else {
 					assert buffer.hasArray();
 					byte[] array = buffer.array();
 					int position = buffer.position();
 					int limit = buffer.limit();
-					sizeSent = socketUDT.send(array, position, limit);
+					sizeSent = socket.send(array, position, limit);
 					if (0 < sizeSent && sizeSent <= remaining) {
 						buffer.position(position + sizeSent);
 					}
 				}
 			} finally {
-				end(true);
+				if (isBlocking) {
+					end(true);
+				}
 			}
 
 			// see contract for send()
 
 			if (sizeSent < 0) {
 				log.debug("no buffer space for send; socketID={}",
-						socketUDT.socketID);
+						socket.socketID);
 				return 0;
 			}
 
 			if (sizeSent == 0) {
-				log.debug("send timeout; socketID={}", socketUDT.socketID);
+				log.debug("send timeout; socketID={}", socket.socketID);
 				return 0;
 			}
 
@@ -290,7 +319,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				return sizeSent;
 			} else { // should not happen
 				log.error("unexpected: sizeSent > remaining; socketID={}",
-						socketUDT.socketID);
+						socket.socketID);
 				return 0;
 			}
 

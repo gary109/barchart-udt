@@ -249,7 +249,7 @@ public class SelectorUDT extends AbstractSelector {
 	protected final Map<Integer, SelectionKeyUDT> registeredKeyMap;
 
 	/**
-	 * used by SocketUDT.select(); performace optimization: used final arrays
+	 * used by SocketUDT.select(); performance optimization: use final arrays
 	 */
 	public final int maximimSelectorSize;
 	protected final int[] readArray;
@@ -551,16 +551,20 @@ public class SelectorUDT extends AbstractSelector {
 			throws IOException {
 
 		// TODO think again if lack of sync is OK?
+
 		if (!registeredKeySet.contains(keyUDT)) {
-			throw new IOException("connect while not registered");
+			throw new IOException(//
+					"connect request while not registered");
 		}
 
 		if ((keyUDT.interestOps & OP_CONNECT) == 0) {
-			throw new IOException("connect while not interested");
+			throw new IOException(//
+					"connect request while not interested");
 		}
 
 		if ((keyUDT.interestOps & (OP_READ | OP_WRITE)) != 0) {
-			throw new IOException("OP_CONNECT is not sole interest");
+			throw new IOException(//
+					"connect request while OP_CONNECT is not sole interest");
 		}
 
 		connectorPool.submitRequest(keyUDT, remote);
