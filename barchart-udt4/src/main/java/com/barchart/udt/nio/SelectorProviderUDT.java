@@ -50,6 +50,10 @@ import java.nio.channels.spi.SelectorProvider;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.TypeUDT;
 
+/**
+ * you must use the same system-wide provider instance for the same
+ * {@link TypeUDT} of UDT channels and UDT selectors;
+ */
 public class SelectorProviderUDT extends SelectorProvider {
 
 	/**
