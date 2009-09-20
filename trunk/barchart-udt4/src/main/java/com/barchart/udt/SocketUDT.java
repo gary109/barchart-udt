@@ -899,8 +899,8 @@ public class SocketUDT {
 
 	/**
 	 * @param block
-	 *            true : set both send and receive to blocking mode<br>
-	 *            false : set both send and receive to non-blocking mode<br>
+	 *            true : set both send and receive to blocking mode; false : set
+	 *            both send and receive to non-blocking mode
 	 */
 	public void configureBlocking(boolean block) throws ExceptionUDT {
 		if (block) {
@@ -1103,29 +1103,31 @@ public class SocketUDT {
 	}
 
 	// #############################
-	// used for development only
+	// ### used for development only
+	// ###
 
-	protected native void testEmptyCall0();
+	native void testEmptyCall0();
 
-	protected native void testIterateArray0(Object[] array);
+	native void testIterateArray0(Object[] array);
 
-	protected native void testIterateSet0(Set<Object> set);
+	native void testIterateSet0(Set<Object> set);
 
-	protected native int[] testMakeArray0(int size);
+	native int[] testMakeArray0(int size);
 
-	protected native void testGetSetArray0(int[] array, boolean isReturn);
+	native void testGetSetArray0(int[] array, boolean isReturn);
 
-	protected native void testInvalidClose0(int socketID) throws ExceptionUDT;
+	native void testInvalidClose0(int socketID) throws ExceptionUDT;
 
-	protected native void testCrashJVM0();
+	native void testCrashJVM0();
 
-	protected native void testDirectBufferAccess0(ByteBuffer buffer);
+	native void testDirectBufferAccess0(ByteBuffer buffer);
 
-	protected native void testFillArray0(byte[] array);
+	native void testFillArray0(byte[] array);
 
-	protected native void testFillBuffer0(ByteBuffer buffer);
+	native void testFillBuffer0(ByteBuffer buffer);
 
-	// used for development only
+	// ###
+	// ### used for development only
 	// #############################
 
 }
