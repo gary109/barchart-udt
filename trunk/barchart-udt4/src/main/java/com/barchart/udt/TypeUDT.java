@@ -40,13 +40,13 @@
 package com.barchart.udt;
 
 /**
- * note: "Type" means stream vs datagram; "Kind" means server vs client
+ * note: "Type" means stream vs datagram; "Kind" means server vs client.
+ * <p>
+ * maps to socket.h constants<br>
+ * SOCK_STREAM = 1<br>
+ * SOCK_DGRAM = 2<br>
  */
 public enum TypeUDT {
-
-	// maps to socket.h constants
-	// SOCK_STREAM = 1
-	// SOCK_DGRAM = 2
 
 	STREAM(1), //
 
