@@ -86,8 +86,8 @@ class ConnectorThreadPoolUDT {
 			return;
 		}
 
-		Runnable task = new ConnectorTaskUDT(keyUDT, taskMap, readyQueue,
-				remote);
+		Runnable task = new ConnectorTaskUDT(//
+				keyUDT, taskMap, readyQueue, remote);
 
 		Runnable result = taskMap.putIfAbsent(keyUDT, task);
 
