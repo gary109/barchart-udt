@@ -52,7 +52,7 @@ import com.barchart.udt.SocketUDT;
 /**
  * NOTE: 1<->1 mapping between: SelectionKeyUDT -> ChannelUDT -> SocketUDT
  */
-class SelectionKeyUDT extends AbstractSelectionKey {
+public class SelectionKeyUDT extends AbstractSelectionKey {
 
 	final SelectorUDT selectorUDT;
 	final ChannelUDT channelUDT;
@@ -169,7 +169,7 @@ class SelectionKeyUDT extends AbstractSelectionKey {
 				"";
 	}
 
-	protected String toStringReadyOps() {
+	public String toStringReadyOps() {
 		char R = (OP_READ & readyOps) != 0 ? 'R' : '-';
 		char W = (OP_WRITE & readyOps) != 0 ? 'W' : '-';
 		char C = (OP_CONNECT & readyOps) != 0 ? 'C' : '-';

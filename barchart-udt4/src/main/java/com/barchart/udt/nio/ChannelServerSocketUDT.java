@@ -48,7 +48,28 @@ import java.nio.channels.spi.SelectorProvider;
 import com.barchart.udt.SocketUDT;
 
 /**
- * you must use SelectorProviderUDT to obtain instance of this class
+ * you must use {@link SelectorProviderUDT#openServerSocketChannel()} to obtain
+ * instance of this class; do not use JDK
+ * {@link java.nio.channels.ServerSocketChannel#open()}; <br>
+ * 
+ * example:
+ * 
+ * <pre>
+ * 
+ * ServerSocketChannel acceptorChannel = SelectorProviderUDT.DATAGRAM
+ * 		.openServerSocketChannel();
+ * 
+ * ServerSocket acceptorSocket = acceptorChannel.socket();
+ * 
+ * InetSocketAddress acceptorAddress = new InetSocketAddress(&quot;localhost&quot;, 12345);
+ * 
+ * acceptorSocket.bind(acceptorAddress);
+ * 
+ * assert acceptorSocket.isBound();
+ * 
+ * SocketChannel connectorChannel = acceptorChannel.accept();
+ * 
+ * </pre>
  */
 public class ChannelServerSocketUDT extends ServerSocketChannel implements
 		ChannelUDT {

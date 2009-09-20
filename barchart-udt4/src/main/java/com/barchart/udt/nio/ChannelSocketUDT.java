@@ -57,7 +57,33 @@ import org.slf4j.LoggerFactory;
 import com.barchart.udt.SocketUDT;
 
 /**
- * you must use SelectorProviderUDT to obtain instance of this class
+ * you must use {@link SelectorProviderUDT#openSocketChannel()} to obtain
+ * instance of this class; do not use JDK
+ * {@link java.nio.channels.SocketChannel#open()};
+ * 
+ * example:
+ * 
+ * <pre>
+ * 
+ * SocketChannel clientChannel = SelectorProviderUDT.DATAGRAM.openSocketChannel();
+ * 
+ * clientChannel.configureBlocking(true);
+ * 
+ * Socket clientSocket = clientChannel.socket();
+ * 
+ * InetSocketAddress clientAddress = new InetSocketAddress(&quot;localhost&quot;, 10000);
+ * 
+ * clientSocket.bind(clientAddress);
+ * 
+ * assert clientSocket.isBound();
+ * 
+ * InetSocketAddress serverAddress = new InetSocketAddress(&quot;localhost&quot;, 12345);
+ * 
+ * clientChannel.connect(serverAddress);
+ * 
+ * assert clientSocket.isConnected();
+ * 
+ * </pre>
  */
 public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 

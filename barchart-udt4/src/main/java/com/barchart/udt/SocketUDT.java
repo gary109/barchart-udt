@@ -60,7 +60,7 @@ public class SocketUDT {
 	private static final Logger log = LoggerFactory.getLogger(SocketUDT.class);
 
 	/**
-	 * message time to live;
+	 * infinite message time to live;
 	 */
 	public static final int INFINITE_TTL = -1;
 
@@ -170,9 +170,14 @@ public class SocketUDT {
 	protected volatile boolean messageIsOrdered;
 
 	/**
-	 * end points; loaded by JNI after hasLoadedXXX() returns
+	 * local end point; loaded by JNI by {@link #hasLoadedLocalSocketAddress()}
 	 */
 	protected volatile InetSocketAddress localSocketAddress;
+
+	/**
+	 * remote end point; loaded by JNI by
+	 * {@link #hasLoadedRemoteSocketAddress()}
+	 */
 	protected volatile InetSocketAddress remoteSocketAddress;
 
 	/**
@@ -195,12 +200,14 @@ public class SocketUDT {
 	// ###
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/startup.htm
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/startup.htm">UDT::startup()</a>
 	 */
 	protected static native void initClass0() throws ExceptionUDT;
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/cleanup.htm
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/cleanup.htm.htm">UDT::cleanup()</a>
 	 */
 	protected static native void stopClass0() throws ExceptionUDT;
 
@@ -215,17 +222,15 @@ public class SocketUDT {
 	protected native int initInstance1(int socketUDT) throws ExceptionUDT;
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/accept.htm
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/accept.htm">UDT::accept()</a>
 	 */
 	protected native SocketUDT accept0() throws ExceptionUDT;
 
 	/**
-	 * return value, when NOT exception:
-	 * 
-	 * null : no incoming connections (non-blocking mode only)
-	 * 
-	 * non null : newly accepted connection (both blocking and non-blocking)
-	 * 
+	 * @return null : no incoming connections (non-blocking mode only)<br>
+	 *         non null : newly accepted connection (both blocking and
+	 *         non-blocking)<br>
 	 */
 	public SocketUDT accept() throws ExceptionUDT {
 		return accept0();
@@ -243,7 +248,7 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/bind.htm
+	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/bind.htm">UDT::bind()</a>
 	 */
 	protected native void bind0(InetSocketAddress localSocketAddress)
 			throws ExceptionUDT;
@@ -255,10 +260,13 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/close.htm
+	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/close.htm">UDT::close()</a>
 	 */
 	protected native void close0() throws ExceptionUDT;
 
+	/**
+	 * @see #close0()
+	 */
 	public void close() throws ExceptionUDT {
 		synchronized (SocketUDT.class) {
 			if (isOpen()) {
@@ -281,11 +289,16 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/connect.htm
+	 * @see <a http://www.cs.uic.edu/~ygu1/doc/connect.htm">UDT::connect()</a>
 	 */
 	protected native void connect0(InetSocketAddress remoteSocketAddress)
 			throws ExceptionUDT;
 
+	/**
+	 * Note: this is always a blocking call.
+	 * 
+	 * @see #connect0(InetSocketAddress)
+	 */
 	public void connect(InetSocketAddress remoteSocketAddress) //
 			throws ExceptionUDT, IllegalArgumentException {
 		checkSocketAddress(remoteSocketAddress);
@@ -293,10 +306,18 @@ public class SocketUDT {
 	}
 
 	/**
-	 * @link http://www.cs.uic.edu/~ygu1/doc/peername.htm
+	 * Load {@link #remoteSocketAddress} value.
+	 * 
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/peername.htm">UDT::peername()</a>
 	 */
 	protected native boolean hasLoadedRemoteSocketAddress();
 
+	/**
+	 * @return not connected: null<br>
+	 *         connected: remote UDT peer socket address<br>
+	 * @see #hasLoadedRemoteSocketAddress()
+	 */
 	public InetSocketAddress getRemoteSocketAddress() throws ExceptionUDT {
 		if (hasLoadedRemoteSocketAddress()) {
 			return remoteSocketAddress;
@@ -306,10 +327,18 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/sockname.htm
+	 * load {@link #localSocketAddress} value
+	 * 
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/sockname.htm">UDT::sockname()</a>
 	 */
 	protected native boolean hasLoadedLocalSocketAddress();
 
+	/**
+	 * @return not bound: null<br>
+	 *         bound: local UDT socket address<br>
+	 * @see #hasLoadedLocalSocketAddress()
+	 */
 	public InetSocketAddress getLocalSocketAddress() throws ExceptionUDT {
 		if (hasLoadedLocalSocketAddress()) {
 			return localSocketAddress;
@@ -319,11 +348,15 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/opt.htm
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/opt.htm">UDT::getsockopt()</a>
 	 */
 	protected native Object getOption0(int code, Class<?> klaz)
 			throws ExceptionUDT;
 
+	/**
+	 * @see #getOption0(int, Class)
+	 */
 	public Object getOption(OptionUDT option) throws ExceptionUDT {
 		if (option == null) {
 			throw new NullPointerException("option == null");
@@ -331,9 +364,16 @@ public class SocketUDT {
 		return getOption0(option.code, option.klaz);
 	}
 
+	/**
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/opt.htm">UDT::setsockopt()</a>
+	 */
 	protected native void setOption0(int code, Class<?> klaz, Object value)
 			throws ExceptionUDT;
 
+	/**
+	 * @see #setOption0(int, Class, Object)
+	 */
 	public void setOption(OptionUDT option, Object value) throws ExceptionUDT {
 		if (option == null || value == null) {
 			throw new NullPointerException("option == null || value == null");
@@ -349,12 +389,16 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/listen.htm
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/listen.htm">UDT::listen()</a>
 	 */
 	protected native void listen0(int queueSize) throws ExceptionUDT;
 
 	protected volatile int listenQueueSize;
 
+	/**
+	 * @see #listen0(int)
+	 */
 	public void listen(int queueSize) throws ExceptionUDT {
 		if (queueSize <= 0) {
 			throw new IllegalArgumentException("queueSize <= 0");
@@ -363,33 +407,39 @@ public class SocketUDT {
 		listen0(queueSize);
 	}
 
+	/**
+	 * @see #listen0(int)
+	 */
 	public int listenQueueSize() {
 		return listenQueueSize;
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
-	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
-	 * 
 	 * receive into a complete array
+	 * 
+	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recv()</a>
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recvmsg()</a>
 	 */
 	protected native int receive0(int socketID, int socketType, //
 			byte[] array) throws ExceptionUDT;
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
-	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
-	 * 
 	 * receive into a portion of an array
+	 * 
+	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recv()</a>
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recvmsg()</a>
 	 */
 	protected native int receive1(int socketID, int socketType, //
 			byte[] array, int position, int limit) throws ExceptionUDT;
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/recv.htm
-	 * http://www.cs.uic.edu/~ygu1/doc/recvmsg.htm
+	 * receive into a {@link java.nio.channels.DirectByteBuffer}
 	 * 
-	 * receive into a DirectByteBuffer
+	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recv()</a>
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recvmsg()</a>
 	 */
 	protected native int receive2(int socketID, int socketType, //
 			ByteBuffer buffer, int position, int limit) throws ExceptionUDT;
@@ -397,13 +447,9 @@ public class SocketUDT {
 	/**
 	 * receive into byte[] array upto array.length bytes
 	 * 
-	 * return values, if exception is NOT thrown
-	 * 
-	 * -1 : nothing received (non-blocking only)
-	 * 
-	 * =0 : timeout expired (blocking only)
-	 * 
-	 * >0 : normal receive, byte count
+	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
+	 *         <code>=0</code> : timeout expired (blocking only)<br>
+	 *         <code>>0</code> : normal receive, byte count<br>
 	 */
 	public int receive(byte[] array) throws ExceptionUDT {
 		checkArray(array);
@@ -411,15 +457,11 @@ public class SocketUDT {
 	}
 
 	/**
-	 * receive into byte[] array upto (limit-position) bytes
+	 * receive into byte[] array upto size=limit-position bytes
 	 * 
-	 * return values, if exception is NOT thrown
-	 * 
-	 * -1 : nothing received (non-blocking only)
-	 * 
-	 * =0 : timeout expired (blocking only)
-	 * 
-	 * >0 : normal receive, byte count
+	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
+	 *         <code>=0</code> : timeout expired (blocking only)<br>
+	 *         <code>>0</code> : normal receive, byte count<br>
 	 */
 	public int receive(byte[] array, int position, int limit)
 			throws ExceptionUDT {
@@ -428,15 +470,12 @@ public class SocketUDT {
 	}
 
 	/**
-	 * receive into DirectByteBuffer; upto remaining() bytes
+	 * receive into {@link java.nio.channels.DirectByteBuffer}; upto
+	 * {@link java.nio.ByteBuffer#remaining()} bytes
 	 * 
-	 * return values, if exception is NOT thrown
-	 * 
-	 * -1 : nothing received (non-blocking only)
-	 * 
-	 * =0 : timeout expired (blocking only)
-	 * 
-	 * >0 : normal receive, byte count
+	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
+	 *         <code>=0</code> : timeout expired (blocking only)<br>
+	 *         <code>>0</code> : normal receive, byte count<br>
 	 */
 	public int receive(ByteBuffer buffer) throws ExceptionUDT {
 		checkBuffer(buffer);
@@ -458,7 +497,10 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/recvfile.htm
+	 * WRAPPER_UNIMPLEMENTED
+	 * 
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/recvfile.htm">UDT::recvfile()</a>
 	 */
 	public int receiveFile(ByteBuffer buffer) throws ExceptionUDT {
 		throw new ExceptionUDT(//
@@ -466,7 +508,9 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/select.htm
+	 * @see com.barchart.udt.nio.SelectorUDT#select()
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/select.htm">UDT::select()</a>
 	 */
 	protected static native int select0( //
 			int[] readArray, //
@@ -477,15 +521,12 @@ public class SocketUDT {
 	) throws ExceptionUDT;
 
 	/**
-	 * timeout in milliseconds
+	 * Timeout is in milliseconds.
 	 * 
-	 * return value, when NOT exception
-	 * 
-	 * <0 : should not happen
-	 * 
-	 * =0 : timeout, no ready sockets
-	 * 
-	 * >0 : total number or reads, writes, exceptions
+	 * @return <code><0</code> : should not happen<br>
+	 *         <code>=0</code> : timeout, no ready sockets<br>
+	 *         <code>>0</code> : total number or reads, writes, exceptions<br>
+	 * @see #select0(int[], int[], int[], int[], long)
 	 */
 	// asserts are contracts
 	public static int select( //
@@ -626,9 +667,9 @@ public class SocketUDT {
 	 * 
 	 * @param buffer
 	 *            buffer to send
-	 * @return <code>-1</code> : no buffer space (non-blocking only) <br>
-	 *         <code>=0</code> : timeout expired (blocking only) <br>
-	 *         <code>>0</code> : normal send, actual sent byte count <br>
+	 * @return <code>-1</code> : no buffer space (non-blocking only)<br>
+	 *         <code>=0</code> : timeout expired (blocking only)<br>
+	 *         <code>>0</code> : normal send, actual sent byte count<br>
 	 * @see #send2(int, int, int, boolean, ByteBuffer, int, int)
 	 */
 	public int send(ByteBuffer buffer) throws ExceptionUDT {
@@ -696,7 +737,7 @@ public class SocketUDT {
 	 * load updated statistics values into {@link #monitor} object
 	 * 
 	 * @param makeClear
-	 *            if true, reset all statistics
+	 *            if true, reset all statistics with this call
 	 * @see #updateMonitor0(boolean)
 	 */
 	public void updateMonitor(boolean makeClear) throws ExceptionUDT {
@@ -813,6 +854,9 @@ public class SocketUDT {
 		}
 	}
 
+	/**
+	 * @return true if {@link #bind(InetSocketAddress)} was successful
+	 */
 	public boolean isBound() {
 		if (isClosed()) {
 			return false;
@@ -824,6 +868,9 @@ public class SocketUDT {
 		}
 	}
 
+	/**
+	 * @return true if {@link #connect(InetSocketAddress)} was successful
+	 */
 	public boolean isConnected() {
 		if (isClosed()) {
 			return false;
@@ -842,6 +889,11 @@ public class SocketUDT {
 
 	//
 
+	/**
+	 * @param block
+	 *            true : set both send and receive to blocking mode<br>
+	 *            false : set both send and receive to non-blocking mode<br>
+	 */
 	public void configureBlocking(boolean block) throws ExceptionUDT {
 		if (block) {
 			setOption(OptionUDT.Is_Receive_Synchronous, Boolean.TRUE);
@@ -852,10 +904,16 @@ public class SocketUDT {
 		}
 	}
 
+	/**
+	 * Protocol level parameter.
+	 */
 	public int getSendBufferSize() throws ExceptionUDT {
 		return (Integer) getOption(OptionUDT.Protocol_Send_Buffer_Size);
 	}
 
+	/**
+	 * Protocol level parameter.
+	 */
 	public int getReceiveBufferSize() throws ExceptionUDT {
 		return (Integer) getOption(OptionUDT.Protocol_Receive_Buffer_Size);
 	}
@@ -896,10 +954,16 @@ public class SocketUDT {
 		return millisTimeout;
 	}
 
+	/**
+	 * Protocol level parameter.
+	 */
 	public void setSendBufferSize(int size) throws ExceptionUDT {
 		setOption(OptionUDT.Protocol_Send_Buffer_Size, size);
 	}
 
+	/**
+	 * Protocol level parameter.
+	 */
 	public void setReceiveBufferSize(int size) throws ExceptionUDT {
 		setOption(OptionUDT.Protocol_Receive_Buffer_Size, size);
 	}
@@ -940,6 +1004,9 @@ public class SocketUDT {
 		setOption(OptionUDT.Receive_Timeout, millisTimeout);
 	}
 
+	/**
+	 * @return null : not connected<br>
+	 */
 	public InetAddress getRemoteInetAddress() {
 		try {
 			InetSocketAddress remote = getRemoteSocketAddress();
@@ -954,6 +1021,9 @@ public class SocketUDT {
 		}
 	}
 
+	/**
+	 * @return 0 : not connected<br>
+	 */
 	public int getRemoteInetPort() {
 		try {
 			InetSocketAddress remote = getRemoteSocketAddress();
@@ -968,6 +1038,9 @@ public class SocketUDT {
 		}
 	}
 
+	/**
+	 * @return null : not bound<br>
+	 */
 	public InetAddress getLocalInetAddress() {
 		try {
 			InetSocketAddress local = getLocalSocketAddress();
@@ -982,6 +1055,9 @@ public class SocketUDT {
 		}
 	}
 
+	/**
+	 * @return 0 : not bound<br>
+	 */
 	public int getLocalInetPort() {
 		try {
 			InetSocketAddress local = getLocalSocketAddress();
@@ -998,11 +1074,17 @@ public class SocketUDT {
 
 	//
 
+	/**
+	 * Note: uses {@link #socketID} as hash code.
+	 */
 	@Override
 	public int hashCode() {
 		return socketID;
 	}
 
+	/**
+	 * Note: equality is based on {@link #socketID}.
+	 */
 	@Override
 	public boolean equals(Object otherSocketUDT) {
 		if (otherSocketUDT instanceof SocketUDT) {

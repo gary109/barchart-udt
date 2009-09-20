@@ -85,7 +85,7 @@ public class TestSelectorProviderUDT {
 
 		try {
 
-			SelectorProviderUDT provider = SelectorProviderUDT.datagramProvider;
+			SelectorProviderUDT provider = SelectorProviderUDT.DATAGRAM;
 
 			Selector selector = provider.openSelector();
 
@@ -171,7 +171,7 @@ public class TestSelectorProviderUDT {
 
 		try {
 
-			SelectorProviderUDT provider = SelectorProviderUDT.datagramProvider;
+			SelectorProviderUDT provider = SelectorProviderUDT.DATAGRAM;
 
 			Selector selector = provider.openSelector();
 

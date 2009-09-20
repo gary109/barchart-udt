@@ -75,7 +75,7 @@ class AdapterServerSocketUDT extends ServerSocket implements IceServerSocket {
 	public void bind(SocketAddress endpoint) throws IOException {
 		SelectorProviderUDT provider = //
 		(SelectorProviderUDT) serverChannelUDT.provider();
-		int backlog = provider.getAccetpQueueSize();
+		int backlog = provider.getAcceptQueueSize();
 		bind(endpoint, backlog);
 	}
 
