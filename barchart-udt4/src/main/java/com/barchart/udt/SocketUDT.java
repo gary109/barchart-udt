@@ -726,8 +726,6 @@ public class SocketUDT {
 	}
 
 	/**
-	 * http://www.cs.uic.edu/~ygu1/doc/perfmon.htm
-	 * 
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/perfmon.htm">perfmon.htm</a>
 	 */
