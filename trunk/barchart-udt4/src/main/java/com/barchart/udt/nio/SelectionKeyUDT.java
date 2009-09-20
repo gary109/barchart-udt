@@ -54,16 +54,16 @@ import com.barchart.udt.SocketUDT;
  */
 class SelectionKeyUDT extends AbstractSelectionKey {
 
-	protected final SelectorUDT selectorUDT;
-	protected final ChannelUDT channelUDT;
+	final SelectorUDT selectorUDT;
+	final ChannelUDT channelUDT;
 
 	/**
 	 * used by JNI
 	 */
-	protected final int socketID;
-	protected final SocketUDT socketUDT;
+	final int socketID;
+	final SocketUDT socketUDT;
 
-	protected SelectionKeyUDT(SelectorUDT selector, ChannelUDT channel,
+	SelectionKeyUDT(SelectorUDT selector, ChannelUDT channel,
 			Object attachment, int ops) {
 
 		this.channelUDT = channel;
@@ -82,8 +82,8 @@ class SelectionKeyUDT extends AbstractSelectionKey {
 
 	}
 
-	protected volatile int interestOps;
-	protected volatile int readyOps;
+	volatile int interestOps;
+	volatile int readyOps;
 
 	//
 
