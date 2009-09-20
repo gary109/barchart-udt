@@ -50,7 +50,7 @@ import java.nio.channels.ServerSocketChannel;
 
 import com.barchart.udt.ExceptionUDT;
 import com.barchart.udt.SocketUDT;
-import com.barchart.udt.jdk.IceServerSocket;
+import com.barchart.udt.net.IceServerSocket;
 
 class AdapterServerSocketUDT extends ServerSocket implements IceServerSocket {
 
