@@ -63,33 +63,26 @@ import org.slf4j.LoggerFactory;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.TypeUDT;
 
-class SelectorUDT extends AbstractSelector {
+/**
+ * you must use {@link SelectorProviderUDT#openSelector()} to obtain instance of
+ * this class; do not use JDK {@link java.nio.channels.Selector#open()}
+ */
+public class SelectorUDT extends AbstractSelector {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(SelectorUDT.class);
 
-	//
-
-	/**
-	 * note that you should not use JDK Selector.open() at all
-	 */
-	public static Selector open() throws IOException {
-		SelectorProviderUDT provider = SelectorProviderUDT.datagramProvider;
-		log.warn("using default selection provider; type={}", provider.type);
-		return provider.openSelector();
-	}
-
 	/**
 	 * use this call to instantiate a selector for UDT
 	 */
-	static Selector open(TypeUDT type) throws IOException {
+	protected static Selector open(TypeUDT type) throws IOException {
 		final SelectorProviderUDT provider;
 		switch (type) {
 		case DATAGRAM:
-			provider = SelectorProviderUDT.datagramProvider;
+			provider = SelectorProviderUDT.DATAGRAM;
 			break;
 		case STREAM:
-			provider = SelectorProviderUDT.streamProvider;
+			provider = SelectorProviderUDT.STREAM;
 			break;
 		default:
 			log.error("unsupported type={}", type);
@@ -198,8 +191,9 @@ class SelectorUDT extends AbstractSelector {
 	}
 
 	/**
-	 * NOTE: it is recommended to user timed select(timeout) (timeout = 100
-	 * millis) to avoid missed wakeup() which are rare but possible in current
+	 * Wakeup the selector. NOTE: it is recommended to user timed
+	 * {@link #select(long)} (say, timeout = 100 milliseconds) to avoid missed
+	 * {@link #wakeup()} calls which are rare but possible in current
 	 * implementation (accepted in favor of design simplicity / performance)
 	 */
 	@Override
