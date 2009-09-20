@@ -68,9 +68,14 @@ class ChannelServerSocketUDT extends ServerSocketChannel implements ChannelUDT {
 
 	@Override
 	public SocketChannel accept() throws IOException {
-		SocketUDT socketUDT = serverSocketUDT.accept();
-		SelectorProvider provider = provider();
-		return new ChannelSocketUDT(provider, socketUDT);
+		try {
+			begin();
+			SocketUDT socketUDT = serverSocketUDT.accept();
+			SelectorProvider provider = provider();
+			return new ChannelSocketUDT(provider, socketUDT);
+		} finally {
+			end(true);
+		}
 	}
 
 	// guarded by 'this'
