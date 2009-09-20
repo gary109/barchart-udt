@@ -47,7 +47,11 @@ import java.nio.channels.spi.SelectorProvider;
 
 import com.barchart.udt.SocketUDT;
 
-class ChannelServerSocketUDT extends ServerSocketChannel implements ChannelUDT {
+/**
+ * you must use SelectorProviderUDT to obtain instance of this class
+ */
+public class ChannelServerSocketUDT extends ServerSocketChannel implements
+		ChannelUDT {
 
 	final SocketUDT serverSocketUDT;
 
