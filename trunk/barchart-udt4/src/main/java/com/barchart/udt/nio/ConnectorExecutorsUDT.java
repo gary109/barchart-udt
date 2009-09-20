@@ -13,8 +13,10 @@ class ConnectorExecutorsUDT {
 
 	private static final RejectedExecutionHandler defaultHandler = new AbortPolicy();
 
-	public static ExecutorService newDynamicThreadPool(int maximumPoolSize,
-			long keepAliveTime, TimeUnit keepAliveUnit,
+	public static ExecutorService newDynamicThreadPool( //
+			int maximumPoolSize, //
+			long keepAliveTime, // 
+			TimeUnit keepAliveUnit, //
 			ThreadFactory threadFactory) {
 
 		BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>();
