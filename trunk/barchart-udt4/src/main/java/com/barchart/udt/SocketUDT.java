@@ -233,7 +233,7 @@ public class SocketUDT {
 
 	/**
 	 * @return null : no incoming connections (non-blocking mode only)<br>
-	 *         non null : newly accepted connection (both blocking and
+	 *         non null : newly accepted SocketUDT (both blocking and
 	 *         non-blocking)<br>
 	 */
 	public SocketUDT accept() throws ExceptionUDT {
@@ -318,8 +318,9 @@ public class SocketUDT {
 	protected native boolean hasLoadedRemoteSocketAddress();
 
 	/**
-	 * @return not connected: null<br>
-	 *         connected: remote UDT peer socket address<br>
+	 * @return null : not connected; <br>
+	 *         not null: remote UDT peer socket address to which this socket is
+	 *         connected<br>
 	 * @see #hasLoadedRemoteSocketAddress()
 	 */
 	public InetSocketAddress getRemoteSocketAddress() throws ExceptionUDT {
@@ -339,8 +340,9 @@ public class SocketUDT {
 	protected native boolean hasLoadedLocalSocketAddress();
 
 	/**
-	 * @return not bound: null<br>
-	 *         bound: local UDT socket address<br>
+	 * @return null: not bound; <br>
+	 *         not null: local UDT socket address to which the the socket is
+	 *         bound<br>
 	 * @see #hasLoadedLocalSocketAddress()
 	 */
 	public InetSocketAddress getLocalSocketAddress() throws ExceptionUDT {
@@ -863,7 +865,8 @@ public class SocketUDT {
 	}
 
 	/**
-	 * @return true if {@link #bind(InetSocketAddress)} was successful
+	 * @return true : {@link #bind(InetSocketAddress)} was successful<br>
+	 *         false : otherwise<br>
 	 */
 	public boolean isBound() {
 		if (isClosed()) {
@@ -877,7 +880,8 @@ public class SocketUDT {
 	}
 
 	/**
-	 * @return true if {@link #connect(InetSocketAddress)} was successful
+	 * @return true : {@link #connect(InetSocketAddress)} was successful<br>
+	 *         false : otherwise<br>
 	 */
 	public boolean isConnected() {
 		if (isClosed()) {
@@ -1014,6 +1018,8 @@ public class SocketUDT {
 
 	/**
 	 * @return null : not connected<br>
+	 *         not null : valid address; result of
+	 *         {@link #connect(InetSocketAddress)}<br>
 	 */
 	public InetAddress getRemoteInetAddress() {
 		try {
@@ -1031,6 +1037,7 @@ public class SocketUDT {
 
 	/**
 	 * @return 0 : not connected<br>
+	 *         >0 : valid port ; result of {@link #connect(InetSocketAddress)}<br>
 	 */
 	public int getRemoteInetPort() {
 		try {
@@ -1048,6 +1055,8 @@ public class SocketUDT {
 
 	/**
 	 * @return null : not bound<br>
+	 *         not null : valid address; result of
+	 *         {@link #bind(InetSocketAddress)}<br>
 	 */
 	public InetAddress getLocalInetAddress() {
 		try {
@@ -1065,6 +1074,7 @@ public class SocketUDT {
 
 	/**
 	 * @return 0 : not bound<br>
+	 *         >0 : valid port; result of {@link #bind(InetSocketAddress)}<br>
 	 */
 	public int getLocalInetPort() {
 		try {
