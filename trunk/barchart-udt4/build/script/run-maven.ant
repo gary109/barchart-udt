@@ -71,19 +71,61 @@
 		</exec>
 	</target>
 
-	<target name="maven-deploy-to-google"
+	<property name="artifact" value="barchart-udt4" />
+	<property name="version" value="1.0.0-SNAPSHOT" />
+
+	<property name="repoID" value="com.googlecode.barchart-udt" />
+	<property name="repoURL"
+	          value="https://barchart-udt.googlecode.com/svn/repo" />
+
+	<target name="maven-deploy-to-google-jar"
 	        depends="check-maven"
-	        description="deploy to google code repository">
+	        description="deploy to google code repository: jar only">
 		<exec executable="${M2_PATH}">
 			<arg value="deploy:deploy-file" />
 			<arg value="-f pom.deploy.xml" />
 			<arg value="-D pomFile=pom.xml" />
-			<arg value="-D repositoryId=com.googlecode.barchart-udt" />
-			<arg value="-D url=https://barchart-udt.googlecode.com/svn/repo" />
-			<arg value="-D file=target/barchart-udt4-1.0.0-SNAPSHOT.jar" />
+			<arg value="-D repositoryId=${repoID}" />
+			<arg value="-D url=${repoURL}" />
+			<arg value="-D file=target/${artifact}-${version}.jar" />
 			<arg value="-D uniqueVersion=false" />
 			<arg value="-D generatePom=false" />
 		</exec>
+	</target>
+
+	<target name="maven-deploy-to-google-javadoc"
+	        depends="check-maven"
+	        description="deploy to google code repository: javadoc only">
+		<exec executable="${M2_PATH}">
+			<arg value="deploy:deploy-file" />
+			<arg value="-f pom.deploy.xml" />
+			<arg value="-D pomFile=pom.xml" />
+			<arg value="-D repositoryId=${repoID}" />
+			<arg value="-D url=${repoURL}" />
+			<arg value="-D file=target/${artifact}-${version}-javadoc.jar" />
+			<arg value="-D uniqueVersion=false" />
+			<arg value="-D generatePom=false" />
+		</exec>
+	</target>
+
+	<target name="maven-deploy-to-google-sources"
+	        depends="check-maven"
+	        description="deploy to google code repository: sources only">
+		<exec executable="${M2_PATH}">
+			<arg value="deploy:deploy-file" />
+			<arg value="-f pom.deploy.xml" />
+			<arg value="-D pomFile=pom.xml" />
+			<arg value="-D repositoryId=${repoID}" />
+			<arg value="-D url=${repoURL}" />
+			<arg value="-D file=target/${artifact}-${version}-sources.jar" />
+			<arg value="-D uniqueVersion=false" />
+			<arg value="-D generatePom=false" />
+		</exec>
+	</target>
+
+	<target name="maven-deploy-to-google-all"
+	        depends="maven-deploy-to-google-jar,maven-deploy-to-google-javadoc,maven-deploy-to-google-sources"
+	        description="maven-deploy-to-google-all">
 	</target>
 
 </project>
