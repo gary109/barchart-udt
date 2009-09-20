@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
-    <target name="javadoc">
-        <javadoc access="protected" author="true" classpath="/home/user1/.m2/repository/junit/junit/4.6/junit-4.6.jar:target/test-classes:/home/user1/.m2/repository/log4j/log4j/1.2.14/log4j-1.2.14.jar:/home/user1/.m2/repository/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar:/home/user1/.m2/repository/org/slf4j/slf4j-log4j12/1.5.6/slf4j-log4j12-1.5.6.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.6" sourcefiles="src/main/java/com/barchart/udt/OptionFormatUDT.java,src/main/java/com/barchart/udt/ExceptionUDT.java,src/main/java/com/barchart/udt/SocketUDT.java,src/main/java/com/barchart/udt/ErrorUDT.java,src/main/java/com/barchart/udt/net/IceServerSocket.java,src/main/java/com/barchart/udt/nio/ChannelUDT.java,src/main/java/com/barchart/udt/nio/KindUDT.java,src/main/java/com/barchart/udt/nio/ConnectorThreadFactoryUDT.java,src/main/java/com/barchart/udt/OptionUDT.java,src/main/java/com/barchart/udt/nio/HelperNIOUDT.java,src/main/java/com/barchart/udt/nio/SelectorUDT.java,src/main/java/com/barchart/udt/nio/SelectorProviderUDT.java,src/main/java/com/barchart/udt/nio/AdapterSocketUDT.java,src/main/java/com/barchart/udt/nio/ConnectorTaskUDT.java,src/main/java/com/barchart/udt/TypeUDT.java,src/main/java/com/barchart/udt/nio/ConnectorExecutorsUDT.java,src/main/java/com/barchart/udt/net/IceSocket.java,src/main/java/com/barchart/udt/MonitorUDT.java,src/main/java/com/barchart/udt/nio/ConnectorThreadPoolUDT.java,src/main/java/com/barchart/udt/nio/ChannelSocketUDT.java,src/main/java/com/barchart/udt/FactoryUDT.java,src/main/java/com/barchart/udt/nio/SelectionKeyUDT.java,src/main/java/com/barchart/udt/nio/AdapterServerSocketUDT.java,src/main/java/com/barchart/udt/net/IceDatagramSocket.java,src/main/java/com/barchart/udt/LingerUDT.java,src/main/java/com/barchart/udt/LibraryUDT.java,src/main/java/com/barchart/udt/nio/ChannelServerSocketUDT.java" sourcepath="src/main/java:src/test/java:src/main/resources:src/test/resources" splitindex="true" use="true" version="true">
-            <link href="http://java.sun.com/javase/6/docs/api/"/>
-        </javadoc>
-    </target>
+	<target name="javadoc">
+		<javadoc access="protected"
+		         author="true"
+		         classpath="target/classes:target/test-classes"
+		         destdir="doc"
+		         nodeprecated="false"
+		         nodeprecatedlist="false"
+		         noindex="false"
+		         nonavbar="false"
+		         notree="false"
+		         source="1.6"
+		         sourcepath="src/main/java"
+		         splitindex="true"
+		         use="true"
+		         version="true">
+			<link href="http://java.sun.com/javase/6/docs/api/" />
+		</javadoc>
+	</target>
 </project>
