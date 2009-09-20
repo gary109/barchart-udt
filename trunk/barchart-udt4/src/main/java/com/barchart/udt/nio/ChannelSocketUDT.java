@@ -178,17 +178,23 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		if (remaining > 0) {
 
 			final int sizeReceived;
-			if (buffer.isDirect()) {
-				sizeReceived = socketUDT.receive(buffer);
-			} else {
-				assert buffer.hasArray();
-				byte[] array = buffer.array();
-				int position = buffer.position();
-				int limit = buffer.limit();
-				sizeReceived = socketUDT.receive(array, position, limit);
-				if (0 < sizeReceived && sizeReceived <= remaining) {
-					buffer.position(position + sizeReceived);
+
+			try {
+				begin();
+				if (buffer.isDirect()) {
+					sizeReceived = socketUDT.receive(buffer);
+				} else {
+					assert buffer.hasArray();
+					byte[] array = buffer.array();
+					int position = buffer.position();
+					int limit = buffer.limit();
+					sizeReceived = socketUDT.receive(array, position, limit);
+					if (0 < sizeReceived && sizeReceived <= remaining) {
+						buffer.position(position + sizeReceived);
+					}
 				}
+			} finally {
+				end(true);
 			}
 
 			// see contract for receive()
@@ -249,17 +255,22 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		if (remaining > 0) {
 
 			final int sizeSent;
-			if (buffer.isDirect()) {
-				sizeSent = socketUDT.send(buffer);
-			} else {
-				assert buffer.hasArray();
-				byte[] array = buffer.array();
-				int position = buffer.position();
-				int limit = buffer.limit();
-				sizeSent = socketUDT.send(array, position, limit);
-				if (0 < sizeSent && sizeSent <= remaining) {
-					buffer.position(position + sizeSent);
+			try {
+				begin();
+				if (buffer.isDirect()) {
+					sizeSent = socketUDT.send(buffer);
+				} else {
+					assert buffer.hasArray();
+					byte[] array = buffer.array();
+					int position = buffer.position();
+					int limit = buffer.limit();
+					sizeSent = socketUDT.send(array, position, limit);
+					if (0 < sizeSent && sizeSent <= remaining) {
+						buffer.position(position + sizeSent);
+					}
 				}
+			} finally {
+				end(true);
 			}
 
 			// see contract for send()
