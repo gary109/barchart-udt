@@ -56,9 +56,7 @@ public class MonitorUDT {
 
 	// ### global measurements
 
-	/**
-	 * time since the UDT entity is started, in milliseconds
-	 */
+	/** time since the UDT entity is started, in milliseconds. */
 	protected volatile long msTimeStamp;
 
 	public long millisSinceStart() {

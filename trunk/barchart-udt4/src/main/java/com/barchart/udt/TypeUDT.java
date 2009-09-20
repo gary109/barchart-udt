@@ -40,7 +40,10 @@
 package com.barchart.udt;
 
 /**
- * note: "Type" means stream vs datagram; "Kind" means server vs client.
+ * UDT socket mode type.
+ * 
+ * NOTE: {@link #TypeUDT} means stream vs datagram;
+ * {@link com.barchart.udt.nio.Kind} means server vs client.
  * <p>
  * maps to socket.h constants<br>
  * SOCK_STREAM = 1<br>
@@ -48,14 +51,23 @@ package com.barchart.udt;
  */
 public enum TypeUDT {
 
+	/** The STREAM type. Defines stream - oriented UDT mode. */
 	STREAM(1), //
 
+	/** The DATAGRAM. Defines datagram/message - oriented UDT mode. */
 	DATAGRAM(2), //
 
+	/** The code. */
 	;
 
 	public final int code;
 
+	/**
+	 * Instantiates a new type udt.
+	 * 
+	 * @param code
+	 *            the code
+	 */
 	private TypeUDT(int code) {
 		this.code = code;
 	}

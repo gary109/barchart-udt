@@ -40,12 +40,25 @@
 package com.barchart.udt.nio;
 
 /**
- * note: "Type" means stream vs datagram; "Kind" means server vs client
+ * UDT channel role type.
+ * 
+ * NOTE: {@link #TypeUDT} means stream vs datagram;
+ * {@link com.barchart.udt.nio.Kind} means server vs client.
+ * <p>
  */
-enum KindUDT {
+public enum KindUDT {
 
+	/**
+	 * The ACCEPTOR. Server mode: listens and accepts connections; generates
+	 * CONNECTOR as a result of accept()
+	 */
 	ACCEPTOR, //
 
+	/**
+	 * The CONNECTOR. Client mode: user-created channel which initiates
+	 * connections to servers; Server mode: channel which is a result of
+	 * accept();
+	 */
 	CONNECTOR, //
 
 }

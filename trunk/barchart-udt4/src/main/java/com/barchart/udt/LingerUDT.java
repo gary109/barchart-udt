@@ -55,6 +55,11 @@ public class LingerUDT extends Number implements Comparable<LingerUDT> {
 		return timeout;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Number#floatValue()
+	 */
 	@Override
 	public float floatValue() {
 		return timeout;
