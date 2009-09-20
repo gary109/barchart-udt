@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
 
-	<target name="javadoc" description="make javadoc for google code">
+	<target name="javadoc" description="make javadoc for google code web site">
 		<javadoc access="protected"
 		         author="true"
 		         classpath="target/classes"
