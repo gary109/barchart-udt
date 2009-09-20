@@ -200,12 +200,16 @@ public class SocketUDT {
 	// ###
 
 	/**
+	 * Call this after loading native library.
+	 * 
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/startup.htm">UDT::startup()</a>
 	 */
 	protected static native void initClass0() throws ExceptionUDT;
 
 	/**
+	 * Call this before unloading native library.
+	 * 
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/cleanup.htm.htm">UDT::cleanup()</a>
 	 */
@@ -811,13 +815,19 @@ public class SocketUDT {
 	// ### UDT API
 	// ###################################################
 
+	/**
+	 * Apply default settings for message mode.
+	 * <p>
+	 * IsOdered = true;<br>
+	 * TimeTolLive = INFINITE_TTL;<br>
+	 */
 	public void setDefaultMessageSendMode() {
 		setMessageIsOdered(true);
 		setMessageTimeTolLive(INFINITE_TTL);
 	}
 
 	/**
-	 * primary socket; default constructor; will apply
+	 * Primary socket. Default constructor; will apply
 	 * {@link #setDefaultMessageSendMode()}
 	 * 
 	 * @param type
@@ -835,7 +845,7 @@ public class SocketUDT {
 	}
 
 	/**
-	 * secondary socket; made by {@link #accept0()}, will apply
+	 * Secondary socket; made by {@link #accept0()}, will apply
 	 * {@link #setDefaultMessageSendMode()}
 	 * 
 	 * @param socketID
