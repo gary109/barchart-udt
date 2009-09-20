@@ -56,7 +56,10 @@ import org.slf4j.LoggerFactory;
 
 import com.barchart.udt.SocketUDT;
 
-class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
+/**
+ * you must use SelectorProviderUDT to obtain instance of this class
+ */
+public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(ChannelSocketUDT.class);
@@ -73,7 +76,11 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		socketUDT.close();
 	}
 
-	private volatile boolean isBlockingMode;
+	/*
+	 * local volatile variable, which mirrors super.blocking, to avoid the cost
+	 * of synchronized call inside isBlocking()
+	 */
+	private volatile boolean isBlockingMode = isBlocking();
 
 	@Override
 	protected void implConfigureBlocking(boolean block) throws IOException {
@@ -143,13 +150,16 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 
 	}
 
+	/**
+	 * note this is redundant for blocking mode
+	 */
 	@Override
 	public boolean finishConnect() throws IOException {
 		if (!isOpen()) {
 			throw new ClosedChannelException();
 		}
 		if (isBlocking()) {
-			throw new RuntimeException("feature not available");
+			return isConnected();
 		} else { // non blocking
 			if (isConnected()) {
 				return true;
@@ -175,10 +185,17 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	}
 
 	/**
-	 * See SocketChannel contract; note: this does not return (-1) as EOS end of
-	 * stream
+	 * See {@link java.nio.channels.SocketChannel#read(ByteBuffer)} contract;
+	 * note: this method does not return (-1) as EOS (end of stream flag)
+	 * 
+	 * @return <code><0</code> should not happen<br>
+	 *         <code>=0</code> blocking mode: timeout occurred on receive<br>
+	 *         <code>=0</code> non-blocking mode: nothing is received by the
+	 *         underlying UDT socket<br>
+	 *         <code>>0</code> actual bytes received count<br>
+	 * @see com.barchart.udt.SocketUDT#receive(ByteBuffer)
+	 * @see com.barchart.udt.SocketUDT#receive(byte[], int, int)
 	 */
-	// TODO use UDT buffer size as max for array, NOT just remaining
 	@Override
 	public int read(ByteBuffer buffer) throws IOException {
 
@@ -196,7 +213,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			final int sizeReceived;
 			try {
 				if (isBlocking) {
-					begin();
+					begin(); // JDK contract for blocking calls
 				}
 				if (buffer.isDirect()) {
 					sizeReceived = socket.receive(buffer);
@@ -212,7 +229,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				}
 			} finally {
 				if (isBlocking) {
-					end(true);
+					end(true); // JDK contract for blocking calls
 				}
 			}
 
@@ -261,10 +278,16 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	}
 
 	/**
-	 * See SocketChannel contract;
+	 * See {@link java.nio.channels.SocketChannel#write(ByteBuffer)} contract;
+	 * 
+	 * @return <code><0</code> should not happen<br>
+	 *         <code>=0</code> blocking mode: timeout occurred on send<br>
+	 *         <code>=0</code> non-blocking mode: buffer is full in the
+	 *         underlying UDT socket<br>
+	 *         <code>>0</code> actual bytes sent count<br>
+	 * @see com.barchart.udt.SocketUDT#send(ByteBuffer)
+	 * @see com.barchart.udt.SocketUDT#send(byte[], int, int)
 	 */
-	// TODO use UDT buffer size as max for array
-	// NOTE: in DATAGRAM mode, remaining must be under UDT_MSS size
 	@Override
 	public int write(ByteBuffer buffer) throws IOException {
 
@@ -282,7 +305,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			final int sizeSent;
 			try {
 				if (isBlocking) {
-					begin();
+					begin(); // JDK contract for blocking calls
 				}
 				if (buffer.isDirect()) {
 					sizeSent = socket.send(buffer);
@@ -298,7 +321,7 @@ class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				}
 			} finally {
 				if (isBlocking) {
-					end(true);
+					end(true); // JDK contract for blocking calls
 				}
 			}
 

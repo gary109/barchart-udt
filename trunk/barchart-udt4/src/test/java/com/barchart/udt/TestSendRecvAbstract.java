@@ -62,7 +62,7 @@ public abstract class TestSendRecvAbstract<T> {
 			.getLogger(TestSendRecvAbstract.class);
 
 	final static int SIZE = 1460;
-	final static int COUNT = 10000;
+	final static int COUNT = 1000;
 
 	volatile SocketUDT server;
 	volatile SocketUDT connector;
