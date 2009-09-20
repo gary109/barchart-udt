@@ -39,7 +39,9 @@
  */
 package com.barchart.udt;
 
-// custom protocol factory - "UDT::CCC"
+/**
+ * NOT implemented; custom protocol factory - "UDT::CCC";
+ */
 public class FactoryUDT {
 
 	// TODO

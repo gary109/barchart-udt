@@ -51,48 +51,71 @@ import java.net.URLConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * CONTRACT:
- * 
+ * <p>
  * 1) expecting to find native libraries under these names in the root of class
  * path or jar file which contains this class
- * 
+ * <p>
  * 2) first name array element is extracted, copied AND loaded
- * 
+ * <p>
  * 3) remaining array elements are extracted and copied ONLY
+ * <p>
+ * .
  */
 public enum LibraryUDT {
 
+	/** The UNKNOWN. */
 	UNKNOWN(new String[] { "UNKNOWN" }), //
 
+	/** The WINDOWS_32 library entry. */
 	WINDOWS_32(new String[] { "SocketUDT-windows-x86-32.dll",
 			"LICENCE_BARCHART.txt" }), // 
 
+	/** The WINDOWS_64 library entry. */
 	WINDOWS_64(new String[] { "SocketUDT-windows-x86-64.dll",
 			"LICENCE_BARCHART.txt" }), //
 
+	/** The LINUX_32 library entry. */
 	LINUX_32(new String[] { "libSocketUDT-linux-x86-32.so",
 			"LICENCE_BARCHART.txt" }), // 
 
+	/** The LINUX_64 library entry. */
 	LINUX_64(new String[] { "libSocketUDT-linux-x86-64.so",
 			"LICENCE_BARCHART.txt" }), //
 
 	;
 
+	/** The file name array. */
 	public final String[] fileNameArray;
 
+	/**
+	 * Instantiates a new library udt.
+	 * 
+	 * @param fileNameArray
+	 *            the file name array
+	 */
 	private LibraryUDT(String[] fileNameArray) {
 		this.fileNameArray = fileNameArray;
 	}
 
+	/** The log. */
 	private final static Logger log = LoggerFactory.getLogger(LibraryUDT.class);
 
+	/** The Constant OS_NAME. */
 	public final static String OS_NAME = System.getProperty("os.name")
 			.toLowerCase();
 
+	/** The Constant OS_ARCH. */
 	public final static String OS_ARCH = System.getProperty("os.arch")
 			.toLowerCase();
 
+	/**
+	 * Detect on which architecture we are running.
+	 * 
+	 * @return the library udt
+	 */
 	public static LibraryUDT detect() {
 		if (OS_NAME.contains("windows")) {
 			if (OS_ARCH.contains("x86")) {
@@ -123,15 +146,22 @@ public enum LibraryUDT {
 		return UNKNOWN;
 	}
 
-	public final static String DEFAULT_FOLDER_NAME = "./lib";
+	/** The Constant DEFAULT_EXTRACT_FOLDER_NAME. */
+	public final static String DEFAULT_EXTRACT_FOLDER_NAME = "./lib";
 
 	/**
-	 * can specify optional libraries unpack location folder
+	 * can specify optional libraries unpack location folder.
+	 * 
+	 * @param folderName
+	 *            the folder name
+	 * 
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static void load(String folderName) throws Exception {
 
 		if (folderName == null || folderName.length() == 0) {
-			folderName = DEFAULT_FOLDER_NAME;
+			folderName = DEFAULT_EXTRACT_FOLDER_NAME;
 			log.warn("using default folderName={}", folderName);
 		}
 
@@ -197,9 +227,21 @@ public enum LibraryUDT {
 
 	}
 
+	/** The Constant EOF. */
 	private final static int EOF = -1;
 
 	// note: expecting resources in the the root of class path / jar file
+	/**
+	 * Extract.
+	 * 
+	 * @param folder
+	 *            the folder
+	 * @param fileName
+	 *            the file name
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
 	private static void extract(File folder, String fileName) throws Exception {
 
 		ClassLoader classLoader = LibraryUDT.class.getClassLoader();
@@ -266,10 +308,31 @@ public enum LibraryUDT {
 
 	}
 
+	/**
+	 * Time stamp.
+	 * 
+	 * @param connIN
+	 *            the conn in
+	 * 
+	 * @return the long
+	 */
 	private static long timeStamp(URLConnection connIN) {
 		return connIN.getLastModified();
 	}
 
+	/**
+	 * Checks if is same file.
+	 * 
+	 * @param connIN
+	 *            the conn in
+	 * @param fileOUT
+	 *            the file out
+	 * 
+	 * @return true, if is same file
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
 	private static boolean isSameFile(URLConnection connIN, File fileOUT)
 			throws Exception {
 

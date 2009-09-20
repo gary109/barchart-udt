@@ -332,7 +332,7 @@ public class SocketUDT {
 	}
 
 	/**
-	 * load {@link #localSocketAddress} value
+	 * Load {@link #localSocketAddress} value.
 	 * 
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sockname.htm">UDT::sockname()</a>
@@ -738,10 +738,11 @@ public class SocketUDT {
 	protected native void updateMonitor0(boolean makeClear) throws ExceptionUDT;
 
 	/**
-	 * load updated statistics values into {@link #monitor} object
+	 * Load updated statistics values into {@link #monitor} object.
 	 * 
 	 * @param makeClear
-	 *            if true, reset all statistics with this call
+	 *            true, reset all statistics with this call; false, keep
+	 *            collecting statistics, load updated values.
 	 * @see #updateMonitor0(boolean)
 	 */
 	public void updateMonitor(boolean makeClear) throws ExceptionUDT {

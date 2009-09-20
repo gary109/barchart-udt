@@ -44,67 +44,62 @@ import static com.barchart.udt.OptionFormatUDT.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Enum OptionUDT.
+ */
 public enum OptionUDT {
 
 	// keep code values in sync with UDT::UDTOpt
 	// provide 2 names: 1) UDT original and 2) human-readble
 
-	/**
-	 * the Maximum Transfer Unit
-	 */
+	/** the Maximum Transfer Unit. */
 	UDT_MSS(0, Integer.class, DECIMAL), //
+	/** the Maximum Transfer Unit. */
 	Maximum_Transfer_Unit(0, Integer.class, DECIMAL), //
 
-	/**
-	 * if sending is blocking
-	 */
+	/** if sending is blocking. */
 	UDT_SNDSYN(1, Boolean.class, BOOLEAN), //
+	/** if sending is blocking. */
 	Is_Send_Synchronous(1, Boolean.class, BOOLEAN), //
 
-	/**
-	 * if receiving is blocking
-	 */
+	/** if receiving is blocking. */
 	UDT_RCVSYN(2, Boolean.class, BOOLEAN), //
+	/** if receiving is blocking. */
 	Is_Receive_Synchronous(2, Boolean.class, BOOLEAN), //
 
 	// custom congestion control algorithm
 	/* TODO not yet implemented: FactoryUDT */
 	// UDT_CC(3, FactoryUDT.class), //
 
-	/**
-	 * Flight flag size (window size)
-	 */
+	/** Flight flag size (window size). */
 	UDT_FC(4, Integer.class, BINARY), //
+	/** Flight flag size (window size). */
 	Flight_Window_Size(4, Integer.class, DECIMAL), //
 
-	/**
-	 * maximum buffer in sending queue
-	 */
+	/** maximum buffer in sending queue. */
 	UDT_SNDBUF(5, Integer.class, DECIMAL), //
+	/** maximum buffer in sending queue. */
 	Protocol_Send_Buffer_Size(5, Integer.class, DECIMAL), //
 
-	/**
-	 * UDT receiving buffer size
-	 */
+	/** UDT receiving buffer size. */
 	UDT_RCVBUF(6, Integer.class, DECIMAL), //
+	/** UDT receiving buffer size. */
 	Protocol_Receive_Buffer_Size(6, Integer.class, DECIMAL), //
 
-	/**
-	 * waiting for unsent data when closing
-	 */
+	/** waiting for unsent data when closing. */
 	UDT_LINGER(7, LingerUDT.class, DECIMAL), //
+	/** waiting for unsent data when closing. */
 	Time_To_Linger_On_Close(7, LingerUDT.class, DECIMAL), //
 
-	/**
-	 * UDP sending buffer size
-	 */
+	/** UDP sending buffer size. */
 	UDP_SNDBUF(8, Integer.class, DECIMAL), //
+	/** UDP sending buffer size. */
 	Kernel_Send_Buffer_Size(8, Integer.class, DECIMAL), //
 
-	/**
-	 * UDP receiving buffer size
-	 */
+	/** UDP receiving buffer size. */
 	UDP_RCVBUF(9, Integer.class, DECIMAL), //
+	/** UDP receiving buffer size. */
 	Kernel_Receive_Buffer_Size(9, Integer.class, DECIMAL), //
 
 	// XXX not exposed in UDT api
@@ -117,54 +112,68 @@ public enum OptionUDT {
 	/* TODO UDT Error; code:'5000' message:'Operation not supported.' */
 	// UDT_MSGTTL(11, Integer.class), //
 
-	/**
-	 * rendezvous connection mode
-	 */
+	/** rendezvous connection mode. */
 	UDT_RENDEZVOUS(12, Boolean.class, BOOLEAN), //
+	/** rendezvous connection mode. */
 	Is_Randezvous_Connect_Enabled(12, Boolean.class, BOOLEAN), //
 
-	/**
-	 * send() timeout
-	 */
+	/** send() timeout. */
 	UDT_SNDTIMEO(13, Integer.class, DECIMAL), //
+	/** send() timeout. */
 	Send_Timeout(13, Integer.class, DECIMAL), //
 
-	/**
-	 * recv() timeout
-	 */
+	/** recv() timeout. */
 	UDT_RCVTIMEO(14, Integer.class, DECIMAL), //
+	/** recv() timeout. */
 	Receive_Timeout(14, Integer.class, DECIMAL), //
 
-	/**
-	 * reuse an existing port or create a new one
-	 */
+	/** reuse an existing port or create a new one. */
 	UDT_REUSEADDR(15, Boolean.class, BOOLEAN), //
+	/** reuse an existing port or create a new one. */
 	Is_Address_Reuse_Enabled(15, Boolean.class, BOOLEAN), //
 
-	/**
-	 * maximum bandwidth (bytes per second) that the connection can use
-	 */
+	/** maximum bandwidth (bytes per second) that the connection can use. */
 	UDT_MAXBW(16, Long.class, DECIMAL), //
+	/** maximum bandwidth (bytes per second) that the connection can use. */
 	Maximum_Bandwidth(16, Long.class, DECIMAL), //
 
+	/** The code. */
 	;
 
 	public final int code;
 
+	/** The klaz. */
 	public final Class<?> klaz;
 
+	/** The format. */
 	public final OptionFormatUDT format;
 
+	/**
+	 * Instantiates a new option udt.
+	 * 
+	 * @param code
+	 *            the code
+	 * @param klaz
+	 *            the klaz
+	 * @param format
+	 *            the format
+	 */
 	private OptionUDT(int code, Class<?> klaz, OptionFormatUDT format) {
 		this.code = code;
 		this.klaz = klaz;
 		this.format = format;
 	}
 
+	/** The log. */
 	private static final Logger log = LoggerFactory.getLogger(OptionUDT.class);
 
 	/**
-	 * show all option values
+	 * show all option values.
+	 * 
+	 * @param socket
+	 *            the socket
+	 * @param text
+	 *            the text
 	 */
 	public static void appendSnapshot(SocketUDT socket, StringBuilder text) {
 
