@@ -37,7 +37,7 @@
  *
  * =================================================================================
  */
-package com.barchart.udt.jdk;
+package com.barchart.udt.net;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
