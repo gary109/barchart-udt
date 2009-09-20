@@ -45,7 +45,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 class ConnectorThreadPoolUDT {
 
@@ -63,21 +63,20 @@ class ConnectorThreadPoolUDT {
 
 	final int THREAD_PRIORITY = Thread.NORM_PRIORITY;
 
-	final int MINIMUM_POOL_SIZE = 1; // threads
-
-	final int THREAD_TIME_TO_LIVE = 30; // seconds
+	final int THREAD_TIME_KEEP = 3 * 1000;
+	final TimeUnit THREAD_TIME_UNIT = TimeUnit.MILLISECONDS;
 
 	ConnectorThreadPoolUDT(int maximumPoolSize) {
 
 		factory = new ConnectorThreadFactoryUDT(THREAD_PREFIX, THREAD_PRIORITY);
 
-		// service = ConnectorExecutorsUDT.newCachedThreadPool(
-		// //
-		// MINIMUM_POOL_SIZE, maximumPoolSize, THREAD_TIME_TO_LIVE,
-		// factory);
+		// service = Executors.newCachedThreadPool();
 
-		// TODO make bounded dynamic
-		service = Executors.newCachedThreadPool();
+		service = ConnectorExecutorsUDT.newDynamicThreadPool(//
+				maximumPoolSize, //
+				THREAD_TIME_KEEP, //
+				THREAD_TIME_UNIT, //
+				factory);
 
 	}
 
