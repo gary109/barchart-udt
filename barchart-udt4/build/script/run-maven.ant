@@ -25,6 +25,7 @@
 
 	<target name="maven-package" depends="check-maven" description="package">
 		<exec executable="${M2_PATH}">
+			<arg value="clean" />
 			<arg value="package" />
 		</exec>
 	</target>
@@ -33,6 +34,7 @@
 	        depends="check-maven"
 	        description="package with documents">
 		<exec executable="${M2_PATH}">
+			<arg value="clean" />
 			<arg value="package" />
 			<arg value="-P documents" />
 		</exec>
@@ -42,6 +44,7 @@
 	        depends="check-maven"
 	        description="package with udt checkout">
 		<exec executable="${M2_PATH}">
+			<arg value="clean" />
 			<arg value="package" />
 			<arg value="-P checkout" />
 		</exec>
@@ -51,6 +54,7 @@
 	        depends="check-maven"
 	        description="package with license update">
 		<exec executable="${M2_PATH}">
+			<arg value="clean" />
 			<arg value="package" />
 			<arg value="-P license" />
 		</exec>
@@ -58,14 +62,16 @@
 
 	<target name="maven-deploy" depends="check-maven" description="deploy">
 		<exec executable="${M2_PATH}">
+			<arg value="clean" />
 			<arg value="deploy" />
 		</exec>
 	</target>
 
 	<target name="maven-deploy-documents"
 	        depends="check-maven"
-	        description="deploy with documents upload">
+	        description="deploy with documents">
 		<exec executable="${M2_PATH}">
+			<arg value="clean" />
 			<arg value="deploy" />
 			<arg value="-P documents" />
 		</exec>
