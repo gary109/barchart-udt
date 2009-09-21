@@ -59,6 +59,13 @@ public class SocketUDT {
 
 	private static final Logger log = LoggerFactory.getLogger(SocketUDT.class);
 
+	//
+
+	/**
+	 * Signature that must match between java code and native code
+	 */
+	public static final long SIGNATURE = VersionUDT.BUILDTIME;
+
 	/**
 	 * infinite message time to live;
 	 */
@@ -130,6 +137,10 @@ public class SocketUDT {
 			log.error("failed to INIT native library; terminating", e);
 			System.exit(2);
 		}
+		if (!checkClass0(SIGNATURE)) {
+			log.error("java/native signature inconsistent; terminating");
+			System.exit(3);
+		}
 		log.debug("native library load & init OK");
 	}
 
@@ -198,6 +209,13 @@ public class SocketUDT {
 	// ###################################################
 	// ### UDT API
 	// ###
+
+	/**
+	 * Validate java code and native code builds are consistent.
+	 * 
+	 * @see #SIGNATURE
+	 */
+	protected static native boolean checkClass0(long signature);
 
 	/**
 	 * Call this after loading native library.
