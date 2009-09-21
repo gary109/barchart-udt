@@ -61,6 +61,8 @@ public abstract class TestSendRecvAbstract<T> {
 	final static Logger log = LoggerFactory
 			.getLogger(TestSendRecvAbstract.class);
 
+	final static int TEST_TIMEOUT = 10; // seconds
+	
 	final static int SIZE = 1460;
 	final static int COUNT = 1000;
 
@@ -234,7 +236,7 @@ public abstract class TestSendRecvAbstract<T> {
 			service.execute(clientReader);
 			service.execute(clientWriter);
 
-			barrier.await(5, TimeUnit.SECONDS);
+			barrier.await(TEST_TIMEOUT, TimeUnit.SECONDS);
 
 		} catch (Exception e) {
 			log.error("", e);
