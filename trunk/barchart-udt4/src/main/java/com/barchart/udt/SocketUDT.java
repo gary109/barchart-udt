@@ -62,10 +62,10 @@ public class SocketUDT {
 	//
 
 	/**
-	 * Signature that must match between java code and native code
+	 * JNI Signature that must match between java code and native code
 	 */
 	// do not use automatic signature till all platforms are built at once
-	public static final long SIGNATURE = 1000L; // VersionUDT.BUILDTIME;
+	public static final long SIGNATURE_JNI = 1001L; // VersionUDT.BUILDTIME;
 
 	/**
 	 * infinite message time to live;
@@ -138,7 +138,7 @@ public class SocketUDT {
 			log.error("failed to INIT native library; terminating", e);
 			System.exit(2);
 		}
-		if (!checkClass0(SIGNATURE)) {
+		if (SIGNATURE_JNI != getSignatureJNI0()) {
 			log.error("java/native signature inconsistent; terminating");
 			System.exit(3);
 		}
@@ -212,11 +212,11 @@ public class SocketUDT {
 	// ###
 
 	/**
-	 * Validate java code and native code builds are consistent.
+	 * Verify that java code and native code builds are consistent.
 	 * 
-	 * @see #SIGNATURE
+	 * @see #SIGNATURE_JNI
 	 */
-	protected static native boolean checkClass0(long signature);
+	protected static native long getSignatureJNI0();
 
 	/**
 	 * Call this after loading native library.

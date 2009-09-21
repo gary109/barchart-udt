@@ -637,16 +637,12 @@ bool UDT_IsSocketOpen(JNIEnv *env, jobject self) {
 // ########################################################
 
 // validate consistency of java code and native library
-JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_checkClass0(
-		JNIEnv *env, jclass clsSocketUDT, const jlong signature) {
+JNIEXPORT jlong JNICALL Java_com_barchart_udt_SocketUDT_getSignatureJNI0(
+		JNIEnv *env, jclass clsSocketUDT) {
 
-	//	printf("udt-checkClass0\n");
+	//	printf("udt-getSignatureJNI0\n");
 
-	if (com_barchart_udt_SocketUDT_SIGNATURE == signature) {
-		return JNI_TRUE;
-	} else {
-		return JNI_FALSE;
-	}
+	return com_barchart_udt_SocketUDT_SIGNATURE_JNI;
 
 }
 

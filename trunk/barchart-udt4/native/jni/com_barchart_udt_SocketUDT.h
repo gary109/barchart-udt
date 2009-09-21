@@ -8,8 +8,8 @@
 extern "C" {
 #endif
 /* Inaccessible static: log */
-#undef com_barchart_udt_SocketUDT_SIGNATURE
-#define com_barchart_udt_SocketUDT_SIGNATURE 1000LL
+#undef com_barchart_udt_SocketUDT_SIGNATURE_JNI
+#define com_barchart_udt_SocketUDT_SIGNATURE_JNI 1001LL
 #undef com_barchart_udt_SocketUDT_INFINITE_TTL
 #define com_barchart_udt_SocketUDT_INFINITE_TTL -1L
 #undef com_barchart_udt_SocketUDT_INFINITE_TIMEOUT
@@ -35,11 +35,11 @@ extern "C" {
 /* Inaccessible static: _00024assertionsDisabled */
 /*
  * Class:     com_barchart_udt_SocketUDT
- * Method:    checkClass0
- * Signature: (J)Z
+ * Method:    getSignatureJNI0
+ * Signature: ()J
  */
-JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_checkClass0
-  (JNIEnv *, jclass, jlong);
+JNIEXPORT jlong JNICALL Java_com_barchart_udt_SocketUDT_getSignatureJNI0
+  (JNIEnv *, jclass);
 
 /*
  * Class:     com_barchart_udt_SocketUDT
