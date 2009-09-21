@@ -65,7 +65,7 @@ public class SocketUDT {
 	 * JNI Signature that must match between java code and native code
 	 */
 	// do not use automatic signature till all platforms are built at once
-	public static final long SIGNATURE_JNI = 1001L; // VersionUDT.BUILDTIME;
+	public static final int SIGNATURE_JNI = 1001; // VersionUDT.BUILDTIME;
 
 	/**
 	 * infinite message time to live;
@@ -216,7 +216,7 @@ public class SocketUDT {
 	 * 
 	 * @see #SIGNATURE_JNI
 	 */
-	protected static native long getSignatureJNI0();
+	protected static native int getSignatureJNI0();
 
 	/**
 	 * Call this after loading native library.

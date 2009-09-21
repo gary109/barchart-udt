@@ -637,7 +637,7 @@ bool UDT_IsSocketOpen(JNIEnv *env, jobject self) {
 // ########################################################
 
 // validate consistency of java code and native library
-JNIEXPORT jlong JNICALL Java_com_barchart_udt_SocketUDT_getSignatureJNI0(
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_getSignatureJNI0(
 		JNIEnv *env, jclass clsSocketUDT) {
 
 	//	printf("udt-getSignatureJNI0\n");
