@@ -91,19 +91,46 @@ public class TestOption {
 
 			log.info("pass: long");
 
-			option = OptionUDT.UDT_LINGER;
-			LingerUDT linger1 = new LingerUDT(12345678);
+		} catch (SocketException e) {
+			fail("SocketException; " + e.getMessage());
+		}
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testOptionLingerRange1() throws ExceptionUDT {
+		new LingerUDT(12345678);
+	}
+
+	@Test
+	public void testOptionLingerRange2() throws ExceptionUDT {
+		new LingerUDT(-12345678);
+		new LingerUDT(0);
+		new LingerUDT(65535);
+	}
+
+	@Test
+	public void testOptionLinger() {
+
+		try {
+
+			SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
+
+			OptionUDT option = OptionUDT.UDT_LINGER;
+
+			LingerUDT linger1 = new LingerUDT(65432);
 			socket.setOption(option, linger1);
 			assertEquals(linger1, socket.getOption(option));
-			LingerUDT linger2 = new LingerUDT(-1);
+
+			LingerUDT linger2 = new LingerUDT(-12345);
 			socket.setOption(option, linger2);
-			assertEquals(new LingerUDT(0), socket.getOption(option));
+			assertEquals(LingerUDT.LINGER_ZERO, socket.getOption(option));
 
 			log.info("pass: linger");
 
 		} catch (SocketException e) {
 			fail("SocketException; " + e.getMessage());
 		}
+
 	}
 
 }

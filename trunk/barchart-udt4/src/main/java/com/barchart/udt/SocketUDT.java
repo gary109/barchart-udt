@@ -985,16 +985,15 @@ public class SocketUDT {
 		setOption(OptionUDT.Is_Address_Reuse_Enabled, on);
 	}
 
-	protected static final LingerUDT LINGER_ZERO = new LingerUDT(0);
-
 	public void setSoLinger(boolean on, int linger) throws ExceptionUDT {
 		if (on) {
 			if (linger <= 0) {
+				// keep JDK contract for setSoLinger parameters
 				throw new IllegalArgumentException("linger <= 0");
 			}
 			setOption(OptionUDT.Time_To_Linger_On_Close, new LingerUDT(linger));
 		} else {
-			setOption(OptionUDT.Time_To_Linger_On_Close, LINGER_ZERO);
+			setOption(OptionUDT.Time_To_Linger_On_Close, LingerUDT.LINGER_ZERO);
 		}
 	}
 
