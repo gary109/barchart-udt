@@ -64,7 +64,8 @@ public class SocketUDT {
 	/**
 	 * Signature that must match between java code and native code
 	 */
-	public static final long SIGNATURE = VersionUDT.BUILDTIME;
+	// do not use automatic signature till all platforms are built at once
+	public static final long SIGNATURE = 1000L; // VersionUDT.BUILDTIME;
 
 	/**
 	 * infinite message time to live;

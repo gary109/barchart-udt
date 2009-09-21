@@ -9,7 +9,7 @@ extern "C" {
 #endif
 /* Inaccessible static: log */
 #undef com_barchart_udt_SocketUDT_SIGNATURE
-#define com_barchart_udt_SocketUDT_SIGNATURE 1253548942693LL
+#define com_barchart_udt_SocketUDT_SIGNATURE 1000LL
 #undef com_barchart_udt_SocketUDT_INFINITE_TTL
 #define com_barchart_udt_SocketUDT_INFINITE_TTL -1L
 #undef com_barchart_udt_SocketUDT_INFINITE_TIMEOUT
