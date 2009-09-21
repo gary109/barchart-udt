@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<mavenStamp>ARTIFACT='${artifactId}'.VERSION='${version}'.TIMESTAMP='${timestamp}'</mavenStamp>
+		<mavenStamp>ARTIFACT='${artifactId}';VERSION='${version}';TIMESTAMP='${timestamp}';</mavenStamp>
 		<licenceYear>2009</licenceYear>
 		<licenceOrganization>Barchart, Inc.</licenceOrganization>
 		<licenceWebsite>http://www.barchart.com/</licenceWebsite>
@@ -116,6 +116,42 @@
 				</dependencies>
 				<executions>
 					<execution>
+						<id>generate-version-class</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<property
+									name="mvn.basedir"
+									value="${basedir}" />
+								<property
+									name="mvn.artifactId"
+									value="${artifactId}" />
+								<property
+									name="mvn.version"
+									value="${version}" />
+								<property
+									name="mvn.timestamp"
+									value="${timestamp}" />
+								<property
+									name="mvn.mavenStamp"
+									value="${mavenStamp}" />
+								<property
+									name="mvn.buildtime"
+									value="${buildtime}" />
+								<property
+									name="mvn.generatedSources"
+									value="${project.build.directory}/generated-sources" />
+								<ant
+									antfile="${basedir}/build/script/build-version.ant">
+								</ant>
+							</tasks>
+							<sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
+						</configuration>
+					</execution>
+					<execution>
 						<id>report-timestamp-value</id>
 						<phase>validate</phase>
 						<goals>
@@ -123,6 +159,8 @@
 						</goals>
 						<configuration>
 							<tasks>
+								<echo
+									message="buildtime : ${buildtime}" />
 								<echo
 									message="mavenStamp : ${mavenStamp}" />
 							</tasks>
