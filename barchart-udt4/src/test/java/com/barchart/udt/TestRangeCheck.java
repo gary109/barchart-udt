@@ -47,9 +47,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestRange {
+public class TestRangeCheck {
 
-	Logger log = LoggerFactory.getLogger(TestRange.class);
+	Logger log = LoggerFactory.getLogger(TestRangeCheck.class);
 
 	volatile SocketUDT socket;
 

@@ -30,7 +30,6 @@ extern "C" {
 #define com_barchart_udt_SocketUDT_UDT_EXCEPT_INDEX 2L
 #undef com_barchart_udt_SocketUDT_UDT_SIZE_COUNT
 #define com_barchart_udt_SocketUDT_UDT_SIZE_COUNT 3L
-/* Inaccessible static: LINGER_ZERO */
 /* Inaccessible static: _00024assertionsDisabled */
 /*
  * Class:     com_barchart_udt_SocketUDT
