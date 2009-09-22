@@ -77,6 +77,34 @@
 		</exec>
 	</target>
 
+
+	<target name="maven-deploy-google-code-ant-task"
+	        depends="check-maven"
+	        description="deploy to google code repository: ant task">
+		<exec executable="${M2_PATH}">
+			<arg value="deploy:deploy-file" />
+			<arg value="-f pom.deploy.xml" />
+			<arg value="-D repositoryId=${repoID}" />
+			<arg value="-D url=${repoURL}" />
+			<arg value="-D uniqueVersion=false" />
+			<arg value="-D generatePom=true" />
+
+			<arg value="-D file=lib/ant-googlecode-0.0.2.jar" />
+			<arg value="-D groupId=com.google.code.ant" />
+			<arg value="-D artifactId=ant-googlecode" />
+			<arg value="-D version=0.0.2" />
+			<arg value="-D packaging=jar" />
+
+		</exec>
+	</target>
+
+	<!-- task to place files in the "downloads" section of google code project site -->
+
+	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
+	         classpath="lib/ant-googlecode-0.0.2.jar"
+	         name="google-code-upload" />
+
+
 	<property name="artifact" value="barchart-udt4" />
 	<property name="version" value="1.0.0-SNAPSHOT" />
 
