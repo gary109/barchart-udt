@@ -129,11 +129,14 @@
 	based on 'g++' compiler type, not build platform type -->
 	<property name="name.cpptasks" value="lib${name.root}.so" />
 	<property name="name.cpptasks.map" value="${name.cpptasks}.map" />
+	<property name="name.cpptasks.sym" value="${name.cpptasks}.sym" />
 
 	<!-- full path to the artifacts produceced by cpptasks: *.so and *.map -->
 	<property name="path.cpptasks" value="${work.cpptasks}/${name.cpptasks}" />
 	<property name="path.cpptasks.map"
 	          value="${work.cpptasks}/${name.cpptasks.map}" />
+	<property name="path.cpptasks.sym"
+	          value="${work.cpptasks}/${name.cpptasks.sym}" />
 
 	<!-- real name with prefix/suffix that is requered by current platform -->
 	<condition property="name.real" value="${name.root}.dll">
@@ -143,10 +146,12 @@
 		<isset property="isLinux" />
 	</condition>
 	<property name="name.real.map" value="${name.real}.map" />
+	<property name="name.real.sym" value="${name.real}.sym" />
 
 	<!-- full path to the artifacts locations in maven: *.so and *.map -->
 	<property name="path.real" value="${mvn.resources}/${name.real}" />
 	<property name="path.real.map" value="${mvn.resources}/${name.real.map}" />
+	<property name="path.real.sym" value="${mvn.resources}/${name.real.sym}" />
 
 
 	<!-- ####################################################### -->
@@ -232,6 +237,8 @@
 	</compiler>
 
 	<linker id="gcc-linker" name="g++">
+		<!-- provide image base to simplify library map analisys -->
+		<linkerarg location="end" value="-Wl,--image-base,0x10000000" />
 		<!-- map file for crash analysis; note: will be located in work directory -->
 		<linkerarg location="end" value="-Wl,-Map,${name.cpptasks.map}" />
 		<!-- core libraries -->
@@ -360,12 +367,17 @@
 			<arg value="-c" />
 			<arg value="echo 'checking stdc++ versions in use:'; objdump --dynamic-syms '${path.cpptasks}' | grep 'GLIB' | sed 's/^.*\(GLIB[A-Z]*_[0-9\.]*\).*$/\t\1/' | sort -u;" />
 		</exec>
+		<exec executable="bash" failonerror="true">
+			<arg value="-c" />
+			<arg value="echo 'generating symbol map:'; nm --demangle --numeric-sort '${path.cpptasks}' > '${path.cpptasks.sym}';" />
+		</exec>
 	</target>
 
 	<target name="target-copy-artifact" depends="target-check-library">
 		<echo message="### COPY ARTIFACT" />
 		<copy file="${path.cpptasks}" tofile="${path.real}" />
 		<copy file="${path.cpptasks.map}" tofile="${path.real.map}" />
+		<copy file="${path.cpptasks.sym}" tofile="${path.real.sym}" />
 	</target>
 
 	<!-- ================================= 

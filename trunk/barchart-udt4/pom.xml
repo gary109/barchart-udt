@@ -355,6 +355,7 @@
 						</configuration>
 						<executions>
 							<execution>
+								<phase>package</phase>
 								<goals>
 									<goal>colorize</goal>
 								</goals>
