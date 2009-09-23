@@ -102,7 +102,7 @@ public class SelectorUDT extends AbstractSelector {
 
 					selectedKeySet.clear();
 
-					for (SelectionKey key : registeredKeySet) {
+					for (final SelectionKey key : registeredKeySet) {
 						try {
 							key.channel().close();
 						} catch (Throwable e) {

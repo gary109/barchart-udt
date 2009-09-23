@@ -12,6 +12,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.spi.SelectorProvider;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
@@ -27,6 +28,8 @@ import org.slf4j.LoggerFactory;
 public class TestSelectorUDT {
 
 	protected static final int SIZE = 1460;
+
+	protected static final int COUNT = 10;
 
 	private static Logger log = LoggerFactory.getLogger(TestSelectorUDT.class);
 
@@ -78,7 +81,7 @@ public class TestSelectorUDT {
 
 			final Set<SelectionKey> selectedKeySet = selector.selectedKeys();
 
-			selectLoop: while (true) {
+			selectLoop: while (selector.isOpen()) {
 
 				final long timeout = 100;
 
@@ -128,6 +131,11 @@ public class TestSelectorUDT {
 
 	final Handler serverHandler = new Handler() {
 
+		@Override
+		public String toString() {
+			return "serverHandler " + serverQueue.size() + " " + serverChannel;
+		}
+
 		final ByteBuffer readerBuffer = ByteBuffer.allocateDirect(SIZE);
 
 		@Override
@@ -137,7 +145,7 @@ public class TestSelectorUDT {
 					readerBuffer.clear();
 					final int readSize = serverChannel.read(readerBuffer);
 					if (readSize <= 0) {
-						break;
+						return;
 					}
 					assertEquals(readSize, SIZE);
 					byte[] array = new byte[readSize];
@@ -175,12 +183,42 @@ public class TestSelectorUDT {
 
 	};
 
+	final Queue<byte[]> clientQueue = new ConcurrentLinkedQueue<byte[]>();
+
 	final Handler clientHandler = new Handler() {
+
+		@Override
+		public String toString() {
+			return "clientHandler " + clientQueue.size() + " " + clientChannel;
+		}
 
 		final ByteBuffer readerBuffer = ByteBuffer.allocateDirect(SIZE);
 
 		@Override
 		public void handleRead() {
+			try {
+				while (true) {
+					readerBuffer.clear();
+					final int readSize = clientChannel.read(readerBuffer);
+					if (readSize <= 0) {
+						return;
+					}
+					assertEquals(readSize, SIZE);
+					byte[] arrayRead = new byte[readSize];
+					readerBuffer.flip();
+					readerBuffer.get(arrayRead);
+					byte[] arrayWritten = clientQueue.poll();
+					assertNotNull(arrayWritten);
+					assertTrue(Arrays.equals(arrayRead, arrayWritten));
+					final int count = writeCount.get();
+					if (count == COUNT) {
+						selector.close();
+						log.info("client read done");
+					}
+				}
+			} catch (Exception e) {
+				fail(e.getMessage());
+			}
 		}
 
 		final ByteBuffer writerBuffer = ByteBuffer.allocateDirect(SIZE);
@@ -191,13 +229,27 @@ public class TestSelectorUDT {
 
 		@Override
 		public void handleWrite() {
-			byte[] array = new byte[SIZE];
-			random.nextBytes(array);
-			writerBuffer.clear();
-			writerBuffer.put(array);
 			try {
-				int writeSize = clientChannel.write(writerBuffer);
-			} catch (IOException e) {
+				while (true) {
+					byte[] array = new byte[SIZE];
+					random.nextBytes(array);
+					writerBuffer.clear();
+					writerBuffer.put(array);
+					writerBuffer.flip();
+					final int writeSize = clientChannel.write(writerBuffer);
+					if (writeSize <= 0) {
+						return;
+					}
+					assertEquals(writeSize, SIZE);
+					clientQueue.offer(array);
+					final int count = writeCount.getAndIncrement();
+					if (count > COUNT) {
+						clientKey.interestOps(clientKey.interestOps()
+								^ OP_WRITE);
+						log.info("client write done");
+					}
+				}
+			} catch (Exception e) {
 				fail(e.getMessage());
 			}
 		}
@@ -206,7 +258,7 @@ public class TestSelectorUDT {
 
 	private void doAccept(SelectionKey key) {
 		try {
-			log.info("doAccept");
+			log.info("doAccept; key={}", key);
 
 			assertEquals(key, acceptorKey);
 			assertEquals(acceptorChannel, (ServerSocketChannel) key.channel());
@@ -227,7 +279,7 @@ public class TestSelectorUDT {
 
 	private void doConnect(SelectionKey key) {
 		try {
-			log.info("doConnect");
+			log.info("doConnect; key={}", key);
 
 			assertEquals(key, clientKey);
 			assertEquals(clientChannel, (SocketChannel) key.channel());
@@ -246,6 +298,8 @@ public class TestSelectorUDT {
 
 	private void doRead(SelectionKey key) {
 
+		log.info("doRead; key={}", key);
+
 		Object attachment = key.attachment();
 		assertTrue(attachment instanceof Handler);
 
@@ -261,6 +315,8 @@ public class TestSelectorUDT {
 
 		Handler handler = (Handler) attachment;
 		handler.handleWrite();
+
+		log.info("doWrite; handler={} key={}", handler, key);
 
 	}
 

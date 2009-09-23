@@ -416,4 +416,11 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		return socketUDT.isOpen();
 	}
 
+	//
+
+	@Override
+	public String toString() {
+		return socketUDT.toString();
+	}
+
 }
