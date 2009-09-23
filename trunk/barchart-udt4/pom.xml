@@ -307,7 +307,9 @@
 	</distributionManagement>
 
 	<pluginRepositories>
+
 		<pluginRepository>
+			<!-- licence formatter: maven-license-plugin -->
 			<id>mc-release</id>
 			<name>Local Maven repository of releases</name>
 			<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
@@ -318,6 +320,15 @@
 				<enabled>true</enabled>
 			</releases>
 		</pluginRepository>
+
+		<pluginRepository>
+			<!-- javadoc formatter: javolution-colapi -->
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
+		</pluginRepository>
+
 	</pluginRepositories>
 
 	<repositories>
@@ -334,6 +345,22 @@
 			<id>documents</id>
 			<build>
 				<plugins>
+
+					<plugin>
+						<groupId>javolution</groupId>
+						<artifactId>colapi</artifactId>
+						<version>1.0.0</version>
+						<configuration>
+							<directory>doc</directory>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>colorize</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -490,12 +517,17 @@
 	</profiles>
 </project>
 	<!--
-		NOT USED; call make, to build or clean <plugin> <groupId>org.codehaus.mojo</groupId>
-		<artifactId>exec-maven-plugin</artifactId> <version>1.1</version> <executions> <execution> <id>make-all</id>
-		<phase>XXXcompile</phase> <goals> <goal>exec</goal> </goals> <configuration> <executable>make</executable> <arguments>
-		<argument>all</argument> <argument> - - makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments>
-		</configuration> </execution> <execution> <id>make-clean</id> <phase>clean</phase> <goals> <goal>exec</goal> </goals>
-		<configuration> <executable>make</executable> <arguments> <argument>clean</argument> <argument> - -
-		makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments> </configuration> </execution> </executions>
-		</plugin>
+		NOT USED; call make, to build or clean <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>exec-maven-plugin</artifactId> <version>1.1</version>
+		<executions> <execution> <id>make-all</id> <phase>XXXcompile</phase>
+		<goals> <goal>exec</goal> </goals> <configuration>
+		<executable>make</executable> <arguments> <argument>all</argument>
+		<argument> - - makefile=${nativeSrc}/makefile-barchart.mk </argument>
+		</arguments> </configuration> </execution> <execution>
+		<id>make-clean</id> <phase>clean</phase> <goals> <goal>exec</goal>
+		</goals> <configuration> <executable>make</executable> <arguments>
+		<argument>clean</argument> <argument> - -
+		makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments>
+		</configuration> </execution> </executions> </plugin>
 	-->
