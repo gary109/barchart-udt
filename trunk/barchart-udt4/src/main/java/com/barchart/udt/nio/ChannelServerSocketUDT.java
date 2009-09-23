@@ -136,4 +136,11 @@ public class ChannelServerSocketUDT extends ServerSocketChannel implements
 		return serverSocketUDT.isOpen();
 	}
 
+	//
+
+	@Override
+	public String toString() {
+		return serverSocketUDT.toString();
+	}
+
 }

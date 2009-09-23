@@ -937,6 +937,41 @@ public class SocketUDT {
 	}
 
 	/**
+	 * @return true : socket is valid and both send and receive are set to
+	 *         blocking mode; false : at least one channel is set to
+	 *         non-blocking mode or socket is invalid;
+	 * 
+	 * @see #isNonBlocking()
+	 */
+	public boolean isBlocking() {
+		try {
+			boolean isReceiveBlocking = (Boolean) getOption(OptionUDT.Is_Receive_Synchronous);
+			boolean isSendBlocking = (Boolean) getOption(OptionUDT.Is_Send_Synchronous);
+			return isOpen() && isReceiveBlocking && isSendBlocking;
+		} catch (Exception e) {
+			log.error("unexpected;", e);
+			return false;
+		}
+	}
+
+	/**
+	 * @return true : socket is valid and both send and receive are set to NON
+	 *         blocking mode; false : at least one channel is set to blocking
+	 *         mode or socket is invalid;
+	 * @see #isBlocking()
+	 */
+	public boolean isNonBlocking() {
+		try {
+			boolean isReceiveBlocking = (Boolean) getOption(OptionUDT.Is_Receive_Synchronous);
+			boolean isSendBlocking = (Boolean) getOption(OptionUDT.Is_Send_Synchronous);
+			return isOpen() && !isReceiveBlocking && !isSendBlocking;
+		} catch (Exception e) {
+			log.error("unexpected;", e);
+			return false;
+		}
+	}
+
+	/**
 	 * Protocol level parameter.
 	 */
 	public int getSendBufferSize() throws ExceptionUDT {
@@ -1159,4 +1194,21 @@ public class SocketUDT {
 	// ### used for development only
 	// #############################
 
+	//
+	@Override
+	public String toString() {
+		return " socketID="
+				+ socketID //
+				+ " type="
+				+ type //
+				+ " isOpen="
+				+ isOpen() //
+				+ " isNonBlocking="
+				+ isNonBlocking() //
+				+ " local=" + getLocalInetAddress() + ":"
+				+ getLocalInetPort()//
+				+ " remote=" + getRemoteInetAddress() + ":"
+				+ getRemoteInetPort()//
+		;
+	}
 }
