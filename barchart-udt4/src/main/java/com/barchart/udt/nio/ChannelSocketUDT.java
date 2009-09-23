@@ -63,27 +63,30 @@ import com.barchart.udt.SocketUDT;
  * 
  * example:
  * 
- * <pre>
+ * [code]
  * 
- * SocketChannel clientChannel = SelectorProviderUDT.DATAGRAM.openSocketChannel();
+ * SocketChannel clientChannel =
+ * SelectorProviderUDT.DATAGRAM.openSocketChannel();
  * 
  * clientChannel.configureBlocking(true);
  * 
  * Socket clientSocket = clientChannel.socket();
  * 
- * InetSocketAddress clientAddress = new InetSocketAddress(&quot;localhost&quot;, 10000);
+ * InetSocketAddress clientAddress = new
+ * InetSocketAddress(&quot;localhost&quot;, 10000);
  * 
  * clientSocket.bind(clientAddress);
  * 
  * assert clientSocket.isBound();
  * 
- * InetSocketAddress serverAddress = new InetSocketAddress(&quot;localhost&quot;, 12345);
+ * InetSocketAddress serverAddress = new
+ * InetSocketAddress(&quot;localhost&quot;, 12345);
  * 
  * clientChannel.connect(serverAddress);
  * 
  * assert clientSocket.isConnected();
  * 
- * </pre>
+ * [/code]
  */
 public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 

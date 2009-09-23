@@ -54,14 +54,15 @@ import com.barchart.udt.SocketUDT;
  * 
  * example:
  * 
- * <pre>
+ * [code]
  * 
  * ServerSocketChannel acceptorChannel = SelectorProviderUDT.DATAGRAM
- * 		.openServerSocketChannel();
+ * .openServerSocketChannel();
  * 
  * ServerSocket acceptorSocket = acceptorChannel.socket();
  * 
- * InetSocketAddress acceptorAddress = new InetSocketAddress(&quot;localhost&quot;, 12345);
+ * InetSocketAddress acceptorAddress = new
+ * InetSocketAddress(&quot;localhost&quot;, 12345);
  * 
  * acceptorSocket.bind(acceptorAddress);
  * 
@@ -69,7 +70,7 @@ import com.barchart.udt.SocketUDT;
  * 
  * SocketChannel connectorChannel = acceptorChannel.accept();
  * 
- * </pre>
+ * [/code]
  */
 public class ChannelServerSocketUDT extends ServerSocketChannel implements
 		ChannelUDT {
