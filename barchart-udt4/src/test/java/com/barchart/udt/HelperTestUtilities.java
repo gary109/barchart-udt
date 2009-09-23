@@ -51,7 +51,7 @@ public class HelperTestUtilities {
 	private static Logger log = LoggerFactory
 			.getLogger(HelperTestUtilities.class);
 
-	static String getProperty(String name) {
+	public static String getProperty(String name) {
 
 		String value = System.getProperty(name);
 
@@ -64,9 +64,9 @@ public class HelperTestUtilities {
 
 	}
 
-	static final AtomicInteger portCounter = new AtomicInteger(12345);
+	private static final AtomicInteger portCounter = new AtomicInteger(12345);
 
-	static InetSocketAddress getLocalSocketAddress() {
+	public static InetSocketAddress getLocalSocketAddress() {
 
 		InetSocketAddress address = new InetSocketAddress("localhost",
 				portCounter.getAndIncrement());
