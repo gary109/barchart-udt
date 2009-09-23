@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<metadata>
+<metadata xsi:schemaLocation="http://maven.apache.org/METADATA/1.0.0 http://maven.apache.org/xsd/metadata-1.0.0.xsd" xmlns="http://maven.apache.org/METADATA/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <groupId>com.barchart.udt</groupId>
   <artifactId>barchart-udt4</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <buildNumber>16</buildNumber>
+      <buildNumber>17</buildNumber>
     </snapshot>
-    <lastUpdated>20090921175816</lastUpdated>
+    <lastUpdated>20090923164602</lastUpdated>
   </versioning>
 </metadata>
