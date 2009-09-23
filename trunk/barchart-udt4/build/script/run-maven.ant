@@ -98,13 +98,6 @@
 		</exec>
 	</target>
 
-	<!-- task to place files in the "downloads" section of google code project site -->
-
-	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
-	         classpath="lib/ant-googlecode-0.0.2.jar"
-	         name="google-code-upload" />
-
-
 	<property name="artifact" value="barchart-udt4" />
 	<property name="version" value="1.0.0-SNAPSHOT" />
 
