@@ -26,6 +26,7 @@
 		<nativeSrcUDT>${nativeSrc}/udt</nativeSrcUDT>
 		<nativeLibName>SocketUDT</nativeLibName>
 		<nativeInclude>include</nativeInclude>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<description>Java wrapper around native c++ UDT protocl implementaion</description>
@@ -518,17 +519,12 @@
 	</profiles>
 </project>
 	<!--
-		NOT USED; call make, to build or clean <plugin>
-		<groupId>org.codehaus.mojo</groupId>
-		<artifactId>exec-maven-plugin</artifactId> <version>1.1</version>
-		<executions> <execution> <id>make-all</id> <phase>XXXcompile</phase>
-		<goals> <goal>exec</goal> </goals> <configuration>
-		<executable>make</executable> <arguments> <argument>all</argument>
-		<argument> - - makefile=${nativeSrc}/makefile-barchart.mk </argument>
-		</arguments> </configuration> </execution> <execution>
-		<id>make-clean</id> <phase>clean</phase> <goals> <goal>exec</goal>
-		</goals> <configuration> <executable>make</executable> <arguments>
-		<argument>clean</argument> <argument> - -
-		makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments>
-		</configuration> </execution> </executions> </plugin>
+		NOT USED; call make, to build or clean <plugin> <groupId>org.codehaus.mojo</groupId>
+		<artifactId>exec-maven-plugin</artifactId> <version>1.1</version> <executions> <execution> <id>make-all</id>
+		<phase>XXXcompile</phase> <goals> <goal>exec</goal> </goals> <configuration> <executable>make</executable> <arguments>
+		<argument>all</argument> <argument> - - makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments>
+		</configuration> </execution> <execution> <id>make-clean</id> <phase>clean</phase> <goals> <goal>exec</goal> </goals>
+		<configuration> <executable>make</executable> <arguments> <argument>clean</argument> <argument> - -
+		makefile=${nativeSrc}/makefile-barchart.mk </argument> </arguments> </configuration> </execution> </executions>
+		</plugin>
 	-->

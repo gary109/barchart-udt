@@ -56,19 +56,21 @@ import com.barchart.udt.SocketUDT;
  * 
  * [code]
  * 
- * ServerSocketChannel acceptorChannel = SelectorProviderUDT.DATAGRAM
- * .openServerSocketChannel();
+ * SelectorProvider provider = SelectorProviderUDT.DATAGRAM;
+ * 
+ * ServerSocketChannel acceptorChannel = provider.openServerSocketChannel();
  * 
  * ServerSocket acceptorSocket = acceptorChannel.socket();
  * 
- * InetSocketAddress acceptorAddress = new
- * InetSocketAddress(&quot;localhost&quot;, 12345);
+ * InetSocketAddress acceptorAddress= new InetSocketAddress("localhost", 12345);
  * 
  * acceptorSocket.bind(acceptorAddress);
  * 
  * assert acceptorSocket.isBound();
  * 
  * SocketChannel connectorChannel = acceptorChannel.accept();
+ * 
+ * assert connectorChannel.isConnected();
  * 
  * [/code]
  */
