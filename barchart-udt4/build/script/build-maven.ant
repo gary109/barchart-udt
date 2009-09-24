@@ -167,7 +167,7 @@
 		<!-- debug -->
 		<!-- compilerarg value="-v" /-->
 
-		<!-- core libraries -->
+		<!-- gcc library mode -->
 		<compilerarg value="-static-libgcc" />
 
 		<!-- optimizations & JNI compatibility
@@ -237,8 +237,6 @@
 	</compiler>
 
 	<linker id="gcc-linker" name="g++">
-		<!-- provide image base to simplify library map analisys -->
-		<linkerarg location="end" value="-Wl,--image-base,0x10000000" />
 		<!-- map file for crash analysis; note: will be located in work directory -->
 		<linkerarg location="end" value="-Wl,-Map,${name.cpptasks.map}" />
 		<!-- core libraries -->
@@ -252,7 +250,9 @@
 	</linker>
 
 	<linker id="gcc-linker-windows" extends="gcc-linker">
-		<!-- not tested -->
+		<!-- provide image base to simplify library map analisys -->
+		<linkerarg location="end" value="-Wl,--image-base,0x10000000" />
+		<!-- not tested well -->
 		<linkerarg location="end" value="--library=crtdll" />
 		<linkerarg location="end" value="--library=ws2_32" />
 		<linkerarg location="end" value="-Wl,--kill-at" />
