@@ -96,23 +96,23 @@ Package com.barchart.udt.nio
  
  example:
  
- [code]
+ <code><pre>
  
  ServerSocketChannel acceptorChannel = SelectorProviderUDT.DATAGRAM
  .openServerSocketChannel();
  
  ServerSocket acceptorSocket = acceptorChannel.socket();
  
- InetSocketAddress acceptorAddress = new
- InetSocketAddress(&quot;localhost&quot;, 12345);
+ InetSocketAddress acceptorAddress = <font color="#7F0055"><b>new</b></font>
+ InetSocketAddress(&amp;quot;localhost&amp;quot;, 12345);
  
  acceptorSocket.bind(acceptorAddress);
  
- assert acceptorSocket.isBound();
+ <font color="#7F0055"><b>assert</b></font> acceptorSocket.isBound();
  
  SocketChannel connectorChannel = acceptorChannel.accept();
  
- [/code]</TD>
+ </pre></code></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../com/barchart/udt/nio/ChannelSocketUDT.html" title="class in com.barchart.udt.nio">ChannelSocketUDT</A></B></TD>
@@ -122,7 +122,7 @@ Package com.barchart.udt.nio
  
  example:
  
- [code]
+ <code><pre>
  
  SocketChannel clientChannel =
  SelectorProviderUDT.DATAGRAM.openSocketChannel();
@@ -131,21 +131,21 @@ Package com.barchart.udt.nio
  
  Socket clientSocket = clientChannel.socket();
  
- InetSocketAddress clientAddress = new
- InetSocketAddress(&quot;localhost&quot;, 10000);
+ InetSocketAddress clientAddress = <font color="#7F0055"><b>new</b></font>
+ InetSocketAddress(&amp;quot;localhost&amp;quot;, 10000);
  
  clientSocket.bind(clientAddress);
  
- assert clientSocket.isBound();
+ <font color="#7F0055"><b>assert</b></font> clientSocket.isBound();
  
- InetSocketAddress serverAddress = new
- InetSocketAddress(&quot;localhost&quot;, 12345);
+ InetSocketAddress serverAddress = <font color="#7F0055"><b>new</b></font>
+ InetSocketAddress(&amp;quot;localhost&amp;quot;, 12345);
  
  clientChannel.connect(serverAddress);
  
- assert clientSocket.isConnected();
+ <font color="#7F0055"><b>assert</b></font> clientSocket.isConnected();
  
- [/code]</TD>
+ </pre></code></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD WIDTH="15%"><B><A HREF="../../../../com/barchart/udt/nio/SelectionKeyUDT.html" title="class in com.barchart.udt.nio">SelectionKeyUDT</A></B></TD>
