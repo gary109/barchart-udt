@@ -29,7 +29,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<description>Java wrapper around native c++ UDT protocl implementaion</description>
+	<description>Java wrapper around native C++ UDT protocol implementation</description>
 
 	<url>http://code.google.com/p/barchart-udt/</url>
 
