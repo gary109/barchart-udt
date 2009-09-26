@@ -321,12 +321,12 @@
 	<target name="target-linker-search-path">
 		<echo message="### LINKER PATH" />
 		<echo message="GCC:" />
-		<exec executable="bash">
+		<exec executable="sh">
 			<arg value="-c" />
 			<arg value="g++ -print-search-dirs | sed '/^lib/b 1;d;:1;s,/[^/.][^/]*/\.\./,/,;t 1;s,:[^=]*=,:;,;s,;,;  ,g' | tr '\;' '\n'  |  grep -v '^ */' " />
 		</exec>
 		<echo message="LD:" />
-		<exec executable="bash">
+		<exec executable="sh">
 			<arg value="-c" />
 			<arg value="ld --verbose | grep SEARCH_DIR | tr -s ' ;' '\n'" />
 		</exec>
@@ -359,15 +359,15 @@
 	<target name="target-check-library" depends="target-compile">
 		<echo message="### CHECK LIBRARY" />
 		<echo message="      ${path.cpptasks}" />
-		<exec executable="bash" failonerror="true" osfamily="unix">
+		<exec executable="sh" failonerror="true" osfamily="unix">
 			<arg value="-c" />
 			<arg value="echo 'trying to load dependency libs:'; ldd --data-relocs --function-relocs '${path.cpptasks}';" />
 		</exec>
-		<exec executable="bash" failonerror="true" osfamily="unix">
+		<exec executable="sh" failonerror="true" osfamily="unix">
 			<arg value="-c" />
 			<arg value="echo 'checking stdc++ versions in use:'; objdump --dynamic-syms '${path.cpptasks}' | grep 'GLIB' | sed 's/^.*\(GLIB[A-Z]*_[0-9\.]*\).*$/\t\1/' | sort -u;" />
 		</exec>
-		<exec executable="bash" failonerror="true">
+		<exec executable="sh" failonerror="true">
 			<arg value="-c" />
 			<arg value="echo 'generating symbol map:'; nm --demangle --numeric-sort '${path.cpptasks}' > '${path.cpptasks.sym}';" />
 		</exec>

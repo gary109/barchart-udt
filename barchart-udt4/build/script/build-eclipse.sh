@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # used by eclipse cdt interactive builder
 
@@ -34,7 +34,7 @@ makeExtension(){
 	linux)
 		LIB_EXTENSION="so"
 	;;
-	cygwin*)
+	cygwin* | mingw* )
 		LIB_EXTENSION="dll"
 	;;
 	*)
@@ -78,7 +78,7 @@ makeLibraryName() {
 				;;
 			esac		
 		;;
-		cygwin*)
+		cygwin* | mingw* )
 			case $MACH in
 				i*86)
 					LIB_FILE="$LIB_NAME-windows-x86-32.dll"
@@ -100,7 +100,7 @@ makeLibraryName() {
 }
 checkSupported(){
 	case $OS in
-		linux | cygwin*)
+		linux | cygwin* | mingw* )
 			log "detected OS=$OS"
 		;;
 		*)
