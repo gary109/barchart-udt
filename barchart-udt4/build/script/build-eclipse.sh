@@ -137,16 +137,21 @@ case $KIND in
 		makeLibraryName
 		#
 		MAP_FILE="$LIB_FILE.map"
+		SYM_FILE="$LIB_FILE.sym"
+		#
 		TARGET="$LIB_FOLDER/$LIB_FILE"
 		TARGET_MAP="$LIB_FOLDER/$MAP_FILE"
+		TARGET_SYM="$LIB_FOLDER/$SYM_FILE"
 		#
 		log "ARTIFACT     : $ARTIFACT"
 		log "ARTIFACT_MAP : $ARTIFACT_MAP"
 		log "TARGET     : $TARGET"
 		log "TARGET_MAP : $TARGET_MAP"
+		log "TARGET_SYM : $TARGET_SYM"
 		#
 		cp --force --update "$ARTIFACT" "$TARGET" 
-		cp --force --update "$ARTIFACT_MAP" "$TARGET_MAP" 
+		cp --force --update "$ARTIFACT_MAP" "$TARGET_MAP"
+		nm --demangle --numeric-sort "$ARTIFACT" > "$TARGET_SYM" 
 		#
 		ldd -r "$TARGET"
 		#
