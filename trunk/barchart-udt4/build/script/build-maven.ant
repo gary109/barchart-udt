@@ -246,8 +246,8 @@
 	</linker>
 
 	<linker id="gcc-linker-linux" extends="gcc-linker">
-		<linkerarg location="end" value="-fPIC" />
-		<linkerarg value="--library=pthread" />
+		<linkerarg location="start" value="-fPIC" />
+		<linkerarg location="end" value="--library=pthread" />
 	</linker>
 
 	<linker id="gcc-linker-windows" extends="gcc-linker">
@@ -376,8 +376,11 @@
 
 	<target name="target-copy-artifact" depends="target-check-library">
 		<echo message="### COPY ARTIFACT" />
+		<echo message="artifact    : ${path.real}" />
 		<copy file="${path.cpptasks}" tofile="${path.real}" />
+		<echo message="artifact map: ${path.real.map}" />
 		<copy file="${path.cpptasks.map}" tofile="${path.real.map}" />
+		<echo message="artifact sym: ${path.real.sym}" />
 		<copy file="${path.cpptasks.sym}" tofile="${path.real.sym}" />
 	</target>
 
