@@ -1948,11 +1948,6 @@ Linker script and memory map
 
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/../../../../lib/crti.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/crtbeginS.o
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/../../../../lib/libpthread.so
-START GROUP
-LOAD /lib/libpthread.so.0
-LOAD /usr/lib/libpthread_nonshared.a
-END GROUP
 LOAD channel.o
 LOAD core.o
 LOAD common.o
@@ -1968,6 +1963,11 @@ LOAD cache.o
 LOAD queue.o
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/libgcc.a
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/libstdc++.so
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/../../../../lib/libpthread.so
+START GROUP
+LOAD /lib/libpthread.so.0
+LOAD /usr/lib/libpthread_nonshared.a
+END GROUP
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/libgcc.a
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/libgcc_s.so
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/../../../../lib/libc.so
