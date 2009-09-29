@@ -94,7 +94,7 @@ Variable in class com.barchart.udt.nio.<A HREF="../com/barchart/udt/nio/ChannelS
  
  example:
  
- [code]
+ <code><pre>
  
  SelectorProvider provider = SelectorProviderUDT.DATAGRAM;
  
@@ -102,23 +102,23 @@ Variable in class com.barchart.udt.nio.<A HREF="../com/barchart/udt/nio/ChannelS
  
  ServerSocket acceptorSocket = acceptorChannel.socket();
  
- InetSocketAddress acceptorAddress= new InetSocketAddress("localhost", 12345);
+ InetSocketAddress acceptorAddress= <font color="#7F0055"><b>new</b></font> InetSocketAddress(<font color="#0000A0">"localhost"</font>, 12345);
  
  acceptorSocket.bind(acceptorAddress);
  
- assert acceptorSocket.isBound();
+ <font color="#7F0055"><b>assert</b></font> acceptorSocket.isBound();
  
  SocketChannel connectorChannel = acceptorChannel.accept();
  
- assert connectorChannel.isConnected();
+ <font color="#7F0055"><b>assert</b></font> connectorChannel.isConnected();
  
- [/code]<DT><A HREF="../com/barchart/udt/nio/ChannelSocketUDT.html" title="class in com.barchart.udt.nio"><B>ChannelSocketUDT</B></A> - Class in <A HREF="../com/barchart/udt/nio/package-summary.html">com.barchart.udt.nio</A><DD>you must use <A HREF="../com/barchart/udt/nio/SelectorProviderUDT.html#openSocketChannel()"><CODE>SelectorProviderUDT.openSocketChannel()</CODE></A> to obtain
+ </pre></code><DT><A HREF="../com/barchart/udt/nio/ChannelSocketUDT.html" title="class in com.barchart.udt.nio"><B>ChannelSocketUDT</B></A> - Class in <A HREF="../com/barchart/udt/nio/package-summary.html">com.barchart.udt.nio</A><DD>you must use <A HREF="../com/barchart/udt/nio/SelectorProviderUDT.html#openSocketChannel()"><CODE>SelectorProviderUDT.openSocketChannel()</CODE></A> to obtain
  instance of this class; do not use JDK
  <A HREF="http://java.sun.com/javase/6/docs/api/java/nio/channels/SocketChannel.html?is-external=true#open()" title="class or interface in java.nio.channels"><CODE>SocketChannel.open()</CODE></A>;
  
  example:
  
- [code]
+ <code><pre>
  
  SelectorProvider provider = SelectorProviderUDT.DATAGRAM;
  
@@ -128,19 +128,19 @@ Variable in class com.barchart.udt.nio.<A HREF="../com/barchart/udt/nio/ChannelS
  
  Socket clientSocket = clientChannel.socket();
  
- InetSocketAddress clientAddress = new InetSocketAddress("localhost", 10000);
+ InetSocketAddress clientAddress = <font color="#7F0055"><b>new</b></font> InetSocketAddress(<font color="#0000A0">"localhost"</font>, 10000);
  
  clientSocket.bind(clientAddress);
  
- assert clientSocket.isBound();
+ <font color="#7F0055"><b>assert</b></font> clientSocket.isBound();
  
- InetSocketAddress serverAddress = new InetSocketAddress("localhost", 12345);
+ InetSocketAddress serverAddress = <font color="#7F0055"><b>new</b></font> InetSocketAddress(<font color="#0000A0">"localhost"</font>, 12345);
  
  clientChannel.connect(serverAddress);
  
- assert clientSocket.isConnected();
+ <font color="#7F0055"><b>assert</b></font> clientSocket.isConnected();
  
- [/code]<DT><A HREF="../com/barchart/udt/SocketUDT.html#checkArray(byte[])"><B>checkArray(byte[])</B></A> - 
+ </pre></code><DT><A HREF="../com/barchart/udt/SocketUDT.html#checkArray(byte[])"><B>checkArray(byte[])</B></A> - 
 Method in class com.barchart.udt.<A HREF="../com/barchart/udt/SocketUDT.html" title="class in com.barchart.udt">SocketUDT</A>
 <DD>&nbsp;
 <DT><A HREF="../com/barchart/udt/SocketUDT.html#checkBuffer(java.nio.ByteBuffer)"><B>checkBuffer(ByteBuffer)</B></A> - 

@@ -114,7 +114,7 @@ you must use <A HREF="../../../../com/barchart/udt/nio/SelectorProviderUDT.html#
  
  example:
  
- [code]
+ <code><pre>
  
  SelectorProvider provider = SelectorProviderUDT.DATAGRAM;
  
@@ -124,19 +124,19 @@ you must use <A HREF="../../../../com/barchart/udt/nio/SelectorProviderUDT.html#
  
  Socket clientSocket = clientChannel.socket();
  
- InetSocketAddress clientAddress = new InetSocketAddress("localhost", 10000);
+ InetSocketAddress clientAddress = <font color="#7F0055"><b>new</b></font> InetSocketAddress(<font color="#0000A0">"localhost"</font>, 10000);
  
  clientSocket.bind(clientAddress);
  
- assert clientSocket.isBound();
+ <font color="#7F0055"><b>assert</b></font> clientSocket.isBound();
  
- InetSocketAddress serverAddress = new InetSocketAddress("localhost", 12345);
+ InetSocketAddress serverAddress = <font color="#7F0055"><b>new</b></font> InetSocketAddress(<font color="#0000A0">"localhost"</font>, 12345);
  
  clientChannel.connect(serverAddress);
  
- assert clientSocket.isConnected();
+ <font color="#7F0055"><b>assert</b></font> clientSocket.isConnected();
  
- [/code]
+ </pre></code>
 <P>
 
 <P>
