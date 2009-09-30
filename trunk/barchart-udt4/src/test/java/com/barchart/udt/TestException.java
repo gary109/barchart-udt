@@ -122,7 +122,7 @@ public class TestException {
 
 	/*
 	 * verify mingw c++ exceptions are thread safe (will crash jvm if not using
-	 * -mthreads option)
+	 * -mthreads option for gcc/ld)
 	 */
 	@Test
 	public void testException() {
