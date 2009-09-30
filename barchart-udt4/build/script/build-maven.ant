@@ -170,7 +170,7 @@
 		<!-- gcc library inclusion mode -->
 		<compilerarg value="-static-libgcc" />
 
-		<!-- note: not inclusion libstdc++ statically -->
+		<!-- note: no inclusion of stdc++  library statically -->
 
 		<!-- optimizations & JNI compatibility
 		TODO: when setting -O1, -O2, -O3, gcc produces calls that are "way too new":
