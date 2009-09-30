@@ -41,9 +41,12 @@ package com.barchart.udt;
 
 import static org.junit.Assert.*;
 
-import java.net.InetSocketAddress;
-import java.net.SocketException;
 import java.nio.ByteBuffer;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.After;
 import org.junit.Before;
@@ -55,43 +58,85 @@ public class TestException {
 
 	Logger log = LoggerFactory.getLogger(TestException.class);
 
+	final static int TEST_TIMEOUT = 10; // seconds
+
+	static final int SIZE = 1460;
+	static final int COUNT = 10000;
+	static final int THREADS = 10;
+
+	volatile CyclicBarrier barrier;
+
+	volatile ExecutorService service;
+
 	@Before
 	public void setUp() throws Exception {
+
+		barrier = new CyclicBarrier(THREADS);
+
+		service = Executors.newFixedThreadPool(THREADS);
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
+
+		service.shutdownNow();
+
 	}
 
-	static final int COUNT = 10000;
-	static final int SIZE = 1460;
+	static final AtomicLong threadCount = new AtomicLong(0);
 
+	final Runnable exceptionTask = new Runnable() {
+		final ByteBuffer array = ByteBuffer.allocateDirect(SIZE);
+
+		@Override
+		public void run() {
+			Thread.currentThread().setName(
+					"Exception Runner #" + threadCount.getAndIncrement());
+			SocketUDT socket = null;
+			try {
+				socket = new SocketUDT(TypeUDT.DATAGRAM);
+			} catch (Exception e) {
+				fail(e.getMessage());
+			}
+			for (int k = 0; k < COUNT; k++) {
+				try {
+					// log.info("k={}", k);
+					// InetSocketAddress remoteSocketAddress = new
+					// InetSocketAddress(0);
+					// if (k % 1000 == 0) {
+					// log.info("k={}", k);
+					// }
+					socket.receive(array);
+				} catch (Exception e) {
+					// log.info("e={}", e.getMessage());
+				}
+			}
+			try {
+				barrier.await();
+			} catch (Exception e) {
+				fail(e.getMessage());
+			}
+		}
+	};
+
+	/*
+	 * verify mingw c++ exceptions are thread safe (will crash jvm if not using
+	 * -mthreads option)
+	 */
 	@Test
 	public void testException() {
 
 		log.info("start");
 
-		final ByteBuffer array = ByteBuffer.allocateDirect(SIZE);
-
-		SocketUDT socket = null;
-		try {
-			socket = new SocketUDT(TypeUDT.DATAGRAM);
-		} catch (Exception e) {
-			log.info("e={}", e.getMessage());
+		for (int k = 0; k < THREADS; k++) {
+			service.submit(exceptionTask);
 		}
 
-		for (int k = 0; k < COUNT; k++) {
-			try {
-				// log.info("k={}", k);
-				// InetSocketAddress remoteSocketAddress = new
-				// InetSocketAddress(0);
-				if (k % 1000 == 0) {
-					log.info("k={}", k);
-				}
-				socket.receive(array);
-			} catch (Exception e) {
-				// log.info("e={}", e.getMessage());
-			}
+		try {
+			barrier.await(TEST_TIMEOUT, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			fail(e.getMessage());
 		}
 
 		log.info("finish");
