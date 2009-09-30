@@ -29,7 +29,7 @@ public class TestSelectorUDT {
 
 	protected static final int SIZE = 1460;
 
-	protected static final int COUNT = 100;
+	protected static final int COUNT = 1000;
 
 	private static Logger log = LoggerFactory.getLogger(TestSelectorUDT.class);
 
@@ -262,7 +262,7 @@ public class TestSelectorUDT {
 					assertEquals(writeSize, SIZE);
 					clientQueue.offer(array);
 					final int count = writeCount.incrementAndGet();
-					log.info("count={}", count);
+					// log.info("count={}", count);
 					if (count == COUNT) {
 						clientKey.interestOps(clientKey.interestOps()
 								& ~OP_WRITE);
