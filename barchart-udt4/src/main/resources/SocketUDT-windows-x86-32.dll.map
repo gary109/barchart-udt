@@ -1,16 +1,16 @@
 Archive member included because of file (symbol)
 
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtbegin.o (__w32_sharedptr_initialize)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtbegin.o (__w32_sharedptr_initialize)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o)
                               channel.o (_Unwind_SjLj_Register)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
                               core.o (__fixunsdfdi)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_udivdi3.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_udivdi3.o)
                               core.o (__udivdi3)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_divdi3.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_divdi3.o)
                               common.o (__divdi3)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
                               com_barchart_udt_SocketUDT.o (__moddi3)
 /mingw/lib/libstdc++.a(eh_personality.o)
                               channel.o (__gxx_personality_sj0)
@@ -137,7 +137,7 @@ C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
 /mingw/lib/libcrtdll.a(dmybs00432.o)
                               ccc.o (pow)
 /mingw/lib/libcrtdll.a(dmybs00331.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o) (abort)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o) (abort)
 /mingw/lib/libcrtdll.a(dmybs00457.o)
                               /mingw/lib/libstdc++.a(tinfo.o) (strcmp)
 /mingw/lib/libcrtdll.a(dmybs00424.o)
@@ -229,18 +229,18 @@ C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
 /mingw/lib/libmingw32.a(pseudo-reloc.o)
                               /mingw/lib/dllcrt2.o (_pei386_runtime_relocator)
 /mingw/lib/libmingw32.a(crtst.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o) (_CRT_MT)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o) (_CRT_MT)
 /mingw/lib/libmingw32.a(mthr_stub.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o) (__mingwthr_key_dtor)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o) (__mingwthr_key_dtor)
 /mingw/lib/libmingw32.a(pseudo-reloc-list.o)
                               /mingw/lib/libmingw32.a(pseudo-reloc.o) (__RUNTIME_PSEUDO_RELOC_LIST__)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o)
                               /mingw/lib/libstdc++.a(eh_alloc.o) (__gthr_win32_once)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_chkstk.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_chkstk.o)
                               /mingw/lib/libstdc++.a(ostream-inst.o) (_alloca)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_umoddi3.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_umoddi3.o)
                               /mingw/lib/libstdc++.a(locale-inst.o) (__umoddi3)
-C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
+C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
                               /mingw/lib/libmingw32.a(gccmain.o) (__CTOR_LIST__)
 /mingw/lib/libmoldname.a(dysis00109.o)
                               /mingw/lib/libstdc++.a(pure.o) (write)
@@ -361,21 +361,21 @@ C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
 /mingw/lib/libkernel32.a(dekds00763.o)
                               api.o (TlsAlloc@0)
 /mingw/lib/libkernel32.a(dekds00221.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o) (_imp__GetAtomNameA@12)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o) (_imp__GetAtomNameA@12)
 /mingw/lib/libkernel32.a(dekds00176.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o) (_imp__FindAtomA@4)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o) (_imp__FindAtomA@4)
 /mingw/lib/libkernel32.a(dekds00001.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o) (_imp__AddAtomA@4)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o) (_imp__AddAtomA@4)
 /mingw/lib/libkernel32.a(dekds00713.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o) (_imp__SetLastError@4)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o) (_imp__SetLastError@4)
 /mingw/lib/libkernel32.a(dekds00500.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o) (InterlockedIncrement@4)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o) (InterlockedIncrement@4)
 /mingw/lib/libkernel32.a(dekds00088.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o) (_imp__CreateSemaphoreA@16)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o) (_imp__CreateSemaphoreA@16)
 /mingw/lib/libkernel32.a(dekds00630.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o) (_imp__ReleaseSemaphore@12)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o) (_imp__ReleaseSemaphore@12)
 /mingw/lib/libkernel32.a(dekds00496.o)
-                              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o) (InterlockedDecrement@4)
+                              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o) (InterlockedDecrement@4)
 /mingw/lib/libkernel32.a(dekds00497.o)
                               /mingw/lib/libmingwex.a(misc.o) (InterlockedExchange@8)
 /mingw/lib/libkernel32.a(dekds00107.o)
@@ -401,12 +401,12 @@ Allocating common symbols
 Common symbol       size              file
 
 __w32_sharedptr_unexpected
-                    0x10              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
-__w32_sharedptr     0x10              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
-__DTOR_LIST__       0x10              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
-__CTOR_LIST__       0x10              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
+                    0x10              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+__w32_sharedptr     0x10              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+__DTOR_LIST__       0x10              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
+__CTOR_LIST__       0x10              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
 __w32_sharedptr_terminate
-                    0x10              C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+                    0x10              C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
 __hexdig_D2A        0x100             /mingw/lib/libmingwex.a(hd_init.o)
 
 Discarded input sections
@@ -944,7 +944,7 @@ Linker script and memory map
                 0x00001000                __size_of_heap_commit__ = 0x1000
                 0x00000000                __loader_flags__ = 0x0
 LOAD /mingw/lib/dllcrt2.o
-LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtbegin.o
+LOAD C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtbegin.o
 LOAD channel.o
 LOAD core.o
 LOAD common.o
@@ -958,12 +958,12 @@ LOAD md5.o
 LOAD list.o
 LOAD cache.o
 LOAD queue.o
-LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a
+LOAD C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a
 LOAD /mingw/lib/libstdc++.a
 LOAD /mingw/lib/libcrtdll.a
 LOAD /mingw/lib/libws2_32.a
 LOAD /mingw/lib/libmingw32.a
-LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a
+LOAD C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a
 LOAD /mingw/lib/libmoldname.a
 LOAD /mingw/lib/libmingwex.a
 LOAD /mingw/lib/libmsvcrt.a
@@ -972,11 +972,11 @@ LOAD /mingw/lib/libkernel32.a
 LOAD /mingw/lib/libadvapi32.a
 LOAD /mingw/lib/libshell32.a
 LOAD /mingw/lib/libmingw32.a
-LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a
+LOAD C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a
 LOAD /mingw/lib/libmoldname.a
 LOAD /mingw/lib/libmingwex.a
 LOAD /mingw/lib/libmsvcrt.a
-LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
+LOAD C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x00000290                . = SIZEOF_HEADERS
                 0x00001000                . = ALIGN (__section_alignment__)
 
@@ -987,7 +987,7 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x10001110                atexit
                 0x10001140                _onexit
                 0x10001060                DllMainCRTStartup@12
- .text          0x10001170       0x10 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtbegin.o
+ .text          0x10001170       0x10 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtbegin.o
                 0x10001170                __do_sjlj_init
  .text          0x10001180      0xdfc channel.o
                 0x100012d6                CChannel::CChannel(int const&)
@@ -1412,9 +1412,9 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x1002ba6a                CRcvUList::remove(CUDT const*)
                 0x1002b2a8                CSndQueue::CSndQueue()
                 0x1002ae1c                CSndUList::getNextProcTime()
- .text          0x1002e3d0      0x320 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+ .text          0x1002e3d0      0x320 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
                 0x1002e480                __w32_sharedptr_initialize
- .text          0x1002e6f0      0xb60 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o)
+ .text          0x1002e6f0      0xb60 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o)
                 0x1002ea30                _Unwind_GetDataRelBase
                 0x1002e800                _Unwind_SjLj_Register
                 0x1002ea20                _Unwind_FindEnclosingFunction
@@ -1433,13 +1433,13 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x1002ea10                _Unwind_GetRegionStart
                 0x1002e9d0                _Unwind_GetIP
                 0x1002e8e0                _Unwind_SjLj_Unregister
- .text          0x1002f250       0x60 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
+ .text          0x1002f250       0x60 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
                 0x1002f250                __fixunsdfdi
- .text          0x1002f2b0      0x130 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_udivdi3.o)
+ .text          0x1002f2b0      0x130 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_udivdi3.o)
                 0x1002f2b0                __udivdi3
- .text          0x1002f3e0      0x160 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_divdi3.o)
+ .text          0x1002f3e0      0x160 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_divdi3.o)
                 0x1002f3e0                __divdi3
- .text          0x1002f540      0x200 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
+ .text          0x1002f540      0x200 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
                 0x1002f540                __moddi3
  .text          0x1002f740      0xb10 /mingw/lib/libstdc++.a(eh_personality.o)
                 0x100300c0                __cxa_call_unexpected
@@ -1857,7 +1857,7 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x1003b750                __mingwthr_key_dtor
                 0x1003b760                __mingwthr_remove_key_dtor
  .text          0x1003b770        0x0 /mingw/lib/libmingw32.a(pseudo-reloc-list.o)
- .text          0x1003b770      0x280 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o)
+ .text          0x1003b770      0x280 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o)
                 0x1003b790                __gthr_win32_once
                 0x1003b900                __gthr_win32_mutex_init_function
                 0x1003b810                __gthr_win32_key_create
@@ -1867,12 +1867,12 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x1003b940                __gthr_win32_mutex_lock
                 0x1003b850                __gthr_win32_key_delete
                 0x1003b8c0                __gthr_win32_setspecific
- .text          0x1003b9f0       0x30 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_chkstk.o)
+ .text          0x1003b9f0       0x30 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_chkstk.o)
                 0x1003b9f0                _alloca
                 0x1003b9f0                __chkstk
- .text          0x1003ba20      0x1e0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_umoddi3.o)
+ .text          0x1003ba20      0x1e0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_umoddi3.o)
                 0x1003ba20                __umoddi3
- .text          0x1003bc00        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
+ .text          0x1003bc00        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
  .text          0x1003bc00        0x8 /mingw/lib/libmoldname.a(dysis00109.o)
                 0x1003bc00                write
  .text          0x1003bc08        0x8 /mingw/lib/libmoldname.a(dysis00080.o)
@@ -2035,7 +2035,7 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x100437bc                WideCharToMultiByte@32
  .text          0x100437c4        0x0 /mingw/lib/libkernel32.a(dekdh.o)
  .text          0x100437c4        0x0 /mingw/lib/libkernel32.a(dekdt.o)
- .text          0x100437c4       0x10 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
+ .text          0x100437c4       0x10 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtend.o
  *(SORT(.text$*))
  .text$_ZN10CCCFactoryI6CUDTCCE5cloneEv
                 0x100437d4       0x28 core.o
@@ -6936,7 +6936,7 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
  .ctors         0x1007aa04        0x4 /mingw/lib/libstdc++.a(ctype.o)
  .ctors         0x1007aa08        0x4 /mingw/lib/libstdc++.a(locale_init.o)
  .ctors         0x1007aa0c        0x4 /mingw/lib/libstdc++.a(codecvt.o)
- .ctors         0x1007aa10        0x4 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
+ .ctors         0x1007aa10        0x4 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtend.o
  *(.ctor)
  *(SORT(.ctors.*))
                 0x1007aa14        0x4 LONG 0x0
@@ -7028,7 +7028,7 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x1007d000                __data_start__ = .
  *(.data)
  .data          0x1007d000        0x0 /mingw/lib/dllcrt2.o
- .data          0x1007d000        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtbegin.o
+ .data          0x1007d000        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtbegin.o
  .data          0x1007d000        0x0 channel.o
  .data          0x1007d000        0x0 core.o
  .data          0x1007d000        0x0 common.o
@@ -7042,12 +7042,12 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
  .data          0x1007d000        0x0 list.o
  .data          0x1007d000        0x0 cache.o
  .data          0x1007d000        0x0 queue.o
- .data          0x1007d000       0x20 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
- .data          0x1007d020        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o)
- .data          0x1007d020        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
- .data          0x1007d020        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_udivdi3.o)
- .data          0x1007d020        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_divdi3.o)
- .data          0x1007d020        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
+ .data          0x1007d000       0x20 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+ .data          0x1007d020        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o)
+ .data          0x1007d020        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
+ .data          0x1007d020        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_udivdi3.o)
+ .data          0x1007d020        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_divdi3.o)
+ .data          0x1007d020        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
  .data          0x1007d020        0x0 /mingw/lib/libstdc++.a(eh_personality.o)
  .data          0x1007d020        0x0 /mingw/lib/libstdc++.a(tinfo.o)
  .data          0x1007d020        0x0 /mingw/lib/libstdc++.a(eh_throw.o)
@@ -7167,10 +7167,10 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
  .data          0x1007d0c4        0x0 /mingw/lib/libmingw32.a(crtst.o)
  .data          0x1007d0c4        0x0 /mingw/lib/libmingw32.a(mthr_stub.o)
  .data          0x1007d0c4        0x0 /mingw/lib/libmingw32.a(pseudo-reloc-list.o)
- .data          0x1007d0c4        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o)
- .data          0x1007d0c4        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_chkstk.o)
- .data          0x1007d0c4        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_umoddi3.o)
- .data          0x1007d0c4        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
+ .data          0x1007d0c4        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o)
+ .data          0x1007d0c4        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_chkstk.o)
+ .data          0x1007d0c4        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_umoddi3.o)
+ .data          0x1007d0c4        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
  .data          0x1007d0c4        0x0 /mingw/lib/libmoldname.a(dysis00109.o)
  .data          0x1007d0c4        0x0 /mingw/lib/libmoldname.a(dysis00080.o)
  .data          0x1007d0c4        0x0 /mingw/lib/libmoldname.a(dysis00064.o)
@@ -7248,7 +7248,7 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
  .data          0x1007d0fc        0x0 /mingw/lib/libkernel32.a(dekds00814.o)
  .data          0x1007d0fc        0x0 /mingw/lib/libkernel32.a(dekdh.o)
  .data          0x1007d0fc        0x0 /mingw/lib/libkernel32.a(dekdt.o)
- .data          0x1007d0fc        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
+ .data          0x1007d0fc        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtend.o
  *(.data2)
  *(SORT(.data$*))
  .data$_ZGVNSt10moneypunctIcLb0EE2idE
@@ -7391,8 +7391,8 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
  .rdata         0x1007f690       0x10 window.o
  .rdata         0x1007f6a0       0x60 md5.o
  .rdata         0x1007f700        0x8 queue.o
- .rdata         0x1007f708       0xc0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
- .rdata         0x1007f7c8       0x10 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
+ .rdata         0x1007f708       0xc0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+ .rdata         0x1007f7c8       0x10 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
  .rdata         0x1007f7d8       0x40 /mingw/lib/libstdc++.a(eh_personality.o)
  .rdata         0x1007f818      0x160 /mingw/lib/libstdc++.a(string-inst.o)
  .rdata         0x1007f978       0x20 /mingw/lib/libstdc++.a(pure.o)
@@ -8205,7 +8205,7 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x10083000                __bss_start__ = .
  *(.bss)
  .bss           0x10083000       0x20 /mingw/lib/dllcrt2.o
- .bss           0x10083020        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtbegin.o
+ .bss           0x10083020        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtbegin.o
  .bss           0x10083020        0x0 channel.o
  .bss           0x10083020       0xa0 core.o
                 0x10083020                CUDT::s_UDTUnited
@@ -8223,12 +8223,12 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
  .bss           0x10083550        0x0 list.o
  .bss           0x10083550        0x0 cache.o
  .bss           0x10083550        0x0 queue.o
- .bss           0x10083550       0x40 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
- .bss           0x10083590        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o)
- .bss           0x10083590        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
- .bss           0x10083590        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_udivdi3.o)
- .bss           0x10083590        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_divdi3.o)
- .bss           0x10083590        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
+ .bss           0x10083550       0x40 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+ .bss           0x10083590        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(unwind-sjlj.o)
+ .bss           0x10083590        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_fixunsdfdi.o)
+ .bss           0x10083590        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_udivdi3.o)
+ .bss           0x10083590        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_divdi3.o)
+ .bss           0x10083590        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_moddi3.o)
  .bss           0x10083590        0x0 /mingw/lib/libstdc++.a(eh_personality.o)
  .bss           0x10083590        0x0 /mingw/lib/libstdc++.a(tinfo.o)
  .bss           0x10083590        0x0 /mingw/lib/libstdc++.a(eh_throw.o)
@@ -8386,10 +8386,10 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
                 0x10088090                _CRT_MT
  .bss           0x10088094        0x0 /mingw/lib/libmingw32.a(mthr_stub.o)
  .bss           0x10088094        0x4 /mingw/lib/libmingw32.a(pseudo-reloc-list.o)
- .bss           0x10088098        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o)
- .bss           0x10088098        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_chkstk.o)
- .bss           0x10088098        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_umoddi3.o)
- .bss           0x10088098        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
+ .bss           0x10088098        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(gthr-win32.o)
+ .bss           0x10088098        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_chkstk.o)
+ .bss           0x10088098        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_umoddi3.o)
+ .bss           0x10088098        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
  .bss           0x10088098        0x0 /mingw/lib/libmoldname.a(dysis00109.o)
  .bss           0x10088098        0x0 /mingw/lib/libmoldname.a(dysis00080.o)
  .bss           0x10088098        0x0 /mingw/lib/libmoldname.a(dysis00064.o)
@@ -8467,13 +8467,13 @@ LOAD C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
  .bss           0x10088a58        0x0 /mingw/lib/libkernel32.a(dekds00814.o)
  .bss           0x10088a58        0x0 /mingw/lib/libkernel32.a(dekdh.o)
  .bss           0x10088a58        0x0 /mingw/lib/libkernel32.a(dekdt.o)
- .bss           0x10088a58        0x0 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/crtend.o
+ .bss           0x10088a58        0x0 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/crtend.o
  *(COMMON)
- COMMON         0x10088a58       0x30 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
+ COMMON         0x10088a58       0x30 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(w32-shared-ptr.o)
                 0x10088a58                __w32_sharedptr_unexpected
                 0x10088a68                __w32_sharedptr
                 0x10088a78                __w32_sharedptr_terminate
- COMMON         0x10088a88       0x20 C:/MinGW/bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
+ COMMON         0x10088a88       0x20 C:/MinGW//bin/../lib/gcc/mingw32/3.4.5/libgcc.a(_ctors.o)
  COMMON         0x10088aa8      0x100 /mingw/lib/libmingwex.a(hd_init.o)
                 0x10088aa8                __hexdig_D2A
                 0x10088ba8                __bss_end__ = .
