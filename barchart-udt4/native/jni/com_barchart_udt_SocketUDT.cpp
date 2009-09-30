@@ -1254,8 +1254,8 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive2(JNIEnv *env,
 	const jsize size = static_cast<jsize> (limit - position);
 
 	// memory boundary test
-	assert(data[0] | 1);
-	assert(data[size - 1] | 1);
+	// assert(data[0] | 1);
+	// assert(data[size - 1] | 1);
 
 	int rv;
 
@@ -1425,8 +1425,8 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send2(JNIEnv *env,
 	const jsize size = static_cast<jsize> (limit - position);
 
 	// memory boundary test
-	assert(data[0] | 1);
-	assert(data[size - 1] | 1);
+	// assert(data[0] | 1);
+	// assert(data[size - 1] | 1);
 
 	int rv;
 
