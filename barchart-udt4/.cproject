@@ -51,7 +51,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/include/win32}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/native/udt/src}&quot;"/>
 </option>
-<option id="gnu.cpp.compiler.option.other.other.1306335827" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0  -finline-functions" valueType="string"/>
+<option id="gnu.cpp.compiler.option.other.other.1306335827" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0  -finline-functions   -mthreads" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.484386018" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool command="gcc" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.223203536" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
@@ -68,7 +68,7 @@
 <listOptionValue builtIn="false" value="gcc"/>
 <listOptionValue builtIn="false" value="ws2_32"/>
 </option>
-<option id="gnu.cpp.link.option.flags.670619428" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-Wl,-Map,barchart-udt4.map   -Wl,--kill-at   -Wl,--add-stdcall-alias   -Wl,--image-base,0x10000000" valueType="string"/>
+<option id="gnu.cpp.link.option.flags.670619428" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-Wl,-Map,barchart-udt4.map   -Wl,--kill-at   -Wl,--add-stdcall-alias   -Wl,--image-base,0x10000000   -mthreads" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.12493630" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
