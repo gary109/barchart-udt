@@ -49,6 +49,7 @@ import org.slf4j.LoggerFactory;
 
 /* note: do not change field names; used by JNI */
 /* note: must synchronize create/destroy - workaround for bug in UDT */
+// TODO centralize http references
 /**
  * current implementation supports IPv4 only (no IPv6)
  */
@@ -62,10 +63,13 @@ public class SocketUDT {
 	//
 
 	/**
-	 * JNI Signature that must match between java code and native code
+	 * JNI Signature that must match between java code and c++ code
 	 */
-	// do not use automatic signature till all platforms are built at once
-	public static final int SIGNATURE_JNI = 1002; // VersionUDT.BUILDTIME;
+	/*
+	 * do not use automatic signature based on time stamp until all platforms
+	 * are built at once
+	 */
+	public static final int SIGNATURE_JNI = 1003; // VersionUDT.BUILDTIME;
 
 	/**
 	 * infinite message time to live;
@@ -83,7 +87,8 @@ public class SocketUDT {
 	public static final long UNLIMITED_BW = -1L;
 
 	/**
-	 * Number of connections queued in listening mode by {@link #accept()}
+	 * Maximum number of connections queued in listening mode by
+	 * {@link #accept()}
 	 */
 	public static final int DEFAULT_ACCEPT_QUEUE_SIZE = 256;
 
@@ -139,7 +144,7 @@ public class SocketUDT {
 			System.exit(2);
 		}
 		if (SIGNATURE_JNI != getSignatureJNI0()) {
-			log.error("java/native signature inconsistent; terminating");
+			log.error("java/native SIGNATURE inconsistent; terminating");
 			System.exit(3);
 		}
 		log.debug("native library load & init OK");
@@ -212,7 +217,7 @@ public class SocketUDT {
 	// ###
 
 	/**
-	 * Verify that java code and native code builds are consistent.
+	 * Verify that java code and c++ code builds are consistent.
 	 * 
 	 * @see #SIGNATURE_JNI
 	 */
@@ -339,7 +344,7 @@ public class SocketUDT {
 	/**
 	 * @return null : not connected; <br>
 	 *         not null: remote UDT peer socket address to which this socket is
-	 *         connected<br>
+	 *         connected <br>
 	 * @see #hasLoadedRemoteSocketAddress()
 	 */
 	public InetSocketAddress getRemoteSocketAddress() throws ExceptionUDT {
@@ -384,7 +389,7 @@ public class SocketUDT {
 	 */
 	public Object getOption(OptionUDT option) throws ExceptionUDT {
 		if (option == null) {
-			throw new NullPointerException("option == null");
+			throw new IllegalArgumentException("option == null");
 		}
 		return getOption0(option.code, option.klaz);
 	}
@@ -401,7 +406,8 @@ public class SocketUDT {
 	 */
 	public void setOption(OptionUDT option, Object value) throws ExceptionUDT {
 		if (option == null || value == null) {
-			throw new NullPointerException("option == null || value == null");
+			throw new IllegalArgumentException(
+					"option == null || value == null");
 		}
 		if (value.getClass() == option.klaz) {
 			setOption0(option.code, option.klaz, value);
@@ -419,6 +425,12 @@ public class SocketUDT {
 	 */
 	protected native void listen0(int queueSize) throws ExceptionUDT;
 
+	/**
+	 * java copy of underlying native accept queue size parameter
+	 * 
+	 * @see #listen(int)
+	 * @see #accept()
+	 */
 	protected volatile int listenQueueSize;
 
 	/**
@@ -428,19 +440,20 @@ public class SocketUDT {
 		if (queueSize <= 0) {
 			throw new IllegalArgumentException("queueSize <= 0");
 		}
+		// publisher for volatile
 		listenQueueSize = queueSize;
 		listen0(queueSize);
 	}
 
 	/**
-	 * @see #listen0(int)
+	 * @see #listen(int)
 	 */
 	public int listenQueueSize() {
 		return listenQueueSize;
 	}
 
 	/**
-	 * receive into a complete array
+	 * receive into a complete byte array
 	 * 
 	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recv()</a>
 	 * @see <a
@@ -450,7 +463,7 @@ public class SocketUDT {
 			byte[] array) throws ExceptionUDT;
 
 	/**
-	 * receive into a portion of an array
+	 * receive into a portion of a byte array
 	 * 
 	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recv()</a>
 	 * @see <a
@@ -470,11 +483,12 @@ public class SocketUDT {
 			ByteBuffer buffer, int position, int limit) throws ExceptionUDT;
 
 	/**
-	 * receive into byte[] array upto array.length bytes
+	 * receive into byte[] array upto <code>array.length</code> bytes
 	 * 
 	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
 	 *         <code>=0</code> : timeout expired (blocking only)<br>
 	 *         <code>>0</code> : normal receive, byte count<br>
+	 * @see #receive0(int, int, byte[])
 	 */
 	public int receive(byte[] array) throws ExceptionUDT {
 		checkArray(array);
@@ -482,11 +496,12 @@ public class SocketUDT {
 	}
 
 	/**
-	 * receive into byte[] array upto size=limit-position bytes
+	 * receive into byte[] array upto <code>size=limit-position</code> bytes
 	 * 
 	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
 	 *         <code>=0</code> : timeout expired (blocking only)<br>
 	 *         <code>>0</code> : normal receive, byte count<br>
+	 * @see #receive1(int, int, byte[], int, int)
 	 */
 	public int receive(byte[] array, int position, int limit)
 			throws ExceptionUDT {
@@ -501,6 +516,7 @@ public class SocketUDT {
 	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
 	 *         <code>=0</code> : timeout expired (blocking only)<br>
 	 *         <code>>0</code> : normal receive, byte count<br>
+	 * @see #receive2(int, int, ByteBuffer, int, int)
 	 */
 	public int receive(ByteBuffer buffer) throws ExceptionUDT {
 		checkBuffer(buffer);
@@ -546,7 +562,8 @@ public class SocketUDT {
 	) throws ExceptionUDT;
 
 	/**
-	 * Timeout is in milliseconds.
+	 * Basic access to UDT socket readiness selection feature. Timeout is in
+	 * milliseconds.
 	 * 
 	 * @return <code><0</code> : should not happen<br>
 	 *         <code>=0</code> : timeout, no ready sockets<br>
@@ -555,11 +572,11 @@ public class SocketUDT {
 	 */
 	// asserts are contracts
 	public static int select( //
-			int[] readArray, //
-			int[] writeArray, //
-			int[] exceptArray, //
-			int[] sizeArray, //
-			long millisTimeout) throws ExceptionUDT {
+			final int[] readArray, //
+			final int[] writeArray, //
+			final int[] exceptArray, //
+			final int[] sizeArray, //
+			final long millisTimeout) throws ExceptionUDT {
 
 		assert readArray != null;
 		assert writeArray != null;
@@ -580,7 +597,7 @@ public class SocketUDT {
 	}
 
 	/**
-	 * unimplemented
+	 * unimplemented / unused
 	 */
 	protected static native void selectEx0(//
 			int[] registrationArray, //
@@ -591,7 +608,8 @@ public class SocketUDT {
 
 	// #############################
 
-	protected void checkBuffer(ByteBuffer buffer) {
+	// note: will be inlined by jvm
+	protected static final void checkBuffer(ByteBuffer buffer) {
 		if (buffer == null) {
 			throw new IllegalArgumentException("buffer == null");
 		}
@@ -600,16 +618,17 @@ public class SocketUDT {
 		}
 	}
 
-	protected void checkArray(byte[] array) {
+	// note: will be inlined by jvm
+	protected static final void checkArray(byte[] array) {
 		if (array == null) {
 			throw new IllegalArgumentException("array == null");
 		}
 	}
 
-	//
+	// #############################
 
 	/**
-	 * send from a complete array;
+	 * send from a complete byte[] array;
 	 * 
 	 * wrapper for <em>UDT::send()</em>, <em>UDT::sendmsg()</em>
 	 * 
@@ -622,7 +641,7 @@ public class SocketUDT {
 			byte[] array) throws ExceptionUDT;
 
 	/**
-	 * send from a portion of an array;
+	 * send from a portion of a byte[] array;
 	 * 
 	 * wrapper for <em>UDT::send()</em>, <em>UDT::sendmsg()</em>
 	 * 
@@ -760,7 +779,7 @@ public class SocketUDT {
 	 * Load updated statistics values into {@link #monitor} object.
 	 * 
 	 * @param makeClear
-	 *            true, reset all statistics with this call; false, keep
+	 *            true : reset all statistics with this call; false : keep
 	 *            collecting statistics, load updated values.
 	 * @see #updateMonitor0(boolean)
 	 */
@@ -775,6 +794,8 @@ public class SocketUDT {
 	protected native int getErrorCode0();
 
 	/**
+	 * Error code set by last operation on a socket.
+	 * 
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
@@ -789,6 +810,8 @@ public class SocketUDT {
 	protected native String getErrorMessage0();
 
 	/**
+	 * Native error message set by last operation on a socket.
+	 * 
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
@@ -803,6 +826,8 @@ public class SocketUDT {
 	protected native void clearError0();
 
 	/**
+	 * Clear error status on a socket, if any.
+	 * 
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
@@ -816,7 +841,7 @@ public class SocketUDT {
 	protected native boolean isOpen0();
 
 	/**
-	 * test if socket is open
+	 * Check if socket is open.
 	 * 
 	 * @see #isOpen0()
 	 */
@@ -825,7 +850,7 @@ public class SocketUDT {
 	}
 
 	/**
-	 * test if socket is closed
+	 * Check if socket is closed.
 	 * 
 	 * @see #isOpen0()
 	 */
@@ -836,6 +861,8 @@ public class SocketUDT {
 	// ###
 	// ### UDT API
 	// ###################################################
+
+	// convenience methods
 
 	/**
 	 * Apply default settings for message mode.
@@ -867,7 +894,7 @@ public class SocketUDT {
 	}
 
 	/**
-	 * Secondary socket; made by {@link #accept0()}, will apply
+	 * Secondary socket. Made by {@link #accept0()}, will apply
 	 * {@link #setDefaultMessageSendMode()}
 	 * 
 	 * @param socketID
@@ -885,6 +912,8 @@ public class SocketUDT {
 	}
 
 	/**
+	 * Check if socket is bound.
+	 * 
 	 * @return true : {@link #bind(InetSocketAddress)} was successful<br>
 	 *         false : otherwise<br>
 	 */
@@ -900,6 +929,8 @@ public class SocketUDT {
 	}
 
 	/**
+	 * Check if socket is connected.
+	 * 
 	 * @return true : {@link #connect(InetSocketAddress)} was successful<br>
 	 *         false : otherwise<br>
 	 */
@@ -914,6 +945,11 @@ public class SocketUDT {
 		}
 	}
 
+	/**
+	 * Error object wrapper.
+	 * 
+	 * @return error status set by last socket operation
+	 **/
 	public ErrorUDT getError() {
 		int code = getErrorCode();
 		return ErrorUDT.of(code);
@@ -922,9 +958,12 @@ public class SocketUDT {
 	//
 
 	/**
+	 * Configure socket in blocking/non-blocking mode.
+	 * 
 	 * @param block
 	 *            true : set both send and receive to blocking mode; false : set
 	 *            both send and receive to non-blocking mode
+	 * @see java.nio.channels.SocketChannel#configureBlocking(boolean)
 	 */
 	public void configureBlocking(boolean block) throws ExceptionUDT {
 		if (block) {
@@ -937,66 +976,94 @@ public class SocketUDT {
 	}
 
 	/**
+	 * Check if socket is in strict blocking mode.
+	 * 
 	 * @return true : socket is valid and both send and receive are set to
 	 *         blocking mode; false : at least one channel is set to
 	 *         non-blocking mode or socket is invalid;
 	 * 
 	 * @see #isNonBlocking()
+	 * @see #configureBlocking(boolean)
 	 */
 	public boolean isBlocking() {
 		try {
-			boolean isReceiveBlocking = (Boolean) getOption(OptionUDT.Is_Receive_Synchronous);
-			boolean isSendBlocking = (Boolean) getOption(OptionUDT.Is_Send_Synchronous);
-			return isOpen() && isReceiveBlocking && isSendBlocking;
+			if (isOpen()) {
+				boolean isReceiveBlocking = (Boolean) getOption(OptionUDT.Is_Receive_Synchronous);
+				boolean isSendBlocking = (Boolean) getOption(OptionUDT.Is_Send_Synchronous);
+				return isReceiveBlocking && isSendBlocking;
+			}
 		} catch (Exception e) {
 			log.error("unexpected;", e);
-			return false;
 		}
+		return false;
 	}
 
 	/**
+	 * Check if socket is in strict non-blocking mode.
+	 * 
 	 * @return true : socket is valid and both send and receive are set to NON
 	 *         blocking mode; false : at least one channel is set to blocking
 	 *         mode or socket is invalid;
 	 * @see #isBlocking()
+	 * @see #configureBlocking(boolean)
 	 */
 	public boolean isNonBlocking() {
 		try {
-			boolean isReceiveBlocking = (Boolean) getOption(OptionUDT.Is_Receive_Synchronous);
-			boolean isSendBlocking = (Boolean) getOption(OptionUDT.Is_Send_Synchronous);
-			return isOpen() && !isReceiveBlocking && !isSendBlocking;
+			if (isOpen()) {
+				boolean isReceiveBlocking = (Boolean) getOption(OptionUDT.Is_Receive_Synchronous);
+				boolean isSendBlocking = (Boolean) getOption(OptionUDT.Is_Send_Synchronous);
+				return !isReceiveBlocking && !isSendBlocking;
+			}
 		} catch (Exception e) {
 			log.error("unexpected;", e);
-			return false;
 		}
+		return false;
 	}
 
 	/**
-	 * Protocol level parameter.
+	 * Protocol-level send buffer. Does not reflect UDP buffers.
+	 * 
+	 * @see java.net.Socket#getSendBufferSize()
 	 */
 	public int getSendBufferSize() throws ExceptionUDT {
 		return (Integer) getOption(OptionUDT.Protocol_Send_Buffer_Size);
 	}
 
 	/**
-	 * Protocol level parameter.
+	 * Protocol-level receive buffer.
+	 * 
+	 * @see java.net.Socket#getReceiveBufferSize()
 	 */
 	public int getReceiveBufferSize() throws ExceptionUDT {
 		return (Integer) getOption(OptionUDT.Protocol_Receive_Buffer_Size);
 	}
 
+	/**
+	 * Check if local bind address is set to reuse mode.
+	 * 
+	 * @see java.net.Socket#getReuseAddress()
+	 */
 	public boolean getReuseAddress() throws ExceptionUDT {
 		return (Boolean) getOption(OptionUDT.Is_Address_Reuse_Enabled);
 	}
 
+	/**
+	 * Get time to linger on close (seconds).
+	 * 
+	 * @see java.net.Socket#getSoLinger()
+	 */
 	public int getSoLinger() throws ExceptionUDT {
 		return ((LingerUDT) getOption(OptionUDT.Time_To_Linger_On_Close))
 				.intValue();
 	}
 
 	/**
-	 * returns milliseconds; zero return means "infinite"; negative means
+	 * Get "any blocking operation" timeout setting.
+	 * 
+	 * Returns milliseconds; zero return means "infinite"; negative means
 	 * invalid
+	 * 
+	 * @see java.net.Socket#getSoTimeout()
 	 */
 	public int getSoTimeout() throws ExceptionUDT {
 		int sendTimeout = (Integer) getOption(OptionUDT.Send_Timeout);
@@ -1006,7 +1073,7 @@ public class SocketUDT {
 			log.error("sendTimeout != receiveTimeout");
 			millisTimeout = Math.max(sendTimeout, receiveTimeout);
 		} else {
-			// map from UDT value convention to java value convention
+			// map from UDT value convention to java.net.Socket value convention
 			if (sendTimeout < 0) {
 				// UDT infinite
 				millisTimeout = 0;
