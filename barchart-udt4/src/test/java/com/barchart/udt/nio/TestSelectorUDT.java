@@ -21,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,8 +82,8 @@ public class TestSelectorUDT {
 
 	volatile boolean isTestON = true;
 
-	// this test crashes on win32; disable for now
-	// @Test
+	// this test crashes on win32
+	@Test
 	public void testSelect() {
 		try {
 
