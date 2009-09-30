@@ -13,7 +13,8 @@
 	<typedef resource="cpptasks.tasks" classpathref="plugin.classpath" />
 	<typedef resource="cpptasks.types" classpathref="plugin.classpath" />
 	<!-- http://ant-contrib.sourceforge.net/ -->
-	<typedef resource="net/sf/antcontrib/antcontrib.properties" classpathref="plugin.classpath" />
+	<typedef resource="net/sf/antcontrib/antcontrib.properties"
+	         classpathref="plugin.classpath" />
 
 	<!-- ####################################################### -->
 
@@ -103,10 +104,17 @@
 
 	<!-- naming convention -->
 
-	<versioninfo id="build-version" fileversion="${mvn.mavenStamp}" productversion="${mvn.version}" compatibilityversion="${mvn.version}" legalcopyright="Copyright (C) ${mvn.licenceOrganization}; Developers: ${mvn.licenceDevelopers}" productname="${mvn.nativeLibName}" companyname="${mvn.licenceOrganization} ( ${mvn.licenceWebsite} )" />
+	<versioninfo id="build-version"
+	             fileversion="${mvn.mavenStamp}"
+	             productversion="${mvn.version}"
+	             compatibilityversion="${mvn.version}"
+	             legalcopyright="Copyright (C) ${mvn.licenceOrganization}; Developers: ${mvn.licenceDevelopers}"
+	             productname="${mvn.nativeLibName}"
+	             companyname="${mvn.licenceOrganization} ( ${mvn.licenceWebsite} )" />
 
 	<!-- word "root" of library name -->
-	<property name="name.root" value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
+	<property name="name.root"
+	          value="${mvn.nativeLibName}-${libOS}-${libARCH}-${libBITS}" />
 
 	<!-- cpptasks working directory; will contain compilation result -->
 	<property name="work.cpptasks" value="${mvn.target}/cpptasks" />
@@ -125,8 +133,10 @@
 
 	<!-- full path to the artifacts produceced by cpptasks: *.so and *.map -->
 	<property name="path.cpptasks" value="${work.cpptasks}/${name.cpptasks}" />
-	<property name="path.cpptasks.map" value="${work.cpptasks}/${name.cpptasks.map}" />
-	<property name="path.cpptasks.sym" value="${work.cpptasks}/${name.cpptasks.sym}" />
+	<property name="path.cpptasks.map"
+	          value="${work.cpptasks}/${name.cpptasks.map}" />
+	<property name="path.cpptasks.sym"
+	          value="${work.cpptasks}/${name.cpptasks.sym}" />
 
 	<!-- real name with prefix/suffix that is requered by current platform -->
 	<condition property="name.real" value="${name.root}.dll">
@@ -157,11 +167,13 @@
 		<!-- debug -->
 		<!-- compilerarg value="-v" /-->
 
-		<!-- gcc library mode -->
+		<!-- gcc library inclusion mode -->
 		<compilerarg value="-static-libgcc" />
 
+		<!-- note: not inclusion libstdc++ statically -->
+
 		<!-- optimizations & JNI compatibility
-		TODO: when setting -O1, -O2, -O3, gcc produces calls that are "way too new:"
+		TODO: when setting -O1, -O2, -O3, gcc produces calls that are "way too new":
 			GLIBCXX_3.4.9 _ZNSo9_M_insertIlEERSoT_
 			GLIBCXX_3.4.9 _ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l
 			GLIBCXX_3.4.9 _ZNSo9_M_insertImEERSoT_
@@ -214,12 +226,13 @@
 	</compiler>
 
 	<compiler id="gcc-compiler-windows-x86-32" extends="gcc-compiler-windows">
-		<!-- compiler definitions -->
+		<!-- compiler definitions for mingw -->
 		<defineset>
 			<define name="__MINGW__" />
 			<define name="WIN32" />
 			<define name="_WIN32_WINNT" value="0x0501" />
 		</defineset>
+		<!-- required for thread safe c++ exceptions -->
 		<compilerarg location="end" value="-mthreads" />
 	</compiler>
 
@@ -228,7 +241,7 @@
 	</compiler>
 
 	<linker id="gcc-linker" name="g++">
-		<!-- map file for crash analysis; note: will be located in work directory -->
+		<!-- map file for crash analysis; result map file will be located in work directory -->
 		<linkerarg location="end" value="-Wl,-Map,${name.cpptasks.map}" />
 		<!-- core libraries -->
 		<linkerarg location="end" value="--library=gcc" />
@@ -237,18 +250,21 @@
 
 	<linker id="gcc-linker-linux" extends="gcc-linker">
 		<linkerarg location="start" value="-fPIC" />
+		<!-- core libraries -->
 		<linkerarg location="end" value="--library=pthread" />
 	</linker>
 
 	<linker id="gcc-linker-windows" extends="gcc-linker">
 		<!-- provide image base to simplify library map analisys -->
 		<linkerarg location="end" value="-Wl,--image-base,0x10000000" />
-		<!-- not tested well -->
-		<linkerarg location="end" value="--library=crtdll" />
-		<linkerarg location="end" value="--library=ws2_32" />
+		<!-- required for java jni calling convention -->
 		<linkerarg location="end" value="-Wl,--kill-at" />
 		<linkerarg location="end" value="-Wl,--add-stdcall-alias" />
+		<!-- required for thread safe c++ exceptions -->
 		<linkerarg location="end" value="-mthreads" />
+		<!-- core mingw librarises -->
+		<linkerarg location="end" value="--library=crtdll" />
+		<linkerarg location="end" value="--library=ws2_32" />
 	</linker>
 
 	<!-- ####################################################### -->
@@ -297,7 +313,10 @@
 
 	<target name="target-run-javah">
 		<echo message="### JNI HEADERS" />
-		<javah classpath="${mvn.target}/classes" implementation="sun" destdir="${mvn.nativeSrcJNI}" verbose="yes">
+		<javah classpath="${mvn.target}/classes"
+		       implementation="sun"
+		       destdir="${mvn.nativeSrcJNI}"
+		       verbose="yes">
 			<class name="com.barchart.udt.${mvn.nativeLibName}" />
 		</javah>
 	</target>
@@ -321,16 +340,22 @@
 		</exec>
 	</target>
 
-	<target name="target-check-pre-requisites" depends="target-info, target-linker-search-path">
+	<target name="target-check-pre-requisites"
+	        depends="target-info, target-linker-search-path">
 		<echo message="### CHECK PRE-REQUISITES" />
-		<fail unless="isToolReady" message="compiler tool chain is not available" />
-		<fail unless="isSupported" message="this platform is not yet supported" />
+		<fail unless="isToolReady"
+		      message="compiler tool chain is not available" />
+		<fail unless="isSupported"
+		      message="this platform is not yet supported" />
 	</target>
 
-	<target name="target-compile" depends="target-check-pre-requisites,target-run-javah">
+	<target name="target-compile"
+	        depends="target-check-pre-requisites,target-run-javah">
 		<echo message="### COMPILE ARTIFACT" />
 		<mkdir dir="${work.cpptasks}" />
-		<cc outtype="shared" objdir="${work.cpptasks}" outfile="${path.cpptasks.root}">
+		<cc outtype="shared"
+		    objdir="${work.cpptasks}"
+		    outfile="${path.cpptasks.root}">
 			<fileset dir="${mvn.nativeSrcJNI}" includes="*.cpp" />
 			<fileset dir="${mvn.nativeSrcUDT}/src" includes="*.cpp" />
 			<versioninfo refid="build-version" />
@@ -358,11 +383,11 @@
 
 	<target name="target-copy-artifact" depends="target-check-library">
 		<echo message="### COPY ARTIFACT" />
-		<echo message="artifact    : ${path.real}" />
+		<echo message="artifact    : ${path.cpptasks}" />
 		<copy file="${path.cpptasks}" tofile="${path.real}" />
-		<echo message="artifact map: ${path.real.map}" />
+		<echo message="artifact map: ${path.cpptasks.map}" />
 		<copy file="${path.cpptasks.map}" tofile="${path.real.map}" />
-		<echo message="artifact sym: ${path.real.sym}" />
+		<echo message="artifact sym: ${path.cpptasks.sym}" />
 		<copy file="${path.cpptasks.sym}" tofile="${path.real.sym}" />
 	</target>
 

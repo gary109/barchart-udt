@@ -47,3 +47,16 @@ http://www.humboldt.co.uk/2009/02/wrapping-a-native-library-with-maven.html
 
 Find of the day: Wagon Subversion extension
 http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
+
+
+What you should know about MinGW and the elusive -mthreads option
+http://navarra.ca/?p=568
+First instinct; `man gcc`:
+   -mthreads
+      Support thread-safe exception handling on Mingw32.
+      Code that relies on thread-safe exception handling
+      must compile and link all code with the -mthreads
+      option.  When compiling, -mthreads defines -D_MT;
+      when linking, it links in a special thread helper
+      library -lmingwthrd which cleans up per thread
+      exception handling data.
