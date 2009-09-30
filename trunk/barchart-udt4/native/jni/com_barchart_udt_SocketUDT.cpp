@@ -49,6 +49,7 @@
 #include <udt.h>
 using namespace UDT;
 
+#include <cassert>
 #include <cstring>
 #include <iostream>
 #include <vector>
@@ -218,15 +219,15 @@ jobject X_NewInteger(JNIEnv *env, int value) {
 }
 
 // use native 64 bit long parameter
-jobject X_NewLong(JNIEnv *env, int64_t value) {
+jobject X_NewLong(JNIEnv* env, int64_t value) {
 	CHK_NUL_RET_NULL(env, "env");
 	return env->NewObject(jdk_clsLong, jdk_clsLong_initID, (jlong) value);
 }
 
 // NOTE: ipv4 only
-int X_InitSockAddr(sockaddr *sockAddr) {
+int X_InitSockAddr(sockaddr* sockAddr) {
 	CHK_NUL_RET_JNI_ERR(sockAddr, "sockAddr");
-	sockaddr_in *sockAddrIn = (sockaddr_in *) sockAddr;
+	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 	sockAddrIn->sin_family = AF_INET;
 	memset(&(sockAddrIn->sin_zero), '\0', 8);
 	return JNI_OK;
@@ -241,8 +242,8 @@ bool X_IsInRange(jlong min, jlong var, jlong max) {
 }
 
 // NOTE: ipv4 only
-int X_ConvertInetSocketAddressToSockaddr(JNIEnv *env,
-		jobject objInetSocketAddress, sockaddr *sockAddr) {
+int X_ConvertInetSocketAddressToSockaddr(JNIEnv* env,
+		jobject objInetSocketAddress, sockaddr* sockAddr) {
 
 	CHK_NUL_RET_JNI_ERR(env,"env");
 	CHK_NUL_RET_JNI_ERR(sockAddr,"sockAddr");
@@ -252,10 +253,10 @@ int X_ConvertInetSocketAddressToSockaddr(JNIEnv *env,
 			isa_InetAddressID);
 	CHK_NUL_RET_JNI_ERR(objInetAddress,"objInetAddress");
 
-	int address = env->GetIntField(objInetAddress, ia_AddressID);
-	int port = env->GetIntField(objInetSocketAddress, isa_PortID);
+	jint address = env->GetIntField(objInetAddress, ia_AddressID);
+	jint port = env->GetIntField(objInetSocketAddress, isa_PortID);
 
-	sockaddr_in *sockAddrIn = (sockaddr_in *) sockAddr;
+	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 
 	sockAddrIn->sin_addr.s_addr = htonl(address);
 	sockAddrIn->sin_port = htons(port);
@@ -265,7 +266,7 @@ int X_ConvertInetSocketAddressToSockaddr(JNIEnv *env,
 }
 
 // NOTE: ipv4 only
-int X_ConvertSockaddrToInetSocketAddress(JNIEnv *env, sockaddr *sockAddr,
+int X_ConvertSockaddrToInetSocketAddress(JNIEnv* env, sockaddr* sockAddr,
 		jobject objInetSocketAddress) {
 
 	CHK_NUL_RET_JNI_ERR(env, "env");
@@ -276,10 +277,10 @@ int X_ConvertSockaddrToInetSocketAddress(JNIEnv *env, sockaddr *sockAddr,
 			isa_InetAddressID);
 	CHK_NUL_RET_JNI_ERR(objInetAddress,"objInetAddress");
 
-	sockaddr_in *sockAddrIn = (sockaddr_in *) sockAddr;
+	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 
-	int address = ntohl(sockAddrIn->sin_addr.s_addr);
-	int port = ntohs(sockAddrIn->sin_port);
+	jint address = ntohl(sockAddrIn->sin_addr.s_addr);
+	jint port = ntohs(sockAddrIn->sin_port);
 
 	env->SetIntField(objInetAddress, ia_AddressID, address);
 	env->SetIntField(objInetSocketAddress, isa_PortID, port);
@@ -289,7 +290,7 @@ int X_ConvertSockaddrToInetSocketAddress(JNIEnv *env, sockaddr *sockAddr,
 }
 
 // NOTE: only ipv4
-jobject X_NewInetAddress(JNIEnv *env, int address) {
+jobject X_NewInetAddress(JNIEnv* env, jint address) {
 
 	CHK_NUL_RET_NULL(env, "env");
 	CHK_NUL_RET_NULL(jdk_clsInet4Address,"jdk_clsInet4Address");
@@ -306,14 +307,14 @@ jobject X_NewInetAddress(JNIEnv *env, int address) {
 }
 
 // NOTE: ipv4 only
-jobject X_NewInetSocketAddress(JNIEnv *env, sockaddr *sockAddr) {
+jobject X_NewInetSocketAddress(JNIEnv* env, sockaddr* sockAddr) {
 
 	CHK_NUL_RET_NULL(env,"env");
 	CHK_NUL_RET_NULL(sockAddr,"sockAddr");
 
-	sockaddr_in *sockAddrIn = (sockaddr_in *) sockAddr;
-	int address = ntohl(sockAddrIn->sin_addr.s_addr);
-	int port = ntohs(sockAddrIn->sin_port);
+	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
+	jint address = ntohl(sockAddrIn->sin_addr.s_addr);
+	jint port = ntohs(sockAddrIn->sin_port);
 
 	jobject objInetAddress = X_NewInetAddress(env, address);
 	CHK_NUL_RET_NULL(objInetAddress,"objInetAddress");
@@ -327,25 +328,25 @@ jobject X_NewInetSocketAddress(JNIEnv *env, sockaddr *sockAddr) {
 
 }
 
-bool X_IsSockaddrEqualsInetSocketAddress(JNIEnv *env, sockaddr *sockAddr,
+bool X_IsSockaddrEqualsInetSocketAddress(JNIEnv* env, sockaddr* sockAddr,
 		jobject socketAddress) {
 
 	CHK_NUL_RET_FALSE(env,"env");
 	CHK_NUL_RET_FALSE(sockAddr,"sockAddr");
 	CHK_NUL_RET_FALSE(socketAddress,"socketAddress");
 
-	sockaddr_in *sockAddrIn = (sockaddr_in *) sockAddr;
+	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 
-	int address1 = ntohl(sockAddrIn->sin_addr.s_addr);
-	int port1 = ntohs(sockAddrIn->sin_port);
+	jint address1 = ntohl(sockAddrIn->sin_addr.s_addr);
+	jint port1 = ntohs(sockAddrIn->sin_port);
 
 	jobject objInetAddress = env->GetObjectField(socketAddress,
 			isa_InetAddressID);
 
 	CHK_NUL_RET_FALSE(objInetAddress,"objInetAddress");
 
-	int address2 = env->GetIntField(objInetAddress, ia_AddressID);
-	int port2 = env->GetIntField(socketAddress, isa_PortID);
+	jint address2 = env->GetIntField(objInetAddress, ia_AddressID);
+	jint port2 = env->GetIntField(socketAddress, isa_PortID);
 
 	if (address1 == address2 && port1 == port2) {
 		return true;
@@ -356,7 +357,7 @@ bool X_IsSockaddrEqualsInetSocketAddress(JNIEnv *env, sockaddr *sockAddr,
 }
 
 // not used
-void XXX_ThrowSocketExceptionMessage(JNIEnv *env, const char *message) {
+void XXX_ThrowSocketExceptionMessage(JNIEnv* env, const char* message) {
 	CHK_NUL_RET(env,"env");
 	CHK_NUL_RET(message,"message");
 	CHK_NUL_RET(jdk_clsSocketException,"jdk_clsSocketException");
@@ -366,7 +367,7 @@ void XXX_ThrowSocketExceptionMessage(JNIEnv *env, const char *message) {
 // ########################################################
 
 // custom class for struct linger conversion
-jobject UDT_NewLingerUDT(JNIEnv *env, linger *lingerValue) {
+jobject UDT_NewLingerUDT(JNIEnv* env, linger* lingerValue) {
 	CHK_NUL_RET_NULL(env,"env");
 	CHK_NUL_RET_NULL(lingerValue,"lingerValue");
 	int value;
@@ -386,16 +387,16 @@ jobject UDT_NewLingerUDT(JNIEnv *env, linger *lingerValue) {
 #define UDT_USER_DEFINED_MESSAGE -4 // USER_DEFINED_MESSAGE(-4, "user defined message"), //
 //
 
-UDTSOCKET UDT_GetSocketID(JNIEnv *env, jobject self) {
+// socket id stored in java object
+jint UDT_GetSocketID(JNIEnv* env, jobject self) {
 	return env->GetIntField(self, udts_SocketID);
 }
-
-void UDT_SetSocketID(JNIEnv *env, jobject self, UDTSOCKET socketID) {
+void UDT_SetSocketID(JNIEnv* env, jobject self, jint socketID) {
 	env->SetIntField(self, udts_SocketID, socketID);
 }
 
-jthrowable UDT_NewExceptionUDT(JNIEnv *env, int socketID, int errorCode,
-		const char* message) {
+jthrowable UDT_NewExceptionUDT(JNIEnv* env, const jint socketID,
+		jint errorCode, const char* message) {
 	CHK_NUL_RET_NULL(env,"env");
 	jstring messageString = env->NewStringUTF(message);
 	CHK_NUL_RET_NULL(messageString,"messageString");
@@ -404,23 +405,23 @@ jthrowable UDT_NewExceptionUDT(JNIEnv *env, int socketID, int errorCode,
 	return static_cast<jthrowable> (exception);
 }
 
-void UDT_ThrowExceptionUDT_Message(JNIEnv *env, int socketID,
+void UDT_ThrowExceptionUDT_Message(JNIEnv* env, const jint socketID,
 		const char *comment) {
 	CHK_NUL_RET(env,"env");
 	CHK_NUL_RET(comment,"comment");
-	int code = UDT_WRAPPER_MESSAGE;
+	jint code = UDT_WRAPPER_MESSAGE;
 	jthrowable exception = UDT_NewExceptionUDT(env, socketID, code, comment);
 	CHK_NUL_RET(exception,"exception");
 	env->Throw(exception);
 }
 
-// socketID == 0 means not applicable/ not known
-void UDT_ThrowExceptionUDT_ErrorInfo(JNIEnv *env, int socketID,
-		const char *comment, UDT::ERRORINFO *errorInfo) {
+// socketID == 0 means not applicable / not known id
+void UDT_ThrowExceptionUDT_ErrorInfo(JNIEnv* env, const jint socketID,
+		const char* comment, UDT::ERRORINFO* errorInfo) {
 	CHK_NUL_RET(env,"env");
 	CHK_NUL_RET(comment,"comment");
 	CHK_NUL_RET(errorInfo,"errorInfo");
-	int code = errorInfo->getErrorCode();
+	jint code = errorInfo->getErrorCode();
 	jthrowable exception = UDT_NewExceptionUDT(env, socketID, code, comment);
 	CHK_NUL_RET(exception,"exception");
 	env->Throw(exception);
@@ -430,7 +431,7 @@ void UDT_ThrowExceptionUDT_ErrorInfo(JNIEnv *env, int socketID,
 //	char text[1024];
 //	sprintf(text, "UDT Error : %s : %d %s", comment, code, message);
 
-void UDT_InitFieldMonitor(JNIEnv *env) {
+void UDT_InitFieldMonitor(JNIEnv* env) {
 
 	jclass cls = udt_clsMonitorUDT;
 
@@ -446,6 +447,7 @@ void UDT_InitFieldMonitor(JNIEnv *env) {
 	udtm_pktSentNAKTotal = env->GetFieldID(cls, "pktSentNAKTotal", "I"); // total number of sent NAK packets
 	udtm_pktRecvNAKTotal = env->GetFieldID(cls, "pktRecvNAKTotal", "I"); // total number of received NAK packets
 	udtm_usSndDurationTotal = env->GetFieldID(cls, "usSndDurationTotal", "J"); // total time duration when UDT is sending data (idle time exclusive)
+
 	// local measurements
 	udtm_pktSent = env->GetFieldID(cls, "pktSent", "J"); // number of sent data packets, including retransmissions
 	udtm_pktRecv = env->GetFieldID(cls, "pktRecv", "J"); // number of received packets
@@ -459,6 +461,7 @@ void UDT_InitFieldMonitor(JNIEnv *env) {
 	udtm_mbpsSendRate = env->GetFieldID(cls, "mbpsSendRate", "D"); // sending rate in Mb/s
 	udtm_mbpsRecvRate = env->GetFieldID(cls, "mbpsRecvRate", "D"); // receiving rate in Mb/s
 	udtm_usSndDuration = env->GetFieldID(cls, "usSndDuration", "J"); // busy sending time (i.e., idle time exclusive)
+
 	// instant measurements
 	udtm_usPktSndPeriod = env->GetFieldID(cls, "usPktSndPeriod", "D"); // packet sending period, in microseconds
 	udtm_pktFlowWindow = env->GetFieldID(cls, "pktFlowWindow", "I"); // flow window size, in number of packets
@@ -471,7 +474,7 @@ void UDT_InitFieldMonitor(JNIEnv *env) {
 
 }
 
-void UDT_InitClassRefAll(JNIEnv *env) {
+void UDT_InitClassRefAll(JNIEnv* env) {
 
 	// JDK
 
@@ -507,7 +510,7 @@ void UDT_InitClassRefAll(JNIEnv *env) {
 
 }
 
-void UDT_InitFieldRefAll(JNIEnv *env) {
+void UDT_InitFieldRefAll(JNIEnv* env) {
 
 	// JDK
 
@@ -546,8 +549,8 @@ void UDT_InitFieldRefAll(JNIEnv *env) {
 
 }
 
-void X_InitMethodRef(JNIEnv *env, jmethodID *methodID, jclass klaz,
-		const char *name, const char *signature) {
+void X_InitMethodRef(JNIEnv* env, jmethodID *methodID, jclass klaz,
+		const char* name, const char* signature) {
 
 	*methodID = env->GetMethodID(klaz, name, signature);
 
@@ -555,7 +558,7 @@ void X_InitMethodRef(JNIEnv *env, jmethodID *methodID, jclass klaz,
 
 }
 
-void UDT_InitMethodRefAll(JNIEnv *env) {
+void UDT_InitMethodRefAll(JNIEnv* env) {
 
 	// JDK
 
@@ -615,14 +618,14 @@ void UDT_InitMethodRefAll(JNIEnv *env) {
 
 }
 
-bool UDT_IsSocketOpen(JNIEnv *env, jobject self) {
+bool UDT_IsSocketOpen(JNIEnv* env, jobject self) {
 
 	// hack to test if socket is already closed
 
 	int value = 0;
 	int valueSize = sizeof(value);
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	const int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
 
@@ -636,9 +639,11 @@ bool UDT_IsSocketOpen(JNIEnv *env, jobject self) {
 
 // ########################################################
 
+/* signature is a monotonously increasing integer */
+
 // validate consistency of java code and native library
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_getSignatureJNI0(
-		JNIEnv *env, jclass clsSocketUDT) {
+		JNIEnv* env, jclass clsSocketUDT) {
 
 	//	printf("udt-getSignatureJNI0\n");
 
@@ -647,7 +652,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_getSignatureJNI0(
 }
 
 // called on class load
-JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_initClass0(JNIEnv *env,
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_initClass0(JNIEnv* env,
 		jclass clsSocketUDT) {
 
 	//	printf("udt-initClass0\n");
@@ -670,7 +675,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_initClass0(JNIEnv *env,
 }
 
 // called on class unload
-void JNICALL Java_com_barchart_udt_SocketUDT_stopClass0(JNIEnv *env,
+void JNICALL Java_com_barchart_udt_SocketUDT_stopClass0(JNIEnv* env,
 		jclass clsSocketUDT) {
 
 	// TODO release JNI global references
@@ -686,8 +691,9 @@ void JNICALL Java_com_barchart_udt_SocketUDT_stopClass0(JNIEnv *env,
 
 }
 
+// used by default constructor
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance0(
-		JNIEnv *env, jobject self, jint typeCode) {
+		JNIEnv* env, jobject self, jint typeCode) {
 
 	//	printf("udt-initInstance0\n");
 
@@ -696,7 +702,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance0(
 
 	//	printf("init instance; type=%d\n", type);
 
-	const UDTSOCKET socketID = UDT::socket(socketAddressFamily, socketType, 0);
+	const jint socketID = UDT::socket(socketAddressFamily, socketType, 0);
 
 	UDT_SetSocketID(env, self, socketID);
 
@@ -711,12 +717,11 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance0(
 
 }
 
+// used by accept
 JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance1(
-		JNIEnv *env, jobject self, jint descriptor) {
+		JNIEnv* env, jobject self, const jint socketID) {
 
 	//	printf("udt-initInstance1\n");
-
-	const UDTSOCKET socketID = (UDTSOCKET) descriptor;
 
 	if (socketID == UDT::INVALID_SOCK) {
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
@@ -729,7 +734,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance1(
 
 }
 
-JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv *env,
+JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv* env,
 		jobject self) {
 
 	//	printf("udt-accept\n");
@@ -737,16 +742,16 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv *env,
 	sockaddr remoteSockAddr;
 	int remoteSockAddrSize = sizeof(remoteSockAddr);
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
-	const UDTSOCKET socketACC = UDT::accept(socketID, &remoteSockAddr,
+	const jint socketACC = UDT::accept(socketID, &remoteSockAddr,
 			&remoteSockAddrSize);
 
 	if (socketACC == UDT::INVALID_SOCK) {
 
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
 
-		int errorCode = errorInfo.getErrorCode();
+		jint errorCode = errorInfo.getErrorCode();
 
 		if (errorCode == CUDTException::EASYNCRCV) {
 			// not a java exception: non-blocking mode return, when not connections in the queue
@@ -773,12 +778,12 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv *env,
 
 }
 
-JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_bind0(JNIEnv *env,
-		jobject self, jobject localSocketAddress) {
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_bind0(JNIEnv* env,
+		jobject self, jobject objLocalSocketAddress) {
 
 	//	cout << "udt-bind0;" << EOL;
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	int rv;
 
@@ -791,7 +796,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_bind0(JNIEnv *env,
 		return;
 	}
 
-	rv = X_ConvertInetSocketAddressToSockaddr(env, localSocketAddress,
+	rv = X_ConvertInetSocketAddressToSockaddr(env, objLocalSocketAddress,
 			&localSockAddr);
 
 	if (rv == JNI_ERR) {
@@ -811,9 +816,9 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_bind0(JNIEnv *env,
 }
 
 JNIEXPORT JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(
-		JNIEnv *env, jobject self) {
+		JNIEnv* env, jobject self) {
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	// check if desriptor valid
 	const bool isOpen = UDT_IsSocketOpen(env, self);
@@ -835,13 +840,13 @@ JNIEXPORT JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(
 
 }
 
-// TODO error checking
-JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_connect0(JNIEnv *env,
+//
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_connect0(JNIEnv* env,
 		jobject self, jobject objRemoteSocketAddress) {
 
 	//	cout << "udt-connect0;" << EOL;
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	if (objRemoteSocketAddress == NULL) {
 		UDT_ThrowExceptionUDT_Message(env, socketID,
@@ -880,14 +885,14 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_connect0(JNIEnv *env,
 }
 
 JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedRemoteSocketAddress(
-		JNIEnv *env, jobject self) {
+		JNIEnv* env, jobject self) {
 
 	//	printf("udt-hasLoadedRemoteSocketAddress\n");
 
 	sockaddr remoteSockAddr;
 	int remoteSockAddrSize = sizeof(remoteSockAddr);
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	// "peer" means remote
 	const int rv = UDT::getpeername(socketID, &remoteSockAddr,
@@ -916,14 +921,14 @@ JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedRemoteSocket
 }
 
 JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedLocalSocketAddress(
-		JNIEnv *env, jobject self) {
+		JNIEnv* env, jobject self) {
 
 	//	printf("udt-hasLoadedLocalSocketAddress\n");
 
 	sockaddr localSockAddr;
 	int localSockAddrSize = sizeof(localSockAddr);
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	// "sock" means local
 	const int rv = UDT::getsockname(socketID, &localSockAddr,
@@ -969,7 +974,7 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_getOption0(
 	UDT_OptVal optionValue;
 	int optionValueSize = sizeof(optionValue);
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	const int rv = UDT::getsockopt(socketID, 0, optionName,
 			(void*) &optionValue, &optionValueSize);
@@ -1012,7 +1017,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_setOption0(JNIEnv *env,
 
 	//	printf("udt-setSocketOption\n");
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	UDT::SOCKOPT optionName = (UDT::SOCKOPT) enumCode;
 	UDT_OptVal optionValue;
@@ -1079,7 +1084,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_listen0(JNIEnv *env,
 
 	//	printf("udt-listen\n");
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	const int rv = UDT::listen(socketID, queueSize);
 
@@ -1121,7 +1126,7 @@ bool X_IsValidRange(JNIEnv *env, jint socketID, //
 // =0 : timeout expired (blocking only)
 // >0 : normal receive
 
-jint UDT_ReturnReceiveError(JNIEnv *env, jint socketID) {
+jint UDT_ReturnReceiveError(JNIEnv *env, const jint socketID) {
 	UDT::ERRORINFO errorInfo = UDT::getlasterror();
 	int errorCode = errorInfo.getErrorCode();
 	if (errorCode == CUDTException::EASYNCRCV) {
@@ -1145,7 +1150,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 	jbyte* data = env->GetByteArrayElements(arrayObj, &isCopy); // note: must release
 	const jsize size = env->GetArrayLength(arrayObj);
 
-	jint rv;
+	int rv;
 
 	switch (socketType) {
 	case SOCK_STREAM:
@@ -1197,7 +1202,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive1(JNIEnv *env,
 		return JNI_ERR;
 	}
 
-	jint rv;
+	int rv;
 
 	switch (socketType) {
 	case SOCK_STREAM:
@@ -1246,7 +1251,11 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive2(JNIEnv *env,
 			bufferObj));
 
 	const jbyte* data = bufferAddress + position;
-	const jsize size = (jsize) (limit - position);
+	const jsize size = static_cast<jsize> (limit - position);
+
+	// memory boundary test
+	assert(data[0] | 1);
+	assert(data[size - 1] | 1);
 
 	int rv;
 
@@ -1308,7 +1317,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 	jbyte *data = env->GetByteArrayElements(arrayObj, &isCopy); // note: must release
 	const jsize size = env->GetArrayLength(arrayObj);
 
-	jint rv;
+	int rv;
 
 	switch (socketType) {
 	case SOCK_STREAM:
@@ -1364,7 +1373,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 
 	env->GetByteArrayRegion(arrayObj, position, size, data);
 
-	jint rv;
+	int rv;
 
 	switch (socketType) {
 	case SOCK_STREAM:
@@ -1413,9 +1422,13 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send2(JNIEnv *env,
 			bufferObj));
 
 	const jbyte* data = bufferAddress + position;
-	const jsize size = (jsize) (limit - position);
+	const jsize size = static_cast<jsize> (limit - position);
 
-	jint rv;
+	// memory boundary test
+	assert(data[0] | 1);
+	assert(data[size - 1] | 1);
+
+	int rv;
 
 	switch (socketType) {
 	case SOCK_STREAM:
@@ -1475,7 +1488,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 
 	UDT::TRACEINFO monitor;
 
-	const UDTSOCKET socketID = UDT_GetSocketID(env, self);
+	const jint socketID = UDT_GetSocketID(env, self);
 
 	const int rv = UDT::perfmon(socketID, &monitor, BOOL(makeClear));
 
@@ -1533,17 +1546,17 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 
 // #########################################################################
 
-void UDT_CopyArrayToSet(jint* array, UDSET* udSet, jint size) {
+void UDT_CopyArrayToSet(jint* array, UDSET* udSet, jsize size) {
 	for (jint index = 0; index < size; index++) {
-		UDTSOCKET socketID = array[index];
+		jint socketID = array[index];
 		UD_SET(socketID, udSet);
 	}
 }
 
-void UDT_CopySetToArray(UDSET* udSet, jint* array, jint size) {
+void UDT_CopySetToArray(UDSET* udSet, jint* array, jsize size) {
 	UDSET::iterator iterator = udSet->begin();
 	for (jint index = 0; index < size; index++) {
-		UDTSOCKET socketID = *iterator;
+		jint socketID = *iterator;
 		array[index] = socketID;
 		++iterator;
 	}
@@ -1723,15 +1736,15 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx0(JNIEnv *env,
 
 	std::vector<UDTSOCKET> selectFDs;
 
-	int selectSize = env->GetArrayLength(objSelectArray);
+	jsize selectSize = env->GetArrayLength(objSelectArray);
 
 	jboolean isCopy;
 
 	jint *selectArray = env->GetIntArrayElements(objSelectArray, &isCopy);
 
-	for (int index = 0; index < selectSize; index++) {
+	for (jint index = 0; index < selectSize; index++) {
 
-		UDTSOCKET socketID = selectArray[index];
+		jint socketID = selectArray[index];
 
 		selectFDs.push_back(socketID);
 
@@ -1762,11 +1775,11 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx0(JNIEnv *env,
 
 	// update selected operations
 
-	for (int index = 0; index < selectSize; index++) {
+	for (jint index = 0; index < selectSize; index++) {
 
 		jobject objSocketUDT = NULL; // XXX
 
-		UDTSOCKET socketID = env->GetIntField(objSocketUDT, udts_SocketID);
+		jint socketID = env->GetIntField(objSocketUDT, udts_SocketID);
 
 		std::vector<UDTSOCKET>::iterator result;
 
@@ -1809,7 +1822,6 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 
 	// TODO make global --- get IDs
 
-
 	jclass clsKeyUDT = (env)->FindClass("com/barchart/udt/nio/SelectionKeyUDT");
 	jfieldID socketIDID = env->GetFieldID(clsKeyUDT, //
 			"socketID", "I");
@@ -1826,7 +1838,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 			jdk_clsIterator_hasNextID)) {
 		jobject keyUDT = env->CallObjectMethod(iteratorRegistered,
 				jdk_clsIterator_nextID);
-		int socketID = env->GetIntField(keyUDT, socketIDID);
+		jint socketID = env->GetIntField(keyUDT, socketIDID);
 		selectFDs.push_back(socketID);
 		count++;
 	}
@@ -1872,8 +1884,8 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testEmptyCall0(
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testIterateArray0(
 		JNIEnv *env, jobject self, jobjectArray objArray) {
 	// test cost of JNI-to-Java array iteration
-	int size = env->GetArrayLength(objArray);
-	for (int index = 0; index < size; index++) {
+	jsize size = env->GetArrayLength(objArray);
+	for (jint index = 0; index < size; index++) {
 		jobject objAny = env->GetObjectArrayElement(objArray, index);
 		objAny = NULL;
 	}
@@ -1883,7 +1895,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testIterateSet0(
 		JNIEnv *env, jobject self, jobject objSet) {
 	// test cost of JNI-to-Java set iteration
 	jobject iterator = env->CallObjectMethod(objSet, jdk_clsSet_iteratorID);
-	int count = 0;
+	jint count = 0;
 	while (JNI_TRUE == env->CallBooleanMethod(iterator,
 			jdk_clsIterator_hasNextID)) {
 		jobject objAny =
@@ -1905,7 +1917,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testGetSetArray0(
 
 	jboolean isCopy;
 
-	jint *data = env->GetIntArrayElements(objArray, &isCopy);
+	jint* data = env->GetIntArrayElements(objArray, &isCopy);
 
 	//	jsize size = env->GetArrayLength(objArray);
 
@@ -1918,7 +1930,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testGetSetArray0(
 }
 
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testInvalidClose0(
-		JNIEnv *env, jobject self, jint socketID) {
+		JNIEnv *env, jobject self, const jint socketID) {
 
 	const int rv = UDT::close(socketID);
 
