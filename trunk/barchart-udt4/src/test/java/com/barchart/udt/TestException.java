@@ -46,7 +46,7 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.After;
 import org.junit.Before;
@@ -54,6 +54,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/*
+ * verify mingw c++ exceptions are thread safe (will crash jvm if not using
+ * -mthreads option for gcc/ld)
+ */
 public class TestException {
 
 	Logger log = LoggerFactory.getLogger(TestException.class);
@@ -68,10 +72,14 @@ public class TestException {
 
 	volatile ExecutorService service;
 
+	volatile AtomicInteger exceptionCount;
+
 	@Before
 	public void setUp() throws Exception {
 
-		barrier = new CyclicBarrier(THREADS);
+		exceptionCount = new AtomicInteger(0);
+
+		barrier = new CyclicBarrier(THREADS + 1);
 
 		service = Executors.newFixedThreadPool(THREADS);
 
@@ -84,21 +92,25 @@ public class TestException {
 
 	}
 
-	static final AtomicLong threadCount = new AtomicLong(0);
+	static final AtomicInteger threadCount = new AtomicInteger(0);
 
 	final Runnable exceptionTask = new Runnable() {
-		final ByteBuffer array = ByteBuffer.allocateDirect(SIZE);
-
 		@Override
 		public void run() {
+
 			Thread.currentThread().setName(
 					"Exception Runner #" + threadCount.getAndIncrement());
+
+			final ByteBuffer buffer = ByteBuffer.allocateDirect(SIZE);
+
 			SocketUDT socket = null;
+
 			try {
 				socket = new SocketUDT(TypeUDT.DATAGRAM);
 			} catch (Exception e) {
-				fail(e.getMessage());
+				fail("can not make socket; " + e.getMessage());
 			}
+
 			for (int k = 0; k < COUNT; k++) {
 				try {
 					// log.info("k={}", k);
@@ -107,23 +119,27 @@ public class TestException {
 					// if (k % 1000 == 0) {
 					// log.info("k={}", k);
 					// }
-					socket.receive(array);
+					//
+					// must throw exception
+					socket.receive(buffer);
+					//
+					fail("exception not thrown");
+					//
 				} catch (Exception e) {
 					// log.info("e={}", e.getMessage());
+					exceptionCount.getAndIncrement();
 				}
 			}
+
 			try {
 				barrier.await();
 			} catch (Exception e) {
 				fail(e.getMessage());
 			}
+
 		}
 	};
 
-	/*
-	 * verify mingw c++ exceptions are thread safe (will crash jvm if not using
-	 * -mthreads option for gcc/ld)
-	 */
 	@Test
 	public void testException() {
 
@@ -138,6 +154,8 @@ public class TestException {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+
+		assertEquals(exceptionCount.get(), THREADS * COUNT);
 
 		log.info("finish");
 

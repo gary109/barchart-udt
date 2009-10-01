@@ -4,7 +4,6 @@ import static com.barchart.udt.HelperTestUtilities.*;
 import static java.nio.channels.SelectionKey.*;
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -25,6 +24,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/* basic single thread selector test */
 public class TestSelectorUDT {
 
 	protected static final int SIZE = 1460;
@@ -82,7 +82,6 @@ public class TestSelectorUDT {
 
 	volatile boolean isTestON = true;
 
-	// this test crashes on win32
 	@Test
 	public void testSelect() {
 		try {
@@ -191,7 +190,7 @@ public class TestSelectorUDT {
 					assertEquals(writeSize, SIZE);
 				}
 				serverKey.interestOps(serverKey.interestOps() & ~OP_WRITE);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				fail(e.getMessage());
 			}
 		}
@@ -230,6 +229,8 @@ public class TestSelectorUDT {
 					assertTrue(Arrays.equals(arrayRead, arrayWritten));
 					final int count = readCount.incrementAndGet();
 					if (count == COUNT) {
+						clientKey.interestOps(clientKey.interestOps()
+								& ~OP_READ);
 						isTestON = false;
 						log.info("client read done");
 						return;
@@ -279,6 +280,7 @@ public class TestSelectorUDT {
 
 	private void doAccept(SelectionKey key) {
 		try {
+
 			log.info("doAccept; key={}", key);
 
 			assertEquals(key, acceptorKey);
@@ -300,6 +302,7 @@ public class TestSelectorUDT {
 
 	private void doConnect(SelectionKey key) {
 		try {
+
 			log.info("doConnect; key={}", key);
 
 			assertEquals(key, clientKey);

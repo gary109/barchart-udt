@@ -62,9 +62,10 @@ public abstract class TestSendRecvAbstract<T> {
 			.getLogger(TestSendRecvAbstract.class);
 
 	final static int TEST_TIMEOUT = 10; // seconds
-	
+
 	final static int SIZE = 1460;
 	final static int COUNT = 1000;
+	final static int THREADS = 4;
 
 	volatile SocketUDT server;
 	volatile SocketUDT connector;
@@ -205,9 +206,9 @@ public abstract class TestSendRecvAbstract<T> {
 		log.info("serverAddress={} clientAddress={}", serverAddress,
 				clientAddress);
 
-		barrier = new CyclicBarrier(5);
+		service = Executors.newFixedThreadPool(THREADS);
 
-		service = Executors.newFixedThreadPool(4);
+		barrier = new CyclicBarrier(THREADS + 1);
 
 	}
 
