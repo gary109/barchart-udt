@@ -61,7 +61,7 @@ public class TestException {
 	final static int TEST_TIMEOUT = 10; // seconds
 
 	static final int SIZE = 1460;
-	static final int COUNT = 10000;
+	static final int COUNT = 1000;
 	static final int THREADS = 10;
 
 	volatile CyclicBarrier barrier;

@@ -58,9 +58,9 @@ import org.slf4j.LoggerFactory;
  * 1) expecting to find native libraries under these names in the root of class
  * path or jar file which contains this class
  * <p>
- * 2) first name array element is extracted, copied AND loaded
+ * 2) *.dll/*.so element is extracted, copied AND loaded
  * <p>
- * 3) remaining array elements are extracted and copied ONLY
+ * 3) other array elements are extracted and copied ONLY
  * <p>
  * .
  */
@@ -70,7 +70,7 @@ public enum LibraryUDT {
 	UNKNOWN(new String[] { "UNKNOWN" }), //
 
 	/** The WINDOWS_32 library entry. */
-	WINDOWS_32(new String[] { "SocketUDT-windows-x86-32.dll",
+	WINDOWS_32(new String[] { "mingwm10.dll", "SocketUDT-windows-x86-32.dll",
 			"LICENCE_BARCHART.txt" }), // 
 
 	/** The WINDOWS_64 library entry. */
@@ -198,23 +198,36 @@ public enum LibraryUDT {
 			throw new IllegalArgumentException("invalid name array");
 		}
 
-		// extract all
-
 		for (String fileName : library.fileNameArray) {
 
 			log.debug("using: targetFolder={} fileName={}", //
 					targetFolder, fileName);
 
-			extract(targetFolder, fileName);
+			extractFile(targetFolder, fileName);
+
+			if (isLibraryExtension(fileName)) {
+				systemLoad(targetFolder, fileName);
+			}
 
 		}
 
-		// load first only
+	}
 
-		String libraryName = library.fileNameArray[0];
+	private static boolean isLibraryExtension(String fileName) {
+		fileName = fileName.toLowerCase();
+		if (fileName.endsWith(".dll")) {
+			return true;
+		}
+		if (fileName.endsWith(".so")) {
+			return true;
+		}
+		return false;
+	}
+
+	private static void systemLoad(File targetFolder, String fileName) {
 
 		String absolutePath = //
-		targetFolder.getAbsolutePath() + File.separator + libraryName;
+		targetFolder.getAbsolutePath() + File.separator + fileName;
 
 		try {
 			System.load(absolutePath);
@@ -242,7 +255,8 @@ public enum LibraryUDT {
 	 * @throws Exception
 	 *             the exception
 	 */
-	private static void extract(File folder, String fileName) throws Exception {
+	private static void extractFile(File folder, String fileName)
+			throws Exception {
 
 		ClassLoader classLoader = LibraryUDT.class.getClassLoader();
 
