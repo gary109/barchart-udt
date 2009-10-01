@@ -331,6 +331,7 @@ public enum LibraryUDT {
 	 * @return the long
 	 */
 	private static long timeStamp(URLConnection connIN) {
+		// will use time stamp of jar file
 		return connIN.getLastModified();
 	}
 
