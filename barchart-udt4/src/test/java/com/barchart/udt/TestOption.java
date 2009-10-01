@@ -41,8 +41,6 @@ package com.barchart.udt;
 
 import static org.junit.Assert.*;
 
-import java.net.SocketException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,27 +69,39 @@ public class TestOption {
 			OptionUDT option;
 
 			option = OptionUDT.UDT_SNDSYN;
-			boolean booleanValue = true;
+			boolean booleanValue;
+			booleanValue = true;
+			socket.setOption(option, booleanValue);
+			assertEquals(booleanValue, socket.getOption(option));
+			booleanValue = false;
 			socket.setOption(option, booleanValue);
 			assertEquals(booleanValue, socket.getOption(option));
 
 			log.info("pass: boolean");
 
 			option = OptionUDT.UDP_RCVBUF;
-			int intValue = 123456789;
+			int intValue;
+			intValue = 123456789;
+			socket.setOption(option, intValue);
+			assertEquals(intValue, socket.getOption(option));
+			intValue = 987654321;
 			socket.setOption(option, intValue);
 			assertEquals(intValue, socket.getOption(option));
 
 			log.info("pass: int");
 
 			option = OptionUDT.UDT_MAXBW;
-			long longValue = 1234567890123456789L;
+			long longValue;
+			longValue = 1234567890123456789L;
+			socket.setOption(option, longValue);
+			assertEquals(longValue, socket.getOption(option));
+			longValue = 8765432109876543210L;
 			socket.setOption(option, longValue);
 			assertEquals(longValue, socket.getOption(option));
 
 			log.info("pass: long");
 
-		} catch (SocketException e) {
+		} catch (Exception e) {
 			fail("SocketException; " + e.getMessage());
 		}
 	}
@@ -127,7 +137,7 @@ public class TestOption {
 
 			log.info("pass: linger");
 
-		} catch (SocketException e) {
+		} catch (Exception e) {
 			fail("SocketException; " + e.getMessage());
 		}
 

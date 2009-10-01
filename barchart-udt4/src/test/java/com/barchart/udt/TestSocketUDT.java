@@ -173,8 +173,8 @@ public class TestSocketUDT {
 
 			log.info("isOpen pass");
 
-		} catch (ExceptionUDT e) {
-			fail("SocketException; " + e.getMessage());
+		} catch (Exception e) {
+			fail(e.getMessage());
 		}
 
 	}
