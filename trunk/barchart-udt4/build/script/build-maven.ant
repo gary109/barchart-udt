@@ -373,7 +373,7 @@
 		</exec>
 		<exec executable="sh" failonerror="true" osfamily="unix">
 			<arg value="-c" />
-			<arg value="echo 'checking stdc++ versions in use:'; objdump --dynamic-syms '${path.cpptasks}' | grep 'GLIB' | sed 's/^.*\(GLIB[A-Z]*_[0-9\.]*\).*$/\t\1/' | sort -u;" />
+			<arg value="echo 'checking library versions in use:'; objdump --dynamic-syms '${path.cpptasks}' | grep 'GLIB' | sed 's/^.*\(GLIB[A-Z]*_[0-9\.]*\).*$/\t\1/' | sort -u;" />
 		</exec>
 		<exec executable="sh" failonerror="true">
 			<arg value="-c" />
