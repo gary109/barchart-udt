@@ -390,4 +390,14 @@ public class MonitorUDT {
 
 	}
 
+	@Override
+	public String toString() {
+
+		StringBuilder text = new StringBuilder(1024);
+
+		appendSnapshot(text);
+
+		return text.toString();
+	}
+
 }

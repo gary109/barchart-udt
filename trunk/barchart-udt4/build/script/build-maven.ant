@@ -244,7 +244,7 @@
 		<!-- map file for crash analysis; result map file will be located in work directory -->
 		<linkerarg location="end" value="-Wl,-Map,${name.cpptasks.map}" />
 		<!-- core libraries -->
-		<linkerarg location="end" value="--library=gcc" />
+		<!-- linkerarg location="end" value="-X-library=gcc" /-->
 		<linkerarg location="end" value="--library=stdc++" />
 	</linker>
 
@@ -263,7 +263,7 @@
 		<!-- required for thread safe c++ exceptions -->
 		<linkerarg location="end" value="-mthreads" />
 		<!-- core mingw librarises -->
-		<linkerarg location="end" value="--library=crtdll" />
+		<!-- linkerarg location="end" value="-X-library=crtdll" /-->
 		<linkerarg location="end" value="--library=ws2_32" />
 	</linker>
 

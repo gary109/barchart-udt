@@ -1278,4 +1278,18 @@ public class SocketUDT {
 				+ getRemoteInetPort()//
 		;
 	}
+
+	/**
+	 * Show current socket options.
+	 */
+	public String toStringOptions() {
+
+		StringBuilder text = new StringBuilder(1024);
+
+		OptionUDT.appendSnapshot(this, text);
+
+		return text.toString();
+
+	}
+
 }
