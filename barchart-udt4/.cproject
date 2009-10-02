@@ -52,7 +52,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/native/udt/src}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.other.other.1306335827" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0   -mthreads  " valueType="string"/>
-<option id="gnu.cpp.compiler.option.optimization.flags.85023210" superClass="gnu.cpp.compiler.option.optimization.flags" value="-finline-functions   -fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
+<option id="gnu.cpp.compiler.option.optimization.flags.85023210" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-finline-functions   -fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.484386018" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool command="gcc" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.223203536" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
@@ -66,9 +66,6 @@
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1704321135" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
 <option defaultValue="true" id="gnu.cpp.link.option.shared.1250305200" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
 <option id="gnu.cpp.link.option.libs.1561144783" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-<listOptionValue builtIn="false" value="gcc"/>
-<listOptionValue builtIn="false" value="crtdll"/>
-<listOptionValue builtIn="false" value="stdc++"/>
 <listOptionValue builtIn="false" value="ws2_32"/>
 </option>
 <option id="gnu.cpp.link.option.flags.670619428" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-Wl,-Map,barchart-udt4.map   -Wl,--kill-at   -Wl,--add-stdcall-alias   -Wl,--image-base,0x10000000   -mthreads" valueType="string"/>

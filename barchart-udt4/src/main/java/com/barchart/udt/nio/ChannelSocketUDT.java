@@ -358,6 +358,10 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			if (sizeSent < 0) {
 				log.debug("no buffer space for send; socketID={}",
 						socket.socketID);
+				if (channelKey != null) {
+					log.debug("channelKey={}", channelKey);
+				}
+
 				return 0;
 			}
 
