@@ -170,12 +170,17 @@ public enum OptionUDT {
 	/**
 	 * show all option values.
 	 * 
-	 * @param socket
+	 * @param socketUDT
 	 *            the socket
 	 * @param text
 	 *            the text
 	 */
-	public static void appendSnapshot(SocketUDT socket, StringBuilder text) {
+	public static void appendSnapshot(SocketUDT socketUDT, StringBuilder text) {
+
+		text.append("\n\t");
+		text.append("socketID");
+		text.append(" = ");
+		text.append(socketUDT.socketID);
 
 		for (OptionUDT option : values()) {
 			int optionCode = 0;
@@ -186,8 +191,9 @@ public enum OptionUDT {
 				optionCode = option.code;
 				optionName = option.name();
 				optionValue = option.format.convert(//
-						socket.getOption(option));
+						socketUDT.getOption(option));
 
+				// TODO fix this hack
 				if (optionName.startsWith("UD")) {
 					continue;
 				}

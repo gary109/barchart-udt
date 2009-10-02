@@ -776,7 +776,8 @@ public class SocketUDT {
 	protected native void updateMonitor0(boolean makeClear) throws ExceptionUDT;
 
 	/**
-	 * Load updated statistics values into {@link #monitor} object.
+	 * Load updated statistics values into {@link #monitor} object. Must call
+	 * this methos only on connected socket.
 	 * 
 	 * @param makeClear
 	 *            true : reset all statistics with this call; false : keep
@@ -885,7 +886,7 @@ public class SocketUDT {
 	public SocketUDT(TypeUDT type) throws ExceptionUDT {
 		synchronized (SocketUDT.class) {
 			this.type = type;
-			this.monitor = new MonitorUDT();
+			this.monitor = new MonitorUDT(this);
 			this.socketID = initInstance0(type.code);
 			this.socketType = type.code;
 			this.socketAddressFamily = 2; // ipv4
@@ -903,7 +904,7 @@ public class SocketUDT {
 	protected SocketUDT(TypeUDT type, int socketID) throws ExceptionUDT {
 		synchronized (SocketUDT.class) {
 			this.type = type;
-			this.monitor = new MonitorUDT();
+			this.monitor = new MonitorUDT(this);
 			this.socketID = initInstance1(socketID);
 			this.socketType = type.code;
 			this.socketAddressFamily = 2; // ipv4
@@ -1021,21 +1022,27 @@ public class SocketUDT {
 	}
 
 	/**
-	 * Protocol-level send buffer. Does not reflect UDP buffers.
+	 * Get maximum send buffer size. Reflects minimum of protocol-level (UDT)
+	 * and kernel-level(UDP) settings.
 	 * 
 	 * @see java.net.Socket#getSendBufferSize()
 	 */
 	public int getSendBufferSize() throws ExceptionUDT {
-		return (Integer) getOption(OptionUDT.Protocol_Send_Buffer_Size);
+		final int protocolSize = (Integer) getOption(OptionUDT.Protocol_Send_Buffer_Size);
+		final int kernelSize = (Integer) getOption(OptionUDT.Kernel_Send_Buffer_Size);
+		return Math.min(protocolSize, kernelSize);
 	}
 
 	/**
-	 * Protocol-level receive buffer.
+	 * Get maximum receive buffer size. Reflects minimum of protocol-level (UDT)
+	 * and kernel-level(UDP) settings.
 	 * 
 	 * @see java.net.Socket#getReceiveBufferSize()
 	 */
 	public int getReceiveBufferSize() throws ExceptionUDT {
-		return (Integer) getOption(OptionUDT.Protocol_Receive_Buffer_Size);
+		final int protocolSize = (Integer) getOption(OptionUDT.Protocol_Receive_Buffer_Size);
+		final int kernelSize = (Integer) getOption(OptionUDT.Kernel_Receive_Buffer_Size);
+		return Math.min(protocolSize, kernelSize);
 	}
 
 	/**
@@ -1089,17 +1096,23 @@ public class SocketUDT {
 	}
 
 	/**
-	 * Protocol level parameter.
+	 * Set maximum send buffer size. Affects both protocol-level (UDT) and
+	 * kernel-level(UDP) settings
+	 * 
+	 * @see java.net.Socket#setSendBufferSize(int)
 	 */
 	public void setSendBufferSize(int size) throws ExceptionUDT {
 		setOption(OptionUDT.Protocol_Send_Buffer_Size, size);
+		setOption(OptionUDT.Kernel_Send_Buffer_Size, size);
 	}
 
 	/**
-	 * Protocol level parameter.
+	 * Set maximum receive buffer size. Affects both protocol-level (UDT) and
+	 * kernel-level(UDP) settings.
 	 */
 	public void setReceiveBufferSize(int size) throws ExceptionUDT {
 		setOption(OptionUDT.Protocol_Receive_Buffer_Size, size);
+		setOption(OptionUDT.Kernel_Receive_Buffer_Size, size);
 	}
 
 	public void setReuseAddress(boolean on) throws ExceptionUDT {
@@ -1287,6 +1300,25 @@ public class SocketUDT {
 		StringBuilder text = new StringBuilder(1024);
 
 		OptionUDT.appendSnapshot(this, text);
+
+		return text.toString();
+
+	}
+
+	/**
+	 * Show current monitor status.
+	 */
+	public String toStringMonitor() {
+
+		try {
+			updateMonitor(false);
+		} catch (Exception e) {
+			return "updateMonitor failed;" + e.getMessage();
+		}
+
+		StringBuilder text = new StringBuilder(1024);
+
+		monitor.appendSnapshot(text);
 
 		return text.toString();
 

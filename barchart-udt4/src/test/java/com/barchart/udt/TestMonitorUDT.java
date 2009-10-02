@@ -1,6 +1,9 @@
 package com.barchart.udt;
 
+import static com.barchart.udt.HelperTestUtilities.*;
 import static org.junit.Assert.*;
+
+import java.net.InetSocketAddress;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,15 +25,25 @@ public class TestMonitorUDT {
 	}
 
 	@Test
-	public void testToString() {
+	public void testMonitor() {
 
 		try {
 
-			SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
+			SocketUDT serverSocket = new SocketUDT(TypeUDT.DATAGRAM);
+			InetSocketAddress serverAddress = getLocalSocketAddress();
+			serverSocket.bind(serverAddress);
+			serverSocket.listen(1);
 
-			MonitorUDT montitor = socket.monitor;
+			SocketUDT clientSocket = new SocketUDT(TypeUDT.DATAGRAM);
+			InetSocketAddress clientAddress = getLocalSocketAddress();
+			clientSocket.bind(clientAddress);
 
-			log.info("montitor={}", montitor);
+			clientSocket.connect(serverAddress);
+
+			SocketUDT acceptSocket = serverSocket.accept();
+
+			log.info("client montitor={}", clientSocket.toStringMonitor());
+			log.info("accept montitor={}", acceptSocket.toStringMonitor());
 
 		} catch (Exception e) {
 			fail(e.getMessage());

@@ -49,7 +49,10 @@ public class MonitorUDT {
 
 	private static final Logger log = LoggerFactory.getLogger(MonitorUDT.class);
 
-	protected MonitorUDT() {
+	protected final SocketUDT socketUDT;
+
+	protected MonitorUDT(SocketUDT socketUDT) {
+		this.socketUDT = socketUDT;
 	}
 
 	// UDT API
@@ -342,6 +345,11 @@ public class MonitorUDT {
 	 */
 	public void appendSnapshot(StringBuilder text) {
 
+		text.append("\n\t");
+		text.append("socketID");
+		text.append(" = ");
+		text.append(socketUDT.socketID);
+
 		Field fieldArray[] = MonitorUDT.class.getDeclaredFields();
 
 		for (Field field : fieldArray) {
@@ -398,6 +406,7 @@ public class MonitorUDT {
 		appendSnapshot(text);
 
 		return text.toString();
+
 	}
 
 }
