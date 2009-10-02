@@ -50,6 +50,7 @@ import java.nio.channels.IllegalBlockingModeException;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.UnresolvedAddressException;
 import java.nio.channels.spi.SelectorProvider;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -190,6 +191,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			return isConnected();
 		} else { // non blocking
 			if (isConnected()) {
+				logStatus();
 				return true;
 			} else {
 				IOException exception = connectException;
@@ -305,6 +307,11 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 		}
 	}
 
+	//
+
+	private final AtomicInteger writeCount = new AtomicInteger(0);
+	private final AtomicInteger writeSize = new AtomicInteger(0);
+
 	/**
 	 * See {@link java.nio.channels.SocketChannel#write(ByteBuffer)} contract;
 	 * 
@@ -318,6 +325,8 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	 */
 	@Override
 	public int write(ByteBuffer buffer) throws IOException {
+
+		writeCount.incrementAndGet();
 
 		if (buffer == null) {
 			throw new NullPointerException("buffer == null");
@@ -358,10 +367,10 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			if (sizeSent < 0) {
 				log.debug("no buffer space for send; socketID={}",
 						socket.socketID);
-				if (channelKey != null) {
-					log.debug("channelKey={}", channelKey);
-				}
-
+				//
+				logStatus();
+				//
+				log.info("writeCount={} writeSize={}", writeCount, writeSize);
 				return 0;
 			}
 
@@ -371,6 +380,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			}
 
 			if (sizeSent <= remaining) {
+				writeSize.addAndGet(sizeSent);
 				return sizeSent;
 			} else { // should not happen
 				log.error("unexpected: sizeSent > remaining; socketID={}",
@@ -427,6 +437,14 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	@Override
 	public String toString() {
 		return socketUDT.toString();
+	}
+
+	void logStatus() {
+		if (channelKey != null) {
+			log.debug("channelKey={}", channelKey);
+		}
+		log.debug("options={}", socketUDT.toStringOptions());
+		log.debug("monitor={}", socketUDT.toStringMonitor());
 	}
 
 }

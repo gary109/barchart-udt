@@ -39,7 +39,10 @@
  */
 package com.barchart.udt;
 
+import static com.barchart.udt.HelperTestUtilities.*;
 import static org.junit.Assert.*;
+
+import java.net.InetSocketAddress;
 
 import org.junit.After;
 import org.junit.Before;
@@ -139,6 +142,30 @@ public class TestOption {
 
 		} catch (Exception e) {
 			fail("SocketException; " + e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testOptionsPrint() {
+		try {
+
+			SocketUDT serverSocket = new SocketUDT(TypeUDT.DATAGRAM);
+			InetSocketAddress serverAddress = getLocalSocketAddress();
+			serverSocket.bind(serverAddress);
+			serverSocket.listen(1);
+
+			SocketUDT clientSocket = new SocketUDT(TypeUDT.DATAGRAM);
+			InetSocketAddress clientAddress = getLocalSocketAddress();
+			clientSocket.bind(clientAddress);
+
+			clientSocket.connect(serverAddress);
+
+			log.info("client options:{}", clientSocket.toStringOptions());
+			log.info("server options:{}", serverSocket.toStringOptions());
+
+		} catch (Exception e) {
+			fail(e.getMessage());
 		}
 
 	}

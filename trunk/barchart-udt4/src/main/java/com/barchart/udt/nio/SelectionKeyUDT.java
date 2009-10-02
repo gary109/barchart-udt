@@ -161,19 +161,24 @@ public class SelectionKeyUDT extends AbstractSelectionKey {
 			remote = null;
 		}
 
-		return " socketID=" + socketID + //
-				" type=" + channelUDT.getChannelKind() + //
-				" readyOps=" + toStringReadyOps() + "(" + readyOps + ")" + //
+		return " socketID=" + socketID
+				+ //
+				" type=" + channelUDT.getChannelKind()
+				+ //
+				" readyOps=" + toStringOps(readyOps) + "(" + readyOps + ")"
+				+ //
+				" ntrstOps=" + toStringOps(interestOps) + "(" + interestOps
+				+ ")" + //
 				" local=" + local + //
 				" remote=" + remote + //
 				"";
 	}
 
-	public String toStringReadyOps() {
-		char R = (OP_READ & readyOps) != 0 ? 'R' : '-';
-		char W = (OP_WRITE & readyOps) != 0 ? 'W' : '-';
-		char C = (OP_CONNECT & readyOps) != 0 ? 'C' : '-';
-		char A = (OP_ACCEPT & readyOps) != 0 ? 'A' : '-';
+	public static final String toStringOps(int keyOps) {
+		char R = (OP_READ & keyOps) != 0 ? 'R' : '-';
+		char W = (OP_WRITE & keyOps) != 0 ? 'W' : '-';
+		char C = (OP_CONNECT & keyOps) != 0 ? 'C' : '-';
+		char A = (OP_ACCEPT & keyOps) != 0 ? 'A' : '-';
 		return String.format("%c%c%c%c", A, C, W, R);
 	}
 
