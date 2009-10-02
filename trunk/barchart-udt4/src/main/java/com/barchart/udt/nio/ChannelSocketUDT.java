@@ -365,13 +365,12 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			// see contract for send()
 
 			if (sizeSent < 0) {
-				// log.debug("no buffer space for send; socketID={}",
-				// socket.socketID);
-				//				
-				// logStatus();
-				//				
-				// log.info("writeCount={} writeSize={}", writeCount,
-				// writeSize);
+				log.debug("no buffer space for send; socketID={}",
+						socket.socketID);
+
+				logStatus();
+
+				log.info("writeCount={} writeSize={}", writeCount, writeSize);
 				return 0;
 			}
 
