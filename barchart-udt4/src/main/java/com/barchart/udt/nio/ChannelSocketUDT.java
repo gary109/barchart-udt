@@ -318,7 +318,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	 * @return <code><0</code> should not happen<br>
 	 *         <code>=0</code> blocking mode: timeout occurred on send<br>
 	 *         <code>=0</code> non-blocking mode: buffer is full in the
-	 *         underlying UDT socket<br>
+	 *         underlying UDT socket; nothing is sent<br>
 	 *         <code>>0</code> actual bytes sent count<br>
 	 * @see com.barchart.udt.SocketUDT#send(ByteBuffer)
 	 * @see com.barchart.udt.SocketUDT#send(byte[], int, int)
