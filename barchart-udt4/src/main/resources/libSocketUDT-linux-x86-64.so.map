@@ -1961,7 +1961,6 @@ LOAD md5.o
 LOAD list.o
 LOAD cache.o
 LOAD queue.o
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/libgcc.a
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/libstdc++.so
 LOAD /usr/lib/gcc/x86_64-linux-gnu/4.3.3/../../../../lib/libpthread.so
 START GROUP
