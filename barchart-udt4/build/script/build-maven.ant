@@ -180,7 +180,7 @@
 		need to get rid of this to enable run on the older versions : libgcc + libstdc++ versions <= 3.4
 		meanwhile, no optimiztions
 		-->
-		<compilerarg value="-O0" />
+		<compilerarg value="-O2" />
 		<compilerarg value="-finline-functions" />
 		<compilerarg value="-fno-strict-aliasing" />
 		<compilerarg value="-fno-omit-frame-pointer" />

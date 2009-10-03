@@ -51,9 +51,10 @@ using namespace UDT;
 
 #include <cassert>
 #include <cstring>
-#include <iostream>
 #include <vector>
 #include <algorithm>
+// do not use cout; else will introduce GLIBCXX_3.4.9 dependency with 'g++ -O2'
+//#include <iostream>
 using namespace std;
 
 // for JNI method signature compatibility
@@ -167,26 +168,28 @@ static jfieldID udtm_byteAvailRcvBuf; // available UDT receiver buffer size
 
 // ########################################################
 
-#define EOL "\n"
+//#define EOL "\n"
 
 // special UDT method return value
 #define UDT_TIMEOUT 0
 
 // null pointer safety
 //
-#define CHK_LOG(title,comment)  cout << title << " function: " << __func__ << " comment: " << comment << EOL;
+#define CHK_LOG(title,comment) printf ("%s function: %s comment: %s", title, __func__, comment);
+// do not use cout; else will introduce GLIBCXX_3.4.9 dependency with 'g++ -O2'
+//#define CHK_LOG(title,comment) cout << title << " function: " << __func__ << " comment: " << comment << endl;
 //
-#define CHK_NUL_RET(reference,comment) if ((reference) == NULL) \
-	{ CHK_LOG("udt-chk-nul-ret-ret;",comment); return; }
+#define CHK_NUL_RET_RET(reference,comment) if ((reference) == NULL) \
+	{ CHK_LOG("CHK_NUL_RET_RET;",comment); return; }
 //
-#define CHK_NUL_RET_NULL(reference,comment) if ((reference) == NULL) \
-	{ CHK_LOG("udt-chk-nul-ret-nul;",comment); return NULL; }
+#define CHK_NUL_RET_NUL(reference,comment) if ((reference) == NULL) \
+	{ CHK_LOG("CHK_NUL_RET_NUL;",comment); return NULL; }
 //
-#define CHK_NUL_RET_FALSE(reference,comment) if ((reference) == NULL) \
-	{ CHK_LOG("udt-chk-nul-ret-fls;",comment); return false; }
+#define CHK_NUL_RET_FLS(reference,comment) if ((reference) == NULL) \
+	{ CHK_LOG("CHK_NUL_RET_FLS;",comment); return false; }
 //
-#define CHK_NUL_RET_JNI_ERR(reference,comment) if ((reference) == NULL) \
-	{ CHK_LOG("udt-chk-nul-ret-err;",comment); return JNI_ERR; }
+#define CHK_NUL_RET_ERR(reference,comment) if ((reference) == NULL) \
+	{ CHK_LOG("CHK_NUL_RET_ERR;",comment); return JNI_ERR; }
 //
 // c++ <-> java, bool <-> boolean conversions
 #define BOOL(x) (((x) == JNI_TRUE) ? true : false) // from java to c++
@@ -194,39 +197,39 @@ static jfieldID udtm_byteAvailRcvBuf; // available UDT receiver buffer size
 //
 //
 #define FREE(x) if ((x) != NULL) { free(x); x = NULL; }
-#define MALLOC(var,type, size) type* var = (type*) malloc(sizeof(type) * size);
+#define MALLOC(var,type,size) type* var = (type*) malloc(sizeof(type) * size);
 
 void X_InitClassReference(JNIEnv *env, jclass *classReference,
 		const char *className) {
-	CHK_NUL_RET(env, "env");
-	CHK_NUL_RET(className, "className");
-	CHK_NUL_RET(classReference,"classReference");
+	CHK_NUL_RET_RET(env, "env");
+	CHK_NUL_RET_RET(className, "className");
+	CHK_NUL_RET_RET(classReference,"classReference");
 	jclass klaz = env->FindClass(className);
-	CHK_NUL_RET(klaz, "klaz");
+	CHK_NUL_RET_RET(klaz, "klaz");
 	*classReference = static_cast<jclass> (env->NewGlobalRef((jobject) klaz));
 }
 
 // use native bool parameter
 jobject X_NewBoolean(JNIEnv *env, bool value) {
-	CHK_NUL_RET_NULL(env, "env");
+	CHK_NUL_RET_NUL(env, "env");
 	return env->NewObject(jdk_clsBoolean, jdk_clsBoolean_initID, BOOLEAN(value));
 }
 
 // use native 32 bit int parameter
 jobject X_NewInteger(JNIEnv *env, int value) {
-	CHK_NUL_RET_NULL(env, "env");
+	CHK_NUL_RET_NUL(env, "env");
 	return env->NewObject(jdk_clsInteger, jdk_clsInteger_initID, (jint) value);
 }
 
 // use native 64 bit long parameter
 jobject X_NewLong(JNIEnv* env, int64_t value) {
-	CHK_NUL_RET_NULL(env, "env");
+	CHK_NUL_RET_NUL(env, "env");
 	return env->NewObject(jdk_clsLong, jdk_clsLong_initID, (jlong) value);
 }
 
 // NOTE: ipv4 only
 int X_InitSockAddr(sockaddr* sockAddr) {
-	CHK_NUL_RET_JNI_ERR(sockAddr, "sockAddr");
+	CHK_NUL_RET_ERR(sockAddr, "sockAddr");
 	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 	sockAddrIn->sin_family = AF_INET;
 	memset(&(sockAddrIn->sin_zero), '\0', 8);
@@ -245,13 +248,13 @@ bool X_IsInRange(jlong min, jlong var, jlong max) {
 int X_ConvertInetSocketAddressToSockaddr(JNIEnv* env,
 		jobject objInetSocketAddress, sockaddr* sockAddr) {
 
-	CHK_NUL_RET_JNI_ERR(env,"env");
-	CHK_NUL_RET_JNI_ERR(sockAddr,"sockAddr");
-	CHK_NUL_RET_JNI_ERR(objInetSocketAddress,"objInetSocketAddress");
+	CHK_NUL_RET_ERR(env,"env");
+	CHK_NUL_RET_ERR(sockAddr,"sockAddr");
+	CHK_NUL_RET_ERR(objInetSocketAddress,"objInetSocketAddress");
 
 	jobject objInetAddress = env->GetObjectField(objInetSocketAddress,
 			isa_InetAddressID);
-	CHK_NUL_RET_JNI_ERR(objInetAddress,"objInetAddress");
+	CHK_NUL_RET_ERR(objInetAddress,"objInetAddress");
 
 	jint address = env->GetIntField(objInetAddress, ia_AddressID);
 	jint port = env->GetIntField(objInetSocketAddress, isa_PortID);
@@ -269,13 +272,13 @@ int X_ConvertInetSocketAddressToSockaddr(JNIEnv* env,
 int X_ConvertSockaddrToInetSocketAddress(JNIEnv* env, sockaddr* sockAddr,
 		jobject objInetSocketAddress) {
 
-	CHK_NUL_RET_JNI_ERR(env, "env");
-	CHK_NUL_RET_JNI_ERR(sockAddr,"sockAddr");
-	CHK_NUL_RET_JNI_ERR(objInetSocketAddress,"objInetSocketAddress");
+	CHK_NUL_RET_ERR(env, "env");
+	CHK_NUL_RET_ERR(sockAddr,"sockAddr");
+	CHK_NUL_RET_ERR(objInetSocketAddress,"objInetSocketAddress");
 
 	jobject objInetAddress = env->GetObjectField(objInetSocketAddress,
 			isa_InetAddressID);
-	CHK_NUL_RET_JNI_ERR(objInetAddress,"objInetAddress");
+	CHK_NUL_RET_ERR(objInetAddress,"objInetAddress");
 
 	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 
@@ -292,13 +295,13 @@ int X_ConvertSockaddrToInetSocketAddress(JNIEnv* env, sockaddr* sockAddr,
 // NOTE: only ipv4
 jobject X_NewInetAddress(JNIEnv* env, jint address) {
 
-	CHK_NUL_RET_NULL(env, "env");
-	CHK_NUL_RET_NULL(jdk_clsInet4Address,"jdk_clsInet4Address");
+	CHK_NUL_RET_NUL(env, "env");
+	CHK_NUL_RET_NUL(jdk_clsInet4Address,"jdk_clsInet4Address");
 
 	jobject objInetAddress = env->NewObject(jdk_clsInet4Address,
 			jdk_clsInet4Address_initID);
 
-	CHK_NUL_RET_NULL(objInetAddress,"objInetAddress");
+	CHK_NUL_RET_NUL(objInetAddress,"objInetAddress");
 
 	env->SetIntField(objInetAddress, ia_AddressID, address);
 
@@ -309,20 +312,20 @@ jobject X_NewInetAddress(JNIEnv* env, jint address) {
 // NOTE: ipv4 only
 jobject X_NewInetSocketAddress(JNIEnv* env, sockaddr* sockAddr) {
 
-	CHK_NUL_RET_NULL(env,"env");
-	CHK_NUL_RET_NULL(sockAddr,"sockAddr");
+	CHK_NUL_RET_NUL(env,"env");
+	CHK_NUL_RET_NUL(sockAddr,"sockAddr");
 
 	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 	jint address = ntohl(sockAddrIn->sin_addr.s_addr);
 	jint port = ntohs(sockAddrIn->sin_port);
 
 	jobject objInetAddress = X_NewInetAddress(env, address);
-	CHK_NUL_RET_NULL(objInetAddress,"objInetAddress");
+	CHK_NUL_RET_NUL(objInetAddress,"objInetAddress");
 
 	jobject objInetSocketAddress = env->NewObject(jdk_clsInetSocketAddress,
 			jdk_clsInetSocketAddress_initID, objInetAddress, port);
 
-	CHK_NUL_RET_NULL(objInetSocketAddress,"objInetSocketAddress");
+	CHK_NUL_RET_NUL(objInetSocketAddress,"objInetSocketAddress");
 
 	return objInetSocketAddress;
 
@@ -331,9 +334,9 @@ jobject X_NewInetSocketAddress(JNIEnv* env, sockaddr* sockAddr) {
 bool X_IsSockaddrEqualsInetSocketAddress(JNIEnv* env, sockaddr* sockAddr,
 		jobject socketAddress) {
 
-	CHK_NUL_RET_FALSE(env,"env");
-	CHK_NUL_RET_FALSE(sockAddr,"sockAddr");
-	CHK_NUL_RET_FALSE(socketAddress,"socketAddress");
+	CHK_NUL_RET_FLS(env,"env");
+	CHK_NUL_RET_FLS(sockAddr,"sockAddr");
+	CHK_NUL_RET_FLS(socketAddress,"socketAddress");
 
 	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 
@@ -343,7 +346,7 @@ bool X_IsSockaddrEqualsInetSocketAddress(JNIEnv* env, sockaddr* sockAddr,
 	jobject objInetAddress = env->GetObjectField(socketAddress,
 			isa_InetAddressID);
 
-	CHK_NUL_RET_FALSE(objInetAddress,"objInetAddress");
+	CHK_NUL_RET_FLS(objInetAddress,"objInetAddress");
 
 	jint address2 = env->GetIntField(objInetAddress, ia_AddressID);
 	jint port2 = env->GetIntField(socketAddress, isa_PortID);
@@ -358,9 +361,9 @@ bool X_IsSockaddrEqualsInetSocketAddress(JNIEnv* env, sockaddr* sockAddr,
 
 // not used
 void XXX_ThrowSocketExceptionMessage(JNIEnv* env, const char* message) {
-	CHK_NUL_RET(env,"env");
-	CHK_NUL_RET(message,"message");
-	CHK_NUL_RET(jdk_clsSocketException,"jdk_clsSocketException");
+	CHK_NUL_RET_RET(env,"env");
+	CHK_NUL_RET_RET(message,"message");
+	CHK_NUL_RET_RET(jdk_clsSocketException,"jdk_clsSocketException");
 	env->ThrowNew(jdk_clsSocketException, message);
 }
 
@@ -368,8 +371,8 @@ void XXX_ThrowSocketExceptionMessage(JNIEnv* env, const char* message) {
 
 // custom class for struct linger conversion
 jobject UDT_NewLingerUDT(JNIEnv* env, linger* lingerValue) {
-	CHK_NUL_RET_NULL(env,"env");
-	CHK_NUL_RET_NULL(lingerValue,"lingerValue");
+	CHK_NUL_RET_NUL(env,"env");
+	CHK_NUL_RET_NUL(lingerValue,"lingerValue");
 	int value;
 	if (lingerValue->l_onoff == 0) {
 		value = 0;
@@ -397,9 +400,9 @@ void UDT_SetSocketID(JNIEnv* env, jobject self, jint socketID) {
 
 jthrowable UDT_NewExceptionUDT(JNIEnv* env, const jint socketID,
 		jint errorCode, const char* message) {
-	CHK_NUL_RET_NULL(env,"env");
+	CHK_NUL_RET_NUL(env,"env");
 	jstring messageString = env->NewStringUTF(message);
-	CHK_NUL_RET_NULL(messageString,"messageString");
+	CHK_NUL_RET_NUL(messageString,"messageString");
 	jobject exception = env->NewObject(udt_clsExceptionUDT,
 			udt_clsExceptionUDT_initID0, socketID, errorCode, messageString);
 	return static_cast<jthrowable> (exception);
@@ -407,23 +410,23 @@ jthrowable UDT_NewExceptionUDT(JNIEnv* env, const jint socketID,
 
 void UDT_ThrowExceptionUDT_Message(JNIEnv* env, const jint socketID,
 		const char *comment) {
-	CHK_NUL_RET(env,"env");
-	CHK_NUL_RET(comment,"comment");
+	CHK_NUL_RET_RET(env,"env");
+	CHK_NUL_RET_RET(comment,"comment");
 	jint code = UDT_WRAPPER_MESSAGE;
 	jthrowable exception = UDT_NewExceptionUDT(env, socketID, code, comment);
-	CHK_NUL_RET(exception,"exception");
+	CHK_NUL_RET_RET(exception,"exception");
 	env->Throw(exception);
 }
 
 // socketID == 0 means not applicable / not known id
 void UDT_ThrowExceptionUDT_ErrorInfo(JNIEnv* env, const jint socketID,
 		const char* comment, UDT::ERRORINFO* errorInfo) {
-	CHK_NUL_RET(env,"env");
-	CHK_NUL_RET(comment,"comment");
-	CHK_NUL_RET(errorInfo,"errorInfo");
+	CHK_NUL_RET_RET(env,"env");
+	CHK_NUL_RET_RET(comment,"comment");
+	CHK_NUL_RET_RET(errorInfo,"errorInfo");
 	jint code = errorInfo->getErrorCode();
 	jthrowable exception = UDT_NewExceptionUDT(env, socketID, code, comment);
-	CHK_NUL_RET(exception,"exception");
+	CHK_NUL_RET_RET(exception,"exception");
 	env->Throw(exception);
 }
 
@@ -554,7 +557,7 @@ void X_InitMethodRef(JNIEnv* env, jmethodID *methodID, jclass klaz,
 
 	*methodID = env->GetMethodID(klaz, name, signature);
 
-	CHK_NUL_RET(*methodID,name);
+	CHK_NUL_RET_RET(*methodID, name);
 
 }
 
@@ -564,57 +567,57 @@ void UDT_InitMethodRefAll(JNIEnv* env) {
 
 	jdk_clsBoolean_initID = env->GetMethodID(jdk_clsBoolean,//
 			"<init>", "(Z)V");
-	CHK_NUL_RET(jdk_clsBoolean_initID,"jdk_clsBoolean_initID");
+	CHK_NUL_RET_RET(jdk_clsBoolean_initID,"jdk_clsBoolean_initID");
 
 	jdk_clsInteger_initID = env->GetMethodID(jdk_clsInteger, //
 			"<init>", "(I)V");
-	CHK_NUL_RET(jdk_clsInteger_initID,"jdk_clsInteger_initID");
+	CHK_NUL_RET_RET(jdk_clsInteger_initID,"jdk_clsInteger_initID");
 
 	jdk_clsLong_initID = env->GetMethodID(jdk_clsLong, //
 			"<init>", "(J)V");
-	CHK_NUL_RET(jdk_clsLong_initID,"jdk_clsLong_initID");
+	CHK_NUL_RET_RET(jdk_clsLong_initID,"jdk_clsLong_initID");
 
 	jdk_clsInet4Address_initID = env->GetMethodID(jdk_clsInet4Address,
 			"<init>", "()V");
-	CHK_NUL_RET(jdk_clsInet4Address_initID,"jdk_clsInet4Address_initID");
+	CHK_NUL_RET_RET(jdk_clsInet4Address_initID,"jdk_clsInet4Address_initID");
 
 	jdk_clsInetSocketAddress_initID = env->GetMethodID(
 			jdk_clsInetSocketAddress, //
 			"<init>", "(Ljava/net/InetAddress;I)V");
-	CHK_NUL_RET(jdk_clsInetSocketAddress_initID,"jdk_clsInetSocketAddress_initID");
+	CHK_NUL_RET_RET(jdk_clsInetSocketAddress_initID,"jdk_clsInetSocketAddress_initID");
 
 	// java.util.Set
 	jdk_clsSet_iteratorID = env->GetMethodID(jdk_clsSet, //
 			"iterator", "()Ljava/util/Iterator;");
-	CHK_NUL_RET(jdk_clsSet_iteratorID,"jdk_clsSet_iteratorID");
+	CHK_NUL_RET_RET(jdk_clsSet_iteratorID,"jdk_clsSet_iteratorID");
 	jdk_clsSet_addID = env->GetMethodID(jdk_clsSet, //
 			"add", "(Ljava/lang/Object;)Z");
-	CHK_NUL_RET(jdk_clsSet_addID,"jdk_clsSet_addID");
+	CHK_NUL_RET_RET(jdk_clsSet_addID,"jdk_clsSet_addID");
 	jdk_clsSet_containsID = env->GetMethodID(jdk_clsSet, //
 			"contains", "(Ljava/lang/Object;)Z");
-	CHK_NUL_RET(jdk_clsSet_containsID,"jdk_clsSet_containsID");
+	CHK_NUL_RET_RET(jdk_clsSet_containsID,"jdk_clsSet_containsID");
 
 	// java.util.Iterator
 	jdk_clsIterator_hasNextID = env->GetMethodID(jdk_clsIterator, //
 			"hasNext", "()Z");
-	CHK_NUL_RET(jdk_clsIterator_hasNextID,"jdk_clsIterator_hasNextID");
+	CHK_NUL_RET_RET(jdk_clsIterator_hasNextID,"jdk_clsIterator_hasNextID");
 	jdk_clsIterator_nextID = env->GetMethodID(jdk_clsIterator, //
 			"next", "()Ljava/lang/Object;");
-	CHK_NUL_RET(jdk_clsIterator_nextID,"jdk_clsIterator_nextID");
+	CHK_NUL_RET_RET(jdk_clsIterator_nextID,"jdk_clsIterator_nextID");
 
 	// UDT
 
 	udt_clsSocketUDT_initID1 = env->GetMethodID(udt_clsSocketUDT, //
 			"<init>", "(Lcom/barchart/udt/TypeUDT;I)V");
-	CHK_NUL_RET(udt_clsSocketUDT_initID1,"udt_clsSocketUDT_initID1");
+	CHK_NUL_RET_RET(udt_clsSocketUDT_initID1,"udt_clsSocketUDT_initID1");
 
 	udt_clsExceptionUDT_initID0 = env->GetMethodID(udt_clsExceptionUDT, //
 			"<init>", "(IILjava/lang/String;)V");
-	CHK_NUL_RET(udt_clsExceptionUDT_initID0,"udt_clsExceptionUDT_initID0");
+	CHK_NUL_RET_RET(udt_clsExceptionUDT_initID0,"udt_clsExceptionUDT_initID0");
 
 	udt_clsLingerUDT_initID = env->GetMethodID(udt_clsLingerUDT, //
 			"<init>", "(I)V");
-	CHK_NUL_RET(udt_clsLingerUDT_initID,"udt_clsLingerUDT_initID");
+	CHK_NUL_RET_RET(udt_clsLingerUDT_initID,"udt_clsLingerUDT_initID");
 
 }
 
@@ -767,12 +770,12 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv* env,
 
 	jobject objTypeUDT = env->GetObjectField(self, udts_TypeID);
 
-	CHK_NUL_RET_NULL(objTypeUDT,"objTypeUDT");
+	CHK_NUL_RET_NUL(objTypeUDT,"objTypeUDT");
 
 	jobject objSocketUDT = env->NewObject(udt_clsSocketUDT,
 			udt_clsSocketUDT_initID1, objTypeUDT, socketACC);
 
-	CHK_NUL_RET_NULL(objSocketUDT, "objSocketUDT");
+	CHK_NUL_RET_NUL(objSocketUDT, "objSocketUDT");
 
 	return objSocketUDT;
 
@@ -1501,7 +1504,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 
 	jobject objMonitor = env->GetObjectField(self, udts_MonitorID);
 
-	CHK_NUL_RET(objMonitor,"objMonitor");
+	CHK_NUL_RET_RET(objMonitor,"objMonitor");
 
 	// global measurements
 	env->SetLongField(objMonitor, udtm_msTimeStamp, monitor.msTimeStamp); // time since the UDT entity is started, in milliseconds
@@ -1730,7 +1733,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx0(JNIEnv *env,
 
 	// convert timeout
 	int64_t msTimeOut = static_cast<int64_t> (timeout);
-	cout << "udt-selectEx0; msTimeOut=" << msTimeOut << EOL;
+	//	cout << "udt-selectEx0; msTimeOut=" << msTimeOut << EOL;
 
 	// make and populate input vector
 
@@ -1769,9 +1772,9 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx0(JNIEnv *env,
 	}
 
 	//
-	cout << "udt-selectEx0; readFDs=" << readFDs.size() << EOL;
-	cout << "udt-selectEx0; writeFDs=" << writeFDs.size() << EOL;
-	cout << "udt-selectEx0; exceptFDs=" << exceptFDs.size() << EOL;
+	//	cout << "udt-selectEx0; readFDs=" << readFDs.size() << EOL;
+	//	cout << "udt-selectEx0; writeFDs=" << writeFDs.size() << EOL;
+	//	cout << "udt-selectEx0; exceptFDs=" << exceptFDs.size() << EOL;
 
 	// update selected operations
 
@@ -1818,7 +1821,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 
 	// convert timeout
 	int64_t msTimeOut = static_cast<int64_t> (timeout);
-	cout << "udt-selectEx1; msTimeOut=" << msTimeOut << EOL;
+	//	cout << "udt-selectEx1; msTimeOut=" << msTimeOut << EOL;
 
 	// TODO make global --- get IDs
 
@@ -1843,7 +1846,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 		count++;
 	}
 
-	cout << "udt-selectEx1; count=" << count << EOL;
+	//	cout << "udt-selectEx1; count=" << count << EOL;
 
 	// make empty output vectors
 
@@ -1863,9 +1866,9 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 	}
 
 	// debug stats
-	cout << "udt-selectEx1; readFDs   = " << readFDs.size() << EOL;
-	cout << "udt-selectEx1; writeFDs  = " << writeFDs.size() << EOL;
-	cout << "udt-selectEx1; exceptFDs = " << exceptFDs.size() << EOL;
+	//	cout << "udt-selectEx1; readFDs   = " << readFDs.size() << EOL;
+	//	cout << "udt-selectEx1; writeFDs  = " << writeFDs.size() << EOL;
+	//	cout << "udt-selectEx1; exceptFDs = " << exceptFDs.size() << EOL;
 
 	//	jobject iteratorSelected =
 	//			env->CallObjectMethod(selectedKeySet, iteratorID);
@@ -1960,7 +1963,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectBufferAccess0(
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
 
-	cout << "capacity=" << capacity << EOL;
+	//	cout << "capacity=" << capacity << EOL;
 
 	buffer[0] = 'A';
 	buffer[1] = 'B';
