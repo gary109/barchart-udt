@@ -154,15 +154,21 @@ public class TestOption {
 			InetSocketAddress serverAddress = getLocalSocketAddress();
 			serverSocket.bind(serverAddress);
 			serverSocket.listen(1);
+			assertTrue(serverSocket.isBound());
 
 			SocketUDT clientSocket = new SocketUDT(TypeUDT.DATAGRAM);
 			InetSocketAddress clientAddress = getLocalSocketAddress();
 			clientSocket.bind(clientAddress);
+			assertTrue(clientSocket.isBound());
 
 			clientSocket.connect(serverAddress);
+			assertTrue(clientSocket.isConnected());
+
+			SocketUDT acceptSocket = serverSocket.accept();
+			assertTrue(acceptSocket.isConnected());
 
 			log.info("client options:{}", clientSocket.toStringOptions());
-			log.info("server options:{}", serverSocket.toStringOptions());
+			log.info("accept options:{}", acceptSocket.toStringOptions());
 
 		} catch (Exception e) {
 			fail(e.getMessage());

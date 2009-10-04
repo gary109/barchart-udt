@@ -50,6 +50,7 @@
 using namespace UDT;
 
 #include <cassert>
+#include <climits>
 #include <cstring>
 #include <vector>
 #include <algorithm>
@@ -236,11 +237,25 @@ int X_InitSockAddr(sockaddr* sockAddr) {
 	return JNI_OK;
 }
 
-bool X_IsInRange(jlong min, jlong var, jlong max) {
+inline bool X_IsInRange(jlong min, jlong var, jlong max) {
 	if (min <= var && var <= max) {
 		return true;
 	} else {
 		return false;
+	}
+}
+
+inline void X_ConvertMillisIntoTimeValue(const jlong millisTimeout,
+		timeval* timeValue) {
+	if (millisTimeout < 0) { // infinite wait
+		timeValue->tv_sec = INT_MAX;
+		timeValue->tv_usec = 0;
+	} else if (millisTimeout > 0) { // finite wait
+		timeValue->tv_sec = millisTimeout / 1000;
+		timeValue->tv_usec = (millisTimeout % 1000) * 1000;
+	} else { // immediate return (not less the UDT event slice of 10 ms)
+		timeValue->tv_sec = 0;
+		timeValue->tv_usec = 0;
 	}
 }
 
@@ -1549,17 +1564,19 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 
 // #########################################################################
 
-void UDT_CopyArrayToSet(jint* array, UDSET* udSet, jsize size) {
+void UDT_CopyArrayToSet(jint* array, UDSET* udSet, const jsize size) {
+	pair<UDSET::iterator, bool> rv;
 	for (jint index = 0; index < size; index++) {
-		jint socketID = array[index];
-		UD_SET(socketID, udSet);
+		const jint socketID = array[index];
+		rv = UD_SET(socketID, udSet);
+		assert(rv.second == true);
 	}
 }
 
-void UDT_CopySetToArray(UDSET* udSet, jint* array, jsize size) {
+void UDT_CopySetToArray(UDSET* udSet, jint* array, const jsize size) {
 	UDSET::iterator iterator = udSet->begin();
 	for (jint index = 0; index < size; index++) {
-		jint socketID = *iterator;
+		const jint socketID = *iterator;
 		array[index] = socketID;
 		++iterator;
 	}
@@ -1571,6 +1588,8 @@ void UDT_CopySetToArray(UDSET* udSet, jint* array, jsize size) {
 #define UDT_EXCEPT_INDEX	com_barchart_udt_SocketUDT_UDT_EXCEPT_INDEX
 #define UDT_SIZE_COUNT		com_barchart_udt_SocketUDT_UDT_SIZE_COUNT
 
+// ### array-based implementation ###
+//
 // note: relies on input parameters consistency checking in java
 //
 // return value, when NOT exception
@@ -1587,23 +1606,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 		const jlong millisTimeout) {
 
 	//	cout << "udt-select0; millisTimeout=" << millisTimeout << EOL;
-
-	// convert timeout
-
-	timeval finiteValue;
-	timeval *timeValue;
-
-	if (millisTimeout < 0) { // infinite wait
-		timeValue = NULL;
-	} else if (millisTimeout > 0) { // finite wait
-		finiteValue.tv_sec = millisTimeout / 1000;
-		finiteValue.tv_usec = (millisTimeout % 1000) * 1000;
-		timeValue = &finiteValue;
-	} else { // immediate return (not less the UDT event slice of 10 ms)
-		finiteValue.tv_sec = 0;
-		finiteValue.tv_usec = 0;
-		timeValue = &finiteValue;
-	}
 
 	// get interest sizes
 	jint* sizeArray = NULL;
@@ -1655,8 +1657,12 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 		UDT_CopyArrayToSet(writeArray, &writeSet, writeSize);
 	}
 
+	// convert timeout
+	timeval timeValue;
+	X_ConvertMillisIntoTimeValue(millisTimeout, &timeValue);
+
 	// do select
-	const int rv = UDT::select(0, &readSet, &writeSet, &exceptSet, timeValue);
+	const int rv = UDT::select(0, &readSet, &writeSet, &exceptSet, &timeValue);
 
 	// process timeout & errors
 	if (rv <= 0) { // UDT::ERROR is '-1'; UDT_TIMEOUT is '=0';
@@ -1721,6 +1727,113 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 	// return sizes
 	env->SetIntArrayRegion(objSizeArray, 0, UDT_SIZE_COUNT, sizeArray);
 	free(sizeArray);
+
+	return rv;
+
+}
+
+// ### direct-buffer-based implementation ###
+//
+// note: relies on input parameters consistency checking in java
+//
+// return value, when NOT exception
+// <0 : should not happen
+// =0 : timeout, no ready sockets
+// >0 : total number or reads, writes, exceptions
+//
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select1(JNIEnv* env,
+		jclass clsSocketUDT, //
+		const jobject objReadBuffer, //
+		const jobject objWriteBuffer, //
+		const jobject objExceptBuffer, //
+		const jobject objSizeBuffer, //
+		const jlong millisTimeout) {
+
+	//	cout << "udt-select0; millisTimeout=" << millisTimeout << EOL;
+
+	// get interest sizes
+	jint* sizeArray = static_cast<jint*> (env->GetDirectBufferAddress(
+			objSizeBuffer));
+
+	const jsize readSize = sizeArray[UDT_READ_INDEX];
+	const jsize writeSize = sizeArray[UDT_WRITE_INDEX];
+
+	const bool isInterestedInRead = readSize > 0;
+	const bool isInterestedInWrite = writeSize > 0;
+
+	jint* readArray = NULL;
+	jint* writeArray = NULL;
+
+	// make empty sets
+	UDSET readSet;
+	UDSET writeSet;
+	UDSET exceptSet;
+
+	// interested in read
+	if (isInterestedInRead) {
+		//		cout << "udt-select0; readSize=" << readSize << EOL;
+		readArray = static_cast<jint*> (env->GetDirectBufferAddress(
+				objReadBuffer));
+		UDT_CopyArrayToSet(readArray, &readSet, readSize);
+	}
+
+	// interested in write
+	if (isInterestedInWrite) {
+		//		cout << "udt-select0; writeSize=" << writeSize << EOL;
+		writeArray = static_cast<jint*> (env->GetDirectBufferAddress(
+				objWriteBuffer));
+		UDT_CopyArrayToSet(writeArray, &writeSet, writeSize);
+	}
+
+	// convert timeout
+	timeval timeValue;
+	X_ConvertMillisIntoTimeValue(millisTimeout, &timeValue);
+
+	// do select
+	const int rv = UDT::select(0, &readSet, &writeSet, &exceptSet, &timeValue);
+
+	// process timeout & errors
+	if (rv <= 0) { // UDT::ERROR is '-1'; UDT_TIMEOUT is '=0';
+		if (rv == UDT_TIMEOUT) { // timeout
+			return UDT_TIMEOUT;
+		} else {
+			UDT::ERRORINFO errorInfo = UDT::getlasterror();
+			UDT_ThrowExceptionUDT_ErrorInfo(env, 0, "select1", &errorInfo);
+			return JNI_ERR;
+		}
+	}
+
+	// return read interest
+	if (isInterestedInRead) {
+		const jsize readSizeReturn = readSet.size();
+		//		cout << "udt-select0; readSizeReturn=" << readSizeReturn << EOL;
+		assert(readSizeReturn <= readSize);
+		sizeArray[UDT_READ_INDEX] = readSizeReturn;
+		if (readSizeReturn > 0) {
+			UDT_CopySetToArray(&readSet, readArray, readSizeReturn);
+		}
+	}
+
+	// return write interest
+	if (isInterestedInWrite) {
+		const jsize writeSizeReturn = writeSet.size();
+		//		cout << "udt-select0; writeSizeReturtn=" << writeSizeReturn << EOL;
+		sizeArray[UDT_WRITE_INDEX] = writeSizeReturn;
+		assert(writeSizeReturn <= writeSize);
+		if (writeSizeReturn > 0) {
+			UDT_CopySetToArray(&writeSet, writeArray, writeSizeReturn);
+		}
+	}
+
+	// exceptions status report
+	const jsize exceptSizeReturn = exceptSet.size();
+	sizeArray[UDT_EXCEPT_INDEX] = exceptSizeReturn;
+	if (exceptSizeReturn > 0) {
+		//		cout << "udt-select0; exceptSizeReturn=" << exceptSizeReturn << EOL;
+		jint* exceptArray = static_cast<jint*> (env->GetDirectBufferAddress(
+				objExceptBuffer));
+		UDT_CopySetToArray(&exceptSet, exceptArray, exceptSizeReturn);
+	}
 
 	return rv;
 
@@ -1955,19 +2068,37 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0(
 
 }
 
-JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectBufferAccess0(
-		JNIEnv *env, jobject self, jobject bufferObj) {
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectByteBufferAccess0(
+		JNIEnv* env, jobject self, jobject bufferObj) {
 
-	jbyte* buffer =
-			static_cast<jbyte*> (env->GetDirectBufferAddress(bufferObj));
+	jbyte* byteBuffer = static_cast<jbyte*> (env->GetDirectBufferAddress(
+			bufferObj));
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
 
 	//	cout << "capacity=" << capacity << EOL;
+	printf("byteBuffer capacity=%d \n", (jint) capacity);
 
-	buffer[0] = 'A';
-	buffer[1] = 'B';
-	buffer[2] = 'C';
+	byteBuffer[0] = 'A';
+	byteBuffer[1] = 'B';
+	byteBuffer[2] = 'C';
+
+}
+
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectIntBufferAccess0(
+		JNIEnv* env, jobject self, jobject bufferObj) {
+
+	jint* intBuffer =
+			static_cast<jint*> (env->GetDirectBufferAddress(bufferObj));
+
+	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
+
+	//	cout << "capacity=" << capacity << EOL;
+	printf("intBuffer capacity=%d \n", (jint) capacity);
+
+	intBuffer[0] = 'A';
+	intBuffer[1] = 'B';
+	intBuffer[2] = 'C';
 
 }
 

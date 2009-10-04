@@ -40,6 +40,8 @@
 package com.barchart.udt;
 
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,16 +60,30 @@ public class MainDirectBuffer {
 
 			SocketUDT socket = new SocketUDT(type);
 
-			ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
+			ByteBuffer byteBuffer = ByteBuffer.allocateDirect(1024);
+			log.info("byteBuffer.isDirect={}", byteBuffer.isDirect());
 
-			log.info("buffer.isDirect={}", buffer.isDirect());
+			socket.testDirectByteBufferAccess0(byteBuffer);
+			for (int k = 0; k < 3; k++) {
+				byte byteValue = byteBuffer.get(k);
+				log.info("k={} byteBuffer[k]={}", k, (char) byteValue);
+			}
 
-			socket.testDirectBufferAccess0(buffer);
+			//
+
+			IntBuffer intBuffer = ByteBuffer.allocateDirect(1024 * 4).order(
+					ByteOrder.nativeOrder()).asIntBuffer();
+
+			log.info("intBuffer.isDirect={}", intBuffer.isDirect());
 
 			for (int k = 0; k < 3; k++) {
+				intBuffer.put(k, 0);
+			}
 
-				log.info("k={} buffer[k]={}", k, (char) buffer.get(k));
-
+			socket.testDirectIntBufferAccess0(intBuffer);
+			for (int k = 0; k < 3; k++) {
+				int intValue = intBuffer.get(k);
+				log.info("k={} intBuffer[k]={}", k, (char) intValue);
 			}
 
 		} catch (Throwable e) {
@@ -75,5 +91,4 @@ public class MainDirectBuffer {
 		}
 
 	}
-
 }
