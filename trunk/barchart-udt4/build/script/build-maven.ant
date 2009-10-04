@@ -179,7 +179,7 @@
 			GLIBCXX_3.4.9 _ZNSo9_M_insertImEERSoT_
 		need to get rid of this to enable run on the older versions of libgcc + libstdc++ <= 3.4
 		-->
-		<compilerarg value="-g3" />
+		<compilerarg value="-g0" />
 		<compilerarg value="-O3" />
 		<compilerarg value="-finline-functions" />
 		<compilerarg value="-fno-strict-aliasing" />
