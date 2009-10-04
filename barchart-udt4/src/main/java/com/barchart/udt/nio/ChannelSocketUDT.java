@@ -226,7 +226,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	 * @see com.barchart.udt.SocketUDT#receive(byte[], int, int)
 	 */
 	@Override
-	public int read(ByteBuffer buffer) throws IOException {
+	public final int read(ByteBuffer buffer) throws IOException {
 
 		if (buffer == null) {
 			throw new NullPointerException("buffer == null");
@@ -242,7 +242,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			final int sizeReceived;
 			try {
 				if (isBlocking) {
-					begin(); // JDK contract for blocking calls
+					begin(); // JDK contract for NIO blocking calls
 				}
 				if (buffer.isDirect()) {
 					sizeReceived = socket.receive(buffer);
@@ -258,19 +258,19 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				}
 			} finally {
 				if (isBlocking) {
-					end(true); // JDK contract for blocking calls
+					end(true); // JDK contract for NIO blocking calls
 				}
 			}
 
 			// see contract for receive()
 
 			if (sizeReceived < 0) {
-				log.debug("nothing was received; socketID={}", socket.socketID);
+				log.trace("nothing was received; socketID={}", socket.socketID);
 				return 0;
 			}
 
 			if (sizeReceived == 0) {
-				log.debug("receive timeout; socketID={}", socket.socketID);
+				log.trace("receive timeout; socketID={}", socket.socketID);
 				return 0;
 			}
 
@@ -324,7 +324,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 	 * @see com.barchart.udt.SocketUDT#send(byte[], int, int)
 	 */
 	@Override
-	public int write(ByteBuffer buffer) throws IOException {
+	public final int write(ByteBuffer buffer) throws IOException {
 
 		// writeCount.incrementAndGet();
 
@@ -375,7 +375,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			}
 
 			if (sizeSent == 0) {
-				log.debug("send timeout; socketID={}", socket.socketID);
+				log.trace("send timeout; socketID={}", socket.socketID);
 				return 0;
 			}
 

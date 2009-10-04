@@ -491,7 +491,7 @@ public class SocketUDT {
 	 *         <code>>0</code> : normal receive, byte count<br>
 	 * @see #receive0(int, int, byte[])
 	 */
-	public int receive(byte[] array) throws ExceptionUDT {
+	public final int receive(byte[] array) throws ExceptionUDT {
 		checkArray(array);
 		return receive0(socketID, socketType, array);
 	}
@@ -504,7 +504,7 @@ public class SocketUDT {
 	 *         <code>>0</code> : normal receive, byte count<br>
 	 * @see #receive1(int, int, byte[], int, int)
 	 */
-	public int receive(byte[] array, int position, int limit)
+	public final int receive(byte[] array, int position, int limit)
 			throws ExceptionUDT {
 		checkArray(array);
 		return receive1(socketID, socketType, array, position, limit);
@@ -519,7 +519,7 @@ public class SocketUDT {
 	 *         <code>>0</code> : normal receive, byte count<br>
 	 * @see #receive2(int, int, ByteBuffer, int, int)
 	 */
-	public int receive(ByteBuffer buffer) throws ExceptionUDT {
+	public final int receive(ByteBuffer buffer) throws ExceptionUDT {
 		checkBuffer(buffer);
 		final int position = buffer.position();
 		final int limit = buffer.limit();
@@ -544,7 +544,7 @@ public class SocketUDT {
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/recvfile.htm">UDT::recvfile()</a>
 	 */
-	public int receiveFile(ByteBuffer buffer) throws ExceptionUDT {
+	public final int receiveFile(ByteBuffer buffer) throws ExceptionUDT {
 		throw new ExceptionUDT(//
 				socketID, ErrorUDT.WRAPPER_UNIMPLEMENTED, "receiveFile");
 	}
@@ -572,7 +572,7 @@ public class SocketUDT {
 	 * @see #select0(int[], int[], int[], int[], long)
 	 */
 	// asserts are contracts
-	public static int select( //
+	public final static int select( //
 			final int[] readArray, //
 			final int[] writeArray, //
 			final int[] exceptArray, //
@@ -621,7 +621,7 @@ public class SocketUDT {
 	 * @see #select1(IntBuffer, IntBuffer, IntBuffer, IntBuffer, long)
 	 */
 	// asserts are contracts
-	public static int select( //
+	public final static int select( //
 			final IntBuffer readBuffer, //
 			final IntBuffer writeBuffer, //
 			final IntBuffer exceptBuffer, //
@@ -729,7 +729,7 @@ public class SocketUDT {
 	 *         <code>>0</code> : normal send, actual sent byte count <br>
 	 * @see #send0(int, int, int, boolean, byte[])
 	 */
-	public int send(byte[] array) throws ExceptionUDT {
+	public final int send(byte[] array) throws ExceptionUDT {
 		checkArray(array);
 		return send0(socketID, socketType, //
 				messageTimeTolive, messageIsOrdered, //
@@ -750,7 +750,8 @@ public class SocketUDT {
 	 *         <code>>0</code> : normal send, actual sent byte count <br>
 	 * @see #send1(int, int, int, boolean, byte[], int, int)
 	 */
-	public int send(byte[] array, int position, int limit) throws ExceptionUDT {
+	public final int send(byte[] array, int position, int limit)
+			throws ExceptionUDT {
 		checkArray(array);
 		return send1(socketID, socketType, //
 				messageTimeTolive, messageIsOrdered, //
@@ -768,7 +769,7 @@ public class SocketUDT {
 	 *         <code>>0</code> : normal send, actual sent byte count<br>
 	 * @see #send2(int, int, int, boolean, ByteBuffer, int, int)
 	 */
-	public int send(ByteBuffer buffer) throws ExceptionUDT {
+	public final int send(ByteBuffer buffer) throws ExceptionUDT {
 		checkBuffer(buffer);
 		final int position = buffer.position();
 		final int limit = buffer.limit();
@@ -794,7 +795,7 @@ public class SocketUDT {
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm">UDT::sendmsg()</a>
 	 */
-	public void setMessageTimeTolLive(int timeToLive) {
+	public final void setMessageTimeTolLive(int timeToLive) {
 		// publisher to volatile
 		messageTimeTolive = timeToLive;
 	}
@@ -805,7 +806,7 @@ public class SocketUDT {
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm">UDT::sendmsg()</a>
 	 */
-	public void setMessageIsOdered(boolean isOrdered) {
+	public final void setMessageIsOdered(boolean isOrdered) {
 		// publisher to volatile
 		messageIsOrdered = isOrdered;
 	}
@@ -816,7 +817,7 @@ public class SocketUDT {
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendfile.htm">UDT::sendfile()</a>
 	 */
-	public int sendFile(ByteBuffer buffer) throws ExceptionUDT {
+	public final int sendFile(ByteBuffer buffer) throws ExceptionUDT {
 		throw new ExceptionUDT(//
 				socketID, ErrorUDT.WRAPPER_UNIMPLEMENTED, "sendFile");
 	}
@@ -836,7 +837,7 @@ public class SocketUDT {
 	 *            collecting statistics, load updated values.
 	 * @see #updateMonitor0(boolean)
 	 */
-	public void updateMonitor(boolean makeClear) throws ExceptionUDT {
+	public final void updateMonitor(boolean makeClear) throws ExceptionUDT {
 		updateMonitor0(makeClear);
 	}
 
@@ -852,7 +853,7 @@ public class SocketUDT {
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
-	public int getErrorCode() {
+	public final int getErrorCode() {
 		return getErrorCode0();
 	}
 
@@ -868,7 +869,7 @@ public class SocketUDT {
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
-	public String getErrorMessage() {
+	public final String getErrorMessage() {
 		return getErrorMessage0();
 	}
 
@@ -884,7 +885,7 @@ public class SocketUDT {
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
-	public void clearError() {
+	public final void clearError() {
 		clearError0();
 	}
 
@@ -898,7 +899,7 @@ public class SocketUDT {
 	 * 
 	 * @see #isOpen0()
 	 */
-	public boolean isOpen() {
+	public final boolean isOpen() {
 		return isOpen0();
 	}
 
@@ -923,7 +924,7 @@ public class SocketUDT {
 	 * IsOdered = true;<br>
 	 * TimeTolLive = INFINITE_TTL;<br>
 	 */
-	public void setDefaultMessageSendMode() {
+	public final void setDefaultMessageSendMode() {
 		setMessageIsOdered(true);
 		setMessageTimeTolLive(INFINITE_TTL);
 	}
@@ -970,7 +971,7 @@ public class SocketUDT {
 	 * @return true : {@link #bind(InetSocketAddress)} was successful<br>
 	 *         false : otherwise<br>
 	 */
-	public boolean isBound() {
+	public final boolean isBound() {
 		if (isClosed()) {
 			return false;
 		}
@@ -987,7 +988,7 @@ public class SocketUDT {
 	 * @return true : {@link #connect(InetSocketAddress)} was successful<br>
 	 *         false : otherwise<br>
 	 */
-	public boolean isConnected() {
+	public final boolean isConnected() {
 		if (isClosed()) {
 			return false;
 		}
@@ -1003,7 +1004,7 @@ public class SocketUDT {
 	 * 
 	 * @return error status set by last socket operation
 	 **/
-	public ErrorUDT getError() {
+	public final ErrorUDT getError() {
 		int code = getErrorCode();
 		return ErrorUDT.of(code);
 	}
@@ -1018,7 +1019,7 @@ public class SocketUDT {
 	 *            both send and receive to non-blocking mode
 	 * @see java.nio.channels.SocketChannel#configureBlocking(boolean)
 	 */
-	public void configureBlocking(boolean block) throws ExceptionUDT {
+	public final void configureBlocking(boolean block) throws ExceptionUDT {
 		if (block) {
 			setOption(OptionUDT.Is_Receive_Synchronous, Boolean.TRUE);
 			setOption(OptionUDT.Is_Send_Synchronous, Boolean.TRUE);
@@ -1038,7 +1039,7 @@ public class SocketUDT {
 	 * @see #isNonBlocking()
 	 * @see #configureBlocking(boolean)
 	 */
-	public boolean isBlocking() {
+	public final boolean isBlocking() {
 		try {
 			if (isOpen()) {
 				boolean isReceiveBlocking = (Boolean) getOption(OptionUDT.Is_Receive_Synchronous);
@@ -1060,7 +1061,7 @@ public class SocketUDT {
 	 * @see #isBlocking()
 	 * @see #configureBlocking(boolean)
 	 */
-	public boolean isNonBlocking() {
+	public final boolean isNonBlocking() {
 		try {
 			if (isOpen()) {
 				boolean isReceiveBlocking = (Boolean) getOption(OptionUDT.Is_Receive_Synchronous);
@@ -1079,7 +1080,7 @@ public class SocketUDT {
 	 * 
 	 * @see java.net.Socket#getSendBufferSize()
 	 */
-	public int getSendBufferSize() throws ExceptionUDT {
+	public final int getSendBufferSize() throws ExceptionUDT {
 		final int protocolSize = (Integer) getOption(OptionUDT.Protocol_Send_Buffer_Size);
 		final int kernelSize = (Integer) getOption(OptionUDT.Kernel_Send_Buffer_Size);
 		return Math.min(protocolSize, kernelSize);
@@ -1091,7 +1092,7 @@ public class SocketUDT {
 	 * 
 	 * @see java.net.Socket#getReceiveBufferSize()
 	 */
-	public int getReceiveBufferSize() throws ExceptionUDT {
+	public final int getReceiveBufferSize() throws ExceptionUDT {
 		final int protocolSize = (Integer) getOption(OptionUDT.Protocol_Receive_Buffer_Size);
 		final int kernelSize = (Integer) getOption(OptionUDT.Kernel_Receive_Buffer_Size);
 		return Math.min(protocolSize, kernelSize);
@@ -1102,7 +1103,7 @@ public class SocketUDT {
 	 * 
 	 * @see java.net.Socket#getReuseAddress()
 	 */
-	public boolean getReuseAddress() throws ExceptionUDT {
+	public final boolean getReuseAddress() throws ExceptionUDT {
 		return (Boolean) getOption(OptionUDT.Is_Address_Reuse_Enabled);
 	}
 
@@ -1111,7 +1112,7 @@ public class SocketUDT {
 	 * 
 	 * @see java.net.Socket#getSoLinger()
 	 */
-	public int getSoLinger() throws ExceptionUDT {
+	public final int getSoLinger() throws ExceptionUDT {
 		return ((LingerUDT) getOption(OptionUDT.Time_To_Linger_On_Close))
 				.intValue();
 	}
@@ -1124,7 +1125,7 @@ public class SocketUDT {
 	 * 
 	 * @see java.net.Socket#getSoTimeout()
 	 */
-	public int getSoTimeout() throws ExceptionUDT {
+	public final int getSoTimeout() throws ExceptionUDT {
 		int sendTimeout = (Integer) getOption(OptionUDT.Send_Timeout);
 		int receiveTimeout = (Integer) getOption(OptionUDT.Receive_Timeout);
 		final int millisTimeout;
@@ -1153,7 +1154,7 @@ public class SocketUDT {
 	 * 
 	 * @see java.net.Socket#setSendBufferSize(int)
 	 */
-	public void setSendBufferSize(int size) throws ExceptionUDT {
+	public final void setSendBufferSize(int size) throws ExceptionUDT {
 		setOption(OptionUDT.Protocol_Send_Buffer_Size, size);
 		setOption(OptionUDT.Kernel_Send_Buffer_Size, size);
 	}
@@ -1162,16 +1163,16 @@ public class SocketUDT {
 	 * Set maximum receive buffer size. Affects both protocol-level (UDT) and
 	 * kernel-level(UDP) settings.
 	 */
-	public void setReceiveBufferSize(int size) throws ExceptionUDT {
+	public final void setReceiveBufferSize(int size) throws ExceptionUDT {
 		setOption(OptionUDT.Protocol_Receive_Buffer_Size, size);
 		setOption(OptionUDT.Kernel_Receive_Buffer_Size, size);
 	}
 
-	public void setReuseAddress(boolean on) throws ExceptionUDT {
+	public final void setReuseAddress(boolean on) throws ExceptionUDT {
 		setOption(OptionUDT.Is_Address_Reuse_Enabled, on);
 	}
 
-	public void setSoLinger(boolean on, int linger) throws ExceptionUDT {
+	public final void setSoLinger(boolean on, int linger) throws ExceptionUDT {
 		if (on) {
 			if (linger <= 0) {
 				// keep JDK contract for setSoLinger parameters
@@ -1190,7 +1191,7 @@ public class SocketUDT {
 	 * timeout, in milliseconds. A timeout of zero is interpreted as an infinite
 	 * timeout.
 	 */
-	public void setSoTimeout(int millisTimeout) throws ExceptionUDT {
+	public final void setSoTimeout(int millisTimeout) throws ExceptionUDT {
 		if (millisTimeout < 0) {
 			throw new IllegalArgumentException("timeout < 0");
 		}
@@ -1207,7 +1208,7 @@ public class SocketUDT {
 	 *         not null : valid address; result of
 	 *         {@link #connect(InetSocketAddress)}<br>
 	 */
-	public InetAddress getRemoteInetAddress() {
+	public final InetAddress getRemoteInetAddress() {
 		try {
 			InetSocketAddress remote = getRemoteSocketAddress();
 			if (remote == null) {
@@ -1225,7 +1226,7 @@ public class SocketUDT {
 	 * @return 0 : not connected<br>
 	 *         >0 : valid port ; result of {@link #connect(InetSocketAddress)}<br>
 	 */
-	public int getRemoteInetPort() {
+	public final int getRemoteInetPort() {
 		try {
 			InetSocketAddress remote = getRemoteSocketAddress();
 			if (remote == null) {
@@ -1244,7 +1245,7 @@ public class SocketUDT {
 	 *         not null : valid address; result of
 	 *         {@link #bind(InetSocketAddress)}<br>
 	 */
-	public InetAddress getLocalInetAddress() {
+	public final InetAddress getLocalInetAddress() {
 		try {
 			InetSocketAddress local = getLocalSocketAddress();
 			if (local == null) {
@@ -1262,7 +1263,7 @@ public class SocketUDT {
 	 * @return 0 : not bound<br>
 	 *         >0 : valid port; result of {@link #bind(InetSocketAddress)}<br>
 	 */
-	public int getLocalInetPort() {
+	public final int getLocalInetPort() {
 		try {
 			InetSocketAddress local = getLocalSocketAddress();
 			if (local == null) {
@@ -1282,7 +1283,7 @@ public class SocketUDT {
 	 * Note: uses {@link #socketID} as hash code.
 	 */
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return socketID;
 	}
 
@@ -1290,7 +1291,7 @@ public class SocketUDT {
 	 * Note: equality is based on {@link #socketID}.
 	 */
 	@Override
-	public boolean equals(Object otherSocketUDT) {
+	public final boolean equals(Object otherSocketUDT) {
 		if (otherSocketUDT instanceof SocketUDT) {
 			SocketUDT other = (SocketUDT) otherSocketUDT;
 			return other.socketID == this.socketID;
