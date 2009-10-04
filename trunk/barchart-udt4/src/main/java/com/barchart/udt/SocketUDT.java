@@ -1,7 +1,7 @@
 /**
  * =================================================================================
  *
- * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
+final  * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
  *
  * ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-20_18-55-32'
  *
@@ -42,6 +42,7 @@ package com.barchart.udt;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -198,7 +199,7 @@ public class SocketUDT {
 	protected volatile InetSocketAddress remoteSocketAddress;
 
 	/**
-	 * UDT::select() sizeArray indexes
+	 * UDT::select() sizeArray/sizeBuffer indexes
 	 */
 	public static final int UDT_READ_INDEX = 0;
 	public static final int UDT_WRITE_INDEX = 1;
@@ -562,8 +563,8 @@ public class SocketUDT {
 	) throws ExceptionUDT;
 
 	/**
-	 * Basic access to UDT socket readiness selection feature. Timeout is in
-	 * milliseconds.
+	 * Basic access to UDT socket readiness selection feature. Based on int[]
+	 * array info exchange. Timeout is in milliseconds.
 	 * 
 	 * @return <code><0</code> : should not happen<br>
 	 *         <code>=0</code> : timeout, no ready sockets<br>
@@ -595,6 +596,57 @@ public class SocketUDT {
 				millisTimeout);
 
 	}
+
+	/**
+	 * @see com.barchart.udt.nio.SelectorUDT#select()
+	 * @see <a
+	 *      href="http://www.cs.uic.edu/~ygu1/doc/select.htm">UDT::select()</a>
+	 */
+	protected static native int select1( //
+			IntBuffer readBuffer, //
+			IntBuffer writeBuffer, //
+			IntBuffer exceptBuffer, //
+			IntBuffer sizeBuffer, //
+			long millisTimeout //
+	) throws ExceptionUDT;
+
+	/**
+	 * Basic access to UDT socket readiness selection feature. Based on
+	 * {@link java.nio.DirectIntBuffer} info exchange.Timeout is in
+	 * milliseconds.
+	 * 
+	 * @return <code><0</code> : should not happen<br>
+	 *         <code>=0</code> : timeout, no ready sockets<br>
+	 *         <code>>0</code> : total number or reads, writes, exceptions<br>
+	 * @see #select1(IntBuffer, IntBuffer, IntBuffer, IntBuffer, long)
+	 */
+	// asserts are contracts
+	public static int select( //
+			final IntBuffer readBuffer, //
+			final IntBuffer writeBuffer, //
+			final IntBuffer exceptBuffer, //
+			final IntBuffer sizeBuffer, //
+			final long millisTimeout) throws ExceptionUDT {
+
+		assert readBuffer != null && readBuffer.isDirect();
+		assert writeBuffer != null && writeBuffer.isDirect();
+		assert exceptBuffer != null && exceptBuffer.isDirect();
+		assert sizeBuffer != null && sizeBuffer.isDirect();
+
+		assert readBuffer.capacity() >= sizeBuffer.get(UDT_READ_INDEX);
+		assert writeBuffer.capacity() >= sizeBuffer.get(UDT_WRITE_INDEX);
+		assert exceptBuffer.capacity() >= readBuffer.capacity();
+		assert exceptBuffer.capacity() >= writeBuffer.capacity();
+
+		assert millisTimeout >= DEFAULT_MIN_SELECTOR_TIMEOUT
+				|| millisTimeout <= 0;
+
+		return select1(readBuffer, writeBuffer, exceptBuffer, sizeBuffer,
+				millisTimeout);
+
+	}
+
+	// ###
 
 	/**
 	 * unimplemented / unused
@@ -1264,7 +1316,9 @@ public class SocketUDT {
 
 	native void testCrashJVM0();
 
-	native void testDirectBufferAccess0(ByteBuffer buffer);
+	native void testDirectByteBufferAccess0(ByteBuffer buffer);
+
+	native void testDirectIntBufferAccess0(IntBuffer buffer);
 
 	native void testFillArray0(byte[] array);
 
