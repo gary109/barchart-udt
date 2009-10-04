@@ -74,9 +74,10 @@ class ConnectorTaskUDT implements Runnable {
 
 		assert keyUDT.channelUDT.getChannelKind() == KindUDT.CONNECTOR;
 
-		try {
+		log.debug("connect() start 	: socketID={} remoteSocketAddress={}", //
+				keyUDT.socketID, remoteSocketAddress);
 
-			log.debug("trying to connect socketID={}", keyUDT.socketID);
+		try {
 
 			// NOTE:
 			// will block here
@@ -104,6 +105,9 @@ class ConnectorTaskUDT implements Runnable {
 			keyUDT.selectorUDT.wakeup();
 
 		}
+
+		log.debug("connect() finish : socketID={} remoteSocketAddress={}", //
+				keyUDT.socketID, remoteSocketAddress);
 
 	}
 
