@@ -23,6 +23,12 @@
 		<fail unless="isMVN" message="maven installation is not found" />
 	</target>
 
+	<target name="maven-test" depends="check-maven" description="test">
+		<exec executable="${M2_PATH}">
+			<arg value="test" />
+		</exec>
+	</target>
+
 	<target name="maven-package" depends="check-maven" description="package">
 		<exec executable="${M2_PATH}">
 			<arg value="clean" />
