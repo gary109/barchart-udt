@@ -2075,9 +2075,10 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectByteBufferAcces
 			bufferObj));
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
+	int capacityInt = (int) capacity;
 
 	//	cout << "capacity=" << capacity << EOL;
-	printf("byteBuffer capacity=%d \n", (jint) capacity);
+	printf("byteBuffer capacity=%d \n", capacityInt);
 
 	byteBuffer[0] = 'A';
 	byteBuffer[1] = 'B';
@@ -2092,9 +2093,10 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectIntBufferAccess
 			static_cast<jint*> (env->GetDirectBufferAddress(bufferObj));
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
+	int capacityInt = (int) capacity;
 
 	//	cout << "capacity=" << capacity << EOL;
-	printf("intBuffer capacity=%d \n", (jint) capacity);
+	printf("intBuffer capacity=%d \n", capacityInt);
 
 	intBuffer[0] = 'A';
 	intBuffer[1] = 'B';
