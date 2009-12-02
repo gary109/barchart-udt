@@ -166,11 +166,12 @@ case $KIND in
 		log "TARGET_MAP : $TARGET_MAP"
 		log "TARGET_SYM : $TARGET_SYM"
 		#
-		cp --force --update "$ARTIFACT" "$TARGET" 
-		cp --force --update "$ARTIFACT_MAP" "$TARGET_MAP"
-		nm --demangle --numeric-sort "$ARTIFACT" > "$TARGET_SYM" 
-		#
-		ldd -r "$TARGET"
+		cp -f -v "$ARTIFACT" "$TARGET" 
+		cp -f -v "$ARTIFACT_MAP" "$TARGET_MAP"
+		
+		# TODO: find macosx alternatives
+		# nm --demangle --numeric-sort "$ARTIFACT" > "$TARGET_SYM" 
+		# ldd -r "$TARGET"
 		#
 		ls -l "$LIB_FOLDER"
 		log "done"
