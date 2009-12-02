@@ -37,6 +37,9 @@ makeExtension(){
 	cygwin* | mingw* )
 		LIB_EXTENSION="dll"
 	;;
+	darwin )
+		LIB_EXTENSION="jnilib"
+	;;
 	*)
 		log "error: unsupported OS=$OS"
 		exit 1
@@ -85,6 +88,20 @@ makeLibraryName() {
 				;;
 				amd64 | x86_64)
 					LIB_FILE="$LIB_NAME-windows-x86-64.dll"
+				;;
+				*)
+					log "error; not supported MACH=$MACH"
+					exit 1
+				;;
+			esac		
+		;;
+		darwin )
+			case $MACH in
+				i*86)
+					LIB_FILE="$LIB_NAME-macosx-x86-32.jnilib"
+				;;
+				amd64 | x86_64)
+					LIB_FILE="$LIB_NAME-macosx-x86-64.jnilib"
 				;;
 				*)
 					log "error; not supported MACH=$MACH"
