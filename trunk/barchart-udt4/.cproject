@@ -6875,15 +6875,11 @@
 <tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.1427241082" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base">
 <option id="gnu.cpp.compiler.option.optimization.level.1783301356" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.debugging.level.132826273" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-<option id="gnu.cpp.compiler.option.preprocessor.def.2001380785" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
-<listOptionValue builtIn="false" value="__MINGW__"/>
-<listOptionValue builtIn="false" value="WIN32"/>
-<listOptionValue builtIn="false" value="_WIN32_WINNT=0x0501"/>
-</option>
+<option id="gnu.cpp.compiler.option.preprocessor.def.2001380785" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols"/>
 <option id="gnu.cpp.compiler.option.include.paths.457346426" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/include/win32}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/native/udt/src}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/include/macosx}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.other.other.790398045" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0   -mthreads  " valueType="string"/>
 <option id="gnu.cpp.compiler.option.optimization.flags.495400399" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-finline-functions   -fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
@@ -6899,10 +6895,8 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.890374219" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
 <option defaultValue="true" id="gnu.cpp.link.option.shared.286518717" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" valueType="boolean"/>
-<option id="gnu.cpp.link.option.libs.881653969" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-<listOptionValue builtIn="false" value="ws2_32"/>
-</option>
-<option id="gnu.cpp.link.option.flags.679402964" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-Wl,-Map,barchart-udt4.map   -Wl,--kill-at   -Wl,--add-stdcall-alias   -Wl,--image-base,0x10000000   -mthreads" valueType="string"/>
+<option id="gnu.cpp.link.option.libs.881653969" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs"/>
+<option id="gnu.cpp.link.option.flags.679402964" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-Wl,-Map,barchart-udt4.map   -mthreads" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1135458763" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
