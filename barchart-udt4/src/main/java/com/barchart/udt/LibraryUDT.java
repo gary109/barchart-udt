@@ -125,6 +125,7 @@ public enum LibraryUDT {
 	 * @return the library udt
 	 */
 	public static LibraryUDT detect() {
+
 		if (OS_NAME.contains("windows")) {
 			if (OS_ARCH.contains("x86")) {
 				LibraryUDT library = WINDOWS_32;
@@ -137,6 +138,7 @@ public enum LibraryUDT {
 				return library;
 			}
 		}
+
 		if (OS_NAME.contains("linux")) {
 			if (OS_ARCH.contains("i386") || OS_ARCH.contains("i586")
 					|| OS_ARCH.contains("i686")) {
@@ -150,8 +152,24 @@ public enum LibraryUDT {
 				return library;
 			}
 		}
+
+		if (OS_NAME.contains("mac") || OS_NAME.contains("darwin")) {
+			if (OS_ARCH.contains("i386") || OS_ARCH.contains("i586")
+					|| OS_ARCH.contains("i686")) {
+				LibraryUDT library = MACOSX_32;
+				log.debug("detected: library={}", library);
+				return library;
+			}
+			if (OS_ARCH.contains("amd64") || OS_ARCH.contains("x86_64")) {
+				LibraryUDT library = MACOSX_64;
+				log.debug("detected: library={}", library);
+				return library;
+			}
+		}
+
 		log.error("unsupported OS_NAME={} OS_ARCH={}", OS_NAME, OS_ARCH);
 		return UNKNOWN;
+
 	}
 
 	/** The Constant DEFAULT_EXTRACT_FOLDER_NAME. */
