@@ -85,6 +85,14 @@ public enum LibraryUDT {
 	LINUX_64(new String[] { "libSocketUDT-linux-x86-64.so",
 			"LICENCE_BARCHART.txt" }), //
 
+	/** The MACOSX_32 library entry. */
+	MACOSX_32(new String[] { "libSocketUDT-macosx-x86-32.jnilib",
+			"LICENCE_BARCHART.txt" }), // 
+
+	/** The MACOSX_64 library entry. */
+	MACOSX_64(new String[] { "libSocketUDT-macosx-x86-64.jnilib",
+			"LICENCE_BARCHART.txt" }), //
+
 	;
 
 	/** The file name array. */
