@@ -6166,6 +6166,7 @@
 </tool>
 <tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.455037395" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
 <option defaultValue="true" id="macosx.cpp.link.option.shared.284720107" name="Shared (-dynamiclib)" superClass="macosx.cpp.link.option.shared" valueType="boolean"/>
+<option id="macosx.cpp.link.option.flags.121576804" name="Linker flags" superClass="macosx.cpp.link.option.flags" value="-Wl,-map,libbarchart-udt4.map" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1682871224" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -7679,14 +7680,14 @@
 <folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.1708560235" name="MacOSX GCC" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.MachO" id="cdt.managedbuild.target.gnu.platform.macosx.base.1104773541" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-<builder buildPath="${workspace_loc:/barchart-udt4/build-macosx-x86-64}" enableAutoBuild="true" id="org.eclipse.cdt.build.core.internal.builder.979211377" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+<builder buildPath="${workspace_loc:/barchart-udt4/build-macosx-x86-64}" enableAutoBuild="true" id="org.eclipse.cdt.build.core.internal.builder.979211377" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 <tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.916184766" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base">
-<option defaultValue="true" id="macosx.c.link.option.nostart.293591775" superClass="macosx.c.link.option.nostart" valueType="boolean"/>
-<option defaultValue="true" id="macosx.c.link.option.nodeflibs.1809124137" superClass="macosx.c.link.option.nodeflibs" valueType="boolean"/>
-<option defaultValue="true" id="macosx.c.link.option.shared.693769927" superClass="macosx.c.link.option.shared" valueType="boolean"/>
+<option defaultValue="true" id="macosx.c.link.option.nostart.293591775" name="Do not use standard start files (-nostartfiles)" superClass="macosx.c.link.option.nostart" valueType="boolean"/>
+<option defaultValue="true" id="macosx.c.link.option.nodeflibs.1809124137" name="Do not use default libraries (-nodefaultlibs)" superClass="macosx.c.link.option.nodeflibs" valueType="boolean"/>
+<option defaultValue="true" id="macosx.c.link.option.shared.693769927" name="Shared (-dynamiclib)" superClass="macosx.c.link.option.shared" valueType="boolean"/>
 </tool>
 <tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.391426081" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
-<option defaultValue="true" id="macosx.cpp.link.option.shared.548947671" superClass="macosx.cpp.link.option.shared" valueType="boolean"/>
+<option defaultValue="true" id="macosx.cpp.link.option.shared.548947671" name="Shared (-dynamiclib)" superClass="macosx.cpp.link.option.shared" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.765050622" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -7697,18 +7698,18 @@
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.1595065124" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.470329500" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
-<option id="gnu.cpp.compiler.option.include.paths.60545307" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+<option id="gnu.cpp.compiler.option.include.paths.60545307" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/native/udt/src}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/include/macosx}&quot;"/>
 </option>
-<option id="gnu.cpp.compiler.option.optimization.level.1629388230" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
-<option id="gnu.cpp.compiler.option.debugging.level.1432973337" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.option.optimization.level.1629388230" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.option.debugging.level.1432973337" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1357338720" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1205936400" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
-<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1500950855" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
-<option id="gnu.c.compiler.option.debugging.level.1260012403" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1500950855" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
+<option id="gnu.c.compiler.option.debugging.level.1260012403" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.951966085" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 </toolChain>
