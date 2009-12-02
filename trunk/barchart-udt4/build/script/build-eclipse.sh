@@ -117,7 +117,7 @@ makeLibraryName() {
 }
 checkSupported(){
 	case $OS in
-		linux | cygwin* | mingw* )
+		linux | cygwin* | mingw* | darwin )
 			log "detected OS=$OS"
 		;;
 		*)
