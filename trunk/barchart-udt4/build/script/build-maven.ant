@@ -176,7 +176,7 @@
 	<condition property="name.real" value="lib${name.root}.jnilib">
 		<isset property="isMac" />
 	</condition>
-	
+
 	<property name="name.real.map" value="${name.real}.map" />
 	<property name="name.real.sym" value="${name.real}.sym" />
 
