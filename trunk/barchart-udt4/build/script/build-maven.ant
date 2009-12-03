@@ -173,6 +173,10 @@
 	<condition property="name.real" value="lib${name.root}.so">
 		<isset property="isLinux" />
 	</condition>
+	<condition property="name.real" value="lib${name.root}.jnilib">
+		<isset property="isMac" />
+	</condition>
+	
 	<property name="name.real.map" value="${name.real}.map" />
 	<property name="name.real.sym" value="${name.real}.sym" />
 
@@ -260,11 +264,13 @@
 	</compiler>
 
 	<compiler id="gcc-compiler-macosx-x86-32" extends="gcc-compiler-macosx">
-		<compilerarg value="-arch x86_32" />
+		<compilerarg value="-arch" />
+		<compilerarg value="x86_32" />
 	</compiler>
 
 	<compiler id="gcc-compiler-macosx-x86-64" extends="gcc-compiler-macosx">
-		<compilerarg value="-arch x86_64" />
+		<compilerarg value="-arch" />
+		<compilerarg value="x86_64" />
 	</compiler>
 
 
@@ -290,14 +296,14 @@
 	</compiler>
 
 	<linker id="gcc-linker" name="g++">
-		<!-- map file for crash analysis; result map file will be located in work directory -->
-		<linkerarg location="end" value="-Wl,-Map,${name.cpptasks.map}" />
 		<!-- core libraries -->
-		<!-- linkerarg location="end" value="-X-library=gcc" /-->
-		<linkerarg location="end" value="--library=stdc++" />
+		<!-- linkerarg location="end" value=" - X -library=gcc" -->
+		<linkerarg location="end" value="-lstdc++" />
 	</linker>
 
 	<linker id="gcc-linker-linux" extends="gcc-linker">
+		<!-- map file for crash analysis; result map file will be located in work directory -->
+		<linkerarg location="end" value="-Wl,-Map,${name.cpptasks.map}" />
 		<linkerarg location="start" value="-fPIC" />
 		<!-- core libraries -->
 		<linkerarg location="end" value="--library=pthread" />
@@ -305,15 +311,17 @@
 
 
 	<linker id="gcc-linker-macosx" extends="gcc-linker">
-		<linkerarg location="start" value="-dynamic" />
-		<linkerarg location="start" value="-bundle" />
+		<!-- map file for crash analysis; result map file will be located in work directory -->
+		<linkerarg location="end" value="-Wl,-map,${name.cpptasks.map}" />
 		<linkerarg location="start" value="-flat_namespace" />
 		<!-- core libraries -->
-		<linkerarg location="end" value="--library=pthread" />
+		<!-- linkerarg location="end" value="- - library=pthread" -->
 	</linker>
 
 
 	<linker id="gcc-linker-windows" extends="gcc-linker">
+		<!-- map file for crash analysis; result map file will be located in work directory -->
+		<linkerarg location="end" value="-Wl,-Map,${name.cpptasks.map}" />
 		<!-- provide image base to simplify library map analisys -->
 		<linkerarg location="end" value="-Wl,--image-base,0x10000000" />
 		<!-- required for java jni calling convention -->
@@ -338,6 +346,7 @@
 		<echo message="plugin.classpath : ${mvn.plugin.classpath}" />
 
 		<echo message="basedir     : ${basedir}" />
+		<echo message="os.family   : ${os.family}" />
 		<echo message="os.name     : ${os.name}" />
 		<echo message="os.arch     : ${os.arch}" />
 		<echo message="os.version  : ${os.version}" />
@@ -426,15 +435,15 @@
 	<target name="target-check-library" depends="target-compile">
 		<echo message="### CHECK LIBRARY" />
 		<echo message="      ${path.cpptasks}" />
-		<exec executable="sh" failonerror="true" osfamily="unix">
+		<exec executable="sh" failonerror="false" osfamily="unix">
 			<arg value="-c" />
 			<arg value="echo 'trying to load dependency libs:'; ldd --data-relocs --function-relocs '${path.cpptasks}';" />
 		</exec>
-		<exec executable="sh" failonerror="true" osfamily="unix">
+		<exec executable="sh" failonerror="false" osfamily="unix">
 			<arg value="-c" />
 			<arg value="echo 'checking library versions in use:'; objdump --dynamic-syms '${path.cpptasks}' | grep 'GLIB' | sed 's/^.*\(GLIB[A-Z]*_[0-9\.]*\).*$/\t\1/' | sort -u;" />
 		</exec>
-		<exec executable="sh" failonerror="true">
+		<exec executable="sh" failonerror="false">
 			<arg value="-c" />
 			<arg value="echo 'generating symbol map:'; nm --demangle --numeric-sort '${path.cpptasks}' > '${path.cpptasks.sym}';" />
 		</exec>
