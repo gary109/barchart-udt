@@ -247,6 +247,9 @@ public enum LibraryUDT {
 		if (fileName.endsWith(".so")) {
 			return true;
 		}
+		if(fileName.endsWith(".jnilib")){
+			return true;
+		}
 		return false;
 	}
 

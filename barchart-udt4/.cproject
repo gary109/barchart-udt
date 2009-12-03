@@ -7689,8 +7689,8 @@
 <option defaultValue="true" id="macosx.c.link.option.shared.604616121" name="Shared (-dynamiclib)" superClass="macosx.c.link.option.shared" valueType="boolean"/>
 </tool>
 <tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.571648671" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
-<option defaultValue="true" id="macosx.cpp.link.option.shared.974380057" name="Shared (-dynamiclib)" superClass="macosx.cpp.link.option.shared" value="true" valueType="boolean"/>
-<option id="macosx.cpp.link.option.flags.1636652189" name="Linker flags" superClass="macosx.cpp.link.option.flags" value="-Wl,-map,libbarchart-udt4.map   -arch x86_64   -framework JavaVM   -flat_namespace " valueType="string"/>
+<option defaultValue="true" id="macosx.cpp.link.option.shared.974380057" name="Shared (-dynamiclib)" superClass="macosx.cpp.link.option.shared" value="false" valueType="boolean"/>
+<option id="macosx.cpp.link.option.flags.1636652189" name="Linker flags" superClass="macosx.cpp.link.option.flags" value="-Wl,-map,libbarchart-udt4.map   -arch x86_64   -dynamic   -bundle   -flat_namespace " valueType="string"/>
 <inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1959963162" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -7708,12 +7708,13 @@
 </option>
 <option id="gnu.cpp.compiler.option.optimization.level.453488960" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.debugging.level.1045593744" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
-<option id="gnu.cpp.compiler.option.other.other.2113591517" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-fPIC   -arch x86_64   -c   -fmessage-length=0" valueType="string"/>
+<option id="gnu.cpp.compiler.option.other.other.2113591517" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-fPIC   -arch x86_64   -c" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1604886069" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1325080136" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 <option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1594013328" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 <option id="gnu.c.compiler.option.debugging.level.628234513" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+<option id="gnu.c.compiler.option.misc.other.1191664526" superClass="gnu.c.compiler.option.misc.other" value="-c" valueType="string"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.316974998" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 </toolChain>
