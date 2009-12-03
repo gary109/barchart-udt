@@ -98,7 +98,7 @@ makeLibraryName() {
 		darwin )
 			case $MACH in
 				i*86)
-					LIB_FILE="lib$LIB_NAME-macosx-x86-32.jnilib"
+					LIB_FILE="lib$LIB_NAME-macosx-x86-64.jnilib"
 				;;
 				amd64 | x86_64)
 					LIB_FILE="lib$LIB_NAME-macosx-x86-64.jnilib"
