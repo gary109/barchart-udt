@@ -250,10 +250,11 @@
 									<directory>src/main/resources</directory>
 									<filtering>false</filtering>
 									<includes>
-										<include> **/*.dll</include>
-										<include> **/*.so</include>
-										<include> **/*.map</include>
-										<include> **/*.sym</include>
+										<include>**/*.dll</include>
+										<include>**/*.so</include>
+										<include>**/*.jnilib</include>
+										<include>**/*.map</include>
+										<include>**/*.sym</include>
 									</includes>
 								</resource>
 							</resources>
@@ -437,6 +438,8 @@
 							</includes>
 							<excludes>
 								<exclude>${nativeSrcUDT}/**</exclude>
+								<exclude>**/*.dll</exclude>
+								<exclude>**/*.jnilib</exclude>
 								<exclude>**/*.so</exclude>
 								<exclude>**/*.map</exclude>
 								<exclude>**/*.properties</exclude>
