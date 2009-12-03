@@ -26,8 +26,20 @@
 		<os family="windows" />
 	</condition>
 	<condition property="isLinux">
-		<os family="unix" />
+		<and>
+			<os family="unix" />
+			<not>
+				<os family="mac" />
+			</not>
+		</and>
 	</condition>
+	<condition property="isMac">
+		<and>
+			<os family="unix" />
+			<os family="mac" />
+		</and>
+	</condition>
+
 	<condition property="is64">
 		<or>
 			<os arch="x86_64" />
@@ -39,6 +51,7 @@
 			<isset property="is64" />
 		</not>
 	</condition>
+
 	<condition property="isX86">
 		<or>
 			<os arch="x86" />
@@ -50,22 +63,29 @@
 			<os arch="amd64" />
 		</or>
 	</condition>
+
 	<condition property="libOS" value="linux">
 		<isset property="isLinux" />
 	</condition>
 	<condition property="libOS" value="windows">
 		<isset property="isWindows" />
 	</condition>
+	<condition property="libOS" value="macosx">
+		<isset property="isMac" />
+	</condition>
+
 	<condition property="libBITS" value="32">
 		<isset property="is32" />
 	</condition>
 	<condition property="libBITS" value="64">
 		<isset property="is64" />
 	</condition>
+
 	<condition property="libARCH" value="x86">
 		<isset property="isX86" />
 	</condition>
 
+	<!-- must set environmet properly to run this script -->
 	<property name="mingw.home" value="${env.MINGW_HOME}" />
 
 	<available property="isMINGW" file="${mingw.home}" type="dir" />
@@ -73,6 +93,10 @@
 
 	<condition property="isToolReady">
 		<or>
+			<and>
+				<isset property="isMac" />
+				<isset property="isGCC" />
+			</and>
 			<and>
 				<isset property="isLinux" />
 				<isset property="isGCC" />
@@ -88,6 +112,10 @@
 
 	<condition property="isSupported">
 		<or>
+			<and>
+				<isset property="isMac" />
+				<isset property="isX86" />
+			</and>
 			<and>
 				<isset property="isLinux" />
 				<isset property="isX86" />
@@ -224,6 +252,23 @@
 		</defineset>
 	</compiler>
 
+
+
+	<compiler id="gcc-compiler-macosx" extends="gcc-compiler">
+		<!-- header files -->
+		<includepath path="${mvn.nativeInclude}/macosx" />
+	</compiler>
+
+	<compiler id="gcc-compiler-macosx-x86-32" extends="gcc-compiler-macosx">
+		<compilerarg value="-arch x86_32" />
+	</compiler>
+
+	<compiler id="gcc-compiler-macosx-x86-64" extends="gcc-compiler-macosx">
+		<compilerarg value="-arch x86_64" />
+	</compiler>
+
+
+
 	<compiler id="gcc-compiler-windows" extends="gcc-compiler">
 		<!-- header files -->
 		<includepath path="${mvn.nativeInclude}/win32" />
@@ -257,6 +302,16 @@
 		<!-- core libraries -->
 		<linkerarg location="end" value="--library=pthread" />
 	</linker>
+
+
+	<linker id="gcc-linker-macosx" extends="gcc-linker">
+		<linkerarg location="start" value="-dynamic" />
+		<linkerarg location="start" value="-bundle" />
+		<linkerarg location="start" value="-flat_namespace" />
+		<!-- core libraries -->
+		<linkerarg location="end" value="--library=pthread" />
+	</linker>
+
 
 	<linker id="gcc-linker-windows" extends="gcc-linker">
 		<!-- provide image base to simplify library map analisys -->
