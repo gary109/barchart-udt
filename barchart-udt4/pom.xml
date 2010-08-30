@@ -303,12 +303,12 @@
 
 	<distributionManagement>
 		<repository>
-			<id>barchart-central.libs-releases-local</id>
-			<url>https://moe.barchart.com/artifactory/libs-releases-local</url>
+			<id>barchart-nexus-server</id>
+			<url>https://moe.barchart.com/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>barchart-central.libs-snapshots-local</id>
-			<url>https://moe.barchart.com/artifactory/libs-snapshots-local</url>
+			<id>barchart-nexus-server</id>
+			<url>https://moe.barchart.com/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -339,8 +339,8 @@
 
 	<repositories>
 		<repository>
-			<id>barchart-central.repo</id>
-			<url>https://moe.barchart.com/artifactory/repo</url>
+			<id>barchart-nexus-server</id>
+			<url>https://moe.barchart.com/nexus/content/groups/all</url>
 		</repository>
 	</repositories>
 
