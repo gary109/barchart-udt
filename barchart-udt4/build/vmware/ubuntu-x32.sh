@@ -109,7 +109,7 @@ PATH_GUEST=$($VMRUN_VAR_IN "PATH")
 log "PATH_GUEST=$PATH_GUEST"
 
 # make workspace
-$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; mkdir workspace"
+$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; rm -r -f workspace; mkdir workspace"
 
 # checkout source
 $VMRUN_PROGRAM "/usr/bin/svn" "checkout" "$SVN_URL" "$HOME_GUEST/workspace"
