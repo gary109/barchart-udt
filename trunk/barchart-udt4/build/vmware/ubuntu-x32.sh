@@ -113,14 +113,23 @@ $VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; rm -r -f workspace; mkdir workspace"
 
 # checkout source
 $VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; svn checkout $SVN_URL $HOME_GUEST/workspace > svn.log"
-verify_run_status "$?" "svn checkout"
+STATUS="$?"
 
 $VMRUN_COPY_GUEST_HOST "$HOME_GUEST/workspace/svn.log" "$HOME/svn.log"
 cat "$HOME/svn.log"
 
+verify_run_status "$STATUS" "svn checkout"
+
+
 # run maven build
 $VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; mvn -DskipTests=true -B -U package > mvn.log"
-verify_run_status "$?" "maven run"
+STATUS="$?"
+
+$VMRUN_COPY_GUEST_HOST "$HOME_GUEST/workspace/mvn.log" "$HOME/mvn.log"
+cat "$HOME/mvn.log"
+
+verify_run_status "$STATUS" "maven run"
+
   
 ###
 
