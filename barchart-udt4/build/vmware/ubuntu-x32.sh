@@ -100,7 +100,7 @@ fi
 
 ###
 
-$VMRUN_SCRIPT "/bin/bash" "ls -las"
+$VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" "-DskipTests=true package"
 verify_run_status "$?" "vm run"
 
 ###
