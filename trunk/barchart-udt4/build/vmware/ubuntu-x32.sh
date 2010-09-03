@@ -11,13 +11,13 @@ source "$THIS_PATH/common.sh"
 
 ###
 
+# run on guest:
 # apt-get update
 # apt-get upgrade
 # apt-get install mc unzip subversion
 
 verify_tool_present "vmware"
 verify_tool_present "vmrun"
-verify_tool_present "svn"
 
 VM="$HOME/.vmware/ubuntu-x32/ubuntu-x32.vmx"
 USER="root"
@@ -109,3 +109,5 @@ vmrun -T ws stop "$VM" soft
 verify_run_status "$?" "vm stop"
 
 ###
+
+exit 0
