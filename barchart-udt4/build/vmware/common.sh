@@ -43,3 +43,17 @@ function verify_tool_present {
 	fi
 
 }
+
+function verify_run_status {
+	
+	local STATUS="$1"
+	local COMMENT="$2"
+
+	if [ "$STATUS" != "0" ]; then
+		log "failure: $COMMENT status=$STATUS"
+		exit 1
+	else
+		log "success: $COMMENT"
+	fi
+
+}
