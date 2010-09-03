@@ -112,10 +112,10 @@ log "PATH_GUEST=$PATH_GUEST"
 $VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; rm -r -f workspace; mkdir workspace"
 
 # checkout source
-$VMRUN_PROGRAM "/usr/bin/svn" "checkout" "$SVN_URL" "$HOME_GUEST/workspace"
+$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; svn checkout $SVN_URL > svn.log"
 verify_run_status "$?" "svn checkout"
 
-$VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" "-B" "-U" "-DskipTests=true" "-f $HOME_GUEST/workspace/pom.xml" "package" "> mvn.log"
+$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; mvn -DskipTests=true -B -U package > mvn.log"
 verify_run_status "$?" "maven run"
   
 ###
