@@ -122,7 +122,7 @@ verify_run_status "$STATUS" "svn checkout"
 
 
 # run maven build
-$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; mvn -DskipTests=true -B -U package > mvn.log"
+$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; mvn -DskipTests=true -B -U compile > mvn.log"
 STATUS="$?"
 
 $VMRUN_COPY_GUEST_HOST "$HOME_GUEST/workspace/mvn.log" "$HOME/mvn.log"
