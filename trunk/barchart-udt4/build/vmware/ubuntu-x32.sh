@@ -43,13 +43,15 @@ verify_run_status "$?" "vm start"
 $VMRUN_EXISTS "$JDK_BIN_GUEST"
 if [ "$?" == "0" ]; then
 	log "java found"
+	$VMRUN_PROGRAM "$HOME_GUEST/$JDK_DIR/bin/java" "-version"
+	verify_run_status "$?" "java run"
 else
 	#
 	$VMRUN_COPY_HOST_GUEST "$JDK_BIN_HOST" "$JDK_BIN_GUEST"
-	verify_run_status "$?" "vm jdk copy"
+	verify_run_status "$?" "jdk copy"
 	#
 	$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; ./$JDK_BIN"
-	verify_run_status "$?" "vm jdk install"
+	verify_run_status "$?" "jdk install"
 	#
 	log "java installed"
 fi
