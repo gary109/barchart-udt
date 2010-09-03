@@ -104,7 +104,7 @@ fi
 
 # add java and maven commands to the guest path
 PATH_GUEST=$($VMRUN_VAR_IN "PATH")
-$VMRUN_VAR_OUT "PATH" "$JAVA_HOME_GUEST/bin:M2_HOME_GUEST/bin:$PATH_GUEST"
+$VMRUN_VAR_OUT "PATH" "$JAVA_HOME_GUEST/bin:$M2_HOME_GUEST/bin:$PATH_GUEST"
 PATH_GUEST=$($VMRUN_VAR_IN "PATH")
 log "PATH_GUEST=$PATH_GUEST"
 
@@ -115,8 +115,9 @@ $VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; mkdir workspace"
 $VMRUN_PROGRAM "/usr/bin/svn" "checkout" "$SVN_URL" "$HOME_GUEST/workspace"
 verify_run_status "$?" "svn checkout"
 
-# $VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" "-DskipTests=true package"
-#   verify_run_status "$?" "vm run"
+$VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" \
+	"-B" "-U" "-DskipTests=true" "-f $HOME_GUEST/workspace/pom.xml" "package" "> mvn.log"
+verify_run_status "$?" "maven run"
   
 ###
 
