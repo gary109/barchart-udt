@@ -2,7 +2,7 @@
 
 ###############
 
-THIS_PATH="$(dirname $0 | cd && pwd)"
+THIS_PATH="$(dirname $(readlink -f $0))"
 
 ###############
 
@@ -10,9 +10,6 @@ THIS_PATH="$(dirname $0 | cd && pwd)"
 source "$THIS_PATH/common.sh"
 
 verify_tool_present "vmrun"
-
-echo "" > env.txt
-echo $HOME >> env.txt
 
 export VM="$HOME/.vmware/ubuntu-x32/ubuntu-x32.vmx"
 
