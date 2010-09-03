@@ -41,7 +41,7 @@ if [ "$?" == "0" ]; then
 else
 	$VMRUN_COPY_HOST_GUEST "$JDK_BIN_HOST" "$JDK_BIN_GUEST"
 	verify_run_status "$?" "vm jdk copy"
-	$VMRUN_PROGRAM "$JDK_BIN_GUEST" ""
+	$VMRUN_PROGRAM "$JDK_BIN_GUEST"
 	verify_run_status "$?" "vm jdk install"
 	log "java installed"
 fi
