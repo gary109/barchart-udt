@@ -14,7 +14,7 @@ source "$THIS_PATH/common.sh"
 # run on guest:
 # apt-get update
 # apt-get upgrade
-# apt-get install mc unzip subversion
+# apt-get install mc unzip subversion g++
 
 verify_tool_present "vmware"
 verify_tool_present "vmrun"
