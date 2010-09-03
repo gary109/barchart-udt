@@ -32,7 +32,8 @@ MVN_BIN_GUEST="$HOME_GUEST/$MVN_BIN"
 
 ###
 
-VMRUN_ENV_VAR="vmrun -T ws -gu $USER -gp $PASS writeVariable $VM guestEnv"
+VMRUN_VAR_IN="vmrun -T ws -gu $USER -gp $PASS readVariable $VM guestEnv"
+VMRUN_VAR_OUT="vmrun -T ws -gu $USER -gp $PASS writeVariable $VM guestEnv"
 VMRUN_EXISTS="vmrun -T ws -gu $USER -gp $PASS fileExistsInGuest $VM"
 VMRUN_SCRIPT="vmrun -T ws -gu $USER -gp $PASS runScriptInGuest $VM"
 VMRUN_PROGRAM="vmrun -T ws -gu $USER -gp $PASS runProgramInGuest $VM"
@@ -41,13 +42,22 @@ VMRUN_COPY_GUEST_HOST="vmrun -T ws -gu $USER -gp $PASS copyFileFromGuestToHost $
 
 ###
 
+# apt-get update
+# apt-get upgrade
+# apt-get install mc unzip 
+
+###
+
 vmrun -T ws start "$VM" nogui
 verify_run_status "$?" "vm start"
 
 ###
 
-$VMRUN_ENV_VAR "JAVA_HOME" "$HOME_GUEST/$JDK_DIR"
-$VMRUN_ENV_VAR "M2_HOME" "$HOME_GUEST/$MVN_DIR"
+$VMRUN_VAR_OUT "JAVA_HOME" "$HOME_GUEST/$JDK_DIR"
+$VMRUN_VAR_OUT "M2_HOME" "$HOME_GUEST/$MVN_DIR"
+
+JAVA_HOME_GUEST=$($VAR_IN "JAVA_HOME")
+log "JAVA_HOME_GUEST=$JAVA_HOME_GUEST"
 
 ###
 
