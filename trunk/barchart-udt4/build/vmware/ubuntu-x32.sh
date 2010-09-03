@@ -9,8 +9,8 @@ THIS_PATH="$(dirname $(readlink -f $0))"
 # 
 source "$THIS_PATH/common.sh"
 
-verify_tool_present "vmrun"
 verify_tool_present "vmware"
+verify_tool_present "vmrun"
 
 VM="$HOME/.vmware/ubuntu-x32/ubuntu-x32.vmx"
 USER="user1"
@@ -22,10 +22,15 @@ HOME_GUEST="/home/$USER"
 
 JDK_DIR="jdk1.6.0_21"
 JDK_BIN="jdk-6u21-linux-i586.bin"
-
 JDK_BIN_HOST="/$HOME/downloads/$JDK_BIN"
 JDK_BIN_GUEST="$HOME_GUEST/$JDK_BIN"
 
+MVN_DIR="apache-maven-2.2.1"
+MVN_BIN="apache-maven-2.2.1-bin.zip"
+MVN_BIN_HOST="/$HOME/downloads/$MVN_BIN"
+MVN_BIN_GUEST="$HOME_GUEST/$MVN_BIN"
+
+###
 
 VMRUN_EXISTS="vmrun -T ws -gu $USER -gp $PASS fileExistsInGuest $VM"
 VMRUN_SCRIPT="vmrun -T ws -gu $USER -gp $PASS runScriptInGuest $VM"
@@ -54,6 +59,24 @@ else
 	verify_run_status "$?" "jdk install"
 	#
 	log "java installed"
+fi
+
+###
+
+$VMRUN_EXISTS "$MVN_BIN_GUEST"
+if [ "$?" == "0" ]; then
+	log "maven found"
+	$VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" "-version"
+	verify_run_status "$?" "maven run"
+else
+	#
+	$VMRUN_COPY_HOST_GUEST "$MVN_BIN_HOST" "$MVN_BIN_GUEST"
+	verify_run_status "$?" "maven copy"
+	#
+	$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; unzip ./$MVN_BIN"
+	verify_run_status "$?" "maven install"
+	#
+	log "maven installed"
 fi
 
 ###
