@@ -73,7 +73,7 @@ else
 	$VMRUN_COPY_HOST_GUEST "$MVN_BIN_HOST" "$MVN_BIN_GUEST"
 	verify_run_status "$?" "maven copy"
 	#
-	$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; unzip ./$MVN_BIN"
+	$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; unzip $MVN_BIN"
 	verify_run_status "$?" "maven install"
 	#
 	log "maven installed"
