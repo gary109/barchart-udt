@@ -39,7 +39,7 @@ function verify_tool_present {
 		log "fatal: tool $TOOL must be installed"
 		exit 1
 	else
-		log "found: $TOOL"
+		log "found tool: $TOOL"
 	fi
 
 }
