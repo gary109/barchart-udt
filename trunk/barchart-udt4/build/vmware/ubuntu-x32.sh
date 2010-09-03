@@ -13,12 +13,12 @@ verify_tool_present "vmware"
 verify_tool_present "vmrun"
 
 VM="$HOME/.vmware/ubuntu-x32/ubuntu-x32.vmx"
-USER="user1"
-PASS="user1"
+USER="root"
+PASS="root"
 
 log "VM=$VM"
 
-HOME_GUEST="/home/$USER"
+HOME_GUEST="/root"
 
 JDK_DIR="jdk1.6.0_21"
 JDK_BIN="jdk-6u21-linux-i586.bin"
@@ -32,6 +32,7 @@ MVN_BIN_GUEST="$HOME_GUEST/$MVN_BIN"
 
 ###
 
+VMRUN_ENV_VAR="vmrun -T ws -gu $USER -gp $PASS writeVariable $VM guestEnv"
 VMRUN_EXISTS="vmrun -T ws -gu $USER -gp $PASS fileExistsInGuest $VM"
 VMRUN_SCRIPT="vmrun -T ws -gu $USER -gp $PASS runScriptInGuest $VM"
 VMRUN_PROGRAM="vmrun -T ws -gu $USER -gp $PASS runProgramInGuest $VM"
@@ -42,6 +43,11 @@ VMRUN_COPY_GUEST_HOST="vmrun -T ws -gu $USER -gp $PASS copyFileFromGuestToHost $
 
 vmrun -T ws start "$VM" nogui
 verify_run_status "$?" "vm start"
+
+###
+
+VMRUN_ENV_VAR "JAVA_HOME" "$HOME_GUEST/$JDK_DIR"
+VMRUN_ENV_VAR "M2_HOME" "$HOME_GUEST/$MVN_DIR"
 
 ###
 
