@@ -25,6 +25,8 @@ PASS="root"
 
 log "VM=$VM"
 
+SVN_URL="https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4"
+
 HOME_GUEST="/root"
 
 JDK_DIR="jdk1.6.0_21"
@@ -100,9 +102,22 @@ fi
 
 ###
 
-$VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" "-DskipTests=true package"
-verify_run_status "$?" "vm run"
+# add java and maven commands to the guest path
+PATH_GUEST=$($VMRUN_VAR_IN "PATH")
+$VMRUN_VAR_OUT "PATH" "$JAVA_HOME_GUEST/bin:M2_HOME_GUEST/bin:$PATH_GUEST"
+PATH_GUEST=$($VMRUN_VAR_IN "PATH")
+log "PATH_GUEST=$PATH_GUEST"
 
+# make workspace
+$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; mkdir workspace"
+
+# checkout source
+$VMRUN_PROGRAM "/usr/bin/svn" "checkout" "$SVN_URL" "$HOME_GUEST/workspace"
+verify_run_status "$?" "svn checkout"
+
+# $VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" "-DskipTests=true package"
+#   verify_run_status "$?" "vm run"
+  
 ###
 
 vmrun -T ws stop "$VM" soft
