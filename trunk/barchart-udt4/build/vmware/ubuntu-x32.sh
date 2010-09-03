@@ -112,7 +112,7 @@ log "PATH_GUEST=$PATH_GUEST"
 $VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; rm -r -f workspace; mkdir workspace"
 
 # checkout source
-$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; svn checkout $SVN_URL > svn.log"
+$VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; svn checkout $SVN_URL $HOME_GUEST/workspace > svn.log"
 verify_run_status "$?" "svn checkout"
 
 $VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST/workspace; mvn -DskipTests=true -B -U package > mvn.log"
