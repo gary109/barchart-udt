@@ -18,10 +18,12 @@ PASS="user1"
 
 log "VM=$VM"
 
+VMRUN_SCRIPT="vmrun -T ws -gu $USER -gp $PASS runScriptInGuest $VM"
+
 vmrun -T ws start "$VM" nogui
 verify_run_status "$?" "vm start"
 
-vmrun -T ws -gu "$USER" -gp "$PASS" runScriptInGuest "$VM" "/bin/bash" "ls -las"
+$VMRUN_SCRIPT "/bin/bash" "ls -las"
 verify_run_status "$?" "vm run"
 
 vmrun -T ws stop "$VM" soft
