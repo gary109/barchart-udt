@@ -115,8 +115,7 @@ $VMRUN_SCRIPT "/bin/bash" "cd $HOME_GUEST; mkdir workspace"
 $VMRUN_PROGRAM "/usr/bin/svn" "checkout" "$SVN_URL" "$HOME_GUEST/workspace"
 verify_run_status "$?" "svn checkout"
 
-$VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" \
-	"-B" "-U" "-DskipTests=true" "-f $HOME_GUEST/workspace/pom.xml" "package" "> mvn.log"
+$VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" "-B" "-U" "-DskipTests=true" "-f $HOME_GUEST/workspace/pom.xml" "package" "> mvn.log"
 verify_run_status "$?" "maven run"
   
 ###
