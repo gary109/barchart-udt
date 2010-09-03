@@ -67,7 +67,7 @@ $VMRUN_EXISTS "$JDK_BIN_GUEST"
 if [ "$?" == "0" ]; then
 	log "java found"
 	$VMRUN_PROGRAM "$HOME_GUEST/$JDK_DIR/bin/java" "-version"
-	verify_run_status "$?" "java run"
+	verify_run_status "$?" "java test run"
 else
 	#
 	$VMRUN_COPY_HOST_GUEST "$JDK_BIN_HOST" "$JDK_BIN_GUEST"
@@ -85,7 +85,7 @@ $VMRUN_EXISTS "$MVN_BIN_GUEST"
 if [ "$?" == "0" ]; then
 	log "maven found"
 	$VMRUN_PROGRAM "$HOME_GUEST/$MVN_DIR/bin/mvn" "-version"
-	verify_run_status "$?" "maven run"
+	verify_run_status "$?" "maven test run"
 else
 	#
 	$VMRUN_COPY_HOST_GUEST "$MVN_BIN_HOST" "$MVN_BIN_GUEST"
