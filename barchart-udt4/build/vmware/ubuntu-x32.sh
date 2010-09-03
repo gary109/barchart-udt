@@ -9,8 +9,15 @@ THIS_PATH="$(dirname $(readlink -f $0))"
 # 
 source "$THIS_PATH/common.sh"
 
+###
+
+# apt-get update
+# apt-get upgrade
+# apt-get install mc unzip subversion
+
 verify_tool_present "vmware"
 verify_tool_present "vmrun"
+verify_tool_present "svn"
 
 VM="$HOME/.vmware/ubuntu-x32/ubuntu-x32.vmx"
 USER="root"
@@ -39,12 +46,6 @@ VMRUN_SCRIPT="vmrun -T ws -gu $USER -gp $PASS runScriptInGuest $VM"
 VMRUN_PROGRAM="vmrun -T ws -gu $USER -gp $PASS runProgramInGuest $VM"
 VMRUN_COPY_HOST_GUEST="vmrun -T ws -gu $USER -gp $PASS copyFileFromHostToGuest $VM"
 VMRUN_COPY_GUEST_HOST="vmrun -T ws -gu $USER -gp $PASS copyFileFromGuestToHost $VM"
-
-###
-
-# apt-get update
-# apt-get upgrade
-# apt-get install mc unzip 
 
 ###
 
