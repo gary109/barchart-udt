@@ -1,6 +1,4 @@
-<project
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
@@ -17,7 +15,8 @@
 	<packaging>jar</packaging>
 
 	<name>barchart-udt</name>
-	<description>Java wrapper around native C++ UDT protocol implementation</description>
+	<description>Java wrapper around native C++ UDT protocol implementation
+UDT version: 4.8</description>
 
 	<url>http://code.google.com/p/barchart-udt/</url>
 
@@ -138,29 +137,15 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<property
-									name="mvn.basedir"
-									value="${basedir}" />
-								<property
-									name="mvn.artifactId"
-									value="${artifactId}" />
-								<property
-									name="mvn.version"
-									value="${version}" />
-								<property
-									name="mvn.timestamp"
-									value="${timestamp}" />
-								<property
-									name="mvn.mavenStamp"
-									value="${mavenStamp}" />
-								<property
-									name="mvn.buildtime"
-									value="${buildtime}" />
-								<property
-									name="mvn.generatedSources"
+								<property name="mvn.basedir" value="${basedir}" />
+								<property name="mvn.artifactId" value="${artifactId}" />
+								<property name="mvn.version" value="${version}" />
+								<property name="mvn.timestamp" value="${timestamp}" />
+								<property name="mvn.mavenStamp" value="${mavenStamp}" />
+								<property name="mvn.buildtime" value="${buildtime}" />
+								<property name="mvn.generatedSources"
 									value="${project.build.directory}/generated-sources" />
-								<ant
-									antfile="${basedir}/build/script/build-version.ant">
+								<ant antfile="${basedir}/build/script/build-version.ant">
 								</ant>
 							</tasks>
 							<sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
@@ -174,10 +159,8 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<echo
-									message="buildtime : ${buildtime}" />
-								<echo
-									message="mavenStamp : ${mavenStamp}" />
+								<echo message="buildtime : ${buildtime}" />
+								<echo message="mavenStamp : ${mavenStamp}" />
 							</tasks>
 						</configuration>
 					</execution>
@@ -189,52 +172,22 @@
 						</goals>
 						<configuration>
 							<tasks>
-								<property
-									name="mvn.plugin.classpath"
-									refid="maven.plugin.classpath" />
-								<property
-									name="mvn.licenceYear"
-									value="${licenceYear}" />
-								<property
-									name="mvn.licenceOrganization"
-									value="${licenceOrganization}" />
-								<property
-									name="mvn.licenceWebsite"
-									value="${licenceWebsite}" />
-								<property
-									name="mvn.licenceDevelopers"
-									value="${licenceDevelopers}" />
-								<property
-									name="mvn.version"
-									value="${version}" />
-								<property
-									name="mvn.mavenStamp"
-									value="${mavenStamp}" />
-								<property
-									name="mvn.nativeLibName"
-									value="${nativeLibName}" />
-								<property
-									name="mvn.nativeSrcJNI"
-									value="${nativeSrcJNI}" />
-								<property
-									name="mvn.nativeSrcUDT"
-									value="${nativeSrcUDT}" />
-								<property
-									name="mvn.nativeInclude"
-									value="${nativeInclude}" />
-								<property
-									name="mvn.basedir"
-									value="${basedir}" />
-								<property
-									name="mvn.resources"
-									value="${basedir}/src/main/resources" />
-								<property
-									name="mvn.target"
-									value="${project.build.directory}" />
-								<ant
-									antfile="${basedir}/build/script/build-maven.ant">
-									<target
-										name="target-build" />
+								<property name="mvn.plugin.classpath" refid="maven.plugin.classpath" />
+								<property name="mvn.licenceYear" value="${licenceYear}" />
+								<property name="mvn.licenceOrganization" value="${licenceOrganization}" />
+								<property name="mvn.licenceWebsite" value="${licenceWebsite}" />
+								<property name="mvn.licenceDevelopers" value="${licenceDevelopers}" />
+								<property name="mvn.version" value="${version}" />
+								<property name="mvn.mavenStamp" value="${mavenStamp}" />
+								<property name="mvn.nativeLibName" value="${nativeLibName}" />
+								<property name="mvn.nativeSrcJNI" value="${nativeSrcJNI}" />
+								<property name="mvn.nativeSrcUDT" value="${nativeSrcUDT}" />
+								<property name="mvn.nativeInclude" value="${nativeInclude}" />
+								<property name="mvn.basedir" value="${basedir}" />
+								<property name="mvn.resources" value="${basedir}/src/main/resources" />
+								<property name="mvn.target" value="${project.build.directory}" />
+								<ant antfile="${basedir}/build/script/build-maven.ant">
+									<target name="target-build" />
 								</ant>
 							</tasks>
 						</configuration>
@@ -245,7 +198,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.4</version>
+				<version>2.4.3</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
@@ -293,70 +246,70 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.5.6</version>
+			<version>1.6.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.6</version>
+			<version>1.6.1</version>
 			<type>jar</type>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.6</version>
+			<version>4.7</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<distributionManagement>
-		<repository>
-			<id>barchart-nexus-server</id>
-			<url>https://moe.barchart.com/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>barchart-nexus-server</id>
-			<url>https://moe.barchart.com/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
+		<!-- <repository> -->
+		<!-- <id>barchart-nexus-server</id> -->
+		<!-- <url>https://moe.barchart.com/nexus/content/repositories/releases/</url> -->
+		<!-- </repository> -->
+		<!-- <snapshotRepository> -->
+		<!-- <id>barchart-nexus-server</id> -->
+		<!-- <url>https://moe.barchart.com/nexus/content/repositories/snapshots/</url> -->
+		<!-- </snapshotRepository> -->
 	</distributionManagement>
 
-	<!--	<repositories>-->
-<!---->
-	<!--		<repository>-->
-	<!--			<id>barchart-nexus-server</id>-->
-	<!--			<url>https://moe.barchart.com/nexus/content/groups/all</url>-->
-	<!--		</repository>-->
-<!---->
-	<!--	</repositories>-->
+	<!-- <repositories> -->
+	<!---->
+	<!-- <repository> -->
+	<!-- <id>barchart-nexus-server</id> -->
+	<!-- <url>https://moe.barchart.com/nexus/content/groups/all</url> -->
+	<!-- </repository> -->
+	<!---->
+	<!-- </repositories> -->
 
-	<!--	<pluginRepositories>-->
-<!---->
-	<!--		<pluginRepository>-->
-	<!--	licence formatter: maven-license-plugin-->
-	<!--			<id>mc-release</id>-->
-	<!--			<name>Local Maven repository of releases</name>-->
-	<!--			<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>-->
-	<!--			<snapshots>-->
-	<!--				<enabled>false</enabled>-->
-	<!--			</snapshots>-->
-	<!--			<releases>-->
-	<!--				<enabled>true</enabled>-->
-	<!--			</releases>-->
-	<!--		</pluginRepository>-->
-<!---->
-	<!--		<pluginRepository>-->
-	<!--	javadoc formatter: javolution-colapi-->
-	<!--			<id>maven2-repository.dev.java.net</id>-->
-	<!--			<name>Java.net Repository for Maven</name>-->
-	<!--			<url>http://download.java.net/maven/2/</url>-->
-	<!--			<layout>default</layout>-->
-	<!--		</pluginRepository>-->
-<!---->
-	<!--	</pluginRepositories>-->
+	<!-- <pluginRepositories> -->
+	<!---->
+	<!-- <pluginRepository> -->
+	<!-- licence formatter: maven-license-plugin -->
+	<!-- <id>mc-release</id> -->
+	<!-- <name>Local Maven repository of releases</name> -->
+	<!-- <url>http://mc-repo.googlecode.com/svn/maven2/releases</url> -->
+	<!-- <snapshots> -->
+	<!-- <enabled>false</enabled> -->
+	<!-- </snapshots> -->
+	<!-- <releases> -->
+	<!-- <enabled>true</enabled> -->
+	<!-- </releases> -->
+	<!-- </pluginRepository> -->
+	<!---->
+	<!-- <pluginRepository> -->
+	<!-- javadoc formatter: javolution-colapi -->
+	<!-- <id>maven2-repository.dev.java.net</id> -->
+	<!-- <name>Java.net Repository for Maven</name> -->
+	<!-- <url>http://download.java.net/maven/2/</url> -->
+	<!-- <layout>default</layout> -->
+	<!-- </pluginRepository> -->
+	<!---->
+	<!-- </pluginRepositories> -->
 
 	<profiles>
 
@@ -486,7 +439,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-scm-plugin</artifactId>
-						<version>1.2</version>
+						<version>1.4</version>
 						<configuration>
 							<connectionType>connection</connectionType>
 							<connectionUrl>${connectionUDT}</connectionUrl>

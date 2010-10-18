@@ -1,5 +1,5 @@
 /*****************************************************************************
-Copyright (c) 2001 - 2009, The Board of Trustees of the University of Illinois.
+Copyright (c) 2001 - 2010, The Board of Trustees of the University of Illinois.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 05/05/2009
+   Yunhong Gu, last updated 08/06/2010
 *****************************************************************************/
 
 #ifdef WIN32
@@ -505,8 +505,6 @@ void CSndQueue::init(const CChannel* c, const CTimer* t)
 {
    CSndQueue* self = (CSndQueue*)param;
 
-   CPacket pkt;
-
    while (!self->m_bClosing)
    {
       uint64_t ts = self->m_pSndUList->getNextProcTime();
@@ -553,7 +551,6 @@ int CSndQueue::sendto(const sockaddr* addr, CPacket& packet)
 {
    // send out the packet immediately (high priority), this is a control packet
    m_pChannel->sendto(addr, packet);
-
    return packet.getLength();
 }
 
@@ -573,8 +570,6 @@ void CRcvUList::insert(const CUDT* u)
 {
    CRNode* n = u->m_pRNode;
    CTimer::rdtsc(n->m_llTimeStamp);
-
-   n->m_bOnList = true;
 
    if (NULL == m_pUList)
    {
@@ -621,8 +616,6 @@ void CRcvUList::remove(const CUDT* u)
    }
 
    n->m_pNext = n->m_pPrev = NULL;
-
-   n->m_bOnList = false;
 }
 
 void CRcvUList::update(const CUDT* u)
@@ -879,10 +872,16 @@ CRcvQueue::~CRcvQueue()
    delete m_pHash;
    delete m_pRendezvousQueue;
 
-   for (map<int32_t, CPacket*>::iterator i = m_mBuffer.begin(); i != m_mBuffer.end(); ++ i)
+   // remove all queued messages
+   for (map<int32_t, queue<CPacket*> >::iterator i = m_mBuffer.begin(); i != m_mBuffer.end(); ++ i)
    {
-      delete [] i->second->m_pcData;
-      delete i->second;
+      while (!i->second.empty())
+      {
+         CPacket* pkt = i->second.front();
+         delete [] pkt->m_pcData;
+         delete pkt;
+         i->second.pop();
+      }
    }
 }
 
@@ -934,7 +933,7 @@ void CRcvQueue::init(const int& qsize, const int& payload, const int& version, c
       #endif
 
       // check waiting list, if new socket, insert it to the list
-      if (self->ifNewEntry())
+      while (self->ifNewEntry())
       {
          CUDT* ne = self->getNewEntry();
          if (NULL != ne)
@@ -1017,6 +1016,7 @@ TIMER_CHECK:
             // the socket must be removed from Hash table first, then RcvUList
             self->m_pHash->remove(u->m_SocketID);
             self->m_pRcvUList->remove(u);
+            u->m_pRNode->m_bOnList = false;
          }
 
          ul = self->m_pRcvUList->m_pUList;
@@ -1040,7 +1040,7 @@ int CRcvQueue::recvfrom(const int32_t& id, CPacket& packet)
 {
    CGuard bufferlock(m_PassLock);
 
-   map<int32_t, CPacket*>::iterator i = m_mBuffer.find(id);
+   map<int32_t, queue<CPacket*> >::iterator i = m_mBuffer.find(id);
 
    if (i == m_mBuffer.end())
    {
@@ -1066,19 +1066,28 @@ int CRcvQueue::recvfrom(const int32_t& id, CPacket& packet)
       }
    }
 
-   if (packet.getLength() < i->second->getLength())
+   // retrieve the earliest packet
+   CPacket* newpkt = i->second.front();
+
+   if (packet.getLength() < newpkt->getLength())
    {
       packet.setLength(-1);
       return -1;
    }
 
-   memcpy(packet.m_nHeader, i->second->m_nHeader, CPacket::m_iPktHdrSize);
-   memcpy(packet.m_pcData, i->second->m_pcData, i->second->getLength());
-   packet.setLength(i->second->getLength());
+   // copy packet content
+   memcpy(packet.m_nHeader, newpkt->m_nHeader, CPacket::m_iPktHdrSize);
+   memcpy(packet.m_pcData, newpkt->m_pcData, newpkt->getLength());
+   packet.setLength(newpkt->getLength());
 
-   delete [] i->second->m_pcData;
-   delete i->second;
-   m_mBuffer.erase(i);
+   delete [] newpkt->m_pcData;
+   delete newpkt;
+
+   // remove this message from queue, 
+   // if no more messages left for this socket, release its data structure
+   i->second.pop();
+   if (i->second.empty())
+      m_mBuffer.erase(i);
 
    return packet.getLength();
 }
@@ -1128,28 +1137,26 @@ CUDT* CRcvQueue::getNewEntry()
 
 void CRcvQueue::storePkt(const int32_t& id, CPacket* pkt)
 {
-   #ifndef WIN32
-      pthread_mutex_lock(&m_PassLock);
-   #else
-      WaitForSingleObject(m_PassLock, INFINITE);
-   #endif
+   CGuard bufferlock(m_PassLock);   
 
-   map<int32_t, CPacket*>::iterator i = m_mBuffer.find(id);
+   map<int32_t, queue<CPacket*> >::iterator i = m_mBuffer.find(id);
 
    if (i == m_mBuffer.end())
-      m_mBuffer[id] = pkt;
+   {
+      m_mBuffer[id].push(pkt);
+
+      #ifndef WIN32
+         pthread_cond_signal(&m_PassCond);
+      #else
+         SetEvent(m_PassCond);
+      #endif
+   }
    else
    {
-      delete [] i->second->m_pcData;
-      delete i->second;
-      i->second = pkt;
-   }
+      //avoid storing too many packets, in case of malfunction or attack
+      if (i->second.size() > 16)
+         return;
 
-   #ifndef WIN32
-      pthread_mutex_unlock(&m_PassLock);
-      pthread_cond_signal(&m_PassCond);
-   #else
-      ReleaseMutex(m_PassLock);
-      SetEvent(m_PassCond);
-   #endif
+      i->second.push(pkt);
+   }
 }

@@ -1,5 +1,5 @@
 /*****************************************************************************
-Copyright (c) 2001 - 2009, The Board of Trustees of the University of Illinois.
+Copyright (c) 2001 - 2010, The Board of Trustees of the University of Illinois.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 05/05/2009
+   Yunhong Gu, last updated 09/28/2010
 *****************************************************************************/
 
 #ifndef __UDT_API_H__
@@ -48,7 +48,7 @@ written by
 #include "packet.h"
 #include "queue.h"
 #include "cache.h"
-
+#include "epoll.h"
 
 class CUDT;
 
@@ -82,6 +82,8 @@ public:
    pthread_mutex_t m_AcceptLock;             // mutex associated to m_AcceptCond
 
    unsigned int m_uiBackLog;                 // maximum number of connections in queue
+
+   int m_iMuxID;                             // multiplexer ID
 
 private:
    CUDTSocket(const CUDTSocket&);
@@ -169,6 +171,11 @@ public:
    int getsockname(const UDTSOCKET u, sockaddr* name, int* namelen);
    int select(ud_set* readfds, ud_set* writefds, ud_set* exceptfds, const timeval* timeout);
    int selectEx(const std::vector<UDTSOCKET>& fds, std::vector<UDTSOCKET>* readfds, std::vector<UDTSOCKET>* writefds, std::vector<UDTSOCKET>* exceptfds, int64_t msTimeOut);
+   int epoll_create();
+   int epoll_add(const int eid, const std::set<UDTSOCKET>* socks, const std::set<SYSSOCKET>* locals = NULL);
+   int epoll_remove(const int eid, const std::set<UDTSOCKET>* socks, const std::set<SYSSOCKET>* locals = NULL);
+   int epoll_wait(const int eid, std::set<UDTSOCKET>* readfds, std::set<UDTSOCKET>* writefds, int64_t msTimeOut, std::set<SYSSOCKET>* lrfds = NULL, std::set<SYSSOCKET>* lwfds = NULL);
+   int epoll_release(const int eid);
 
       // Functionality:
       //    record the UDT exception.
@@ -196,6 +203,8 @@ private:
    pthread_mutex_t m_IDLock;                         // used to synchronize ID generation
    UDTSOCKET m_SocketID;                             // seed to generate a new unique socket ID
 
+   std::map<int64_t, std::set<UDTSOCKET> > m_PeerRec;// record sockets from peers to avoid repeated connection request, int64_t = (socker_id << 30) + isn
+
 private:
    pthread_key_t m_TLSError;                         // thread local error record (last error)
    #ifndef WIN32
@@ -209,11 +218,11 @@ private:
 private:
    CUDTSocket* locate(const UDTSOCKET u);
    CUDTSocket* locate(const UDTSOCKET u, const sockaddr* peer, const UDTSOCKET& id, const int32_t& isn);
-   void updateMux(CUDT* u, const sockaddr* addr = NULL, const UDPSOCKET* = NULL);
-   void updateMux(CUDT* u, const CUDTSocket* ls);
+   void updateMux(CUDTSocket* s, const sockaddr* addr = NULL, const UDPSOCKET* = NULL);
+   void updateMux(CUDTSocket* s, const CUDTSocket* ls);
 
 private:
-   std::vector<CMultiplexer> m_vMultiplexer;		// UDP multiplexer
+   std::map<int, CMultiplexer> m_mMultiplexer;		// UDP multiplexer
    pthread_mutex_t m_MultiplexerLock;
 
 private:
@@ -225,6 +234,7 @@ private:
    pthread_cond_t m_GCStopCond;
 
    pthread_mutex_t m_InitLock;
+   int m_iInstanceCount;				// number of startup() called by application
    bool m_bGCStatus;					// if the GC thread is working (true)
 
    pthread_t m_GCThread;
@@ -238,6 +248,9 @@ private:
 
    void checkBrokenSockets();
    void removeSocket(const UDTSOCKET u);
+
+private:
+   CEPoll m_EPoll;                                     // handling epoll data structures and events
 
 private:
    CUDTUnited(const CUDTUnited&);

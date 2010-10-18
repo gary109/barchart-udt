@@ -1,5 +1,5 @@
 /*****************************************************************************
-Copyright (c) 2001 - 2009, The Board of Trustees of the University of Illinois.
+Copyright (c) 2001 - 2010, The Board of Trustees of the University of Illinois.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,13 +35,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 08/15/2009
+   Yunhong Gu, last updated 07/25/2010
 *****************************************************************************/
 
 
 #ifndef WIN32
    #include <cstring>
    #include <cerrno>
+   #include <unistd.h>
 #else
    #include <winsock2.h>
    #include <ws2tcpip.h>
@@ -49,6 +50,7 @@ written by
       #include <wspiapi.h>
    #endif
 #endif
+#
 #include <cmath>
 #include "md5.h"
 #include "common.h"
@@ -224,6 +226,11 @@ void CTimer::tick()
 
 uint64_t CTimer::getTime()
 {
+   //For Cygwin and other systems without microsecond level resolution, uncomment the following three lines
+   //uint64_t x;
+   //rdtsc(x);
+   //return x / s_ullCPUFrequency;
+
    #ifndef WIN32
       timeval t;
       gettimeofday(&t, 0);
@@ -280,6 +287,15 @@ void CTimer::waitForEvent()
    #endif
 }
 
+void CTimer::sleep()
+{
+   #ifndef WIN32
+      usleep(10);
+   #else
+      Sleep(1);
+   #endif
+}
+
 
 //
 // Automatically lock in constructor
@@ -324,6 +340,42 @@ void CGuard::leaveCS(pthread_mutex_t& lock)
    #endif
 }
 
+void CGuard::createMutex(pthread_mutex_t& lock)
+{
+   #ifndef WIN32
+      pthread_mutex_init(&lock, NULL);
+   #else
+      lock = CreateMutex(NULL, false, NULL);
+   #endif
+}
+
+void CGuard::releaseMutex(pthread_mutex_t& lock)
+{
+   #ifndef WIN32
+      pthread_mutex_destroy(&lock);
+   #else
+      CloseHandle(lock);
+   #endif
+}
+
+void CGuard::createCond(pthread_cond_t& cond)
+{
+   #ifndef WIN32
+      pthread_cond_init(&cond, NULL);
+   #else
+      cond = CreateEvent(NULL, false, false, NULL);
+   #endif
+}
+
+void CGuard::releaseCond(pthread_cond_t& cond)
+{
+   #ifndef WIN32
+      pthread_cond_destroy(&cond);
+   #else
+      CloseHandle(cond);
+   #endif
+
+}
 
 //
 CUDTException::CUDTException(int major, int minor, int err):
@@ -505,6 +557,10 @@ const char* CUDTException::getErrorMessage()
            m_strMsg += ": Message is too large to send (it must be less than the UDT send buffer size)";
            break;
 
+        case 13:
+           m_strMsg += ": Invalid epoll ID";
+           break;
+
         default:
            break;
         }
@@ -539,7 +595,9 @@ const char* CUDTException::getErrorMessage()
    {
       m_strMsg += ": ";
       #ifndef WIN32
-         m_strMsg += strerror(m_iErrno);
+         char errmsg[1024];
+         if (strerror_r(m_iErrno, errmsg, 1024) == 0)
+            m_strMsg += errmsg;
       #else
          LPVOID lpMsgBuf;
          FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, m_iErrno, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&lpMsgBuf, 0, NULL);
@@ -556,7 +614,7 @@ const char* CUDTException::getErrorMessage()
    return m_strMsg.c_str();
 }
 
-const int CUDTException::getErrorCode() const
+int CUDTException::getErrorCode() const
 {
    return m_iMajor * 1000 + m_iMinor;
 }
@@ -598,6 +656,7 @@ const int CUDTException::ESTREAMILL = 5009;
 const int CUDTException::EDGRAMILL = 5010;
 const int CUDTException::EDUPLISTEN = 5011;
 const int CUDTException::ELARGEMSG = 5012;
+const int CUDTException::EINVPOLLID = 5013;
 const int CUDTException::EASYNCFAIL = 6000;
 const int CUDTException::EASYNCSND = 6001;
 const int CUDTException::EASYNCRCV = 6002;

@@ -276,9 +276,9 @@
 			<define name="__MINGW__" />
 			<define name="WIN32" />
 			<!-- win 2000 -->
-			<define name="_WIN32_WINNT" value="0x0500" />
+			<!-- define name="_WIN32_WINNT" value="0x0500" / -->
 			<!-- win XP -->
-			<!--define name="_WIN32_WINNT" value="0x0501" / -->
+			<define name="_WIN32_WINNT" value="0x0501" />
 		</defineset>
 		<!-- required for thread safe c++ exceptions -->
 		<compilerarg location="end" value="-mthreads" />
