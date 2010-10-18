@@ -6,7 +6,7 @@ THIS_PATH="$(dirname $(readlink -f $0))"
 
 ###############
 
-# 
+#
 source "$THIS_PATH/common.sh"
 
 ###
@@ -41,6 +41,7 @@ MVN_BIN_GUEST="$HOME_GUEST/$MVN_BIN"
 
 ###
 
+VMRUN_START="vmrun -T ws start "$VM" nogui"
 VMRUN_VAR_IN="vmrun -T ws -gu $USER -gp $PASS readVariable $VM guestEnv"
 VMRUN_VAR_OUT="vmrun -T ws -gu $USER -gp $PASS writeVariable $VM guestEnv"
 VMRUN_EXISTS="vmrun -T ws -gu $USER -gp $PASS fileExistsInGuest $VM"
@@ -51,7 +52,7 @@ VMRUN_COPY_GUEST_HOST="vmrun -T ws -gu $USER -gp $PASS copyFileFromGuestToHost $
 
 ###
 
-vmrun -T ws start "$VM" nogui
+$VMRUN_START
 verify_run_status "$?" "vm start"
 
 ###
@@ -130,7 +131,7 @@ cat "$HOME/mvn.log"
 
 verify_run_status "$STATUS" "maven run"
 
-  
+
 ###
 
 vmrun -T ws stop "$VM" soft
