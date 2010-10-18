@@ -7,9 +7,6 @@
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
-<listEntry value="org.eclipse.ui.externaltools.launchGroup"/>
-</listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.eclipse.ant.internal.ui.antsupport.InternalAntRunner"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="barchart-udt4"/>
@@ -17,10 +14,10 @@
 <stringAttribute key="org.eclipse.jdt.launching.VM_INSTALL_NAME" value="jdk1.6.0_12"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_INSTALL_TYPE_ID" value="org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType"/>
 <mapAttribute key="org.eclipse.ui.externaltools.ATTR_ANT_PROPERTIES">
-<mapEntry key="selected" value="${selected_resource_name}"/>
-<mapEntry key="eclipse.pdebuild.templates" value="/C:/apps/eclipse/plugins/org.eclipse.pde.build_3.5.0.v20090527-1800/templates/"/>
-<mapEntry key="eclipse.pdebuild.scripts" value="/C:/apps/eclipse/plugins/org.eclipse.pde.build_3.5.0.v20090527-1800/scripts/"/>
 <mapEntry key="eclipse.pdebuild.home" value="/C:/apps/eclipse/plugins/org.eclipse.pde.build_3.5.0.v20090527-1800/./"/>
+<mapEntry key="eclipse.pdebuild.scripts" value="/C:/apps/eclipse/plugins/org.eclipse.pde.build_3.5.0.v20090527-1800/scripts/"/>
+<mapEntry key="eclipse.pdebuild.templates" value="/C:/apps/eclipse/plugins/org.eclipse.pde.build_3.5.0.v20090527-1800/templates/"/>
+<mapEntry key="selected" value="${selected_resource_name}"/>
 </mapAttribute>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LAUNCH_CONFIGURATION_BUILD_SCOPE" value="${none}"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/barchart-udt4/build/script/run-java-crash.ant}"/>
