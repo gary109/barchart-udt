@@ -1,5 +1,5 @@
 /*****************************************************************************
-Copyright (c) 2001 - 2009, The Board of Trustees of the University of Illinois.
+Copyright (c) 2001 - 2010, The Board of Trustees of the University of Illinois.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 06/10/2009
+   Yunhong Gu, last updated 01/07/2010
 *****************************************************************************/
 
 #ifndef __UDT_H__
@@ -111,6 +111,12 @@ typedef std::set<UDTSOCKET> ud_set;
 #define UD_ISSET(u, uset) ((uset)->find(u) != (uset)->end())
 #define UD_SET(u, uset) ((uset)->insert(u))
 #define UD_ZERO(uset) ((uset)->clear())
+
+#ifndef WIN32
+   typedef int SYSSOCKET;
+#else
+   typedef SOCKET SYSSOCKET;
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -202,7 +208,7 @@ public:
       // Returned value:
       //    errno.
 
-   virtual const int getErrorCode() const;
+   virtual int getErrorCode() const;
 
       // Functionality:
       //    Clear the error code.
@@ -227,6 +233,9 @@ private:
    int m_iMinor;		// for specific error reasons
    int m_iErrno;		// errno returned by the system if there is any
    std::string m_strMsg;	// text error message
+
+   std::string m_strAPI;	// the name of UDT function that returns the error
+   std::string m_strDebug;	// debug information, set to the original place that causes the error
 
 public: // Error Code
    static const int SUCCESS;
@@ -259,6 +268,7 @@ public: // Error Code
    static const int EDGRAMILL;
    static const int EDUPLISTEN;
    static const int ELARGEMSG;
+   static const int EINVPOLLID;
    static const int EASYNCFAIL;
    static const int EASYNCSND;
    static const int EASYNCRCV;
@@ -299,6 +309,11 @@ UDT_API int64_t sendfile(UDTSOCKET u, std::fstream& ifs, int64_t offset, int64_t
 UDT_API int64_t recvfile(UDTSOCKET u, std::fstream& ofs, int64_t offset, int64_t size, int block = 7280000);
 UDT_API int select(int nfds, UDSET* readfds, UDSET* writefds, UDSET* exceptfds, const struct timeval* timeout);
 UDT_API int selectEx(const std::vector<UDTSOCKET>& fds, std::vector<UDTSOCKET>* readfds, std::vector<UDTSOCKET>* writefds, std::vector<UDTSOCKET>* exceptfds, int64_t msTimeOut);
+UDT_API int epoll_create();
+UDT_API int epoll_add(const int eid, const std::set<UDTSOCKET>* socks, const std::set<SYSSOCKET>* locals = NULL);
+UDT_API int epoll_remove(const int eid, const std::set<UDTSOCKET>* socks, const std::set<SYSSOCKET>* locals = NULL);
+UDT_API int epoll_wait(const int eid, std::set<UDTSOCKET>* readfds, std::set<UDTSOCKET>* writefds, int64_t msTimeOut, std::set<SYSSOCKET>* lrfds = NULL, std::set<SYSSOCKET>* wrfds = NULL);
+UDT_API int epoll_release(const int eid);
 UDT_API ERRORINFO& getlasterror();
 UDT_API int perfmon(UDTSOCKET u, TRACEINFO* perf, bool clear = true);
 }
