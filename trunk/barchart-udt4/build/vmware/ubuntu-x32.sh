@@ -42,6 +42,8 @@ MVN_BIN_GUEST="$HOME_GUEST/$MVN_BIN"
 ###
 
 VMRUN_START="vmrun -T ws start "$VM" nogui"
+VMRUN_STOP="vmrun -T ws stop "$VM" soft"
+#
 VMRUN_VAR_IN="vmrun -T ws -gu $USER -gp $PASS readVariable $VM guestEnv"
 VMRUN_VAR_OUT="vmrun -T ws -gu $USER -gp $PASS writeVariable $VM guestEnv"
 VMRUN_EXISTS="vmrun -T ws -gu $USER -gp $PASS fileExistsInGuest $VM"
@@ -134,7 +136,7 @@ verify_run_status "$STATUS" "maven run"
 
 ###
 
-vmrun -T ws stop "$VM" soft
+$VMRUN_STOP
 verify_run_status "$?" "vm stop"
 
 ###
