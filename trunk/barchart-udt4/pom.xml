@@ -260,7 +260,7 @@ UDT version: 4.8</description>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.8.2</version>
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
