@@ -31,21 +31,30 @@ UDT version: 4.8</description>
 	</licenses>
 
 	<properties>
-		<mavenStamp>ARTIFACT='${artifactId}';VERSION='${version}';TIMESTAMP='${timestamp}';</mavenStamp>
+
+		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+		<buildStamp>${maven.build.timestamp}</buildStamp>
+		<mavenStamp>ARTIFACT='${artifactId}';VERSION='${version}';TIMESTAMP='${buildStamp}';</mavenStamp>
+
 		<licenceYear>2009</licenceYear>
 		<licenceOrganization>Barchart, Inc.</licenceOrganization>
 		<licenceWebsite>http://www.barchart.com/</licenceWebsite>
 		<licenceDevelopers>Andrei Pozolotin;</licenceDevelopers>
+
 		<moduleUDT>UDT4</moduleUDT>
+
 		<target>${project.build.directory}</target>
 		<checkoutUDT>${target}/checkout</checkoutUDT>
 		<connectionUDT>scm:cvs:pserver:anonymous:@udt.cvs.sourceforge.net:/cvsroot/udt:${moduleUDT}</connectionUDT>
+
 		<nativeSrc>native</nativeSrc>
 		<nativeSrcJNI>${nativeSrc}/jni</nativeSrcJNI>
 		<nativeSrcUDT>${nativeSrc}/udt</nativeSrcUDT>
 		<nativeLibName>SocketUDT</nativeLibName>
 		<nativeInclude>include</nativeInclude>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 	</properties>
 
 	<issueManagement>

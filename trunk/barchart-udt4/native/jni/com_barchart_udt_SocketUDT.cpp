@@ -647,6 +647,8 @@ bool UDT_IsSocketOpen(JNIEnv* env, jobject self) {
 
 	const int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
 
+	printf("UDT_IsSocketOpen: rv=%d\n", rv);
+
 	if (rv == UDT::ERROR) {
 		return false;
 	} else {
@@ -838,7 +840,7 @@ JNIEXPORT JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(
 
 	const jint socketID = UDT_GetSocketID(env, self);
 
-	// check if desriptor valid
+	// check if descriptor valid
 	const bool isOpen = UDT_IsSocketOpen(env, self);
 
 	if (!isOpen) {
