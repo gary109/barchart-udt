@@ -1180,13 +1180,13 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
                 0x0000000000037cf0                _ZN7CPacket13m_iPktHdrSizeE
                 0x0000000000037cf4                _ZN10CHandShake14m_iContentSizeE
  .rodata.str1.1
-                0x0000000000037cf8      0x8ce com_barchart_udt_SocketUDT.o
-                                        0x8d6 (size before relaxing)
- *fill*         0x00000000000385c6        0x2 00
+                0x0000000000037cf8      0x8b5 com_barchart_udt_SocketUDT.o
+                                        0x8bd (size before relaxing)
+ *fill*         0x00000000000385ad        0x3 00
  .rodata.str1.8
-                0x00000000000385c8      0x2c0 com_barchart_udt_SocketUDT.o
-                                        0x2bd (size before relaxing)
- *fill*         0x0000000000038888       0x18 00
+                0x00000000000385b0      0x2e8 com_barchart_udt_SocketUDT.o
+                                        0x2e5 (size before relaxing)
+ *fill*         0x0000000000038898        0x8 00
  .rodata        0x00000000000388a0      0x275 com_barchart_udt_SocketUDT.o
  *fill*         0x0000000000038b15        0xb 00
  .rodata.cst16  0x0000000000038b20       0x20 com_barchart_udt_SocketUDT.o
