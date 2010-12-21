@@ -645,9 +645,9 @@ bool UDT_IsSocketOpen(JNIEnv* env, jobject self) {
 
 	const jint socketID = UDT_GetSocketID(env, self);
 
-	const int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
+	const int rv = UDT::getsockopt(socketID, 0, UDT_MAXBW, &value, &valueSize);
 
-	printf("UDT_IsSocketOpen: rv=%d\n", rv);
+	printf("native: UDT_IsSocketOpen: rv=%d\n", rv);
 
 	if (rv == UDT::ERROR) {
 		return false;
@@ -2064,6 +2064,8 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testInvalidClose0(
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0(
 		JNIEnv *env, jobject self) {
 
+	printf("native: test crash jvm \n");
+
 	jint *array = NULL;
 
 	array[0] = 1;
@@ -2080,7 +2082,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectByteBufferAcces
 	int capacityInt = (int) capacity;
 
 	//	cout << "capacity=" << capacity << EOL;
-	printf("byteBuffer capacity=%d \n", capacityInt);
+	printf("native: byteBuffer capacity=%d \n", capacityInt);
 
 	byteBuffer[0] = 'A';
 	byteBuffer[1] = 'B';
@@ -2098,7 +2100,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectIntBufferAccess
 	int capacityInt = (int) capacity;
 
 	//	cout << "capacity=" << capacity << EOL;
-	printf("intBuffer capacity=%d \n", capacityInt);
+	printf("native: intBuffer capacity=%d \n", capacityInt);
 
 	intBuffer[0] = 'A';
 	intBuffer[1] = 'B';

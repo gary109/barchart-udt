@@ -44,6 +44,9 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
+
 public class MainLoadDLL {
 
 	private static Logger log = LoggerFactory.getLogger(MainLoadDLL.class);

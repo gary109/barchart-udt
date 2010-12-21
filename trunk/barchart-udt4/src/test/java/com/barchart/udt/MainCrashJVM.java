@@ -42,9 +42,12 @@ package com.barchart.udt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MainCrash {
+import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
 
-	private static Logger log = LoggerFactory.getLogger(MainCrash.class);
+public class MainCrashJVM {
+
+	private static Logger log = LoggerFactory.getLogger(MainCrashJVM.class);
 
 	public static void main(String[] args) {
 

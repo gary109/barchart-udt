@@ -46,6 +46,9 @@ import java.nio.IntBuffer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
+
 public class MainDirectBuffer {
 
 	private static Logger log = LoggerFactory.getLogger(MainDirectBuffer.class);
