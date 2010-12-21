@@ -47,6 +47,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
+
 public class MainFinalize {
 
 	private static Logger log = LoggerFactory.getLogger(MainFinalize.class);

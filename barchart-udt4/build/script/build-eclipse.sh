@@ -7,11 +7,11 @@ log() {
 	echo "$SCRIPT: $1"
 }
 toLower() {
-  echo $1 | tr "[:upper:]" "[:lower:]" 
-} 
+  echo $1 | tr "[:upper:]" "[:lower:]"
+}
 toUpper() {
-  echo $1 | tr "[:lower:]" "[:upper:]" 
-} 
+  echo $1 | tr "[:lower:]" "[:upper:]"
+}
 
 KIND=$1
 
@@ -26,8 +26,8 @@ LIB_EXTENSION=""
 
 OS=`uname -s`
 OS=`toLower $OS`
-MACH=`uname -m`
-MACH=`toLower $MACH`
+ARCH=`uname -m`
+ARCH=`toLower $ARCH`
 
 makeExtension(){
 	case $OS in
@@ -54,7 +54,7 @@ findArtifact(){
 	else
 		log "error; can not find artifact; COUNT=$COUNT"
 		exit 1
-	fi 		
+	fi
 }
 findArtifactMap(){
 	COUNT=`ls -1 *.map | wc -l`
@@ -63,12 +63,12 @@ findArtifactMap(){
 	else
 		log "error; can not find artifact map; COUNT=$COUNT"
 		exit 1
-	fi 		
+	fi
 }
 makeLibraryName() {
 	case $OS in
 			linux)
-			case $MACH in
+			case $ARCH in
 				i*86)
 					LIB_FILE="lib$LIB_NAME-linux-x86-32.so"
 				;;
@@ -76,13 +76,13 @@ makeLibraryName() {
 					LIB_FILE="lib$LIB_NAME-linux-x86-64.so"
 				;;
 				*)
-					log "error; not supported MACH=$MACH"
+					log "error; not supported ARCH=$ARCH"
 					exit 1
 				;;
-			esac		
+			esac
 		;;
 		cygwin* | mingw* )
-			case $MACH in
+			case $ARCH in
 				i*86)
 					LIB_FILE="$LIB_NAME-windows-x86-32.dll"
 				;;
@@ -90,13 +90,13 @@ makeLibraryName() {
 					LIB_FILE="$LIB_NAME-windows-x86-64.dll"
 				;;
 				*)
-					log "error; not supported MACH=$MACH"
+					log "error; not supported ARCH=$ARCH"
 					exit 1
 				;;
-			esac		
+			esac
 		;;
 		darwin )
-			case $MACH in
+			case $ARCH in
 				i*86)
 					LIB_FILE="lib$LIB_NAME-macosx-x86-64.jnilib"
 				;;
@@ -104,10 +104,10 @@ makeLibraryName() {
 					LIB_FILE="lib$LIB_NAME-macosx-x86-64.jnilib"
 				;;
 				*)
-					log "error; not supported MACH=$MACH"
+					log "error; not supported ARCH=$ARCH"
 					exit 1
 				;;
-			esac		
+			esac
 		;;
 		*)
 			log "error: not supported OS=$OS"
@@ -125,12 +125,12 @@ checkSupported(){
 			exit 1
 		;;
 	esac
-	case $MACH in
+	case $ARCH in
 		i*86 | amd64 | x86_64 )
-			log "detected MACH=$MACH"
+			log "detected ARCH=$ARCH"
 		;;
 		*)
-			log "error: unsupported MACH=$MACH"
+			log "error: unsupported ARCH=$ARCH"
 			exit 1
 		;;
 	esac
@@ -139,6 +139,7 @@ checkSupported(){
 #####################################################
 
 checkSupported
+
 makeExtension
 
 case $KIND in
@@ -166,11 +167,11 @@ case $KIND in
 		log "TARGET_MAP : $TARGET_MAP"
 		log "TARGET_SYM : $TARGET_SYM"
 		#
-		cp -f -v "$ARTIFACT" "$TARGET" 
+		cp -f -v "$ARTIFACT" "$TARGET"
 		cp -f -v "$ARTIFACT_MAP" "$TARGET_MAP"
-		
+
 		# TODO: find macosx alternatives
-		# nm --demangle --numeric-sort "$ARTIFACT" > "$TARGET_SYM" 
+		# nm --demangle --numeric-sort "$ARTIFACT" > "$TARGET_SYM"
 		# ldd -r "$TARGET"
 		#
 		ls -l "$LIB_FOLDER"

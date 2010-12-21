@@ -47,6 +47,9 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
+
 public class MainBench {
 
 	static final int COUNT = 1 * 10 * 1000;
