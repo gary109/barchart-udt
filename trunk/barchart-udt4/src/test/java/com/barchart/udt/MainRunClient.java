@@ -48,33 +48,42 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.barchart.udt.MonitorUDT;
-import com.barchart.udt.OptionUDT;
-import com.barchart.udt.SocketUDT;
-import com.barchart.udt.TypeUDT;
+public class MainRunClient {
 
-public class MainClient {
-
-	private static Logger log = LoggerFactory.getLogger(MainClient.class);
+	private static Logger log = LoggerFactory.getLogger(MainRunClient.class);
 
 	public static void main(String[] args) {
 
 		log.info("started CLIENT");
 
-		String bindAddress = getProperty("udt.bind.address");
-		String remoteAddress = getProperty("udt.remote.address");
-		int remotePort = Integer.parseInt(getProperty("udt.remote.port"));
+		// specify client sender interface
+		final String bindAddress = getProperty("udt.bind.address");
 
-		long maxBandwidth = Integer.parseInt(getProperty("udt.max.bandwidth"));
-		int countBatch = Integer.parseInt(getProperty("udt.count.batch"));
-		int countSleep = Integer.parseInt(getProperty("udt.count.sleep"));
-		int countMonitor = Integer.parseInt(getProperty("udt.count.monitor"));
+		// specify server listening address
+		final String remoteAddress = getProperty("udt.remote.address");
+
+		// specify server listening port
+		final int remotePort = Integer.parseInt(getProperty("udt.remote.port"));
+
+		// specify server bandwidth limit
+		final long maxBandwidth = Integer
+				.parseInt(getProperty("udt.max.bandwidth"));
+
+		// specify number of packets sent in a batch
+		final int countBatch = Integer.parseInt(getProperty("udt.count.batch"));
+
+		// specify number of millis to sleep between batches of packets
+		final int countSleep = Integer.parseInt(getProperty("udt.count.sleep"));
+
+		// specify number of packet batches between stats logging
+		final int countMonitor = Integer
+				.parseInt(getProperty("udt.count.monitor"));
 
 		try {
 
-			SocketUDT sender = new SocketUDT(TypeUDT.DATAGRAM);
+			final SocketUDT sender = new SocketUDT(TypeUDT.DATAGRAM);
 
-			// bytes/sec
+			// specify maximum upload speed, bytes/sec
 			sender.setOption(OptionUDT.UDT_MAXBW, maxBandwidth);
 
 			InetSocketAddress localSocketAddress = new InetSocketAddress( //
@@ -98,22 +107,23 @@ public class MainClient {
 
 			long count = 0;
 
-			MonitorUDT monitor = sender.monitor;
+			final MonitorUDT monitor = sender.monitor;
 
 			while (true) {
 
 				for (int k = 0; k < countBatch; k++) {
 
-					byte[] array = new byte[SIZE];
+					final byte[] array = new byte[SIZE];
 
 					putSequenceNumber(array);
 
-					int result = sender.send(array);
+					final int result = sender.send(array);
 
 					assert result == SIZE : "wrong size";
 
 				}
 
+				// sleep between batches
 				Thread.sleep(countSleep);
 
 				count++;
@@ -139,9 +149,9 @@ public class MainClient {
 
 	final static AtomicLong sequencNumber = new AtomicLong(0);
 
-	static void putSequenceNumber(byte[] array) {
+	static void putSequenceNumber(final byte[] array) {
 
-		ByteBuffer buffer = ByteBuffer.wrap(array);
+		final ByteBuffer buffer = ByteBuffer.wrap(array);
 
 		buffer.putLong(sequencNumber.getAndIncrement());
 

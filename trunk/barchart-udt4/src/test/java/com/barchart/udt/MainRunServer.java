@@ -48,26 +48,27 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.barchart.udt.MonitorUDT;
-import com.barchart.udt.OptionUDT;
-import com.barchart.udt.SocketUDT;
-import com.barchart.udt.TypeUDT;
+public class MainRunServer {
 
-public class MainServer {
-
-	private static Logger log = LoggerFactory.getLogger(MainServer.class);
+	private static Logger log = LoggerFactory.getLogger(MainRunServer.class);
 
 	public static void main(String[] args) {
 
 		log.info("started SERVER");
 
-		String bindAddress = getProperty("udt.bind.address");
-		int localPort = Integer.parseInt(getProperty("udt.local.port"));
-		int countMonitor = Integer.parseInt(getProperty("udt.count.monitor"));
+		// specify server listening interface
+		final String bindAddress = getProperty("udt.bind.address");
+
+		// specify server listening port
+		final int localPort = Integer.parseInt(getProperty("udt.local.port"));
+
+		// specify how many packets must come before stats logging
+		final int countMonitor = Integer
+				.parseInt(getProperty("udt.count.monitor"));
 
 		try {
 
-			SocketUDT acceptor = new SocketUDT(TypeUDT.DATAGRAM);
+			final SocketUDT acceptor = new SocketUDT(TypeUDT.DATAGRAM);
 			log.info("init; acceptor={}", acceptor.socketID);
 
 			InetSocketAddress localSocketAddress = new InetSocketAddress(
@@ -80,17 +81,17 @@ public class MainServer {
 			acceptor.listen(10);
 			log.info("listen;");
 
-			SocketUDT receiver = acceptor.accept();
+			final SocketUDT receiver = acceptor.accept();
 
 			log.info("accept; receiver={}", receiver.socketID);
 
 			assert receiver.socketID != acceptor.socketID;
 
-			long timeStart = System.currentTimeMillis();
+			final long timeStart = System.currentTimeMillis();
 
 			//
 
-			InetSocketAddress remoteSocketAddress = receiver
+			final InetSocketAddress remoteSocketAddress = receiver
 					.getRemoteSocketAddress();
 
 			log.info("receiver; remoteSocketAddress={}", remoteSocketAddress);
@@ -100,13 +101,13 @@ public class MainServer {
 			text.append("\t\n");
 			log.info("receiver options; {}", text);
 
-			MonitorUDT monitor = receiver.monitor;
+			final MonitorUDT monitor = receiver.monitor;
 
 			while (true) {
 
-				byte[] array = new byte[SIZE];
+				final byte[] array = new byte[SIZE];
 
-				int result = receiver.receive(array);
+				final int result = receiver.receive(array);
 
 				assert result == SIZE : "wrong size";
 
@@ -119,13 +120,11 @@ public class MainServer {
 					monitor.appendSnapshot(text);
 					log.info("stats; {}", text);
 
-					long timeFinish = System.currentTimeMillis();
+					final long timeFinish = System.currentTimeMillis();
+					final long timeDiff = 1 + (timeFinish - timeStart) / 1000;
 
-					long timeDiff = 1 + (timeFinish - timeStart) / 1000;
-
-					long byteCount = sequenceNumber * SIZE;
-
-					long rate = byteCount / timeDiff;
+					final long byteCount = sequenceNumber * SIZE;
+					final long rate = byteCount / timeDiff;
 
 					log.info("receive rate, bytes/second: {}", rate);
 
@@ -143,11 +142,11 @@ public class MainServer {
 
 	static long sequenceNumber = 0;
 
-	static void getSequenceNumber(byte[] array) {
+	static void getSequenceNumber(final byte[] array) {
 
-		ByteBuffer buffer = ByteBuffer.wrap(array);
+		final ByteBuffer buffer = ByteBuffer.wrap(array);
 
-		long currentNumber = buffer.getLong();
+		final long currentNumber = buffer.getLong();
 
 		if (currentNumber == sequenceNumber) {
 			sequenceNumber++;
