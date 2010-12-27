@@ -2,11 +2,11 @@
 Discarded input sections
 
  .note.GNU-stack
-                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .gnu_debuglink
-                0x0000000000000000        0xc /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x0000000000000000        0xc /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .note.GNU-stack
-                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
+                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
  .group         0x0000000000000000        0x8 channel.o
  .note.GNU-stack
                 0x0000000000000000        0x0 channel.o
@@ -183,11 +183,11 @@ Discarded input sections
  .note.GNU-stack
                 0x0000000000000000        0x0 queue.o
  .note.GNU-stack
-                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
+                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
  .note.GNU-stack
-                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
+                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
  .gnu_debuglink
-                0x0000000000000000        0xc /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
+                0x0000000000000000        0xc /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
 
 Memory Configuration
 
@@ -196,8 +196,8 @@ Name             Origin             Length             Attributes
 
 Linker script and memory map
 
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
 LOAD channel.o
 LOAD core.o
 LOAD common.o
@@ -212,1061 +212,1062 @@ LOAD md5.o
 LOAD list.o
 LOAD cache.o
 LOAD queue.o
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/libstdc++.so
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/libpthread.so
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/libstdc++.so
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/libpthread.so
 START GROUP
-LOAD //lib/libpthread.so.0
-LOAD //usr/lib/libpthread_nonshared.a
+LOAD /lib/libpthread.so.0
+LOAD /usr/lib/libpthread_nonshared.a
 END GROUP
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/libgcc.a
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/libgcc_s.so
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/libc.so
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/libgcc.a
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/libgcc_s.so
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/libc.so
 START GROUP
-LOAD //lib/libc.so.6
-LOAD //usr/lib/libc_nonshared.a
-LOAD //lib/ld-linux-x86-64.so.2
+LOAD /lib/libc.so.6
+LOAD /usr/lib/libc_nonshared.a
+LOAD /lib/ld-linux-x86-64.so.2
 END GROUP
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/libgcc.a
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/libgcc_s.so
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
-LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/libgcc.a
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/libgcc_s.so
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
+LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
                 0x00000000000001c8                . = (0x0 + SIZEOF_HEADERS)
 
 .note.gnu.build-id
                 0x00000000000001c8       0x24
  *(.note.gnu.build-id)
  .note.gnu.build-id
-                0x00000000000001c8       0x24 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x00000000000001c8       0x24 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.hash
+.hash           0x00000000000001f0     0x12e8
  *(.hash)
+ .hash          0x00000000000001f0     0x12e8 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.gnu.hash       0x00000000000001f0     0x137c
+.gnu.hash       0x00000000000014d8     0x137c
  *(.gnu.hash)
- .gnu.hash      0x00000000000001f0     0x137c /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .gnu.hash      0x00000000000014d8     0x137c /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.dynsym         0x0000000000001570     0x4068
+.dynsym         0x0000000000002858     0x4068
  *(.dynsym)
- .dynsym        0x0000000000001570     0x4068 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .dynsym        0x0000000000002858     0x4068 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.dynstr         0x00000000000055d8     0x551b
+.dynstr         0x00000000000068c0     0x551b
  *(.dynstr)
- .dynstr        0x00000000000055d8     0x551b /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .dynstr        0x00000000000068c0     0x551b /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.gnu.version    0x000000000000aaf4      0x55e
+.gnu.version    0x000000000000bddc      0x55e
  *(.gnu.version)
- .gnu.version   0x000000000000aaf4      0x55e /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .gnu.version   0x000000000000bddc      0x55e /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.gnu.version_d  0x000000000000b058        0x0 load address 0x000000000000b052
+.gnu.version_d  0x000000000000c340        0x0 load address 0x000000000000c33a
  *(.gnu.version_d)
  .gnu.version_d
-                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.gnu.version_r  0x000000000000b058       0xe0
+.gnu.version_r  0x000000000000c340       0xe0
  *(.gnu.version_r)
  .gnu.version_r
-                0x000000000000b058       0xe0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c340       0xe0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.rela.dyn       0x000000000000b138      0x888
+.rela.dyn       0x000000000000c420      0x888
  *(.rela.init)
  *(.rela.text .rela.text.* .rela.gnu.linkonce.t.*)
- .rela.text     0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .rela.text     0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  *(.rela.fini)
  *(.rela.rodata .rela.rodata.* .rela.gnu.linkonce.r.*)
  *(.rela.data .rela.data.* .rela.gnu.linkonce.d.*)
  .rela.data.rel
-                0x000000000000b138       0x18 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c420       0x18 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.DW.ref.__gxx_personality_v0
-                0x000000000000b150       0x18 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c438       0x18 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTV10CCCFactoryI6CUDTCCE
-                0x000000000000b168       0x78 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c450       0x78 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTI10CCCFactoryI6CUDTCCE
-                0x000000000000b1e0       0x48 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c4c8       0x48 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTI17CCCVirtualFactory
-                0x000000000000b228       0x30 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c510       0x30 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTV17CCCVirtualFactory
-                0x000000000000b258       0x78 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c540       0x78 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTV13CUDTException
-                0x000000000000b2d0       0x90 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c5b8       0x90 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTI13CUDTException
-                0x000000000000b360       0x30 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c648       0x30 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.DW.ref._ZTI13CUDTException
-                0x000000000000b390       0x18 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c678       0x18 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.DW.ref._ZTISt9bad_alloc
-                0x000000000000b3a8       0x18 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c690       0x18 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTV6CUDTCC
-                0x000000000000b3c0      0x108 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c6a8      0x108 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTV3CCC
-                0x000000000000b4c8      0x108 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c7b0      0x108 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTI6CUDTCC
-                0x000000000000b5d0       0x48 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c8b8       0x48 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.data.rel.ro._ZTI3CCC
-                0x000000000000b618       0x30 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x000000000000c900       0x30 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  *(.rela.tdata .rela.tdata.* .rela.gnu.linkonce.td.*)
  *(.rela.tbss .rela.tbss.* .rela.gnu.linkonce.tb.*)
  *(.rela.ctors)
- .rela.ctors    0x000000000000b648       0x30 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .rela.ctors    0x000000000000c930       0x30 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  *(.rela.dtors)
  *(.rela.got)
- .rela.got      0x000000000000b678      0x348 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .rela.got      0x000000000000c960      0x348 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  *(.rela.bss .rela.bss.* .rela.gnu.linkonce.b.*)
  *(.rela.ldata .rela.ldata.* .rela.gnu.linkonce.l.*)
  *(.rela.lbss .rela.lbss.* .rela.gnu.linkonce.lb.*)
  *(.rela.lrodata .rela.lrodata.* .rela.gnu.linkonce.lr.*)
  *(.rela.ifunc)
- .rela.ifunc    0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .rela.ifunc    0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.eh_frame
-                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  .rela.gcc_except_table
-                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+                0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
 
-.rela.plt       0x000000000000b9c0     0x2940
+.rela.plt       0x000000000000cca8     0x2940
  *(.rela.plt)
- .rela.plt      0x000000000000b9c0     0x2940 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .rela.plt      0x000000000000cca8     0x2940 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  *(.rela.iplt)
 
-.init           0x000000000000e300       0x18
+.init           0x000000000000f5e8       0x18
  *(.init)
- .init          0x000000000000e300        0x9 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
-                0x000000000000e300                _init
- .init          0x000000000000e309        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
- .init          0x000000000000e30e        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
- .init          0x000000000000e313        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
+ .init          0x000000000000f5e8        0x9 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
+                0x000000000000f5e8                _init
+ .init          0x000000000000f5f1        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
+ .init          0x000000000000f5f6        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
+ .init          0x000000000000f5fb        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
 
-.plt            0x000000000000e318     0x1b90
+.plt            0x000000000000f600     0x1b90
  *(.plt)
- .plt           0x000000000000e318     0x1b90 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .plt           0x000000000000f600     0x1b90 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  *(.iplt)
 
-.text           0x000000000000feb0    0x26568
+.text           0x0000000000011190    0x26168
  *(.text.unlikely .text.*_unlikely)
  *(.text .stub .text.* .gnu.linkonce.t.*)
- .text          0x000000000000feb0       0x17 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
- *fill*         0x000000000000fec7        0x9 90909090
- .text          0x000000000000fed0       0xaa /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
- *fill*         0x000000000000ff7a        0x6 90909090
- .text          0x000000000000ff80      0x73a channel.o
-                0x000000000000ff80                _ZN8CChannelC2Ev
-                0x000000000000ffb0                _ZN8CChannelC1Ev
-                0x000000000000ffe0                _ZN8CChannelC2ERKi
-                0x0000000000010000                _ZN8CChannelC1ERKi
-                0x0000000000010020                _ZN8CChannelD2Ev
-                0x0000000000010030                _ZN8CChannelD1Ev
-                0x0000000000010040                _ZN8CChannel13setSndBufSizeERKi
-                0x0000000000010050                _ZN8CChannel13setRcvBufSizeERKi
-                0x0000000000010060                _ZNK8CChannel8recvfromEP8sockaddrR7CPacket
-                0x0000000000010180                _ZNK8CChannel6sendtoEPK8sockaddrR7CPacket
-                0x0000000000010300                _ZNK8CChannel11getPeerAddrEP8sockaddr
-                0x0000000000010330                _ZNK8CChannel11getSockAddrEP8sockaddr
-                0x0000000000010360                _ZN8CChannel13getRcvBufSizeEv
-                0x00000000000103a0                _ZN8CChannel13getSndBufSizeEv
-                0x00000000000103e0                _ZNK8CChannel5closeEv
-                0x00000000000103f0                _ZN8CChannel13setUDPSockOptEv
-                0x0000000000010500                _ZN8CChannel4openEi
-                0x0000000000010510                _ZN8CChannel4openEPK8sockaddr
- *fill*         0x00000000000106ba        0x6 90909090
- .text          0x00000000000106c0     0x74aa core.o
-                0x0000000000010700                _ZN4CUDT6listenEP8sockaddrR7CPacket
-                0x0000000000010a40                _ZN4CUDT12releaseSynchEv
-                0x0000000000010ad0                _ZN4CUDT8sendCtrlERKiPvS2_S1_
-                0x00000000000110f0                _ZN4CUDT11checkTimersEv
-                0x0000000000011550                _ZN4CUDT11processDataEP5CUnit
-                0x00000000000118b0                _ZN4CUDT8packDataER7CPacketRm
-                0x0000000000011cb0                _ZN4CUDT11processCtrlER7CPacket
-                0x00000000000129d0                _ZN4CUDT12destroySynchEv
-                0x0000000000012a50                _ZN4CUDT9initSynchEv
-                0x0000000000012ae0                _ZN4CUDT6getOptE6UDTOptPvRi
-                0x0000000000012dd0                _ZN4CUDT6setOptE6UDTOptPKvRKi
-                0x0000000000013520                _ZN4CUDT6sampleEP8CPerfMonb
-                0x00000000000139a0                _ZN4CUDT8recvfileERSt13basic_fstreamIcSt11char_traitsIcEERlRKlRKi
-                0x0000000000013db0                _ZN4CUDT8sendfileERSt13basic_fstreamIcSt11char_traitsIcEERlRKlRKi
-                0x0000000000014250                _ZN4CUDT7recvmsgEPcRKi
-                0x0000000000014630                _ZN4CUDT7sendmsgEPKcRKiS3_RKb
-                0x0000000000014b20                _ZN4CUDT4sendEPKcRKi
-                0x0000000000015010                _ZN4CUDT4recvEPcRKi
-                0x0000000000015430                _ZN4CUDT5closeEv
-                0x0000000000015670                _ZN4CUDT7connectEPK8sockaddrP10CHandShake
-                0x0000000000015be0                _ZN4CUDT6listenEv
-                0x0000000000015d50                _ZN4CUDT4openEv
-                0x0000000000016070                _ZN4CUDTC1ERKS_
-                0x0000000000016220                _ZN4CUDTC2ERKS_
-                0x00000000000163d0                _ZN4CUDTC1Ev
-                0x0000000000016580                _ZN4CUDTC2Ev
-                0x0000000000016730                _ZN4CUDT11removeEPollEi
-                0x00000000000168d0                _ZN4CUDTD2Ev
-                0x0000000000016a20                _ZN4CUDTD1Ev
-                0x0000000000016b70                _ZN4CUDT8addEPollEi
-                0x0000000000016db0                _ZN4CUDT7connectEPK8sockaddr
- *fill*         0x0000000000017b6a        0x6 90909090
+ .text          0x0000000000011190       0x17 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
+ *fill*         0x00000000000111a7        0x9 90909090
+ .text          0x00000000000111b0       0xaa /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
+ *fill*         0x000000000001125a        0x6 90909090
+ .text          0x0000000000011260      0x73a channel.o
+                0x0000000000011260                _ZN8CChannelC2Ev
+                0x0000000000011290                _ZN8CChannelC1Ev
+                0x00000000000112c0                _ZN8CChannelC2ERKi
+                0x00000000000112e0                _ZN8CChannelC1ERKi
+                0x0000000000011300                _ZN8CChannelD2Ev
+                0x0000000000011310                _ZN8CChannelD1Ev
+                0x0000000000011320                _ZN8CChannel13setSndBufSizeERKi
+                0x0000000000011330                _ZN8CChannel13setRcvBufSizeERKi
+                0x0000000000011340                _ZNK8CChannel8recvfromEP8sockaddrR7CPacket
+                0x0000000000011460                _ZNK8CChannel6sendtoEPK8sockaddrR7CPacket
+                0x00000000000115e0                _ZNK8CChannel11getPeerAddrEP8sockaddr
+                0x0000000000011610                _ZNK8CChannel11getSockAddrEP8sockaddr
+                0x0000000000011640                _ZN8CChannel13getRcvBufSizeEv
+                0x0000000000011680                _ZN8CChannel13getSndBufSizeEv
+                0x00000000000116c0                _ZNK8CChannel5closeEv
+                0x00000000000116d0                _ZN8CChannel13setUDPSockOptEv
+                0x00000000000117e0                _ZN8CChannel4openEi
+                0x00000000000117f0                _ZN8CChannel4openEPK8sockaddr
+ *fill*         0x000000000001199a        0x6 90909090
+ .text          0x00000000000119a0     0x7485 core.o
+                0x00000000000119e0                _ZN4CUDT6listenEP8sockaddrR7CPacket
+                0x0000000000011d20                _ZN4CUDT12releaseSynchEv
+                0x0000000000011db0                _ZN4CUDT8sendCtrlERKiPvS2_S1_
+                0x00000000000123d0                _ZN4CUDT11checkTimersEv
+                0x0000000000012830                _ZN4CUDT11processDataEP5CUnit
+                0x0000000000012b90                _ZN4CUDT8packDataER7CPacketRm
+                0x0000000000012f90                _ZN4CUDT11processCtrlER7CPacket
+                0x0000000000013cb0                _ZN4CUDT12destroySynchEv
+                0x0000000000013d30                _ZN4CUDT9initSynchEv
+                0x0000000000013dc0                _ZN4CUDT6getOptE6UDTOptPvRi
+                0x00000000000140b0                _ZN4CUDT6setOptE6UDTOptPKvRKi
+                0x0000000000014800                _ZN4CUDT6sampleEP8CPerfMonb
+                0x0000000000014c80                _ZN4CUDT8recvfileERSt13basic_fstreamIcSt11char_traitsIcEERlRKlRKi
+                0x0000000000015090                _ZN4CUDT8sendfileERSt13basic_fstreamIcSt11char_traitsIcEERlRKlRKi
+                0x0000000000015530                _ZN4CUDT7recvmsgEPcRKi
+                0x0000000000015910                _ZN4CUDT7sendmsgEPKcRKiS3_RKb
+                0x0000000000015e00                _ZN4CUDT4sendEPKcRKi
+                0x00000000000162f0                _ZN4CUDT4recvEPcRKi
+                0x0000000000016710                _ZN4CUDT5closeEv
+                0x0000000000016950                _ZN4CUDT7connectEPK8sockaddrP10CHandShake
+                0x0000000000016ec0                _ZN4CUDT6listenEv
+                0x0000000000017030                _ZN4CUDT4openEv
+                0x0000000000017350                _ZN4CUDTC1ERKS_
+                0x0000000000017500                _ZN4CUDTC2ERKS_
+                0x00000000000176b0                _ZN4CUDTC1Ev
+                0x0000000000017860                _ZN4CUDTC2Ev
+                0x0000000000017a10                _ZN4CUDT11removeEPollEi
+                0x0000000000017bb0                _ZN4CUDTD2Ev
+                0x0000000000017d00                _ZN4CUDTD1Ev
+                0x0000000000017e50                _ZN4CUDT8addEPollEi
+                0x0000000000018080                _ZN4CUDT7connectEPK8sockaddr
+ *fill*         0x0000000000018e25        0xb 90909090
  .text._ZN17CCCVirtualFactoryD1Ev
-                0x0000000000017b70       0x14 core.o
-                0x0000000000017b70                _ZN17CCCVirtualFactoryD1Ev
- *fill*         0x0000000000017b84        0xc 90909090
+                0x0000000000018e30       0x14 core.o
+                0x0000000000018e30                _ZN17CCCVirtualFactoryD1Ev
+ *fill*         0x0000000000018e44        0xc 90909090
  .text._ZN10CCCFactoryI6CUDTCCED1Ev
-                0x0000000000017b90       0x14 core.o
-                0x0000000000017b90                _ZN10CCCFactoryI6CUDTCCED1Ev
- *fill*         0x0000000000017ba4        0xc 90909090
+                0x0000000000018e50       0x14 core.o
+                0x0000000000018e50                _ZN10CCCFactoryI6CUDTCCED1Ev
+ *fill*         0x0000000000018e64        0xc 90909090
  .text._ZN10CCCFactoryI6CUDTCCED0Ev
-                0x0000000000017bb0       0x18 core.o
-                0x0000000000017bb0                _ZN10CCCFactoryI6CUDTCCED0Ev
- *fill*         0x0000000000017bc8        0x8 90909090
+                0x0000000000018e70       0x18 core.o
+                0x0000000000018e70                _ZN10CCCFactoryI6CUDTCCED0Ev
+ *fill*         0x0000000000018e88        0x8 90909090
  .text._ZN17CCCVirtualFactoryD0Ev
-                0x0000000000017bd0       0x18 core.o
-                0x0000000000017bd0                _ZN17CCCVirtualFactoryD0Ev
- *fill*         0x0000000000017be8        0x8 90909090
+                0x0000000000018e90       0x18 core.o
+                0x0000000000018e90                _ZN17CCCVirtualFactoryD0Ev
+ *fill*         0x0000000000018ea8        0x8 90909090
  .text._ZN10CCCFactoryI6CUDTCCE5cloneEv
-                0x0000000000017bf0       0x1e core.o
-                0x0000000000017bf0                _ZN10CCCFactoryI6CUDTCCE5cloneEv
- *fill*         0x0000000000017c0e        0x2 90909090
+                0x0000000000018eb0       0x1e core.o
+                0x0000000000018eb0                _ZN10CCCFactoryI6CUDTCCE5cloneEv
+ *fill*         0x0000000000018ece        0x2 90909090
  .text._ZN13CUDTExceptionaSERKS_
-                0x0000000000017c10       0x50 core.o
-                0x0000000000017c10                _ZN13CUDTExceptionaSERKS_
+                0x0000000000018ed0       0x50 core.o
+                0x0000000000018ed0                _ZN13CUDTExceptionaSERKS_
  .text._ZN10CCCFactoryI6CUDTCCE6createEv
-                0x0000000000017c60       0x40 core.o
-                0x0000000000017c60                _ZN10CCCFactoryI6CUDTCCE6createEv
+                0x0000000000018f20       0x40 core.o
+                0x0000000000018f20                _ZN10CCCFactoryI6CUDTCCE6createEv
  .text._ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE8_M_eraseEPSt13_Rb_tree_nodeIiE
-                0x0000000000017ca0      0x1b1 core.o
-                0x0000000000017ca0                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE8_M_eraseEPSt13_Rb_tree_nodeIiE
- *fill*         0x0000000000017e51        0xf 90909090
+                0x0000000000018f60      0x1b1 core.o
+                0x0000000000018f60                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE8_M_eraseEPSt13_Rb_tree_nodeIiE
+ *fill*         0x0000000000019111        0xf 90909090
  .text._ZNSt3setIiSt4lessIiESaIiEED1Ev
-                0x0000000000017e60       0x17 core.o
-                0x0000000000017e60                _ZNSt3setIiSt4lessIiESaIiEED1Ev
- *fill*         0x0000000000017e77        0x9 90909090
- .text          0x0000000000017e80     0x1143 common.o
-                0x0000000000017e80                _ZN6CTimer5rdtscERm
-                0x0000000000017ea0                _ZN6CTimer15getCPUFrequencyEv
-                0x0000000000017eb0                _ZN13CUDTExceptionC2ERKS_
-                0x0000000000017ef0                _ZN13CUDTExceptionC1ERKS_
-                0x0000000000017f30                _ZNK13CUDTException12getErrorCodeEv
-                0x0000000000017f50                _ZN13CUDTException5clearEv
-                0x0000000000017f70                _ZN10CIPAddress5ipcmpEPK8sockaddrS2_RKi
-                0x0000000000018060                _ZN10CIPAddress4ntopEPK8sockaddrPjRKi
-                0x0000000000018110                _ZN10CIPAddress4ptonEP8sockaddrPKjRKi
-                0x00000000000181a0                _ZN4CMD57computeEPKcPh
-                0x0000000000018220                _ZN13CUDTExceptionC1Eiii
-                0x0000000000018280                _ZN13CUDTExceptionC2Eiii
-                0x00000000000182e0                _ZN6CGuard11releaseCondER14pthread_cond_t
-                0x00000000000182f0                _ZN6CGuard10createCondER14pthread_cond_t
-                0x0000000000018300                _ZN6CGuard12releaseMutexER15pthread_mutex_t
-                0x0000000000018310                _ZN6CTimerD1Ev
-                0x0000000000018340                _ZN6CTimerD2Ev
-                0x0000000000018370                _ZN6CGuard11createMutexER15pthread_mutex_t
-                0x0000000000018380                _ZN6CTimerC1Ev
-                0x00000000000183f0                _ZN6CTimerC2Ev
-                0x0000000000018460                _ZN6CGuard7leaveCSER15pthread_mutex_t
-                0x0000000000018470                _ZN6CGuardD1Ev
-                0x0000000000018490                _ZN6CGuardD2Ev
-                0x00000000000184b0                _ZN6CGuard7enterCSER15pthread_mutex_t
-                0x00000000000184c0                _ZN6CGuardC1ER15pthread_mutex_t
-                0x00000000000184f0                _ZN6CGuardC2ER15pthread_mutex_t
-                0x0000000000018520                _ZN6CTimer5sleepEv
-                0x0000000000018530                _ZN6CTimer7getTimeEv
-                0x0000000000018560                _ZN6CTimer12waitForEventEv
-                0x00000000000185f0                _ZN6CTimer7sleeptoERKm
-                0x00000000000186d0                _ZN6CTimer5sleepERKm
-                0x0000000000018720                _ZN6CTimer12triggerEventEv
-                0x0000000000018740                _ZN6CTimer4tickEv
-                0x0000000000018750                _ZN6CTimer9interruptEv
-                0x0000000000018770                _ZN6CTimer16readCPUFrequencyEv
-                0x00000000000187f0                _ZN13CUDTExceptionD0Ev
-                0x00000000000188e0                _ZN13CUDTExceptionD1Ev
-                0x00000000000189c0                _ZN13CUDTExceptionD2Ev
-                0x0000000000018aa0                _ZN13CUDTException15getErrorMessageEv
- *fill*         0x0000000000018fc3        0xd 90909090
- .text          0x0000000000018fd0      0x4f5 packet.o
-                0x0000000000018fd0                _ZN7CPacketC2Ev
-                0x0000000000019040                _ZN7CPacketC1Ev
-                0x00000000000190b0                _ZN7CPacketD2Ev
-                0x00000000000190c0                _ZN7CPacketD1Ev
-                0x00000000000190d0                _ZNK7CPacket9getLengthEv
-                0x00000000000190e0                _ZN7CPacket9setLengthERKi
-                0x00000000000190f0                _ZN7CPacket4packERKiPvS2_S1_
-                0x0000000000019230                _ZN7CPacket15getPacketVectorEv
-                0x0000000000019240                _ZNK7CPacket7getFlagEv
-                0x0000000000019250                _ZNK7CPacket7getTypeEv
-                0x0000000000019260                _ZNK7CPacket15getExtendedTypeEv
-                0x0000000000019270                _ZNK7CPacket11getAckSeqNoEv
-                0x0000000000019280                _ZNK7CPacket14getMsgBoundaryEv
-                0x0000000000019290                _ZNK7CPacket15getMsgOrderFlagEv
-                0x00000000000192a0                _ZNK7CPacket9getMsgSeqEv
-                0x00000000000192b0                _ZN10CHandShakeC2Ev
-                0x0000000000019310                _ZN10CHandShakeC1Ev
-                0x0000000000019370                _ZN10CHandShake9serializeEPcRKi
-                0x00000000000193d0                _ZN10CHandShake11deserializeEPKcRKi
-                0x0000000000019430                _ZNK7CPacket5cloneEv
- *fill*         0x00000000000194c5        0xb 90909090
- .text          0x00000000000194d0     0x4c99 com_barchart_udt_SocketUDT.o
-                0x00000000000194d0                UDT_GetSocketID
-                0x00000000000194f0                UDT_SetSocketID
-                0x0000000000019510                UDT_InitFieldMonitor
-                0x0000000000019980                UDT_InitFieldRefAll
-                0x0000000000019b80                Java_com_barchart_udt_SocketUDT_getSignatureJNI0
-                0x0000000000019b90                Java_com_barchart_udt_SocketUDT_testEmptyCall0
-                0x0000000000019ba0                Java_com_barchart_udt_SocketUDT_testIterateArray0
-                0x0000000000019c00                Java_com_barchart_udt_SocketUDT_testMakeArray0
-                0x0000000000019c20                Java_com_barchart_udt_SocketUDT_testGetSetArray0
-                0x0000000000019ca0                Java_com_barchart_udt_SocketUDT_testFillArray0
-                0x0000000000019e60                Java_com_barchart_udt_SocketUDT_testFillBuffer0
-                0x000000000001a030                Java_com_barchart_udt_SocketUDT_testDirectIntBufferAccess0
-                0x000000000001a0b0                Java_com_barchart_udt_SocketUDT_testDirectByteBufferAccess0
-                0x000000000001a120                Java_com_barchart_udt_SocketUDT_testCrashJVM0
-                0x000000000001a150                UDT_InitMethodRefAll
-                0x000000000001a460                X_InitMethodRef
-                0x000000000001a4d0                XXX_ThrowSocketExceptionMessage
-                0x000000000001a560                X_InitClassReference
-                0x000000000001a610                UDT_InitClassRefAll
-                0x000000000001a770                Java_com_barchart_udt_SocketUDT_clearError0
-                0x000000000001a790                Java_com_barchart_udt_SocketUDT_getErrorMessage0
-                0x000000000001a7f0                Java_com_barchart_udt_SocketUDT_getErrorCode0
-                0x000000000001a810                Java_com_barchart_udt_SocketUDT_testIterateSet0
-                0x000000000001a870                UDT_NewExceptionUDT
-                0x000000000001a920                UDT_ThrowExceptionUDT_ErrorInfo
-                0x000000000001aa00                Java_com_barchart_udt_SocketUDT_testInvalidClose0
-                0x000000000001aa90                Java_com_barchart_udt_SocketUDT_initInstance1
-                0x000000000001ab20                UDT_ThrowExceptionUDT_Message
-                0x000000000001abd0                X_IsValidRange
-                0x000000000001ac40                UDT_NewLingerUDT
-                0x000000000001acd0                X_NewInetAddress
-                0x000000000001adb0                X_NewLong
-                0x000000000001ae10                X_NewInteger
-                0x000000000001ae70                X_NewBoolean
-                0x000000000001aec0                UDT_CopySetToArray
-                0x000000000001af10                Java_com_barchart_udt_SocketUDT_updateMonitor0
-                0x000000000001b3a0                UDT_ReturnSendError
-                0x000000000001b430                Java_com_barchart_udt_SocketUDT_send2
-                0x000000000001b540                Java_com_barchart_udt_SocketUDT_send1
-                0x000000000001b6c0                Java_com_barchart_udt_SocketUDT_send0
-                0x000000000001b7e0                UDT_ReturnReceiveError
-                0x000000000001b870                Java_com_barchart_udt_SocketUDT_receive2
-                0x000000000001b980                Java_com_barchart_udt_SocketUDT_receive1
-                0x000000000001baf0                Java_com_barchart_udt_SocketUDT_receive0
-                0x000000000001bc20                Java_com_barchart_udt_SocketUDT_listen0
-                0x000000000001bcb0                Java_com_barchart_udt_SocketUDT_setOption0
-                0x000000000001bf60                Java_com_barchart_udt_SocketUDT_getOption0
-                0x000000000001c140                UDT_IsSocketOpen
-                0x000000000001c180                Java_com_barchart_udt_SocketUDT_isOpen0
-                0x000000000001c190                Java_com_barchart_udt_SocketUDT_close0
-                0x000000000001c250                Java_com_barchart_udt_SocketUDT_accept0
-                0x000000000001c3e0                Java_com_barchart_udt_SocketUDT_initInstance0
-                0x000000000001c490                Java_com_barchart_udt_SocketUDT_stopClass0
-                0x000000000001c510                Java_com_barchart_udt_SocketUDT_initClass0
-                0x000000000001c5b0                X_IsSockaddrEqualsInetSocketAddress
-                0x000000000001c6e0                X_NewInetSocketAddress
-                0x000000000001c7e0                Java_com_barchart_udt_SocketUDT_hasLoadedLocalSocketAddress
-                0x000000000001c8c0                Java_com_barchart_udt_SocketUDT_hasLoadedRemoteSocketAddress
-                0x000000000001c9a0                X_ConvertSockaddrToInetSocketAddress
-                0x000000000001cab0                X_ConvertInetSocketAddressToSockaddr
-                0x000000000001cbd0                X_InitSockAddr
-                0x000000000001cc20                Java_com_barchart_udt_SocketUDT_connect0
-                0x000000000001cd70                Java_com_barchart_udt_SocketUDT_bind0
-                0x000000000001ce90                UDT_CopyArrayToSet
-                0x000000000001d030                Java_com_barchart_udt_SocketUDT_select0
-                0x000000000001d5f0                Java_com_barchart_udt_SocketUDT_select1
-                0x000000000001d9a0                Java_com_barchart_udt_SocketUDT_selectEx1
-                0x000000000001dbf0                Java_com_barchart_udt_SocketUDT_selectEx0
- *fill*         0x000000000001e169        0x7 90909090
+                0x0000000000019120       0x17 core.o
+                0x0000000000019120                _ZNSt3setIiSt4lessIiESaIiEED1Ev
+ *fill*         0x0000000000019137        0x9 90909090
+ .text          0x0000000000019140     0x1143 common.o
+                0x0000000000019140                _ZN6CTimer5rdtscERm
+                0x0000000000019160                _ZN6CTimer15getCPUFrequencyEv
+                0x0000000000019170                _ZN13CUDTExceptionC2ERKS_
+                0x00000000000191b0                _ZN13CUDTExceptionC1ERKS_
+                0x00000000000191f0                _ZNK13CUDTException12getErrorCodeEv
+                0x0000000000019210                _ZN13CUDTException5clearEv
+                0x0000000000019230                _ZN10CIPAddress5ipcmpEPK8sockaddrS2_RKi
+                0x0000000000019320                _ZN10CIPAddress4ntopEPK8sockaddrPjRKi
+                0x00000000000193d0                _ZN10CIPAddress4ptonEP8sockaddrPKjRKi
+                0x0000000000019460                _ZN4CMD57computeEPKcPh
+                0x00000000000194e0                _ZN13CUDTExceptionC1Eiii
+                0x0000000000019540                _ZN13CUDTExceptionC2Eiii
+                0x00000000000195a0                _ZN6CGuard11releaseCondER14pthread_cond_t
+                0x00000000000195b0                _ZN6CGuard10createCondER14pthread_cond_t
+                0x00000000000195c0                _ZN6CGuard12releaseMutexER15pthread_mutex_t
+                0x00000000000195d0                _ZN6CTimerD1Ev
+                0x0000000000019600                _ZN6CTimerD2Ev
+                0x0000000000019630                _ZN6CGuard11createMutexER15pthread_mutex_t
+                0x0000000000019640                _ZN6CTimerC1Ev
+                0x00000000000196b0                _ZN6CTimerC2Ev
+                0x0000000000019720                _ZN6CGuard7leaveCSER15pthread_mutex_t
+                0x0000000000019730                _ZN6CGuardD1Ev
+                0x0000000000019750                _ZN6CGuardD2Ev
+                0x0000000000019770                _ZN6CGuard7enterCSER15pthread_mutex_t
+                0x0000000000019780                _ZN6CGuardC1ER15pthread_mutex_t
+                0x00000000000197b0                _ZN6CGuardC2ER15pthread_mutex_t
+                0x00000000000197e0                _ZN6CTimer5sleepEv
+                0x00000000000197f0                _ZN6CTimer7getTimeEv
+                0x0000000000019820                _ZN6CTimer12waitForEventEv
+                0x00000000000198b0                _ZN6CTimer7sleeptoERKm
+                0x0000000000019990                _ZN6CTimer5sleepERKm
+                0x00000000000199e0                _ZN6CTimer12triggerEventEv
+                0x0000000000019a00                _ZN6CTimer4tickEv
+                0x0000000000019a10                _ZN6CTimer9interruptEv
+                0x0000000000019a30                _ZN6CTimer16readCPUFrequencyEv
+                0x0000000000019ab0                _ZN13CUDTExceptionD0Ev
+                0x0000000000019ba0                _ZN13CUDTExceptionD1Ev
+                0x0000000000019c80                _ZN13CUDTExceptionD2Ev
+                0x0000000000019d60                _ZN13CUDTException15getErrorMessageEv
+ *fill*         0x000000000001a283        0xd 90909090
+ .text          0x000000000001a290      0x4f5 packet.o
+                0x000000000001a290                _ZN7CPacketC2Ev
+                0x000000000001a300                _ZN7CPacketC1Ev
+                0x000000000001a370                _ZN7CPacketD2Ev
+                0x000000000001a380                _ZN7CPacketD1Ev
+                0x000000000001a390                _ZNK7CPacket9getLengthEv
+                0x000000000001a3a0                _ZN7CPacket9setLengthERKi
+                0x000000000001a3b0                _ZN7CPacket4packERKiPvS2_S1_
+                0x000000000001a4f0                _ZN7CPacket15getPacketVectorEv
+                0x000000000001a500                _ZNK7CPacket7getFlagEv
+                0x000000000001a510                _ZNK7CPacket7getTypeEv
+                0x000000000001a520                _ZNK7CPacket15getExtendedTypeEv
+                0x000000000001a530                _ZNK7CPacket11getAckSeqNoEv
+                0x000000000001a540                _ZNK7CPacket14getMsgBoundaryEv
+                0x000000000001a550                _ZNK7CPacket15getMsgOrderFlagEv
+                0x000000000001a560                _ZNK7CPacket9getMsgSeqEv
+                0x000000000001a570                _ZN10CHandShakeC2Ev
+                0x000000000001a5d0                _ZN10CHandShakeC1Ev
+                0x000000000001a630                _ZN10CHandShake9serializeEPcRKi
+                0x000000000001a690                _ZN10CHandShake11deserializeEPKcRKi
+                0x000000000001a6f0                _ZNK7CPacket5cloneEv
+ *fill*         0x000000000001a785        0xb 90909090
+ .text          0x000000000001a790     0x4c59 com_barchart_udt_SocketUDT.o
+                0x000000000001a790                UDT_GetSocketID
+                0x000000000001a7b0                UDT_SetSocketID
+                0x000000000001a7d0                UDT_InitFieldMonitor
+                0x000000000001ac40                UDT_InitFieldRefAll
+                0x000000000001ae40                Java_com_barchart_udt_SocketUDT_getSignatureJNI0
+                0x000000000001ae50                Java_com_barchart_udt_SocketUDT_testEmptyCall0
+                0x000000000001ae60                Java_com_barchart_udt_SocketUDT_testIterateArray0
+                0x000000000001aec0                Java_com_barchart_udt_SocketUDT_testMakeArray0
+                0x000000000001aee0                Java_com_barchart_udt_SocketUDT_testGetSetArray0
+                0x000000000001af60                Java_com_barchart_udt_SocketUDT_testFillArray0
+                0x000000000001b120                Java_com_barchart_udt_SocketUDT_testFillBuffer0
+                0x000000000001b2f0                Java_com_barchart_udt_SocketUDT_testDirectIntBufferAccess0
+                0x000000000001b370                Java_com_barchart_udt_SocketUDT_testDirectByteBufferAccess0
+                0x000000000001b3e0                Java_com_barchart_udt_SocketUDT_testCrashJVM0
+                0x000000000001b410                UDT_InitMethodRefAll
+                0x000000000001b720                X_InitMethodRef
+                0x000000000001b790                XXX_ThrowSocketExceptionMessage
+                0x000000000001b820                X_InitClassReference
+                0x000000000001b8d0                UDT_InitClassRefAll
+                0x000000000001ba30                Java_com_barchart_udt_SocketUDT_clearError0
+                0x000000000001ba50                Java_com_barchart_udt_SocketUDT_getErrorMessage0
+                0x000000000001bab0                Java_com_barchart_udt_SocketUDT_getErrorCode0
+                0x000000000001bad0                Java_com_barchart_udt_SocketUDT_testIterateSet0
+                0x000000000001bb30                UDT_NewExceptionUDT
+                0x000000000001bbe0                UDT_ThrowExceptionUDT_ErrorInfo
+                0x000000000001bcc0                Java_com_barchart_udt_SocketUDT_testInvalidClose0
+                0x000000000001bd50                Java_com_barchart_udt_SocketUDT_initInstance1
+                0x000000000001bde0                UDT_ThrowExceptionUDT_Message
+                0x000000000001be90                X_IsValidRange
+                0x000000000001bf00                UDT_NewLingerUDT
+                0x000000000001bf90                X_NewInetAddress
+                0x000000000001c070                X_NewLong
+                0x000000000001c0d0                X_NewInteger
+                0x000000000001c130                X_NewBoolean
+                0x000000000001c180                UDT_CopySetToArray
+                0x000000000001c1d0                Java_com_barchart_udt_SocketUDT_updateMonitor0
+                0x000000000001c660                UDT_ReturnSendError
+                0x000000000001c6f0                Java_com_barchart_udt_SocketUDT_send2
+                0x000000000001c800                Java_com_barchart_udt_SocketUDT_send1
+                0x000000000001c980                Java_com_barchart_udt_SocketUDT_send0
+                0x000000000001caa0                UDT_ReturnReceiveError
+                0x000000000001cb30                Java_com_barchart_udt_SocketUDT_receive2
+                0x000000000001cc40                Java_com_barchart_udt_SocketUDT_receive1
+                0x000000000001cdb0                Java_com_barchart_udt_SocketUDT_receive0
+                0x000000000001cee0                Java_com_barchart_udt_SocketUDT_listen0
+                0x000000000001cf70                Java_com_barchart_udt_SocketUDT_setOption0
+                0x000000000001d220                Java_com_barchart_udt_SocketUDT_getOption0
+                0x000000000001d400                UDT_IsSocketOpen
+                0x000000000001d440                Java_com_barchart_udt_SocketUDT_isOpen0
+                0x000000000001d450                Java_com_barchart_udt_SocketUDT_close0
+                0x000000000001d510                Java_com_barchart_udt_SocketUDT_accept0
+                0x000000000001d6a0                Java_com_barchart_udt_SocketUDT_initInstance0
+                0x000000000001d750                Java_com_barchart_udt_SocketUDT_stopClass0
+                0x000000000001d7d0                Java_com_barchart_udt_SocketUDT_initClass0
+                0x000000000001d870                X_IsSockaddrEqualsInetSocketAddress
+                0x000000000001d9a0                X_NewInetSocketAddress
+                0x000000000001daa0                Java_com_barchart_udt_SocketUDT_hasLoadedLocalSocketAddress
+                0x000000000001db80                Java_com_barchart_udt_SocketUDT_hasLoadedRemoteSocketAddress
+                0x000000000001dc60                X_ConvertSockaddrToInetSocketAddress
+                0x000000000001dd70                X_ConvertInetSocketAddressToSockaddr
+                0x000000000001de90                X_InitSockAddr
+                0x000000000001dee0                Java_com_barchart_udt_SocketUDT_connect0
+                0x000000000001e030                Java_com_barchart_udt_SocketUDT_bind0
+                0x000000000001e150                UDT_CopyArrayToSet
+                0x000000000001e2b0                Java_com_barchart_udt_SocketUDT_select0
+                0x000000000001e870                Java_com_barchart_udt_SocketUDT_select1
+                0x000000000001ec20                Java_com_barchart_udt_SocketUDT_selectEx1
+                0x000000000001ee70                Java_com_barchart_udt_SocketUDT_selectEx0
+ *fill*         0x000000000001f3e9        0x7 90909090
  .text._ZN7JNIEnv_16CallObjectMethodEP8_jobjectP10_jmethodIDz
-                0x000000000001e170       0x9a com_barchart_udt_SocketUDT.o
-                0x000000000001e170                _ZN7JNIEnv_16CallObjectMethodEP8_jobjectP10_jmethodIDz
- *fill*         0x000000000001e20a        0x6 90909090
+                0x000000000001f3f0       0x9a com_barchart_udt_SocketUDT.o
+                0x000000000001f3f0                _ZN7JNIEnv_16CallObjectMethodEP8_jobjectP10_jmethodIDz
+ *fill*         0x000000000001f48a        0x6 90909090
  .text._ZN7JNIEnv_17CallBooleanMethodEP8_jobjectP10_jmethodIDz
-                0x000000000001e210       0x9a com_barchart_udt_SocketUDT.o
-                0x000000000001e210                _ZN7JNIEnv_17CallBooleanMethodEP8_jobjectP10_jmethodIDz
- *fill*         0x000000000001e2aa        0x6 90909090
+                0x000000000001f490       0x9a com_barchart_udt_SocketUDT.o
+                0x000000000001f490                _ZN7JNIEnv_17CallBooleanMethodEP8_jobjectP10_jmethodIDz
+ *fill*         0x000000000001f52a        0x6 90909090
  .text._ZN7JNIEnv_13CallIntMethodEP8_jobjectP10_jmethodIDz
-                0x000000000001e2b0       0x9a com_barchart_udt_SocketUDT.o
-                0x000000000001e2b0                _ZN7JNIEnv_13CallIntMethodEP8_jobjectP10_jmethodIDz
- *fill*         0x000000000001e34a        0x6 90909090
+                0x000000000001f530       0x9a com_barchart_udt_SocketUDT.o
+                0x000000000001f530                _ZN7JNIEnv_13CallIntMethodEP8_jobjectP10_jmethodIDz
+ *fill*         0x000000000001f5ca        0x6 90909090
  .text._ZN7JNIEnv_14CallLongMethodEP8_jobjectP10_jmethodIDz
-                0x000000000001e350       0x9a com_barchart_udt_SocketUDT.o
-                0x000000000001e350                _ZN7JNIEnv_14CallLongMethodEP8_jobjectP10_jmethodIDz
- *fill*         0x000000000001e3ea        0x6 90909090
+                0x000000000001f5d0       0x9a com_barchart_udt_SocketUDT.o
+                0x000000000001f5d0                _ZN7JNIEnv_14CallLongMethodEP8_jobjectP10_jmethodIDz
+ *fill*         0x000000000001f66a        0x6 90909090
  .text._ZN7JNIEnv_9NewObjectEP7_jclassP10_jmethodIDz
-                0x000000000001e3f0       0x9a com_barchart_udt_SocketUDT.o
-                0x000000000001e3f0                _ZN7JNIEnv_9NewObjectEP7_jclassP10_jmethodIDz
- *fill*         0x000000000001e48a        0x6 90909090
+                0x000000000001f670       0x9a com_barchart_udt_SocketUDT.o
+                0x000000000001f670                _ZN7JNIEnv_9NewObjectEP7_jclassP10_jmethodIDz
+ *fill*         0x000000000001f70a        0x6 90909090
  .text._ZNSt6vectorIiSaIiEED1Ev
-                0x000000000001e490       0x1a com_barchart_udt_SocketUDT.o
-                0x000000000001e490                _ZNSt6vectorIiSaIiEED1Ev
- *fill*         0x000000000001e4aa        0x6 90909090
+                0x000000000001f710       0x1a com_barchart_udt_SocketUDT.o
+                0x000000000001f710                _ZNSt6vectorIiSaIiEED1Ev
+ *fill*         0x000000000001f72a        0x6 90909090
  .text._ZNSt6vectorIiSaIiEE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPiS1_EERKi
-                0x000000000001e4b0      0x175 com_barchart_udt_SocketUDT.o
-                0x000000000001e4b0                _ZNSt6vectorIiSaIiEE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPiS1_EERKi
- *fill*         0x000000000001e625        0xb 90909090
- .text          0x000000000001e630     0x8732 api.o
-                0x000000000001e630                _ZN10CUDTUnited6locateEi
-                0x000000000001e6c0                _ZN10CUDTUnited9getStatusEi
-                0x000000000001e760                _ZN10CUDTUnited9updateMuxEP10CUDTSocketPKS0_
-                0x000000000001e850                _ZN10CUDTUnited8getErrorEv
-                0x000000000001e8e0                _ZN4CUDT12getlasterrorEv
-                0x000000000001e900                _ZN3UDT12getlasterrorEv
-                0x000000000001e910                _ZN10CUDTUnited8setErrorEP13CUDTException
-                0x000000000001e960                _ZN10CUDTUnited6locateEiPK8sockaddrRKiS4_
-                0x000000000001eac0                _ZN10CUDTUnited13epoll_releaseEi
-                0x000000000001eae0                _ZN4CUDT13epoll_releaseEi
-                0x000000000001ec20                _ZN3UDT13epoll_releaseEi
-                0x000000000001ec30                _ZN10CUDTUnited10epoll_waitEiPSt3setIiSt4lessIiESaIiEES5_lS5_S5_
-                0x000000000001ec50                _ZN4CUDT10epoll_waitEiPSt3setIiSt4lessIiESaIiEES5_lS5_S5_
-                0x000000000001eda0                _ZN3UDT10epoll_waitEiPSt3setIiSt4lessIiESaIiEES5_lS5_S5_
-                0x000000000001edb0                _ZN10CUDTUnited18epoll_remove_ssockEiiPKi
-                0x000000000001edd0                _ZN4CUDT18epoll_remove_ssockEiiPKi
-                0x000000000001ef20                _ZN10CUDTUnited18epoll_remove_usockEiiPKi
-                0x000000000001efd0                _ZN4CUDT18epoll_remove_usockEiiPKi
-                0x000000000001f120                _ZN3UDT18epoll_remove_ssockEiiPKi
-                0x000000000001f130                _ZN3UDT18epoll_remove_usockEiiPKi
-                0x000000000001f140                _ZN10CUDTUnited6lookupEi
-                0x000000000001f230                _ZN4CUDT12getUDTHandleEi
-                0x000000000001f260                _ZN4CUDT7perfmonEiP8CPerfMonb
-                0x000000000001f3c0                _ZN3UDT7perfmonEiP8CPerfMonb
-                0x000000000001f3d0                _ZN4CUDT8recvfileEiRSt13basic_fstreamIcSt11char_traitsIcEERlRKlRKi
-                0x000000000001f540                _ZN3UDT8recvfileEiRSt13basic_fstreamIcSt11char_traitsIcEERlli
-                0x000000000001f560                _ZN4CUDT8sendfileEiRSt13basic_fstreamIcSt11char_traitsIcEERlRKlRKi
-                0x000000000001f740                _ZN3UDT8sendfileEiRSt13basic_fstreamIcSt11char_traitsIcEERlli
-                0x000000000001f760                _ZN4CUDT7recvmsgEiPci
-                0x000000000001f8c0                _ZN3UDT7recvmsgEiPci
-                0x000000000001f8d0                _ZN4CUDT7sendmsgEiPKciib
-                0x000000000001faa0                _ZN3UDT7sendmsgEiPKciib
-                0x000000000001fab0                _ZN4CUDT4recvEiPcii
-                0x000000000001fc10                _ZN3UDT4recvEiPcii
-                0x000000000001fc20                _ZN4CUDT4sendEiPKcii
-                0x000000000001fde0                _ZN3UDT4sendEiPKcii
-                0x000000000001fdf0                _ZN4CUDT10setsockoptEii6UDTOptPKvi
-                0x000000000001ff50                _ZN3UDT10setsockoptEii6UDTOptPKvi
-                0x000000000001ff60                _ZN4CUDT10getsockoptEii6UDTOptPvPi
-                0x00000000000200c0                _ZN3UDT10getsockoptEii6UDTOptPvPi
-                0x00000000000200d0                _ZN10CUDTUnited15epoll_add_ssockEiiPKi
-                0x00000000000200f0                _ZN4CUDT15epoll_add_ssockEiiPKi
-                0x0000000000020240                _ZN3UDT15epoll_add_ssockEiiPKi
-                0x0000000000020250                _ZN10CUDTUnited15epoll_add_usockEiiPKi
-                0x0000000000020300                _ZN4CUDT15epoll_add_usockEiiPKi
-                0x0000000000020450                _ZN3UDT15epoll_add_usockEiiPKi
-                0x0000000000020460                _ZN10CUDTUnited12epoll_createEv
-                0x0000000000020480                _ZN4CUDT12epoll_createEv
-                0x00000000000205c0                _ZN3UDT12epoll_createEv
-                0x00000000000205d0                _ZN10CUDTUnited11getsocknameEiP8sockaddrPi
-                0x00000000000206e0                _ZN4CUDT11getsocknameEiP8sockaddrPi
-                0x0000000000020830                _ZN3UDT11getsocknameEiP8sockaddrPi
-                0x0000000000020840                _ZN10CUDTUnited11getpeernameEiP8sockaddrPi
-                0x0000000000020990                _ZN4CUDT11getpeernameEiP8sockaddrPi
-                0x0000000000020ae0                _ZN3UDT11getpeernameEiP8sockaddrPi
-                0x0000000000020af0                _ZN10CUDTUnited7cleanupEv
-                0x0000000000020bb0                _ZN4CUDT7cleanupEv
-                0x0000000000020bd0                _ZN3UDT7cleanupEv
-                0x0000000000020be0                _ZN10CUDTSocketC1Ev
-                0x0000000000020cc0                _ZN10CUDTSocketC2Ev
-                0x0000000000020da0                _ZN10CUDTUnited7startupEv
-                0x0000000000020e60                _ZN4CUDT7startupEv
-                0x0000000000020e80                _ZN3UDT7startupEv
-                0x0000000000020e90                _ZN10CUDTUnited6listenEiRKi
-                0x00000000000210b0                _ZN4CUDT6listenEii
-                0x0000000000021230                _ZN3UDT6listenEii
-                0x0000000000021240                _ZN10CUDTSocketD1Ev
-                0x00000000000212e0                _ZN10CUDTSocketD2Ev
-                0x0000000000021380                _ZN10CUDTUnited8selectExERKSt6vectorIiSaIiEEPS2_S5_S5_l
-                0x0000000000021600                _ZN4CUDT8selectExERKSt6vectorIiSaIiEEPS2_S5_S5_l
-                0x0000000000021820                _ZN3UDT8selectExERKSt6vectorIiSaIiEEPS2_S5_S5_l
-                0x0000000000021830                _ZN10CUDTUnited6selectEPSt3setIiSt4lessIiESaIiEES5_S5_PK7timeval
-                0x0000000000022690                _ZN4CUDT6selectEiPSt3setIiSt4lessIiESaIiEES5_S5_PK7timeval
-                0x00000000000228a0                _ZN3UDT6selectEiPSt3setIiSt4lessIiESaIiEES5_S5_PK7timeval
-                0x00000000000228b0                _ZN10CUDTUnited6acceptEiP8sockaddrPi
-                0x0000000000022c50                _ZN4CUDT6acceptEiP8sockaddrPi
-                0x0000000000022d60                _ZN3UDT6acceptEiP8sockaddrPi
-                0x0000000000022d70                _ZN10CUDTUnited13newConnectionEiPK8sockaddrP10CHandShake
-                0x0000000000023380                _ZN10CUDTUnited12removeSocketEi
-                0x0000000000023cf0                _ZN10CUDTUnited18checkBrokenSocketsEv
-                0x0000000000024610                _ZN10CUDTUnited14garbageCollectEPv
-                0x0000000000024ca0                _ZN10CUDTUnited5closeEi
-                0x0000000000024f70                _ZN4CUDT5closeEi
-                0x00000000000250b0                _ZN3UDT5closeEi
-                0x00000000000250c0                _ZN10CUDTUnited9newSocketERKiS1_
-                0x00000000000253c0                _ZN4CUDT6socketEiii
-                0x0000000000025560                _ZN3UDT6socketEiii
-                0x0000000000025570                _ZN10CUDTUnited9updateMuxEP10CUDTSocketPK8sockaddrPKi
-                0x0000000000025a50                _ZN10CUDTUnited4bindEiPK8sockaddrRKi
-                0x0000000000025bd0                _ZN4CUDT4bindEiPK8sockaddri
-                0x0000000000025d50                _ZN3UDT4bindEiPK8sockaddri
-                0x0000000000025d60                _ZN10CUDTUnited7connectEiPK8sockaddrRKi
-                0x0000000000025fb0                _ZN4CUDT7connectEiPK8sockaddri
-                0x0000000000026170                _ZN3UDT7connectEiPK8sockaddri
-                0x0000000000026180                _ZN10CUDTUnited4bindEii
-                0x0000000000026320                _ZN4CUDT4bindEii
-                0x00000000000264a0                _ZN3UDT4bindEii
-                0x00000000000264b0                _ZN10CUDTUnitedC1Ev
-                0x00000000000267e0                _ZN10CUDTUnitedD2Ev
-                0x0000000000026910                _ZN10CUDTUnitedC2Ev
-                0x0000000000026c40                _ZN10CUDTUnitedD1Ev
- *fill*         0x0000000000026d62        0xe 90909090
+                0x000000000001f730      0x175 com_barchart_udt_SocketUDT.o
+                0x000000000001f730                _ZNSt6vectorIiSaIiEE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPiS1_EERKi
+ *fill*         0x000000000001f8a5        0xb 90909090
+ .text          0x000000000001f8b0     0x8392 api.o
+                0x000000000001f8b0                _ZN10CUDTUnited6locateEi
+                0x000000000001f940                _ZN10CUDTUnited9getStatusEi
+                0x000000000001f9e0                _ZN10CUDTUnited9updateMuxEP10CUDTSocketPKS0_
+                0x000000000001fad0                _ZN10CUDTUnited8getErrorEv
+                0x000000000001fb60                _ZN4CUDT12getlasterrorEv
+                0x000000000001fb80                _ZN3UDT12getlasterrorEv
+                0x000000000001fb90                _ZN10CUDTUnited8setErrorEP13CUDTException
+                0x000000000001fbe0                _ZN10CUDTUnited6locateEiPK8sockaddrRKiS4_
+                0x000000000001fd40                _ZN10CUDTUnited13epoll_releaseEi
+                0x000000000001fd60                _ZN4CUDT13epoll_releaseEi
+                0x000000000001fe90                _ZN3UDT13epoll_releaseEi
+                0x000000000001fea0                _ZN10CUDTUnited10epoll_waitEiPSt3setIiSt4lessIiESaIiEES5_lS5_S5_
+                0x000000000001fec0                _ZN4CUDT10epoll_waitEiPSt3setIiSt4lessIiESaIiEES5_lS5_S5_
+                0x0000000000020000                _ZN3UDT10epoll_waitEiPSt3setIiSt4lessIiESaIiEES5_lS5_S5_
+                0x0000000000020010                _ZN10CUDTUnited18epoll_remove_ssockEiiPKi
+                0x0000000000020030                _ZN4CUDT18epoll_remove_ssockEiiPKi
+                0x0000000000020160                _ZN10CUDTUnited18epoll_remove_usockEiiPKi
+                0x0000000000020210                _ZN4CUDT18epoll_remove_usockEiiPKi
+                0x0000000000020340                _ZN3UDT18epoll_remove_ssockEiiPKi
+                0x0000000000020350                _ZN3UDT18epoll_remove_usockEiiPKi
+                0x0000000000020360                _ZN10CUDTUnited6lookupEi
+                0x0000000000020450                _ZN4CUDT12getUDTHandleEi
+                0x0000000000020480                _ZN4CUDT7perfmonEiP8CPerfMonb
+                0x00000000000205c0                _ZN3UDT7perfmonEiP8CPerfMonb
+                0x00000000000205d0                _ZN4CUDT8recvfileEiRSt13basic_fstreamIcSt11char_traitsIcEERlRKlRKi
+                0x0000000000020730                _ZN3UDT8recvfileEiRSt13basic_fstreamIcSt11char_traitsIcEERlli
+                0x0000000000020750                _ZN4CUDT8sendfileEiRSt13basic_fstreamIcSt11char_traitsIcEERlRKlRKi
+                0x0000000000020900                _ZN3UDT8sendfileEiRSt13basic_fstreamIcSt11char_traitsIcEERlli
+                0x0000000000020920                _ZN4CUDT7recvmsgEiPci
+                0x0000000000020a60                _ZN3UDT7recvmsgEiPci
+                0x0000000000020a70                _ZN4CUDT7sendmsgEiPKciib
+                0x0000000000020c20                _ZN3UDT7sendmsgEiPKciib
+                0x0000000000020c30                _ZN4CUDT4recvEiPcii
+                0x0000000000020d70                _ZN3UDT4recvEiPcii
+                0x0000000000020d80                _ZN4CUDT4sendEiPKcii
+                0x0000000000020f20                _ZN3UDT4sendEiPKcii
+                0x0000000000020f30                _ZN4CUDT10setsockoptEii6UDTOptPKvi
+                0x0000000000021080                _ZN3UDT10setsockoptEii6UDTOptPKvi
+                0x0000000000021090                _ZN4CUDT10getsockoptEii6UDTOptPvPi
+                0x00000000000211e0                _ZN3UDT10getsockoptEii6UDTOptPvPi
+                0x00000000000211f0                _ZN10CUDTUnited15epoll_add_ssockEiiPKi
+                0x0000000000021210                _ZN4CUDT15epoll_add_ssockEiiPKi
+                0x0000000000021340                _ZN3UDT15epoll_add_ssockEiiPKi
+                0x0000000000021350                _ZN10CUDTUnited15epoll_add_usockEiiPKi
+                0x0000000000021400                _ZN4CUDT15epoll_add_usockEiiPKi
+                0x0000000000021530                _ZN3UDT15epoll_add_usockEiiPKi
+                0x0000000000021540                _ZN10CUDTUnited12epoll_createEv
+                0x0000000000021560                _ZN4CUDT12epoll_createEv
+                0x0000000000021690                _ZN3UDT12epoll_createEv
+                0x00000000000216a0                _ZN10CUDTUnited11getsocknameEiP8sockaddrPi
+                0x00000000000217b0                _ZN4CUDT11getsocknameEiP8sockaddrPi
+                0x00000000000218e0                _ZN3UDT11getsocknameEiP8sockaddrPi
+                0x00000000000218f0                _ZN10CUDTUnited11getpeernameEiP8sockaddrPi
+                0x0000000000021a40                _ZN4CUDT11getpeernameEiP8sockaddrPi
+                0x0000000000021b70                _ZN3UDT11getpeernameEiP8sockaddrPi
+                0x0000000000021b80                _ZN10CUDTUnited7cleanupEv
+                0x0000000000021c40                _ZN4CUDT7cleanupEv
+                0x0000000000021c60                _ZN3UDT7cleanupEv
+                0x0000000000021c70                _ZN10CUDTSocketC1Ev
+                0x0000000000021d50                _ZN10CUDTSocketC2Ev
+                0x0000000000021e30                _ZN10CUDTUnited7startupEv
+                0x0000000000021ef0                _ZN4CUDT7startupEv
+                0x0000000000021f10                _ZN3UDT7startupEv
+                0x0000000000021f20                _ZN10CUDTUnited6listenEiRKi
+                0x0000000000022140                _ZN4CUDT6listenEii
+                0x0000000000022280                _ZN3UDT6listenEii
+                0x0000000000022290                _ZN10CUDTSocketD1Ev
+                0x0000000000022330                _ZN10CUDTSocketD2Ev
+                0x00000000000223d0                _ZN10CUDTUnited8selectExERKSt6vectorIiSaIiEEPS2_S5_S5_l
+                0x0000000000022650                _ZN4CUDT8selectExERKSt6vectorIiSaIiEEPS2_S5_S5_l
+                0x0000000000022850                _ZN3UDT8selectExERKSt6vectorIiSaIiEEPS2_S5_S5_l
+                0x0000000000022860                _ZN10CUDTUnited6selectEPSt3setIiSt4lessIiESaIiEES5_S5_PK7timeval
+                0x00000000000236d0                _ZN4CUDT6selectEiPSt3setIiSt4lessIiESaIiEES5_S5_PK7timeval
+                0x00000000000238c0                _ZN3UDT6selectEiPSt3setIiSt4lessIiESaIiEES5_S5_PK7timeval
+                0x00000000000238d0                _ZN10CUDTUnited6acceptEiP8sockaddrPi
+                0x0000000000023c70                _ZN4CUDT6acceptEiP8sockaddrPi
+                0x0000000000023d50                _ZN3UDT6acceptEiP8sockaddrPi
+                0x0000000000023d60                _ZN10CUDTUnited13newConnectionEiPK8sockaddrP10CHandShake
+                0x0000000000024370                _ZN10CUDTUnited12removeSocketEi
+                0x0000000000024ce0                _ZN10CUDTUnited18checkBrokenSocketsEv
+                0x0000000000025600                _ZN10CUDTUnited14garbageCollectEPv
+                0x0000000000025c90                _ZN10CUDTUnited5closeEi
+                0x0000000000025f60                _ZN4CUDT5closeEi
+                0x0000000000026090                _ZN3UDT5closeEi
+                0x00000000000260a0                _ZN10CUDTUnited9newSocketERKiS1_
+                0x00000000000263a0                _ZN4CUDT6socketEiii
+                0x0000000000026500                _ZN3UDT6socketEiii
+                0x0000000000026510                _ZN10CUDTUnited9updateMuxEP10CUDTSocketPK8sockaddrPKi
+                0x00000000000269f0                _ZN10CUDTUnited4bindEiPK8sockaddrRKi
+                0x0000000000026b70                _ZN4CUDT4bindEiPK8sockaddri
+                0x0000000000026cb0                _ZN3UDT4bindEiPK8sockaddri
+                0x0000000000026cc0                _ZN10CUDTUnited7connectEiPK8sockaddrRKi
+                0x0000000000026f10                _ZN4CUDT7connectEiPK8sockaddri
+                0x00000000000270a0                _ZN3UDT7connectEiPK8sockaddri
+                0x00000000000270b0                _ZN10CUDTUnited4bindEii
+                0x0000000000027250                _ZN4CUDT4bindEii
+                0x0000000000027380                _ZN3UDT4bindEii
+                0x0000000000027390                _ZN10CUDTUnitedC1Ev
+                0x00000000000276c0                _ZN10CUDTUnitedD2Ev
+                0x00000000000277f0                _ZN10CUDTUnitedC2Ev
+                0x0000000000027b20                _ZN10CUDTUnitedD1Ev
+ *fill*         0x0000000000027c42        0xe 90909090
  .text._ZN10CUDTUnited10TLSDestroyEPv
-                0x0000000000026d70       0x1a api.o
-                0x0000000000026d70                _ZN10CUDTUnited10TLSDestroyEPv
- *fill*         0x0000000000026d8a        0x6 90909090
+                0x0000000000027c50       0x1a api.o
+                0x0000000000027c50                _ZN10CUDTUnited10TLSDestroyEPv
+ *fill*         0x0000000000027c6a        0x6 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE10_M_insert_EPKSt18_Rb_tree_node_baseSD_RKS4_
-                0x0000000000026d90       0xa4 api.o
-                0x0000000000026d90                _ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE10_M_insert_EPKSt18_Rb_tree_node_baseSD_RKS4_
- *fill*         0x0000000000026e34        0xc 90909090
+                0x0000000000027c70       0xa4 api.o
+                0x0000000000027c70                _ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE10_M_insert_EPKSt18_Rb_tree_node_baseSD_RKS4_
+ *fill*         0x0000000000027d14        0xc 90909090
  .text._ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE10_M_insert_EPKSt18_Rb_tree_node_baseS8_RKi
-                0x0000000000026e40       0x9b api.o
-                0x0000000000026e40                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE10_M_insert_EPKSt18_Rb_tree_node_baseS8_RKi
- *fill*         0x0000000000026edb        0x5 90909090
+                0x0000000000027d20       0x9b api.o
+                0x0000000000027d20                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE10_M_insert_EPKSt18_Rb_tree_node_baseS8_RKi
+ *fill*         0x0000000000027dbb        0x5 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE10_M_insert_EPKSt18_Rb_tree_node_baseSC_RKS3_
-                0x0000000000026ee0       0xdb api.o
-                0x0000000000026ee0                _ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE10_M_insert_EPKSt18_Rb_tree_node_baseSC_RKS3_
- *fill*         0x0000000000026fbb        0x5 90909090
+                0x0000000000027dc0       0xdb api.o
+                0x0000000000027dc0                _ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE10_M_insert_EPKSt18_Rb_tree_node_baseSC_RKS3_
+ *fill*         0x0000000000027e9b        0x5 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE8_M_eraseEPSt13_Rb_tree_nodeIS3_E
-                0x0000000000026fc0      0x1b1 api.o
-                0x0000000000026fc0                _ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE8_M_eraseEPSt13_Rb_tree_nodeIS3_E
- *fill*         0x0000000000027171        0xf 90909090
+                0x0000000000027ea0      0x1b1 api.o
+                0x0000000000027ea0                _ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE8_M_eraseEPSt13_Rb_tree_nodeIS3_E
+ *fill*         0x0000000000028051        0xf 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE8_M_eraseEPSt13_Rb_tree_nodeIS4_E
-                0x0000000000027180      0x1b1 api.o
-                0x0000000000027180                _ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE8_M_eraseEPSt13_Rb_tree_nodeIS4_E
- *fill*         0x0000000000027331        0xf 90909090
+                0x0000000000028060      0x1b1 api.o
+                0x0000000000028060                _ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE8_M_eraseEPSt13_Rb_tree_nodeIS4_E
+ *fill*         0x0000000000028211        0xf 90909090
  .text._ZNSt3mapIiP10CUDTSocketSt4lessIiESaISt4pairIKiS1_EEED1Ev
-                0x0000000000027340       0x17 api.o
-                0x0000000000027340                _ZNSt3mapIiP10CUDTSocketSt4lessIiESaISt4pairIKiS1_EEED1Ev
- *fill*         0x0000000000027357        0x9 90909090
+                0x0000000000028220       0x17 api.o
+                0x0000000000028220                _ZNSt3mapIiP10CUDTSocketSt4lessIiESaISt4pairIKiS1_EEED1Ev
+ *fill*         0x0000000000028237        0x9 90909090
  .text._ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE7_M_copyEPKSt13_Rb_tree_nodeIiEPS7_
-                0x0000000000027360      0x114 api.o
-                0x0000000000027360                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE7_M_copyEPKSt13_Rb_tree_nodeIiEPS7_
- *fill*         0x0000000000027474        0xc 90909090
+                0x0000000000028240      0x114 api.o
+                0x0000000000028240                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE7_M_copyEPKSt13_Rb_tree_nodeIiEPS7_
+ *fill*         0x0000000000028354        0xc 90909090
  .text._ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE10_M_insert_EPKSt18_Rb_tree_node_baseSF_RKS7_
-                0x0000000000027480      0x12a api.o
-                0x0000000000027480                _ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE10_M_insert_EPKSt18_Rb_tree_node_baseSF_RKS7_
- *fill*         0x00000000000275aa        0x6 90909090
+                0x0000000000028360      0x12a api.o
+                0x0000000000028360                _ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE10_M_insert_EPKSt18_Rb_tree_node_baseSF_RKS7_
+ *fill*         0x000000000002848a        0x6 90909090
  .text._ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE16_M_insert_uniqueERKS7_
-                0x00000000000275b0       0xa9 api.o
-                0x00000000000275b0                _ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE16_M_insert_uniqueERKS7_
- *fill*         0x0000000000027659        0x7 90909090
+                0x0000000000028490       0xa9 api.o
+                0x0000000000028490                _ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE16_M_insert_uniqueERKS7_
+ *fill*         0x0000000000028539        0x7 90909090
  .text._ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS7_ERKS7_
-                0x0000000000027660      0x145 api.o
-                0x0000000000027660                _ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS7_ERKS7_
- *fill*         0x00000000000277a5        0xb 90909090
+                0x0000000000028540      0x145 api.o
+                0x0000000000028540                _ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS7_ERKS7_
+ *fill*         0x0000000000028685        0xb 90909090
  .text._ZNSt3setIiSt4lessIiESaIiEE5eraseERKi
-                0x00000000000277b0      0x182 api.o
-                0x00000000000277b0                _ZNSt3setIiSt4lessIiESaIiEE5eraseERKi
- *fill*         0x0000000000027932        0xe 90909090
+                0x0000000000028690      0x182 api.o
+                0x0000000000028690                _ZNSt3setIiSt4lessIiESaIiEE5eraseERKi
+ *fill*         0x0000000000028812        0xe 90909090
  .text._ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE8_M_eraseEPSt13_Rb_tree_nodeIS7_E
-                0x0000000000027940      0x285 api.o
-                0x0000000000027940                _ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE8_M_eraseEPSt13_Rb_tree_nodeIS7_E
- *fill*         0x0000000000027bc5        0xb 90909090
+                0x0000000000028820      0x285 api.o
+                0x0000000000028820                _ZNSt8_Rb_treeIlSt4pairIKlSt3setIiSt4lessIiESaIiEEESt10_Select1stIS7_ES3_IlESaIS7_EE8_M_eraseEPSt13_Rb_tree_nodeIS7_E
+ *fill*         0x0000000000028aa5        0xb 90909090
  .text._ZNSt6vectorIP10CUDTSocketSaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
-                0x0000000000027bd0      0x176 api.o
-                0x0000000000027bd0                _ZNSt6vectorIP10CUDTSocketSaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
- *fill*         0x0000000000027d46        0xa 90909090
+                0x0000000000028ab0      0x176 api.o
+                0x0000000000028ab0                _ZNSt6vectorIP10CUDTSocketSaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
+ *fill*         0x0000000000028c26        0xa 90909090
  .text._ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE16_M_insert_uniqueERKi
-                0x0000000000027d50      0x11b api.o
-                0x0000000000027d50                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE16_M_insert_uniqueERKi
- *fill*         0x0000000000027e6b        0x5 90909090
+                0x0000000000028c30      0x11b api.o
+                0x0000000000028c30                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE16_M_insert_uniqueERKi
+ *fill*         0x0000000000028d4b        0x5 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE16_M_insert_uniqueERKS4_
-                0x0000000000027e70      0x124 api.o
-                0x0000000000027e70                _ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE16_M_insert_uniqueERKS4_
- *fill*         0x0000000000027f94        0xc 90909090
+                0x0000000000028d50      0x124 api.o
+                0x0000000000028d50                _ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE16_M_insert_uniqueERKS4_
+ *fill*         0x0000000000028e74        0xc 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE16_M_insert_uniqueERKS3_
-                0x0000000000027fa0      0x158 api.o
-                0x0000000000027fa0                _ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE16_M_insert_uniqueERKS3_
- *fill*         0x00000000000280f8        0x8 90909090
+                0x0000000000028e80      0x158 api.o
+                0x0000000000028e80                _ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE16_M_insert_uniqueERKS3_
+ *fill*         0x0000000000028fd8        0x8 90909090
  .text._ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIiERKi
-                0x0000000000028100      0x185 api.o
-                0x0000000000028100                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIiERKi
- *fill*         0x0000000000028285        0xb 90909090
+                0x0000000000028fe0      0x185 api.o
+                0x0000000000028fe0                _ZNSt8_Rb_treeIiiSt9_IdentityIiESt4lessIiESaIiEE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIiERKi
+ *fill*         0x0000000000029165        0xb 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS4_ERKS4_
-                0x0000000000028290      0x1a5 api.o
-                0x0000000000028290                _ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS4_ERKS4_
- *fill*         0x0000000000028435        0xb 90909090
+                0x0000000000029170      0x1a5 api.o
+                0x0000000000029170                _ZNSt8_Rb_treeIiSt4pairIKiP10CUDTSocketESt10_Select1stIS4_ESt4lessIiESaIS4_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS4_ERKS4_
+ *fill*         0x0000000000029315        0xb 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS3_ERKS3_
-                0x0000000000028440      0x215 api.o
-                0x0000000000028440                _ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS3_ERKS3_
- *fill*         0x0000000000028655        0xb 90909090
- .text          0x0000000000028660      0x9f7 ccc.o
-                0x0000000000028660                _ZN3CCCC2Ev
-                0x0000000000028710                _ZN3CCCC1Ev
-                0x00000000000287c0                _ZN3CCC11setACKTimerERKi
-                0x00000000000287e0                _ZN3CCC14setACKIntervalERKi
-                0x00000000000287f0                _ZN3CCC6setRTOERKi
-                0x0000000000028800                _ZN3CCC6setMSSERKi
-                0x0000000000028810                _ZN3CCC12setBandwidthERKi
-                0x0000000000028820                _ZN3CCC15setSndCurrSeqNoERKi
-                0x0000000000028830                _ZN3CCC10setRcvRateERKi
-                0x0000000000028840                _ZN3CCC14setMaxCWndSizeERKi
-                0x0000000000028850                _ZN3CCC6setRTTERKi
-                0x0000000000028860                _ZN6CUDTCCC2Ev
-                0x00000000000288f0                _ZN6CUDTCCC1Ev
-                0x0000000000028980                _ZN6CUDTCC9onTimeoutEv
-                0x00000000000289e0                _ZN6CUDTCC6onLossEPKiRS0_
-                0x0000000000028b90                _ZN6CUDTCC4initEv
-                0x0000000000028c50                _ZN6CUDTCC5onACKERKi
-                0x0000000000028ed0                _ZN3CCCD0Ev
-                0x0000000000028f10                _ZN3CCCD1Ev
-                0x0000000000028f40                _ZN3CCCD2Ev
-                0x0000000000028f70                _ZN3CCC12setUserParamEPKcRKi
-                0x0000000000028fd0                _ZN3CCC11getPerfInfoEv
-                0x0000000000029010                _ZNK3CCC13sendCustomMsgER7CPacket
- *fill*         0x0000000000029057        0x9 90909090
+                0x0000000000029320      0x215 api.o
+                0x0000000000029320                _ZNSt8_Rb_treeIiSt4pairIKi12CMultiplexerESt10_Select1stIS3_ESt4lessIiESaIS3_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS3_ERKS3_
+ *fill*         0x0000000000029535        0xb 90909090
+ .text          0x0000000000029540      0x9f7 ccc.o
+                0x0000000000029540                _ZN3CCCC2Ev
+                0x00000000000295f0                _ZN3CCCC1Ev
+                0x00000000000296a0                _ZN3CCC11setACKTimerERKi
+                0x00000000000296c0                _ZN3CCC14setACKIntervalERKi
+                0x00000000000296d0                _ZN3CCC6setRTOERKi
+                0x00000000000296e0                _ZN3CCC6setMSSERKi
+                0x00000000000296f0                _ZN3CCC12setBandwidthERKi
+                0x0000000000029700                _ZN3CCC15setSndCurrSeqNoERKi
+                0x0000000000029710                _ZN3CCC10setRcvRateERKi
+                0x0000000000029720                _ZN3CCC14setMaxCWndSizeERKi
+                0x0000000000029730                _ZN3CCC6setRTTERKi
+                0x0000000000029740                _ZN6CUDTCCC2Ev
+                0x00000000000297d0                _ZN6CUDTCCC1Ev
+                0x0000000000029860                _ZN6CUDTCC9onTimeoutEv
+                0x00000000000298c0                _ZN6CUDTCC6onLossEPKiRS0_
+                0x0000000000029a70                _ZN6CUDTCC4initEv
+                0x0000000000029b30                _ZN6CUDTCC5onACKERKi
+                0x0000000000029db0                _ZN3CCCD0Ev
+                0x0000000000029df0                _ZN3CCCD1Ev
+                0x0000000000029e20                _ZN3CCCD2Ev
+                0x0000000000029e50                _ZN3CCC12setUserParamEPKcRKi
+                0x0000000000029eb0                _ZN3CCC11getPerfInfoEv
+                0x0000000000029ef0                _ZNK3CCC13sendCustomMsgER7CPacket
+ *fill*         0x0000000000029f37        0x9 90909090
  .text._ZN3CCC4initEv
-                0x0000000000029060        0x6 ccc.o
-                0x0000000000029060                _ZN3CCC4initEv
- *fill*         0x0000000000029066        0xa 90909090
+                0x0000000000029f40        0x6 ccc.o
+                0x0000000000029f40                _ZN3CCC4initEv
+ *fill*         0x0000000000029f46        0xa 90909090
  .text._ZN3CCC5closeEv
-                0x0000000000029070        0x6 ccc.o
-                0x0000000000029070                _ZN3CCC5closeEv
- *fill*         0x0000000000029076        0xa 90909090
+                0x0000000000029f50        0x6 ccc.o
+                0x0000000000029f50                _ZN3CCC5closeEv
+ *fill*         0x0000000000029f56        0xa 90909090
  .text._ZN3CCC5onACKERKi
-                0x0000000000029080        0x6 ccc.o
-                0x0000000000029080                _ZN3CCC5onACKERKi
- *fill*         0x0000000000029086        0xa 90909090
+                0x0000000000029f60        0x6 ccc.o
+                0x0000000000029f60                _ZN3CCC5onACKERKi
+ *fill*         0x0000000000029f66        0xa 90909090
  .text._ZN3CCC6onLossEPKiRS0_
-                0x0000000000029090        0x6 ccc.o
-                0x0000000000029090                _ZN3CCC6onLossEPKiRS0_
- *fill*         0x0000000000029096        0xa 90909090
+                0x0000000000029f70        0x6 ccc.o
+                0x0000000000029f70                _ZN3CCC6onLossEPKiRS0_
+ *fill*         0x0000000000029f76        0xa 90909090
  .text._ZN3CCC9onTimeoutEv
-                0x00000000000290a0        0x6 ccc.o
-                0x00000000000290a0                _ZN3CCC9onTimeoutEv
- *fill*         0x00000000000290a6        0xa 90909090
+                0x0000000000029f80        0x6 ccc.o
+                0x0000000000029f80                _ZN3CCC9onTimeoutEv
+ *fill*         0x0000000000029f86        0xa 90909090
  .text._ZN3CCC9onPktSentEPK7CPacket
-                0x00000000000290b0        0x6 ccc.o
-                0x00000000000290b0                _ZN3CCC9onPktSentEPK7CPacket
- *fill*         0x00000000000290b6        0xa 90909090
+                0x0000000000029f90        0x6 ccc.o
+                0x0000000000029f90                _ZN3CCC9onPktSentEPK7CPacket
+ *fill*         0x0000000000029f96        0xa 90909090
  .text._ZN3CCC13onPktReceivedEPK7CPacket
-                0x00000000000290c0        0x6 ccc.o
-                0x00000000000290c0                _ZN3CCC13onPktReceivedEPK7CPacket
- *fill*         0x00000000000290c6        0xa 90909090
+                0x0000000000029fa0        0x6 ccc.o
+                0x0000000000029fa0                _ZN3CCC13onPktReceivedEPK7CPacket
+ *fill*         0x0000000000029fa6        0xa 90909090
  .text._ZN3CCC16processCustomMsgEPK7CPacket
-                0x00000000000290d0        0x6 ccc.o
-                0x00000000000290d0                _ZN3CCC16processCustomMsgEPK7CPacket
- *fill*         0x00000000000290d6        0xa 90909090
+                0x0000000000029fb0        0x6 ccc.o
+                0x0000000000029fb0                _ZN3CCC16processCustomMsgEPK7CPacket
+ *fill*         0x0000000000029fb6        0xa 90909090
  .text._ZN6CUDTCCD0Ev
-                0x00000000000290e0       0x2d ccc.o
-                0x00000000000290e0                _ZN6CUDTCCD0Ev
- *fill*         0x000000000002910d        0x3 90909090
+                0x0000000000029fc0       0x2d ccc.o
+                0x0000000000029fc0                _ZN6CUDTCCD0Ev
+ *fill*         0x0000000000029fed        0x3 90909090
  .text._ZN6CUDTCCD1Ev
-                0x0000000000029110       0x18 ccc.o
-                0x0000000000029110                _ZN6CUDTCCD1Ev
- *fill*         0x0000000000029128        0x8 90909090
- .text          0x0000000000029130     0x1522 buffer.o
-                0x0000000000029130                _ZN10CSndBuffer8readDataEPPcRi
-                0x0000000000029160                _ZNK10CSndBuffer14getCurrBufSizeEv
-                0x0000000000029170                _ZN10CRcvBuffer7addDataEP5CUniti
-                0x00000000000291c0                _ZNK10CRcvBuffer14getRcvDataSizeEv
-                0x00000000000291e0                _ZNK10CRcvBuffer15getAvailBufSizeEv
-                0x0000000000029200                _ZN10CRcvBuffer7dropMsgERKi
-                0x0000000000029270                _ZN10CRcvBuffer7scanMsgERiS0_Rb
-                0x0000000000029530                _ZN10CRcvBuffer12getRcvMsgNumEv
-                0x0000000000029550                _ZN10CRcvBuffer7readMsgEPcRKi
-                0x0000000000029690                _ZN10CRcvBuffer10readBufferEPcRKi
-                0x0000000000029840                _ZN10CRcvBuffer7ackDataERKi
-                0x0000000000029870                _ZN10CRcvBuffer16readBufferToFileERSt13basic_fstreamIcSt11char_traitsIcEERKi
-                0x00000000000299d0                _ZN10CRcvBufferD1Ev
-                0x0000000000029a40                _ZN10CRcvBufferD2Ev
-                0x0000000000029ab0                _ZN10CRcvBufferC1ERKiP10CUnitQueue
-                0x0000000000029b30                _ZN10CRcvBufferC2ERKiP10CUnitQueue
-                0x0000000000029bb0                _ZN10CRcvBufferC1EP10CUnitQueue
-                0x0000000000029c00                _ZN10CRcvBufferC2EP10CUnitQueue
-                0x0000000000029c50                _ZN10CSndBuffer8increaseEv
-                0x0000000000029e30                _ZN10CSndBuffer7ackDataERKi
-                0x0000000000029eb0                _ZN10CSndBuffer8readDataEPPciRiS2_
-                0x000000000002a000                _ZN10CSndBuffer17addBufferFromFileERSt13basic_fstreamIcSt11char_traitsIcEERKi
-                0x000000000002a140                _ZN10CSndBuffer9addBufferEPKcRKiS3_RKb
-                0x000000000002a2a0                _ZN10CSndBufferD1Ev
-                0x000000000002a320                _ZN10CSndBufferD2Ev
-                0x000000000002a3a0                _ZN10CSndBufferC1ERKiS1_
-                0x000000000002a500                _ZN10CSndBufferC2ERKiS1_
- *fill*         0x000000000002a652        0xe 90909090
- .text          0x000000000002a660     0x2a86 epoll.o
-                0x000000000002a660                _ZN6CEPoll12remove_ssockEiRKiPS0_
-                0x000000000002a7d0                _ZN6CEPoll9add_ssockEiRKiPS0_
-                0x000000000002a940                _ZN6CEPoll12remove_usockEiRKiPS0_
-                0x000000000002ab80                _ZN6CEPoll9add_usockEiRKiPS0_
-                0x000000000002ad30                _ZN6CEPoll4waitEiPSt3setIiSt4lessIiESaIiEES5_lS5_S5_
-                0x000000000002b500                _ZN6CEPoll12enable_writeERKiRSt3setIiSt4lessIiESaIiEE
-                0x000000000002b920                _ZN6CEPoll12disable_readERKiRSt3setIiSt4lessIiESaIiEE
-                0x000000000002bda0                _ZN6CEPoll13disable_writeERKiRSt3setIiSt4lessIiESaIiEE
-                0x000000000002c220                _ZN6CEPoll11enable_readERKiRSt3setIiSt4lessIiESaIiEE
-                0x000000000002c640                _ZN6CEPoll7releaseEi
-                0x000000000002c7d0                _ZN6CEPoll6createEv
-                0x000000000002cf50                _ZN6CEPollC2Ev
-                0x000000000002cfc0                _ZN6CEPollD2Ev
-                0x000000000002d020                _ZN6CEPollC1Ev
-                0x000000000002d090                _ZN6CEPollD1Ev
- *fill*         0x000000000002d0e6        0xa 90909090
+                0x0000000000029ff0       0x18 ccc.o
+                0x0000000000029ff0                _ZN6CUDTCCD1Ev
+ *fill*         0x000000000002a008        0x8 90909090
+ .text          0x000000000002a010     0x1512 buffer.o
+                0x000000000002a010                _ZN10CSndBuffer8readDataEPPcRi
+                0x000000000002a040                _ZNK10CSndBuffer14getCurrBufSizeEv
+                0x000000000002a050                _ZN10CRcvBuffer7addDataEP5CUniti
+                0x000000000002a0a0                _ZNK10CRcvBuffer14getRcvDataSizeEv
+                0x000000000002a0c0                _ZNK10CRcvBuffer15getAvailBufSizeEv
+                0x000000000002a0e0                _ZN10CRcvBuffer7dropMsgERKi
+                0x000000000002a150                _ZN10CRcvBuffer7scanMsgERiS0_Rb
+                0x000000000002a410                _ZN10CRcvBuffer12getRcvMsgNumEv
+                0x000000000002a430                _ZN10CRcvBuffer7readMsgEPcRKi
+                0x000000000002a570                _ZN10CRcvBuffer10readBufferEPcRKi
+                0x000000000002a720                _ZN10CRcvBuffer7ackDataERKi
+                0x000000000002a750                _ZN10CRcvBuffer16readBufferToFileERSt13basic_fstreamIcSt11char_traitsIcEERKi
+                0x000000000002a8b0                _ZN10CRcvBufferD1Ev
+                0x000000000002a920                _ZN10CRcvBufferD2Ev
+                0x000000000002a990                _ZN10CRcvBufferC1ERKiP10CUnitQueue
+                0x000000000002aa10                _ZN10CRcvBufferC2ERKiP10CUnitQueue
+                0x000000000002aa90                _ZN10CRcvBufferC1EP10CUnitQueue
+                0x000000000002aae0                _ZN10CRcvBufferC2EP10CUnitQueue
+                0x000000000002ab30                _ZN10CSndBuffer8increaseEv
+                0x000000000002ad00                _ZN10CSndBuffer7ackDataERKi
+                0x000000000002ad80                _ZN10CSndBuffer8readDataEPPciRiS2_
+                0x000000000002aed0                _ZN10CSndBuffer17addBufferFromFileERSt13basic_fstreamIcSt11char_traitsIcEERKi
+                0x000000000002b010                _ZN10CSndBuffer9addBufferEPKcRKiS3_RKb
+                0x000000000002b170                _ZN10CSndBufferD1Ev
+                0x000000000002b1f0                _ZN10CSndBufferD2Ev
+                0x000000000002b270                _ZN10CSndBufferC1ERKiS1_
+                0x000000000002b3d0                _ZN10CSndBufferC2ERKiS1_
+ *fill*         0x000000000002b522        0xe 90909090
+ .text          0x000000000002b530     0x2a86 epoll.o
+                0x000000000002b530                _ZN6CEPoll12remove_ssockEiRKiPS0_
+                0x000000000002b6a0                _ZN6CEPoll9add_ssockEiRKiPS0_
+                0x000000000002b810                _ZN6CEPoll12remove_usockEiRKiPS0_
+                0x000000000002ba50                _ZN6CEPoll9add_usockEiRKiPS0_
+                0x000000000002bc00                _ZN6CEPoll4waitEiPSt3setIiSt4lessIiESaIiEES5_lS5_S5_
+                0x000000000002c3d0                _ZN6CEPoll12enable_writeERKiRSt3setIiSt4lessIiESaIiEE
+                0x000000000002c7f0                _ZN6CEPoll12disable_readERKiRSt3setIiSt4lessIiESaIiEE
+                0x000000000002cc70                _ZN6CEPoll13disable_writeERKiRSt3setIiSt4lessIiESaIiEE
+                0x000000000002d0f0                _ZN6CEPoll11enable_readERKiRSt3setIiSt4lessIiESaIiEE
+                0x000000000002d510                _ZN6CEPoll7releaseEi
+                0x000000000002d6a0                _ZN6CEPoll6createEv
+                0x000000000002de20                _ZN6CEPollC2Ev
+                0x000000000002de90                _ZN6CEPollD2Ev
+                0x000000000002def0                _ZN6CEPollC1Ev
+                0x000000000002df60                _ZN6CEPollD1Ev
+ *fill*         0x000000000002dfb6        0xa 90909090
  .text._ZN10CEPollDescD1Ev
-                0x000000000002d0f0       0x84 epoll.o
-                0x000000000002d0f0                _ZN10CEPollDescD1Ev
- *fill*         0x000000000002d174        0xc 90909090
+                0x000000000002dfc0       0x84 epoll.o
+                0x000000000002dfc0                _ZN10CEPollDescD1Ev
+ *fill*         0x000000000002e044        0xc 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE10_M_insert_EPKSt18_Rb_tree_node_baseSC_RKS3_
-                0x000000000002d180      0x312 epoll.o
-                0x000000000002d180                _ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE10_M_insert_EPKSt18_Rb_tree_node_baseSC_RKS3_
- *fill*         0x000000000002d492        0xe 90909090
+                0x000000000002e050      0x312 epoll.o
+                0x000000000002e050                _ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE10_M_insert_EPKSt18_Rb_tree_node_baseSC_RKS3_
+ *fill*         0x000000000002e362        0xe 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE16_M_insert_uniqueERKS3_
-                0x000000000002d4a0       0xa0 epoll.o
-                0x000000000002d4a0                _ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE16_M_insert_uniqueERKS3_
+                0x000000000002e370       0xa0 epoll.o
+                0x000000000002e370                _ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE16_M_insert_uniqueERKS3_
  .text._ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS3_ERKS3_
-                0x000000000002d540      0x145 epoll.o
-                0x000000000002d540                _ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS3_ERKS3_
- *fill*         0x000000000002d685        0xb 90909090
+                0x000000000002e410      0x145 epoll.o
+                0x000000000002e410                _ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS3_ERKS3_
+ *fill*         0x000000000002e555        0xb 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE8_M_eraseEPSt13_Rb_tree_nodeIS3_E
-                0x000000000002d690      0x6cc epoll.o
-                0x000000000002d690                _ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE8_M_eraseEPSt13_Rb_tree_nodeIS3_E
- *fill*         0x000000000002dd5c        0x4 90909090
- .text          0x000000000002dd60      0xb27 window.o
-                0x000000000002dd60                _ZNK14CPktTimeWindow15getMinPktSndIntEv
-                0x000000000002dd70                _ZN14CPktTimeWindow9onPktSentERKi
-                0x000000000002dd90                _ZN14CPktTimeWindow13probe2ArrivalEv
-                0x000000000002ddd0                _ZN14CPktTimeWindow13probe1ArrivalEv
-                0x000000000002ddf0                _ZN14CPktTimeWindow12onPktArrivalEv
-                0x000000000002de40                _ZN10CACKWindow11acknowledgeERKiRi
-                0x000000000002dfc0                _ZN10CACKWindow5storeERKiS1_
-                0x000000000002e030                _ZNK14CPktTimeWindow12getBandwidthEv
-                0x000000000002e110                _ZNK14CPktTimeWindow14getPktRcvSpeedEv
-                0x000000000002e1f0                _ZN14CPktTimeWindowD1Ev
-                0x000000000002e230                _ZN14CPktTimeWindowD2Ev
-                0x000000000002e270                _ZN10CACKWindowD1Ev
-                0x000000000002e2c0                _ZN10CACKWindowD2Ev
-                0x000000000002e310                _ZN14CPktTimeWindowC1ERKiS1_
-                0x000000000002e3f0                _ZN14CPktTimeWindowC2ERKiS1_
-                0x000000000002e4d0                _ZN14CPktTimeWindowC1Ev
-                0x000000000002e5b0                _ZN14CPktTimeWindowC2Ev
-                0x000000000002e690                _ZN10CACKWindowC1ERKi
-                0x000000000002e710                _ZN10CACKWindowC2ERKi
-                0x000000000002e790                _ZN10CACKWindowC1Ev
-                0x000000000002e810                _ZN10CACKWindowC2Ev
- *fill*         0x000000000002e887        0x9 90909090
- .text          0x000000000002e890      0xed6 md5.o
-                0x000000000002e890                md5_init
-                0x000000000002f4d0                md5_append
-                0x000000000002f630                md5_finish
- *fill*         0x000000000002f766        0xa 90909090
- .text          0x000000000002f770     0x1ab9 list.o
-                0x000000000002f770                _ZNK12CRcvLossList4findERKiS1_
-                0x000000000002f870                _ZNK12CRcvLossList13getLossLengthEv
-                0x000000000002f880                _ZNK12CRcvLossList15getFirstLostSeqEv
-                0x000000000002f8a0                _ZN12CRcvLossList12getLossArrayEPiRiRKiS3_
-                0x000000000002f970                _ZN12CRcvLossList6removeERKi
-                0x000000000002fd80                _ZN12CRcvLossList6removeERKiS1_
-                0x000000000002fe40                _ZN12CRcvLossList6insertERKiS1_
-                0x0000000000030040                _ZN12CRcvLossListD1Ev
-                0x00000000000300a0                _ZN12CRcvLossListD2Ev
-                0x0000000000030100                _ZN12CRcvLossListC1ERKi
-                0x00000000000301d0                _ZN12CRcvLossListC2ERKi
-                0x00000000000302a0                _ZN12CSndLossList13getLossLengthEv
-                0x00000000000302e0                _ZN12CSndLossList10getLostSeqEv
-                0x0000000000030440                _ZN12CSndLossList6removeERKi
-                0x00000000000308c0                _ZN12CSndLossList6insertERKiS1_
-                0x0000000000030fd0                _ZN12CSndLossListD1Ev
-                0x0000000000031020                _ZN12CSndLossListD2Ev
-                0x0000000000031070                _ZN12CSndLossListC1ERKi
-                0x0000000000031150                _ZN12CSndLossListC2ERKi
- *fill*         0x0000000000031229        0x7 90909090
- .text          0x0000000000031230      0x90a cache.o
-                0x0000000000031230                _ZNK7CIPCompclEPK10CInfoBlockS2_
-                0x0000000000031290                _ZNK7CTSCompclEPK10CInfoBlockS2_
-                0x00000000000312b0                _ZN6CCache7convertEPK8sockaddrRKiPj
-                0x00000000000312f0                _ZN6CCacheC1ERKj
-                0x0000000000031380                _ZN6CCacheC2ERKj
-                0x0000000000031410                _ZN6CCacheC1Ev
-                0x00000000000314a0                _ZN6CCacheC2Ev
-                0x0000000000031530                _ZN6CCache6lookupEPK8sockaddrRKiP10CInfoBlock
-                0x0000000000031640                _ZN6CCacheD1Ev
-                0x00000000000316f0                _ZN6CCache6updateEPK8sockaddrRKiP10CInfoBlock
-                0x0000000000031a90                _ZN6CCacheD2Ev
- *fill*         0x0000000000031b3a        0x6 90909090
+                0x000000000002e560      0x6cc epoll.o
+                0x000000000002e560                _ZNSt8_Rb_treeIiSt4pairIKi10CEPollDescESt10_Select1stIS3_ESt4lessIiESaIS3_EE8_M_eraseEPSt13_Rb_tree_nodeIS3_E
+ *fill*         0x000000000002ec2c        0x4 90909090
+ .text          0x000000000002ec30      0xb27 window.o
+                0x000000000002ec30                _ZNK14CPktTimeWindow15getMinPktSndIntEv
+                0x000000000002ec40                _ZN14CPktTimeWindow9onPktSentERKi
+                0x000000000002ec60                _ZN14CPktTimeWindow13probe2ArrivalEv
+                0x000000000002eca0                _ZN14CPktTimeWindow13probe1ArrivalEv
+                0x000000000002ecc0                _ZN14CPktTimeWindow12onPktArrivalEv
+                0x000000000002ed10                _ZN10CACKWindow11acknowledgeERKiRi
+                0x000000000002ee90                _ZN10CACKWindow5storeERKiS1_
+                0x000000000002ef00                _ZNK14CPktTimeWindow12getBandwidthEv
+                0x000000000002efe0                _ZNK14CPktTimeWindow14getPktRcvSpeedEv
+                0x000000000002f0c0                _ZN14CPktTimeWindowD1Ev
+                0x000000000002f100                _ZN14CPktTimeWindowD2Ev
+                0x000000000002f140                _ZN10CACKWindowD1Ev
+                0x000000000002f190                _ZN10CACKWindowD2Ev
+                0x000000000002f1e0                _ZN14CPktTimeWindowC1ERKiS1_
+                0x000000000002f2c0                _ZN14CPktTimeWindowC2ERKiS1_
+                0x000000000002f3a0                _ZN14CPktTimeWindowC1Ev
+                0x000000000002f480                _ZN14CPktTimeWindowC2Ev
+                0x000000000002f560                _ZN10CACKWindowC1ERKi
+                0x000000000002f5e0                _ZN10CACKWindowC2ERKi
+                0x000000000002f660                _ZN10CACKWindowC1Ev
+                0x000000000002f6e0                _ZN10CACKWindowC2Ev
+ *fill*         0x000000000002f757        0x9 90909090
+ .text          0x000000000002f760      0xed6 md5.o
+                0x000000000002f760                md5_init
+                0x00000000000303a0                md5_append
+                0x0000000000030500                md5_finish
+ *fill*         0x0000000000030636        0xa 90909090
+ .text          0x0000000000030640     0x1ab9 list.o
+                0x0000000000030640                _ZNK12CRcvLossList4findERKiS1_
+                0x0000000000030740                _ZNK12CRcvLossList13getLossLengthEv
+                0x0000000000030750                _ZNK12CRcvLossList15getFirstLostSeqEv
+                0x0000000000030770                _ZN12CRcvLossList12getLossArrayEPiRiRKiS3_
+                0x0000000000030840                _ZN12CRcvLossList6removeERKi
+                0x0000000000030c50                _ZN12CRcvLossList6removeERKiS1_
+                0x0000000000030d10                _ZN12CRcvLossList6insertERKiS1_
+                0x0000000000030f10                _ZN12CRcvLossListD1Ev
+                0x0000000000030f70                _ZN12CRcvLossListD2Ev
+                0x0000000000030fd0                _ZN12CRcvLossListC1ERKi
+                0x00000000000310a0                _ZN12CRcvLossListC2ERKi
+                0x0000000000031170                _ZN12CSndLossList13getLossLengthEv
+                0x00000000000311b0                _ZN12CSndLossList10getLostSeqEv
+                0x0000000000031310                _ZN12CSndLossList6removeERKi
+                0x0000000000031790                _ZN12CSndLossList6insertERKiS1_
+                0x0000000000031ea0                _ZN12CSndLossListD1Ev
+                0x0000000000031ef0                _ZN12CSndLossListD2Ev
+                0x0000000000031f40                _ZN12CSndLossListC1ERKi
+                0x0000000000032020                _ZN12CSndLossListC2ERKi
+ *fill*         0x00000000000320f9        0x7 90909090
+ .text          0x0000000000032100      0x91a cache.o
+                0x0000000000032100                _ZNK7CIPCompclEPK10CInfoBlockS2_
+                0x0000000000032160                _ZNK7CTSCompclEPK10CInfoBlockS2_
+                0x0000000000032180                _ZN6CCache7convertEPK8sockaddrRKiPj
+                0x00000000000321c0                _ZN6CCacheC1ERKj
+                0x0000000000032250                _ZN6CCacheC2ERKj
+                0x00000000000322e0                _ZN6CCacheC1Ev
+                0x0000000000032370                _ZN6CCacheC2Ev
+                0x0000000000032400                _ZN6CCache6lookupEPK8sockaddrRKiP10CInfoBlock
+                0x0000000000032510                _ZN6CCacheD1Ev
+                0x00000000000325c0                _ZN6CCache6updateEPK8sockaddrRKiP10CInfoBlock
+                0x0000000000032970                _ZN6CCacheD2Ev
+ *fill*         0x0000000000032a1a        0x6 90909090
  .text._ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CIPCompSaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E
-                0x0000000000031b40      0x1b1 cache.o
-                0x0000000000031b40                _ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CIPCompSaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E
- *fill*         0x0000000000031cf1        0xf 90909090
+                0x0000000000032a20      0x1b1 cache.o
+                0x0000000000032a20                _ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CIPCompSaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E
+ *fill*         0x0000000000032bd1        0xf 90909090
  .text._ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CIPCompSaIS1_EE5eraseERKS1_
-                0x0000000000031d00      0x1cd cache.o
-                0x0000000000031d00                _ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CIPCompSaIS1_EE5eraseERKS1_
- *fill*         0x0000000000031ecd        0x3 90909090
+                0x0000000000032be0      0x1cd cache.o
+                0x0000000000032be0                _ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CIPCompSaIS1_EE5eraseERKS1_
+ *fill*         0x0000000000032dad        0x3 90909090
  .text._ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CTSCompSaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E
-                0x0000000000031ed0      0x1b1 cache.o
-                0x0000000000031ed0                _ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CTSCompSaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E
- *fill*         0x0000000000032081        0xf 90909090
+                0x0000000000032db0      0x1b1 cache.o
+                0x0000000000032db0                _ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CTSCompSaIS1_EE8_M_eraseEPSt13_Rb_tree_nodeIS1_E
+ *fill*         0x0000000000032f61        0xf 90909090
  .text._ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CTSCompSaIS1_EE5eraseERKS1_
-                0x0000000000032090      0x1cd cache.o
-                0x0000000000032090                _ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CTSCompSaIS1_EE5eraseERKS1_
- *fill*         0x000000000003225d        0x3 90909090
- .text          0x0000000000032260     0x34c8 queue.o
-                0x0000000000032260                _ZN10CUnitQueueC2Ev
-                0x00000000000322a0                _ZN10CUnitQueueC1Ev
-                0x00000000000322e0                _ZN10CUnitQueue6shrinkEv
-                0x00000000000322f0                _ZN9CSndUList7remove_EPK4CUDT
-                0x00000000000323e0                _ZN9CRcvUListC2Ev
-                0x0000000000032400                _ZN9CRcvUListC1Ev
-                0x0000000000032420                _ZN9CRcvUListD2Ev
-                0x0000000000032430                _ZN9CRcvUListD1Ev
-                0x0000000000032440                _ZN9CRcvUList6removeEPK4CUDT
-                0x00000000000324c0                _ZN5CHashC2Ev
-                0x00000000000324e0                _ZN5CHashC1Ev
-                0x0000000000032500                _ZN5CHash6lookupERKi
-                0x0000000000032550                _ZN9CRcvQueue10ifNewEntryEv
-                0x0000000000032570                _ZN9CRcvQueue14removeListenerEPK4CUDT
-                0x00000000000325d0                _ZN9CRcvQueue11setListenerEPK4CUDT
-                0x0000000000032640                _ZN9CSndUList15getNextProcTimeEv
-                0x00000000000326a0                _ZN9CSndUList6removeEPK4CUDT
-                0x0000000000032700                _ZN5CHash6insertERKiPK4CUDT
-                0x0000000000032780                _ZN5CHash6removeERKi
-                0x00000000000327f0                _ZN5CHashD1Ev
-                0x0000000000032870                _ZN5CHashD2Ev
-                0x00000000000328f0                _ZN10CUnitQueueD1Ev
-                0x00000000000329a0                _ZN10CUnitQueueD2Ev
-                0x0000000000032a50                _ZN5CHash4initERKi
-                0x0000000000032ab0                _ZN10CUnitQueue8increaseEv
-                0x0000000000032cf0                _ZN10CUnitQueue16getNextAvailUnitEv
-                0x0000000000032dc0                _ZN10CUnitQueue4initERKiS1_S1_
-                0x0000000000032fb0                _ZN16CRendezvousQueue8retrieveEPK8sockaddrRi
-                0x0000000000033060                _ZN9CRcvUList6updateEPK4CUDT
-                0x00000000000330f0                _ZN9CRcvUList6insertEPK4CUDT
-                0x0000000000033170                _ZN16CRendezvousQueueD1Ev
-                0x00000000000331d0                _ZN16CRendezvousQueueD2Ev
-                0x0000000000033230                _ZN9CSndUListD1Ev
-                0x0000000000033260                _ZN9CSndUListD2Ev
-                0x0000000000033290                _ZN16CRendezvousQueueC1Ev
-                0x00000000000332e0                _ZN9CRcvQueue4initERKiS1_S1_S1_PK8CChannelPK6CTimer
-                0x0000000000033420                _ZN16CRendezvousQueueC2Ev
-                0x0000000000033470                _ZN9CSndUListC1Ev
-                0x00000000000334f0                _ZN9CSndQueue4initEPK8CChannelPK6CTimer
-                0x00000000000335e0                _ZN9CSndUListC2Ev
-                0x0000000000033660                _ZN9CRcvQueueC1Ev
-                0x0000000000033810                _ZN9CRcvQueueC2Ev
-                0x00000000000339c0                _ZN9CSndQueueC1Ev
-                0x0000000000033a50                _ZN9CSndQueueC2Ev
-                0x0000000000033ae0                _ZN9CSndQueue6sendtoEPK8sockaddrR7CPacket
-                0x0000000000033b10                _ZN9CSndQueueD1Ev
-                0x0000000000033bb0                _ZN9CSndQueueD2Ev
-                0x0000000000033c50                _ZN9CSndUList7insert_ERKlPK4CUDT
-                0x0000000000033d50                _ZN9CSndUList6insertERKlPK4CUDT
-                0x0000000000033e20                _ZN9CSndUList3popERP8sockaddrR7CPacket
-                0x0000000000033f10                _ZN9CSndQueue6workerEPv
-                0x0000000000034040                _ZN9CSndUList6updateEPK4CUDTRKb
-                0x0000000000034100                _ZN9CRcvQueue11getNewEntryEv
-                0x0000000000034190                _ZN9CRcvQueue8recvfromERKiR7CPacket
-                0x0000000000034490                _ZN16CRendezvousQueue6removeERKi
-                0x00000000000346c0                _ZN9CRcvQueueD1Ev
-                0x00000000000348a0                _ZN9CRcvQueueD2Ev
-                0x0000000000034a80                _ZN9CRcvQueue11setNewEntryEP4CUDT
-                0x0000000000034b20                _ZN16CRendezvousQueue6insertERKiS1_PK8sockaddr
-                0x0000000000034c20                _ZN9CRcvQueue8storePktERKiP7CPacket
-                0x0000000000035350                _ZN9CRcvQueue6workerEPv
- *fill*         0x0000000000035728        0x8 90909090
+                0x0000000000032f70      0x1cd cache.o
+                0x0000000000032f70                _ZNSt8_Rb_treeIP10CInfoBlockS1_St9_IdentityIS1_E7CTSCompSaIS1_EE5eraseERKS1_
+ *fill*         0x000000000003313d        0x3 90909090
+ .text          0x0000000000033140     0x34c8 queue.o
+                0x0000000000033140                _ZN10CUnitQueueC2Ev
+                0x0000000000033180                _ZN10CUnitQueueC1Ev
+                0x00000000000331c0                _ZN10CUnitQueue6shrinkEv
+                0x00000000000331d0                _ZN9CSndUList7remove_EPK4CUDT
+                0x00000000000332c0                _ZN9CRcvUListC2Ev
+                0x00000000000332e0                _ZN9CRcvUListC1Ev
+                0x0000000000033300                _ZN9CRcvUListD2Ev
+                0x0000000000033310                _ZN9CRcvUListD1Ev
+                0x0000000000033320                _ZN9CRcvUList6removeEPK4CUDT
+                0x00000000000333a0                _ZN5CHashC2Ev
+                0x00000000000333c0                _ZN5CHashC1Ev
+                0x00000000000333e0                _ZN5CHash6lookupERKi
+                0x0000000000033430                _ZN9CRcvQueue10ifNewEntryEv
+                0x0000000000033450                _ZN9CRcvQueue14removeListenerEPK4CUDT
+                0x00000000000334b0                _ZN9CRcvQueue11setListenerEPK4CUDT
+                0x0000000000033520                _ZN9CSndUList15getNextProcTimeEv
+                0x0000000000033580                _ZN9CSndUList6removeEPK4CUDT
+                0x00000000000335e0                _ZN5CHash6insertERKiPK4CUDT
+                0x0000000000033660                _ZN5CHash6removeERKi
+                0x00000000000336d0                _ZN5CHashD1Ev
+                0x0000000000033750                _ZN5CHashD2Ev
+                0x00000000000337d0                _ZN10CUnitQueueD1Ev
+                0x0000000000033880                _ZN10CUnitQueueD2Ev
+                0x0000000000033930                _ZN5CHash4initERKi
+                0x0000000000033990                _ZN10CUnitQueue8increaseEv
+                0x0000000000033bd0                _ZN10CUnitQueue16getNextAvailUnitEv
+                0x0000000000033ca0                _ZN10CUnitQueue4initERKiS1_S1_
+                0x0000000000033e90                _ZN16CRendezvousQueue8retrieveEPK8sockaddrRi
+                0x0000000000033f40                _ZN9CRcvUList6updateEPK4CUDT
+                0x0000000000033fd0                _ZN9CRcvUList6insertEPK4CUDT
+                0x0000000000034050                _ZN16CRendezvousQueueD1Ev
+                0x00000000000340b0                _ZN16CRendezvousQueueD2Ev
+                0x0000000000034110                _ZN9CSndUListD1Ev
+                0x0000000000034140                _ZN9CSndUListD2Ev
+                0x0000000000034170                _ZN16CRendezvousQueueC1Ev
+                0x00000000000341c0                _ZN9CRcvQueue4initERKiS1_S1_S1_PK8CChannelPK6CTimer
+                0x0000000000034300                _ZN16CRendezvousQueueC2Ev
+                0x0000000000034350                _ZN9CSndUListC1Ev
+                0x00000000000343d0                _ZN9CSndQueue4initEPK8CChannelPK6CTimer
+                0x00000000000344c0                _ZN9CSndUListC2Ev
+                0x0000000000034540                _ZN9CRcvQueueC1Ev
+                0x00000000000346f0                _ZN9CRcvQueueC2Ev
+                0x00000000000348a0                _ZN9CSndQueueC1Ev
+                0x0000000000034930                _ZN9CSndQueueC2Ev
+                0x00000000000349c0                _ZN9CSndQueue6sendtoEPK8sockaddrR7CPacket
+                0x00000000000349f0                _ZN9CSndQueueD1Ev
+                0x0000000000034a90                _ZN9CSndQueueD2Ev
+                0x0000000000034b30                _ZN9CSndUList7insert_ERKlPK4CUDT
+                0x0000000000034c30                _ZN9CSndUList6insertERKlPK4CUDT
+                0x0000000000034d00                _ZN9CSndUList3popERP8sockaddrR7CPacket
+                0x0000000000034df0                _ZN9CSndQueue6workerEPv
+                0x0000000000034f20                _ZN9CSndUList6updateEPK4CUDTRKb
+                0x0000000000034fe0                _ZN9CRcvQueue11getNewEntryEv
+                0x0000000000035070                _ZN9CRcvQueue8recvfromERKiR7CPacket
+                0x0000000000035370                _ZN16CRendezvousQueue6removeERKi
+                0x00000000000355a0                _ZN9CRcvQueueD1Ev
+                0x0000000000035780                _ZN9CRcvQueueD2Ev
+                0x0000000000035960                _ZN9CRcvQueue11setNewEntryEP4CUDT
+                0x0000000000035a00                _ZN16CRendezvousQueue6insertERKiS1_PK8sockaddr
+                0x0000000000035b00                _ZN9CRcvQueue8storePktERKiP7CPacket
+                0x0000000000036230                _ZN9CRcvQueue6workerEPv
+ *fill*         0x0000000000036608        0x8 90909090
  .text._ZNSt11_Deque_baseIP7CPacketSaIS1_EED2Ev
-                0x0000000000035730       0x63 queue.o
-                0x0000000000035730                _ZNSt11_Deque_baseIP7CPacketSaIS1_EED2Ev
- *fill*         0x0000000000035793        0xd 90909090
+                0x0000000000036610       0x63 queue.o
+                0x0000000000036610                _ZNSt11_Deque_baseIP7CPacketSaIS1_EED2Ev
+ *fill*         0x0000000000036673        0xd 90909090
  .text._ZNSt11_Deque_baseIP7CPacketSaIS1_EE17_M_initialize_mapEm
-                0x00000000000357a0      0x12e queue.o
-                0x00000000000357a0                _ZNSt11_Deque_baseIP7CPacketSaIS1_EE17_M_initialize_mapEm
- *fill*         0x00000000000358ce        0x2 90909090
+                0x0000000000036680      0x12e queue.o
+                0x0000000000036680                _ZNSt11_Deque_baseIP7CPacketSaIS1_EE17_M_initialize_mapEm
+ *fill*         0x00000000000367ae        0x2 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE8_M_eraseEPSt13_Rb_tree_nodeIS9_E
-                0x00000000000358d0      0x410 queue.o
-                0x00000000000358d0                _ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE8_M_eraseEPSt13_Rb_tree_nodeIS9_E
+                0x00000000000367b0      0x410 queue.o
+                0x00000000000367b0                _ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE8_M_eraseEPSt13_Rb_tree_nodeIS9_E
  .text._ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE10_M_insert_EPKSt18_Rb_tree_node_baseSI_RKS9_
-                0x0000000000035ce0      0x1f8 queue.o
-                0x0000000000035ce0                _ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE10_M_insert_EPKSt18_Rb_tree_node_baseSI_RKS9_
- *fill*         0x0000000000035ed8        0x8 90909090
+                0x0000000000036bc0      0x1f8 queue.o
+                0x0000000000036bc0                _ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE10_M_insert_EPKSt18_Rb_tree_node_baseSI_RKS9_
+ *fill*         0x0000000000036db8        0x8 90909090
  .text._ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE16_M_insert_uniqueERKS9_
-                0x0000000000035ee0       0xa0 queue.o
-                0x0000000000035ee0                _ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE16_M_insert_uniqueERKS9_
+                0x0000000000036dc0       0xa0 queue.o
+                0x0000000000036dc0                _ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE16_M_insert_uniqueERKS9_
  .text._ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS9_ERKS9_
-                0x0000000000035f80      0x145 queue.o
-                0x0000000000035f80                _ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS9_ERKS9_
- *fill*         0x00000000000360c5        0xb 90909090
+                0x0000000000036e60      0x145 queue.o
+                0x0000000000036e60                _ZNSt8_Rb_treeIiSt4pairIKiSt5queueIP7CPacketSt5dequeIS4_SaIS4_EEEESt10_Select1stIS9_ESt4lessIiESaIS9_EE17_M_insert_unique_ESt23_Rb_tree_const_iteratorIS9_ERKS9_
+ *fill*         0x0000000000036fa5        0xb 90909090
  .text._ZNSt6vectorIP4CUDTSaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
-                0x00000000000360d0      0x176 queue.o
-                0x00000000000360d0                _ZNSt6vectorIP4CUDTSaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
- *fill*         0x0000000000036246        0xa 90909090
+                0x0000000000036fb0      0x176 queue.o
+                0x0000000000036fb0                _ZNSt6vectorIP4CUDTSaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
+ *fill*         0x0000000000037126        0xa 90909090
  .text._ZNSt6vectorIN16CRendezvousQueue3CRLESaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
-                0x0000000000036250      0x18f queue.o
-                0x0000000000036250                _ZNSt6vectorIN16CRendezvousQueue3CRLESaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
- *fill*         0x00000000000363df        0x1 90909090
- .text          0x00000000000363e0       0x36 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
- *fill*         0x0000000000036416        0x2 90909090
- .text          0x0000000000036418        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
+                0x0000000000037130      0x18f queue.o
+                0x0000000000037130                _ZNSt6vectorIN16CRendezvousQueue3CRLESaIS1_EE13_M_insert_auxEN9__gnu_cxx17__normal_iteratorIPS1_S3_EERKS1_
+ *fill*         0x00000000000372bf        0x1 90909090
+ .text          0x00000000000372c0       0x36 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
+ *fill*         0x00000000000372f6        0x2 90909090
+ .text          0x00000000000372f8        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
  *(.gnu.warning)
 
-.fini           0x0000000000036418        0xe
+.fini           0x00000000000372f8        0xe
  *(.fini)
- .fini          0x0000000000036418        0x4 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
-                0x0000000000036418                _fini
- .fini          0x000000000003641c        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
- .fini          0x0000000000036421        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
-                0x0000000000036426                PROVIDE (__etext, .)
-                0x0000000000036426                PROVIDE (_etext, .)
-                0x0000000000036426                PROVIDE (etext, .)
+ .fini          0x00000000000372f8        0x4 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
+                0x00000000000372f8                _fini
+ .fini          0x00000000000372fc        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
+ .fini          0x0000000000037301        0x5 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
+                0x0000000000037306                PROVIDE (__etext, .)
+                0x0000000000037306                PROVIDE (_etext, .)
+                0x0000000000037306                PROVIDE (etext, .)
 
-.rodata         0x0000000000036440     0x15f0
+.rodata         0x0000000000037320     0x15f0
  *(.rodata .rodata.* .gnu.linkonce.r.*)
  .rodata.str1.1
                 0x0000000000000000        0x0 channel.o
                                           0x2 (size before relaxing)
  .rodata.str1.1
-                0x0000000000036440        0xb core.o
- *fill*         0x000000000003644b        0x1 00
- .rodata        0x000000000003644c       0xdc core.o
-                0x00000000000364f8                _ZN4CUDT12INVALID_SOCKE
-                0x00000000000364fc                _ZN4CUDT5ERRORE
-                0x0000000000036500                _ZN3UDT12INVALID_SOCKE
-                0x0000000000036504                _ZN3UDT5ERRORE
-                0x0000000000036508                _ZN6CSeqNo10m_iSeqNoTHE
-                0x000000000003650c                _ZN6CSeqNo11m_iMaxSeqNoE
-                0x0000000000036510                _ZN6CAckNo14m_iMaxAckSeqNoE
-                0x0000000000036514                _ZN6CMsgNo10m_iMsgNoTHE
-                0x0000000000036518                _ZN6CMsgNo11m_iMaxMsgNoE
-                0x000000000003651c                _ZN4CUDT10m_iVersionE
-                0x0000000000036520                _ZN4CUDT14m_iSYNIntervalE
-                0x0000000000036524                _ZN4CUDT20m_iSelfClockIntervalE
- *fill*         0x0000000000036528        0x8 00
+                0x0000000000037320        0xb core.o
+ *fill*         0x000000000003732b        0x1 00
+ .rodata        0x000000000003732c       0xdc core.o
+                0x00000000000373d8                _ZN4CUDT12INVALID_SOCKE
+                0x00000000000373dc                _ZN4CUDT5ERRORE
+                0x00000000000373e0                _ZN3UDT12INVALID_SOCKE
+                0x00000000000373e4                _ZN3UDT5ERRORE
+                0x00000000000373e8                _ZN6CSeqNo10m_iSeqNoTHE
+                0x00000000000373ec                _ZN6CSeqNo11m_iMaxSeqNoE
+                0x00000000000373f0                _ZN6CAckNo14m_iMaxAckSeqNoE
+                0x00000000000373f4                _ZN6CMsgNo10m_iMsgNoTHE
+                0x00000000000373f8                _ZN6CMsgNo11m_iMaxMsgNoE
+                0x00000000000373fc                _ZN4CUDT10m_iVersionE
+                0x0000000000037400                _ZN4CUDT14m_iSYNIntervalE
+                0x0000000000037404                _ZN4CUDT20m_iSelfClockIntervalE
+ *fill*         0x0000000000037408        0x8 00
  .rodata._ZTS10CCCFactoryI6CUDTCCE
-                0x0000000000036530       0x16 core.o
-                0x0000000000036530                _ZTS10CCCFactoryI6CUDTCCE
- *fill*         0x0000000000036546        0xa 00
+                0x0000000000037410       0x16 core.o
+                0x0000000000037410                _ZTS10CCCFactoryI6CUDTCCE
+ *fill*         0x0000000000037426        0xa 00
  .rodata._ZTS17CCCVirtualFactory
-                0x0000000000036550       0x14 core.o
-                0x0000000000036550                _ZTS17CCCVirtualFactory
- *fill*         0x0000000000036564        0x4 00
- .rodata.cst8   0x0000000000036568       0x30 core.o
+                0x0000000000037430       0x14 core.o
+                0x0000000000037430                _ZTS17CCCVirtualFactory
+ *fill*         0x0000000000037444        0x4 00
+ .rodata.cst8   0x0000000000037448       0x30 core.o
  .rodata.str1.1
-                0x0000000000036598      0x1be common.o
- *fill*         0x0000000000036756        0x2 00
+                0x0000000000037478      0x1be common.o
+ *fill*         0x0000000000037636        0x2 00
  .rodata.str1.8
-                0x0000000000036758      0x2f5 common.o
- *fill*         0x0000000000036a4d        0x3 00
- .rodata        0x0000000000036a50       0xe8 common.o
-                0x0000000000036aa8                _ZN13CUDTException7SUCCESSE
-                0x0000000000036aac                _ZN13CUDTException10ECONNSETUPE
-                0x0000000000036ab0                _ZN13CUDTException9ENOSERVERE
-                0x0000000000036ab4                _ZN13CUDTException8ECONNREJE
-                0x0000000000036ab8                _ZN13CUDTException9ESOCKFAILE
-                0x0000000000036abc                _ZN13CUDTException8ESECFAILE
-                0x0000000000036ac0                _ZN13CUDTException9ECONNFAILE
-                0x0000000000036ac4                _ZN13CUDTException9ECONNLOSTE
-                0x0000000000036ac8                _ZN13CUDTException7ENOCONNE
-                0x0000000000036acc                _ZN13CUDTException9ERESOURCEE
-                0x0000000000036ad0                _ZN13CUDTException7ETHREADE
-                0x0000000000036ad4                _ZN13CUDTException6ENOBUFE
-                0x0000000000036ad8                _ZN13CUDTException5EFILEE
-                0x0000000000036adc                _ZN13CUDTException9EINVRDOFFE
-                0x0000000000036ae0                _ZN13CUDTException7ERDPERME
-                0x0000000000036ae4                _ZN13CUDTException9EINVWROFFE
-                0x0000000000036ae8                _ZN13CUDTException7EWRPERME
-                0x0000000000036aec                _ZN13CUDTException6EINVOPE
-                0x0000000000036af0                _ZN13CUDTException10EBOUNDSOCKE
-                0x0000000000036af4                _ZN13CUDTException9ECONNSOCKE
-                0x0000000000036af8                _ZN13CUDTException9EINVPARAME
-                0x0000000000036afc                _ZN13CUDTException8EINVSOCKE
-                0x0000000000036b00                _ZN13CUDTException12EUNBOUNDSOCKE
-                0x0000000000036b04                _ZN13CUDTException9ENOLISTENE
-                0x0000000000036b08                _ZN13CUDTException10ERDVNOSERVE
-                0x0000000000036b0c                _ZN13CUDTException11ERDVUNBOUNDE
-                0x0000000000036b10                _ZN13CUDTException10ESTREAMILLE
-                0x0000000000036b14                _ZN13CUDTException9EDGRAMILLE
-                0x0000000000036b18                _ZN13CUDTException10EDUPLISTENE
-                0x0000000000036b1c                _ZN13CUDTException9ELARGEMSGE
-                0x0000000000036b20                _ZN13CUDTException10EINVPOLLIDE
-                0x0000000000036b24                _ZN13CUDTException10EASYNCFAILE
-                0x0000000000036b28                _ZN13CUDTException9EASYNCSNDE
-                0x0000000000036b2c                _ZN13CUDTException9EASYNCRCVE
-                0x0000000000036b30                _ZN13CUDTException8EPEERERRE
-                0x0000000000036b34                _ZN13CUDTException8EUNKNOWNE
- *fill*         0x0000000000036b38        0x8 00
+                0x0000000000037638      0x2f5 common.o
+ *fill*         0x000000000003792d        0x3 00
+ .rodata        0x0000000000037930       0xe8 common.o
+                0x0000000000037988                _ZN13CUDTException7SUCCESSE
+                0x000000000003798c                _ZN13CUDTException10ECONNSETUPE
+                0x0000000000037990                _ZN13CUDTException9ENOSERVERE
+                0x0000000000037994                _ZN13CUDTException8ECONNREJE
+                0x0000000000037998                _ZN13CUDTException9ESOCKFAILE
+                0x000000000003799c                _ZN13CUDTException8ESECFAILE
+                0x00000000000379a0                _ZN13CUDTException9ECONNFAILE
+                0x00000000000379a4                _ZN13CUDTException9ECONNLOSTE
+                0x00000000000379a8                _ZN13CUDTException7ENOCONNE
+                0x00000000000379ac                _ZN13CUDTException9ERESOURCEE
+                0x00000000000379b0                _ZN13CUDTException7ETHREADE
+                0x00000000000379b4                _ZN13CUDTException6ENOBUFE
+                0x00000000000379b8                _ZN13CUDTException5EFILEE
+                0x00000000000379bc                _ZN13CUDTException9EINVRDOFFE
+                0x00000000000379c0                _ZN13CUDTException7ERDPERME
+                0x00000000000379c4                _ZN13CUDTException9EINVWROFFE
+                0x00000000000379c8                _ZN13CUDTException7EWRPERME
+                0x00000000000379cc                _ZN13CUDTException6EINVOPE
+                0x00000000000379d0                _ZN13CUDTException10EBOUNDSOCKE
+                0x00000000000379d4                _ZN13CUDTException9ECONNSOCKE
+                0x00000000000379d8                _ZN13CUDTException9EINVPARAME
+                0x00000000000379dc                _ZN13CUDTException8EINVSOCKE
+                0x00000000000379e0                _ZN13CUDTException12EUNBOUNDSOCKE
+                0x00000000000379e4                _ZN13CUDTException9ENOLISTENE
+                0x00000000000379e8                _ZN13CUDTException10ERDVNOSERVE
+                0x00000000000379ec                _ZN13CUDTException11ERDVUNBOUNDE
+                0x00000000000379f0                _ZN13CUDTException10ESTREAMILLE
+                0x00000000000379f4                _ZN13CUDTException9EDGRAMILLE
+                0x00000000000379f8                _ZN13CUDTException10EDUPLISTENE
+                0x00000000000379fc                _ZN13CUDTException9ELARGEMSGE
+                0x0000000000037a00                _ZN13CUDTException10EINVPOLLIDE
+                0x0000000000037a04                _ZN13CUDTException10EASYNCFAILE
+                0x0000000000037a08                _ZN13CUDTException9EASYNCSNDE
+                0x0000000000037a0c                _ZN13CUDTException9EASYNCRCVE
+                0x0000000000037a10                _ZN13CUDTException8EPEERERRE
+                0x0000000000037a14                _ZN13CUDTException8EUNKNOWNE
+ *fill*         0x0000000000037a18        0x8 00
  .rodata._ZTS13CUDTException
-                0x0000000000036b40       0x10 common.o
-                0x0000000000036b40                _ZTS13CUDTException
- .rodata        0x0000000000036b50        0x8 packet.o
-                0x0000000000036b50                _ZN7CPacket13m_iPktHdrSizeE
-                0x0000000000036b54                _ZN10CHandShake14m_iContentSizeE
+                0x0000000000037a20       0x10 common.o
+                0x0000000000037a20                _ZTS13CUDTException
+ .rodata        0x0000000000037a30        0x8 packet.o
+                0x0000000000037a30                _ZN7CPacket13m_iPktHdrSizeE
+                0x0000000000037a34                _ZN10CHandShake14m_iContentSizeE
  .rodata.str1.1
-                0x0000000000036b58      0x8b5 com_barchart_udt_SocketUDT.o
+                0x0000000000037a38      0x8b5 com_barchart_udt_SocketUDT.o
                                         0x8bd (size before relaxing)
- *fill*         0x000000000003740d        0x3 00
+ *fill*         0x00000000000382ed        0x3 00
  .rodata.str1.8
-                0x0000000000037410      0x2c0 com_barchart_udt_SocketUDT.o
+                0x00000000000382f0      0x2c0 com_barchart_udt_SocketUDT.o
                                         0x2bd (size before relaxing)
- *fill*         0x00000000000376d0       0x10 00
- .rodata        0x00000000000376e0      0x275 com_barchart_udt_SocketUDT.o
- *fill*         0x0000000000037955        0xb 00
- .rodata.cst16  0x0000000000037960       0x20 com_barchart_udt_SocketUDT.o
- .rodata.cst8   0x0000000000037980        0x8 api.o
+ *fill*         0x00000000000385b0       0x10 00
+ .rodata        0x00000000000385c0      0x275 com_barchart_udt_SocketUDT.o
+ *fill*         0x0000000000038835        0xb 00
+ .rodata.cst16  0x0000000000038840       0x20 com_barchart_udt_SocketUDT.o
+ .rodata.cst8   0x0000000000038860        0x8 api.o
                                          0x10 (size before relaxing)
  .rodata._ZTS6CUDTCC
-                0x0000000000037988        0x8 ccc.o
-                0x0000000000037988                _ZTS6CUDTCC
+                0x0000000000038868        0x8 ccc.o
+                0x0000000000038868                _ZTS6CUDTCC
  .rodata._ZTS3CCC
-                0x0000000000037990        0x5 ccc.o
-                0x0000000000037990                _ZTS3CCC
- *fill*         0x0000000000037995        0x3 00
- .rodata.cst8   0x0000000000037998       0x38 ccc.o
+                0x0000000000038870        0x5 ccc.o
+                0x0000000000038870                _ZTS3CCC
+ *fill*         0x0000000000038875        0x3 00
+ .rodata.cst8   0x0000000000038878       0x38 ccc.o
                                          0x58 (size before relaxing)
  .rodata.cst8   0x0000000000000000        0x8 window.o
- *fill*         0x00000000000379d0       0x10 00
- .rodata        0x00000000000379e0       0x44 md5.o
- *fill*         0x0000000000037a24        0x4 00
- .rodata.cst8   0x0000000000037a28        0x8 queue.o
+ *fill*         0x00000000000388b0       0x10 00
+ .rodata        0x00000000000388c0       0x44 md5.o
+ *fill*         0x0000000000038904        0x4 00
+ .rodata.cst8   0x0000000000038908        0x8 queue.o
 
 .rodata1
  *(.rodata1)
 
-.eh_frame_hdr   0x0000000000037a30     0x106c
+.eh_frame_hdr   0x0000000000038910     0x106c
  *(.eh_frame_hdr)
- .eh_frame_hdr  0x0000000000037a30     0x106c channel.o
+ .eh_frame_hdr  0x0000000000038910     0x106c channel.o
 
-.eh_frame       0x0000000000038aa0     0x4b3c
+.eh_frame       0x0000000000039980     0x4b3c
  *(.eh_frame)
- .eh_frame      0x0000000000038aa0      0x298 channel.o
+ .eh_frame      0x0000000000039980      0x298 channel.o
                                         0x250 (size before relaxing)
- .eh_frame      0x0000000000038d38      0x658 core.o
+ .eh_frame      0x0000000000039c18      0x658 core.o
                                         0x628 (size before relaxing)
- .eh_frame      0x0000000000039390      0x518 common.o
+ .eh_frame      0x000000000003a270      0x518 common.o
                                         0x4a8 (size before relaxing)
- .eh_frame      0x00000000000398a8      0x288 packet.o
+ .eh_frame      0x000000000003a788      0x288 packet.o
                                         0x278 (size before relaxing)
- .eh_frame      0x0000000000039b30      0xad8 com_barchart_udt_SocketUDT.o
+ .eh_frame      0x000000000003aa10      0xad8 com_barchart_udt_SocketUDT.o
                                         0xa98 (size before relaxing)
- .eh_frame      0x000000000003a608     0x1208 api.o
+ .eh_frame      0x000000000003b4e8     0x1208 api.o
                                        0x1190 (size before relaxing)
- .eh_frame      0x000000000003b810      0x428 ccc.o
+ .eh_frame      0x000000000003c6f0      0x428 ccc.o
                                         0x3c8 (size before relaxing)
- .eh_frame      0x000000000003bc38      0x3c8 buffer.o
+ .eh_frame      0x000000000003cb18      0x3c8 buffer.o
                                         0x3c0 (size before relaxing)
- .eh_frame      0x000000000003c000      0x388 epoll.o
+ .eh_frame      0x000000000003cee0      0x388 epoll.o
                                         0x410 (size before relaxing)
- .eh_frame      0x000000000003c388      0x2a0 window.o
+ .eh_frame      0x000000000003d268      0x2a0 window.o
                                         0x270 (size before relaxing)
- .eh_frame      0x000000000003c628       0x90 md5.o
+ .eh_frame      0x000000000003d508       0x90 md5.o
                                          0xa8 (size before relaxing)
- .eh_frame      0x000000000003c6b8      0x2a0 list.o
+ .eh_frame      0x000000000003d598      0x2a0 list.o
                                         0x290 (size before relaxing)
- .eh_frame      0x000000000003c958      0x230 cache.o
+ .eh_frame      0x000000000003d838      0x230 cache.o
                                         0x248 (size before relaxing)
- .eh_frame      0x000000000003cb88      0xa50 queue.o
+ .eh_frame      0x000000000003da68      0xa50 queue.o
                                         0x9b0 (size before relaxing)
- .eh_frame      0x000000000003d5d8        0x4 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
+ .eh_frame      0x000000000003e4b8        0x4 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
 
 .gcc_except_table
-                0x000000000003d5dc     0x211a
+                0x000000000003e4bc     0x1f9a
  *(.gcc_except_table .gcc_except_table.*)
  .gcc_except_table
-                0x000000000003d5dc       0x47 channel.o
- *fill*         0x000000000003d623        0x1 00
+                0x000000000003e4bc       0x47 channel.o
+ *fill*         0x000000000003e503        0x1 00
  .gcc_except_table
-                0x000000000003d624      0x6a1 core.o
+                0x000000000003e504      0x6a1 core.o
  .gcc_except_table
-                0x000000000003dcc5       0x11 packet.o
+                0x000000000003eba5       0x11 packet.o
  .gcc_except_table
-                0x000000000003dcd6      0x21f com_barchart_udt_SocketUDT.o
- *fill*         0x000000000003def5        0x3 00
+                0x000000000003ebb6      0x21f com_barchart_udt_SocketUDT.o
+ *fill*         0x000000000003edd5        0x3 00
  .gcc_except_table
-                0x000000000003def8     0x10fc api.o
+                0x000000000003edd8      0xf80 api.o
  .gcc_except_table
-                0x000000000003eff4       0x67 buffer.o
- *fill*         0x000000000003f05b        0x1 00
+                0x000000000003fd58       0x63 buffer.o
+ *fill*         0x000000000003fdbb        0x1 00
  .gcc_except_table
-                0x000000000003f05c      0x3a1 epoll.o
+                0x000000000003fdbc      0x3a1 epoll.o
  .gcc_except_table
-                0x000000000003f3fd       0x7a cache.o
- *fill*         0x000000000003f477        0x1 00
+                0x000000000004015d       0x7a cache.o
+ *fill*         0x00000000000401d7        0x1 00
  .gcc_except_table
-                0x000000000003f478      0x27e queue.o
-                0x000000000003f6f6                . = (ALIGN (0x200000) - ((0x200000 - .) & 0x1fffff))
-                0x000000000023fae6                . = DATA_SEGMENT_ALIGN (0x200000, 0x1000)
+                0x00000000000401d8      0x27e queue.o
+                0x0000000000040456                . = (ALIGN (0x200000) - ((0x200000 - .) & 0x1fffff))
+                0x0000000000240ad6                . = (0x200000 DATA_SEGMENT_ALIGN 0x1000)
 
 .eh_frame
  *(.eh_frame)
@@ -1289,176 +1290,176 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
  *(.init_array)
 
 .fini_array
- *(SORT(.fini_array.*))
  *(.fini_array)
+ *(SORT(.fini_array.*))
 
-.ctors          0x000000000023fae8       0x20
+.ctors          0x0000000000240ad8       0x20
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
- .ctors         0x000000000023fae8        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
+ .ctors         0x0000000000240ad8        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
  *(EXCLUDE_FILE(*crtend?.o *crtend.o) .ctors)
- .ctors         0x000000000023faf0        0x8 core.o
- .ctors         0x000000000023faf8        0x8 common.o
+ .ctors         0x0000000000240ae0        0x8 core.o
+ .ctors         0x0000000000240ae8        0x8 common.o
  *(SORT(.ctors.*))
  *(.ctors)
- .ctors         0x000000000023fb00        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
+ .ctors         0x0000000000240af0        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
 
-.dtors          0x000000000023fb08       0x10
+.dtors          0x0000000000240af8       0x10
  *crtbegin.o(.dtors)
  *crtbegin?.o(.dtors)
- .dtors         0x000000000023fb08        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
+ .dtors         0x0000000000240af8        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
  *(EXCLUDE_FILE(*crtend?.o *crtend.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
- .dtors         0x000000000023fb10        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
-                0x000000000023fb10                __DTOR_END__
+ .dtors         0x0000000000240b00        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
+                0x0000000000240b00                __DTOR_END__
 
-.jcr            0x000000000023fb18        0x8
+.jcr            0x0000000000240b08        0x8
  *(.jcr)
- .jcr           0x000000000023fb18        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
- .jcr           0x000000000023fb18        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
+ .jcr           0x0000000000240b08        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
+ .jcr           0x0000000000240b08        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
 
-.data.rel.ro    0x000000000023fb20      0x1f0
+.data.rel.ro    0x0000000000240b20      0x1f0
  *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
  *(.data.rel.ro* .gnu.linkonce.d.rel.ro.*)
  .data.rel.ro._ZTV10CCCFactoryI6CUDTCCE
-                0x000000000023fb20       0x30 core.o
-                0x000000000023fb20                _ZTV10CCCFactoryI6CUDTCCE
+                0x0000000000240b20       0x30 core.o
+                0x0000000000240b20                _ZTV10CCCFactoryI6CUDTCCE
  .data.rel.ro._ZTI10CCCFactoryI6CUDTCCE
-                0x000000000023fb50       0x18 core.o
-                0x000000000023fb50                _ZTI10CCCFactoryI6CUDTCCE
- *fill*         0x000000000023fb68        0x8 00
+                0x0000000000240b50       0x18 core.o
+                0x0000000000240b50                _ZTI10CCCFactoryI6CUDTCCE
+ *fill*         0x0000000000240b68        0x8 00
  .data.rel.ro._ZTI17CCCVirtualFactory
-                0x000000000023fb70       0x10 core.o
-                0x000000000023fb70                _ZTI17CCCVirtualFactory
+                0x0000000000240b70       0x10 core.o
+                0x0000000000240b70                _ZTI17CCCVirtualFactory
  .data.rel.ro._ZTV17CCCVirtualFactory
-                0x000000000023fb80       0x30 core.o
-                0x000000000023fb80                _ZTV17CCCVirtualFactory
- *fill*         0x000000000023fbb0       0x10 00
+                0x0000000000240b80       0x30 core.o
+                0x0000000000240b80                _ZTV17CCCVirtualFactory
+ *fill*         0x0000000000240bb0       0x10 00
  .data.rel.ro._ZTV13CUDTException
-                0x000000000023fbc0       0x38 common.o
-                0x000000000023fbc0                _ZTV13CUDTException
- *fill*         0x000000000023fbf8        0x8 00
+                0x0000000000240bc0       0x38 common.o
+                0x0000000000240bc0                _ZTV13CUDTException
+ *fill*         0x0000000000240bf8        0x8 00
  .data.rel.ro._ZTI13CUDTException
-                0x000000000023fc00       0x10 common.o
-                0x000000000023fc00                _ZTI13CUDTException
- *fill*         0x000000000023fc10       0x10 00
+                0x0000000000240c00       0x10 common.o
+                0x0000000000240c00                _ZTI13CUDTException
+ *fill*         0x0000000000240c10       0x10 00
  .data.rel.ro._ZTV6CUDTCC
-                0x000000000023fc20       0x60 ccc.o
-                0x000000000023fc20                _ZTV6CUDTCC
+                0x0000000000240c20       0x60 ccc.o
+                0x0000000000240c20                _ZTV6CUDTCC
  .data.rel.ro._ZTV3CCC
-                0x000000000023fc80       0x60 ccc.o
-                0x000000000023fc80                _ZTV3CCC
+                0x0000000000240c80       0x60 ccc.o
+                0x0000000000240c80                _ZTV3CCC
  .data.rel.ro._ZTI6CUDTCC
-                0x000000000023fce0       0x18 ccc.o
-                0x000000000023fce0                _ZTI6CUDTCC
- *fill*         0x000000000023fcf8        0x8 00
+                0x0000000000240ce0       0x18 ccc.o
+                0x0000000000240ce0                _ZTI6CUDTCC
+ *fill*         0x0000000000240cf8        0x8 00
  .data.rel.ro._ZTI3CCC
-                0x000000000023fd00       0x10 ccc.o
-                0x000000000023fd00                _ZTI3CCC
+                0x0000000000240d00       0x10 ccc.o
+                0x0000000000240d00                _ZTI3CCC
 
-.dynamic        0x000000000023fd10      0x1b0
+.dynamic        0x0000000000240d10      0x1c0
  *(.dynamic)
- .dynamic       0x000000000023fd10      0x1b0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
-                0x000000000023fd10                _DYNAMIC
+ .dynamic       0x0000000000240d10      0x1c0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
+                0x0000000000240d10                _DYNAMIC
 
-.got            0x000000000023fec0      0x118
+.got            0x0000000000240ed0      0x118
  *(.got)
- .got           0x000000000023fec0      0x118 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .got           0x0000000000240ed0      0x118 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  *(.igot)
-                0x000000000023ffe8                . = DATA_SEGMENT_RELRO_END (., 0x18)
+                0x0000000000240fe8                . = (. DATA_SEGMENT_RELRO_END 0x18)
 
-.got.plt        0x000000000023ffe8      0xdd8
+.got.plt        0x0000000000240fe8      0xdd8
  *(.got.plt)
- .got.plt       0x000000000023ffe8      0xdd8 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
-                0x000000000023ffe8                _GLOBAL_OFFSET_TABLE_
+ .got.plt       0x0000000000240fe8      0xdd8 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
+                0x0000000000240fe8                _GLOBAL_OFFSET_TABLE_
  *(.igot.plt)
 
-.data           0x0000000000240dc0       0x20
+.data           0x0000000000241dc0       0x20
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x0000000000240dc0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
- .data          0x0000000000240dc0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
- .data.rel      0x0000000000240dc0        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
-                0x0000000000240dc0                __dso_handle
- .data          0x0000000000240dc8        0x0 channel.o
+ .data          0x0000000000241dc0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
+ .data          0x0000000000241dc0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
+ .data.rel      0x0000000000241dc0        0x8 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
+                0x0000000000241dc0                __dso_handle
+ .data          0x0000000000241dc8        0x0 channel.o
  .data.DW.ref.__gxx_personality_v0
-                0x0000000000240dc8        0x8 channel.o
-                0x0000000000240dc8                DW.ref.__gxx_personality_v0
- .data          0x0000000000240dd0        0x0 core.o
- .data          0x0000000000240dd0        0x0 common.o
- .data          0x0000000000240dd0        0x0 packet.o
- .data          0x0000000000240dd0        0x0 com_barchart_udt_SocketUDT.o
- .data          0x0000000000240dd0        0x0 api.o
+                0x0000000000241dc8        0x8 channel.o
+                0x0000000000241dc8                DW.ref.__gxx_personality_v0
+ .data          0x0000000000241dd0        0x0 core.o
+ .data          0x0000000000241dd0        0x0 common.o
+ .data          0x0000000000241dd0        0x0 packet.o
+ .data          0x0000000000241dd0        0x0 com_barchart_udt_SocketUDT.o
+ .data          0x0000000000241dd0        0x0 api.o
  .data.DW.ref._ZTI13CUDTException
-                0x0000000000240dd0        0x8 api.o
-                0x0000000000240dd0                DW.ref._ZTI13CUDTException
+                0x0000000000241dd0        0x8 api.o
+                0x0000000000241dd0                DW.ref._ZTI13CUDTException
  .data.DW.ref._ZTISt9bad_alloc
-                0x0000000000240dd8        0x8 api.o
-                0x0000000000240dd8                DW.ref._ZTISt9bad_alloc
- .data          0x0000000000240de0        0x0 ccc.o
- .data          0x0000000000240de0        0x0 buffer.o
- .data          0x0000000000240de0        0x0 epoll.o
- .data          0x0000000000240de0        0x0 window.o
- .data          0x0000000000240de0        0x0 md5.o
- .data          0x0000000000240de0        0x0 list.o
- .data          0x0000000000240de0        0x0 cache.o
- .data          0x0000000000240de0        0x0 queue.o
- .data          0x0000000000240de0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
- .data          0x0000000000240de0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
+                0x0000000000241dd8        0x8 api.o
+                0x0000000000241dd8                DW.ref._ZTISt9bad_alloc
+ .data          0x0000000000241de0        0x0 ccc.o
+ .data          0x0000000000241de0        0x0 buffer.o
+ .data          0x0000000000241de0        0x0 epoll.o
+ .data          0x0000000000241de0        0x0 window.o
+ .data          0x0000000000241de0        0x0 md5.o
+ .data          0x0000000000241de0        0x0 list.o
+ .data          0x0000000000241de0        0x0 cache.o
+ .data          0x0000000000241de0        0x0 queue.o
+ .data          0x0000000000241de0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
+ .data          0x0000000000241de0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
 
 .data1
  *(.data1)
-                0x0000000000240de0                _edata = .
-                0x0000000000240de0                PROVIDE (edata, .)
-                0x0000000000240de0                __bss_start = .
+                0x0000000000241de0                _edata = .
+                0x0000000000241de0                PROVIDE (edata, .)
+                0x0000000000241de0                __bss_start = .
 
-.bss            0x0000000000240de0      0x568
+.bss            0x0000000000241de0      0x568
  *(.dynbss)
- .dynbss        0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
+ .dynbss        0x0000000000000000        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x0000000000240de0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crti.o
- .bss           0x0000000000240de0       0x10 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
- .bss           0x0000000000240df0        0x0 channel.o
- *fill*         0x0000000000240df0       0x10 00
- .bss           0x0000000000240e00      0x270 core.o
-                0x0000000000240e00                _ZN4CUDT11s_UDTUnitedE
- *fill*         0x0000000000241070       0x10 00
- .bss           0x0000000000241080       0x90 common.o
-                0x0000000000241080                _ZN6CTimer17s_ullCPUFrequencyE
-                0x00000000002410a0                _ZN6CTimer11m_EventLockE
-                0x00000000002410e0                _ZN6CTimer11m_EventCondE
- .bss           0x0000000000241110        0x0 packet.o
- .bss           0x0000000000241110      0x238 com_barchart_udt_SocketUDT.o
- .bss           0x0000000000241348        0x0 api.o
- .bss           0x0000000000241348        0x0 ccc.o
- .bss           0x0000000000241348        0x0 buffer.o
- .bss           0x0000000000241348        0x0 epoll.o
- .bss           0x0000000000241348        0x0 window.o
- .bss           0x0000000000241348        0x0 md5.o
- .bss           0x0000000000241348        0x0 list.o
- .bss           0x0000000000241348        0x0 cache.o
- .bss           0x0000000000241348        0x0 queue.o
- .bss           0x0000000000241348        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
- .bss           0x0000000000241348        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
+ .bss           0x0000000000241de0        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crti.o
+ .bss           0x0000000000241de0       0x10 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
+ .bss           0x0000000000241df0        0x0 channel.o
+ *fill*         0x0000000000241df0       0x10 00
+ .bss           0x0000000000241e00      0x270 core.o
+                0x0000000000241e00                _ZN4CUDT11s_UDTUnitedE
+ *fill*         0x0000000000242070       0x10 00
+ .bss           0x0000000000242080       0x90 common.o
+                0x0000000000242080                _ZN6CTimer17s_ullCPUFrequencyE
+                0x00000000002420a0                _ZN6CTimer11m_EventLockE
+                0x00000000002420e0                _ZN6CTimer11m_EventCondE
+ .bss           0x0000000000242110        0x0 packet.o
+ .bss           0x0000000000242110      0x238 com_barchart_udt_SocketUDT.o
+ .bss           0x0000000000242348        0x0 api.o
+ .bss           0x0000000000242348        0x0 ccc.o
+ .bss           0x0000000000242348        0x0 buffer.o
+ .bss           0x0000000000242348        0x0 epoll.o
+ .bss           0x0000000000242348        0x0 window.o
+ .bss           0x0000000000242348        0x0 md5.o
+ .bss           0x0000000000242348        0x0 list.o
+ .bss           0x0000000000242348        0x0 cache.o
+ .bss           0x0000000000242348        0x0 queue.o
+ .bss           0x0000000000242348        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
+ .bss           0x0000000000242348        0x0 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
  *(COMMON)
-                0x0000000000241348                . = ALIGN ((. != 0x0)?0x8:0x1)
+                0x0000000000242348                . = ALIGN ((. != 0x0)?0x8:0x1)
 
 .lbss
  *(.dynlbss)
  *(.lbss .lbss.* .gnu.linkonce.lb.*)
  *(LARGE_COMMON)
-                0x0000000000241348                . = ALIGN (0x8)
+                0x0000000000242348                . = ALIGN (0x8)
 
 .lrodata
  *(.lrodata .lrodata.* .gnu.linkonce.lr.*)
 
-.ldata          0x0000000000641348        0x0
+.ldata          0x0000000000642348        0x0
  *(.ldata .ldata.* .gnu.linkonce.l.*)
-                0x0000000000641348                . = ALIGN ((. != 0x0)?0x8:0x1)
-                0x0000000000641348                . = ALIGN (0x8)
-                0x0000000000641348                _end = .
-                0x0000000000641348                PROVIDE (end, .)
-                0x0000000000641348                . = DATA_SEGMENT_END (.)
+                0x0000000000642348                . = ALIGN ((. != 0x0)?0x8:0x1)
+                0x0000000000642348                . = ALIGN (0x8)
+                0x0000000000642348                _end = .
+                0x0000000000642348                PROVIDE (end, .)
+                0x0000000000642348                . = DATA_SEGMENT_END (.)
 
 .stab
  *(.stab)
@@ -1478,25 +1479,25 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.5/../../../../lib/crtn.o
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment        0x0000000000000000       0x2b
+.comment        0x0000000000000000       0x23
  *(.comment)
- .comment       0x0000000000000000       0x2b /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtbeginS.o
-                                         0x2c (size before relaxing)
- .comment       0x0000000000000000       0x2c channel.o
- .comment       0x0000000000000000       0x2c core.o
- .comment       0x0000000000000000       0x2c common.o
- .comment       0x0000000000000000       0x2c packet.o
- .comment       0x0000000000000000       0x2c com_barchart_udt_SocketUDT.o
- .comment       0x0000000000000000       0x2c api.o
- .comment       0x0000000000000000       0x2c ccc.o
- .comment       0x0000000000000000       0x2c buffer.o
- .comment       0x0000000000000000       0x2c epoll.o
- .comment       0x0000000000000000       0x2c window.o
- .comment       0x0000000000000000       0x2c md5.o
- .comment       0x0000000000000000       0x2c list.o
- .comment       0x0000000000000000       0x2c cache.o
- .comment       0x0000000000000000       0x2c queue.o
- .comment       0x0000000000000000       0x2c /usr/lib/gcc/x86_64-linux-gnu/4.4.5/crtendS.o
+ .comment       0x0000000000000000       0x23 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtbeginS.o
+                                         0x24 (size before relaxing)
+ .comment       0x0000000000000000       0x24 channel.o
+ .comment       0x0000000000000000       0x24 core.o
+ .comment       0x0000000000000000       0x24 common.o
+ .comment       0x0000000000000000       0x24 packet.o
+ .comment       0x0000000000000000       0x24 com_barchart_udt_SocketUDT.o
+ .comment       0x0000000000000000       0x24 api.o
+ .comment       0x0000000000000000       0x24 ccc.o
+ .comment       0x0000000000000000       0x24 buffer.o
+ .comment       0x0000000000000000       0x24 epoll.o
+ .comment       0x0000000000000000       0x24 window.o
+ .comment       0x0000000000000000       0x24 md5.o
+ .comment       0x0000000000000000       0x24 list.o
+ .comment       0x0000000000000000       0x24 cache.o
+ .comment       0x0000000000000000       0x24 queue.o
+ .comment       0x0000000000000000       0x24 /usr/lib/gcc/x86_64-linux-gnu/4.4.3/crtendS.o
 
 .debug
  *(.debug)

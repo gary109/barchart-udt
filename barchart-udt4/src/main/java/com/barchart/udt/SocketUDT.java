@@ -70,7 +70,7 @@ public class SocketUDT {
 	 * do not use automatic signature based on time stamp until all platforms
 	 * are built at once
 	 */
-	public static final int SIGNATURE_JNI = 1003; // VersionUDT.BUILDTIME;
+	public static final int SIGNATURE_JNI = 1004; // VersionUDT.BUILDTIME;
 
 	/**
 	 * infinite message time to live;
