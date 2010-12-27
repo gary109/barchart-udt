@@ -158,6 +158,10 @@ public class SocketUDT {
 	 */
 	public final int socketID;
 
+	public int getSocketId() {
+		return socketID;
+	}
+
 	/**
 	 * native socket type; SOCK_DGRAM / SOCK_STREAM
 	 */
@@ -180,6 +184,10 @@ public class SocketUDT {
 	 * @see #updateMonitor(boolean)
 	 */
 	public final MonitorUDT monitor;
+
+	public MonitorUDT getMonitor() {
+		return monitor;
+	}
 
 	/**
 	 * message send mode parameters; used by JNI on each message send
@@ -435,6 +443,9 @@ public class SocketUDT {
 	protected volatile int listenQueueSize;
 
 	/**
+	 * @param queueSize
+	 *            maximum number of queued clients
+	 * 
 	 * @see #listen0(int)
 	 */
 	public void listen(int queueSize) throws ExceptionUDT {
