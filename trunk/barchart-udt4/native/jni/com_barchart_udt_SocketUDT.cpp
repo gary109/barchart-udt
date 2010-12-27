@@ -640,14 +640,15 @@ bool UDT_IsSocketOpen(JNIEnv* env, jobject self) {
 
 	// hack to test if socket is already closed
 
+	// must use int to match option size of UDT_MSS
 	int value = 0;
 	int valueSize = sizeof(value);
 
 	const jint socketID = UDT_GetSocketID(env, self);
 
-	const int rv = UDT::getsockopt(socketID, 0, UDT_MAXBW, &value, &valueSize);
+	const int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
 
-	printf("native: UDT_IsSocketOpen: rv=%d\n", rv);
+	//	printf("native: UDT_IsSocketOpen: rv=%d\n", rv);
 
 	if (rv == UDT::ERROR) {
 		return false;
@@ -2141,3 +2142,4 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillBuffer0(
 
 
 } // extern "C"
+
