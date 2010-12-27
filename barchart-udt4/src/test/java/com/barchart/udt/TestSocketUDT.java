@@ -128,16 +128,23 @@ public class TestSocketUDT {
 		SocketUDT socket = null;
 
 		try {
+
 			socket = new SocketUDT(TypeUDT.DATAGRAM);
+
 		} catch (ExceptionUDT e) {
+
 			fail("SocketException; " + e.getMessage());
+
 		}
 
-		int socketID = socket.socketID;
+		final int realID = socket.socketID;
 
-		socketID += 10;
+		final int fakeID = realID + 123;
 
-		socket.testInvalidClose0(socketID);
+		log.info("real: {} ; fake : {} ; ", realID, fakeID);
+
+		// throws exception
+		socket.testInvalidClose0(fakeID);
 
 	}
 
@@ -169,7 +176,10 @@ public class TestSocketUDT {
 
 			socket.close();
 
-			// assertTrue(socket.isClosed());
+			/* it takes about 5 seconds to time out */
+			Thread.sleep(5 * 1000);
+
+			assertTrue(socket.isClosed());
 			assertFalse(socket.isOpen());
 
 			log.info("isOpen pass");
