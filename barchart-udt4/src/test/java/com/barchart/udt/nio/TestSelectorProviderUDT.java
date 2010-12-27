@@ -73,55 +73,58 @@ public class TestSelectorProviderUDT {
 	public void tearDown() throws Exception {
 	}
 
-	// @Test
+	@Test
 	public void testOpenSelector() {
-		log.info("Not yet implemented");
+		// log.info("Not yet implemented");
 	}
 
-	// @Test
-	public void testSelect_A() {
+	@Test
+	public void testSelect_Arrays() {
 
-		log.info("testSelect_A");
+		log.info("testSelect_Arrays");
 
 		try {
 
-			SelectorProviderUDT provider = SelectorProviderUDT.DATAGRAM;
+			final SelectorProviderUDT provider = SelectorProviderUDT.DATAGRAM;
 
-			Selector selector = provider.openSelector();
+			final Selector selector = provider.openSelector();
 
-			ChannelSocketUDT channelClient = (ChannelSocketUDT) provider
+			final ChannelSocketUDT channelClient = (ChannelSocketUDT) provider
 					.openSocketChannel();
 
-			ChannelServerSocketUDT channelServer = (ChannelServerSocketUDT) provider
+			final ChannelServerSocketUDT channelServer = (ChannelServerSocketUDT) provider
 					.openServerSocketChannel();
 
 			channelClient.configureBlocking(false);
 			channelServer.configureBlocking(false);
 
-			InetSocketAddress localAddress1 = new InetSocketAddress(//
+			final InetSocketAddress addressServer = new InetSocketAddress(//
 					"localhost", 9011);
 
-			InetSocketAddress localAddress2 = new InetSocketAddress(//
+			final InetSocketAddress addressClient = new InetSocketAddress(//
 					"localhost", 9012);
 
-			ServerSocket socketServer = channelServer.socket();
-			socketServer.bind(localAddress1);
+			final ServerSocket socketServer = channelServer.socket();
+			socketServer.bind(addressServer);
 			// socketServer.accept();
 
-			Socket socketClient = channelClient.socket();
-			socketClient.bind(localAddress2);
+			final Socket socketClient = channelClient.socket();
+			socketClient.bind(addressClient);
 			// socketClient.accept();
 
-			SelectionKeyUDT key1 = (SelectionKeyUDT) channelServer.register(
-					selector, SelectionKey.OP_ACCEPT);
-			SelectionKeyUDT key2 = (SelectionKeyUDT) channelClient.register(
-					selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+			final SelectionKeyUDT keyServer = (SelectionKeyUDT) channelServer
+					.register(selector, SelectionKey.OP_ACCEPT);
 
-			Set<SelectionKeyUDT> registeredKeySet = new HashSet<SelectionKeyUDT>();
-			registeredKeySet.add(key1);
-			registeredKeySet.add(key2);
+			final SelectionKeyUDT keyClient = (SelectionKeyUDT) channelClient
+					.register(selector, SelectionKey.OP_READ
+							| SelectionKey.OP_WRITE);
 
-			Set<SelectionKeyUDT> selectedKeySet = new HashSet<SelectionKeyUDT>();
+			final Set<SelectionKeyUDT> registeredKeySet = new HashSet<SelectionKeyUDT>();
+
+			registeredKeySet.add(keyServer);
+			registeredKeySet.add(keyClient);
+
+			final Set<SelectionKeyUDT> selectedKeySet = new HashSet<SelectionKeyUDT>();
 
 			log.info("registeredKeySet={}", registeredKeySet);
 			log.info("selectedKeySet={}", selectedKeySet);
@@ -130,29 +133,32 @@ public class TestSelectorProviderUDT {
 
 			// socketServer.clearError();
 
-			long timeStart = System.currentTimeMillis();
+			final long timeStart = System.currentTimeMillis();
 
-			int millisTimeout = 1 * 1000;
+			final int millisTimeout = 1 * 1000;
 
-			int[] readArray = new int[1024];
-			int[] writeArray = new int[1024];
-			int[] exceptArray = new int[1024];
-			int[] sizeArray = new int[3];
+			final int arraySize = 10;
+
+			final int[] readArray = new int[arraySize];
+			final int[] writeArray = new int[arraySize];
+			final int[] exceptArray = new int[arraySize];
+			final int[] sizeArray = new int[3];
 
 			readArray[0] = channelServer.serverSocketUDT.socketID;
 			readArray[1] = channelClient.socketUDT.socketID;
 
 			sizeArray[0] = 2;
 
-			log.info("readArray={}", readArray);
+			// log.info("readArray={}", readArray);
 
 			SocketUDT.select(readArray, writeArray, exceptArray, sizeArray,
 					millisTimeout);
-			log.info("readArray={}", readArray);
 
-			long timeFinish = System.currentTimeMillis();
+			// log.info("readArray={}", readArray);
 
-			long timeDiff = timeFinish - timeStart;
+			final long timeFinish = System.currentTimeMillis();
+
+			final long timeDiff = timeFinish - timeStart;
 			log.info("timeDiff={}", timeDiff);
 
 			socketServer.close();
@@ -164,73 +170,77 @@ public class TestSelectorProviderUDT {
 
 	}
 
-	@Test
-	public void testSelect_B() {
+	static final int SIZE = 10 * 2048;
 
-		log.info("testSelect_B");
+	@Test
+	public void testSelect_Buffers() {
+
+		log.info("testSelect_Buffers");
 
 		try {
 
-			SelectorProviderUDT provider = SelectorProviderUDT.DATAGRAM;
+			final SelectorProviderUDT provider = SelectorProviderUDT.DATAGRAM;
 
-			Selector selector = provider.openSelector();
+			final Selector selector = provider.openSelector();
 
-			SocketChannel channelClient = (ChannelSocketUDT) provider
-					.openSocketChannel();
+			final SocketChannel channelClient = provider.openSocketChannel();
 
-			ServerSocketChannel channelServer = (ChannelServerSocketUDT) provider
+			final ServerSocketChannel channelServer = provider
 					.openServerSocketChannel();
 
 			channelClient.configureBlocking(false);
 			channelServer.configureBlocking(false);
 
-			InetSocketAddress localServer = new InetSocketAddress(//
+			final InetSocketAddress localServer = new InetSocketAddress(//
 					"localhost", 9021);
 
-			InetSocketAddress localClient = new InetSocketAddress(//
+			final InetSocketAddress localClient = new InetSocketAddress(//
 					"localhost", 9022);
 
-			ServerSocket socketServer = channelServer.socket();
+			final ServerSocket socketServer = channelServer.socket();
 			socketServer.bind(localServer);
 			// socketServer.accept();
 
-			Socket socketClient = channelClient.socket();
+			final Socket socketClient = channelClient.socket();
 			socketClient.bind(localClient);
 			// socketClient.accept();
 
 			socketClient.connect(localServer);
 			log.info("connect");
 
-			SelectionKeyUDT key1 = (SelectionKeyUDT) channelServer.register(
-					selector, SelectionKey.OP_ACCEPT);
-			SelectionKeyUDT key2 = (SelectionKeyUDT) channelClient.register(
-					selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+			final SelectionKeyUDT keyServer = (SelectionKeyUDT) channelServer
+					.register(selector, SelectionKey.OP_ACCEPT);
 
-			int millisTimeout = 1 * 1000;
+			final SelectionKeyUDT keyClient = (SelectionKeyUDT) channelClient
+					.register(selector, SelectionKey.OP_READ
+							| SelectionKey.OP_WRITE);
 
-			long timeStart = System.currentTimeMillis();
-			int readyCount = selector.select(millisTimeout);
-			long timeFinish = System.currentTimeMillis();
+			final int millisTimeout = 1 * 1000;
+
+			//
+			final long timeStart = System.currentTimeMillis();
+			final int readyCount = selector.select(millisTimeout);
+			final long timeFinish = System.currentTimeMillis();
 			log.info("readyCount={}", readyCount);
 
-			long timeDiff = timeFinish - timeStart;
+			final long timeDiff = timeFinish - timeStart;
 			log.info("timeDiff={}", timeDiff);
 
-			Set<SelectionKey> selectedKeySet = selector.selectedKeys();
+			final Set<SelectionKey> selectedKeySet = selector.selectedKeys();
 			logSet(selectedKeySet);
 
-			for (SelectionKey key : selectedKeySet) {
+			for (final SelectionKey key : selectedKeySet) {
 				if (key.isWritable()) {
 					log.info("isWritable");
-					SocketChannel channel = (SocketChannel) key.channel();
-					ByteBuffer buffer = ByteBuffer.allocate(2048);
-					int writeCount = channel.write(buffer);
+					final SocketChannel channel = (SocketChannel) key.channel();
+					final ByteBuffer buffer = ByteBuffer.allocate(SIZE);
+					final int writeCount = channel.write(buffer);
 					log.info("writeCount={}", writeCount);
 				}
 				if (key.isReadable()) {
 					log.info("isReadable");
-					SocketChannel channel = (SocketChannel) key.channel();
-					ByteBuffer buffer = ByteBuffer.allocate(2048);
+					final SocketChannel channel = (SocketChannel) key.channel();
+					final ByteBuffer buffer = ByteBuffer.allocate(SIZE);
 					int readCount = channel.read(buffer);
 					log.info("readCount={}", readCount);
 				}
