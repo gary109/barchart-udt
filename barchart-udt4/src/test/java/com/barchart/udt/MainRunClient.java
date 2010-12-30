@@ -88,6 +88,8 @@ public class MainRunClient {
 
 			InetSocketAddress localSocketAddress = new InetSocketAddress( //
 					bindAddress, 0);
+			
+			log.info("localSocketAddress : {}",localSocketAddress );
 
 			sender.bind(localSocketAddress);
 			localSocketAddress = sender.getLocalSocketAddress();

@@ -10,5 +10,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.barchart.udt.MainRunClient"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="barchart-udt4"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.maven.ide.eclipse.launchconfig.sourcepathProvider"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dudt.bind.address=mainlan&#10;-Dudt.remote.address=andrei-eclipse&#10;-Dudt.remote.port=10100&#10;-Dudt.max.bandwidth=1000000000&#10;-Dudt.count.batch=1000&#10;-Dudt.count.sleep=100&#10;-Dudt.count.monitor=1000"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dudt.bind.address=0.0.0.0&#13;&#10;-Dudt.remote.address=andrei-eclipse&#13;&#10;-Dudt.remote.port=10100&#13;&#10;-Dudt.max.bandwidth=1000000000&#13;&#10;-Dudt.count.batch=1000&#13;&#10;-Dudt.count.sleep=100&#13;&#10;-Dudt.count.monitor=1000&#13;&#10;&#13;&#10;-ea"/>
 </launchConfiguration>
