@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 10/12/2010
+   Yunhong Gu, last updated 12/28/2010
 *****************************************************************************/
 
 #ifdef WIN32
@@ -94,6 +94,7 @@ CUDTSocket::~CUDTSocket()
    }
 
    delete m_pUDT;
+   m_pUDT = NULL;
 
    delete m_pQueuedSockets;
    delete m_pAcceptSockets;
@@ -789,7 +790,13 @@ int CUDTUnited::close(const UDTSOCKET u)
    s->m_pUDT->close();
 
    // synchronize with garbage collection.
-   CGuard::enterCS(m_ControlLock);
+   CGuard cg(m_ControlLock);
+
+   // since "s" is located before m_ControlLock, locate it again in case it became invalid
+   map<UDTSOCKET, CUDTSocket*>::iterator i = m_Sockets.find(u);
+   if ((i == m_Sockets.end()) || (i->second->m_Status == CUDTSocket::CLOSED))
+      return 0;
+   s = i->second;
 
    s->m_Status = CUDTSocket::CLOSED;
 
@@ -799,9 +806,7 @@ int CUDTUnited::close(const UDTSOCKET u)
    s->m_TimeStamp = CTimer::getTime();
 
    m_Sockets.erase(s->m_SocketID);
-   m_ClosedSockets[s->m_SocketID] = s;
-
-   CGuard::leaveCS(m_ControlLock);
+   m_ClosedSockets.insert(pair<UDTSOCKET, CUDTSocket*>(s->m_SocketID, s));
 
    CTimer::triggerEvent();
 
@@ -1092,13 +1097,13 @@ CUDTSocket* CUDTUnited::locate(const UDTSOCKET u)
 
    map<UDTSOCKET, CUDTSocket*>::iterator i = m_Sockets.find(u);
 
-   if ( (i == m_Sockets.end()) || (i->second->m_Status == CUDTSocket::CLOSED))
+   if ((i == m_Sockets.end()) || (i->second->m_Status == CUDTSocket::CLOSED))
       return NULL;
 
    return i->second;
 }
 
-CUDTSocket* CUDTUnited::locate(const UDTSOCKET u, const sockaddr* peer, const UDTSOCKET& id, const int32_t& isn)
+CUDTSocket* CUDTUnited::locate(const UDTSOCKET /*u*/, const sockaddr* peer, const UDTSOCKET& id, const int32_t& isn)
 {
    CGuard cg(m_ControlLock);
 

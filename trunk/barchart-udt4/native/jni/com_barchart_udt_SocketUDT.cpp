@@ -47,6 +47,8 @@
 #include "com_barchart_udt_SocketUDT.h"
 
 #include <udt.h>
+#include <api.h>
+
 using namespace UDT;
 
 #include <cassert>
@@ -2073,6 +2075,18 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0(
 
 }
 
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testSocketStatus0(
+		JNIEnv *env, jobject self, const jint socketID) {
+
+	printf("native: test socket status \n");
+
+//	CUDT:: handle = CUDT::getUDTHandle(socketID);
+
+	CUDTSocket::UDTSTATUS status;
+
+}
+
+
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectByteBufferAccess0(
 		JNIEnv* env, jobject self, jobject bufferObj) {
 
@@ -2123,6 +2137,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillArray0(
 	env->ReleaseByteArrayElements(arrayObj, array, JNI_UPDATE);
 
 }
+
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillBuffer0(
 		JNIEnv *env, jobject self, jobject bufferObj) {
 
