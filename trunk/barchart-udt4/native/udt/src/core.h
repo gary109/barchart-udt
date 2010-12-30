@@ -253,7 +253,7 @@ private:
 
    void sample(CPerfMon* perf, bool clear = true);
 
-private:
+public: // XXX AP hack
    static CUDTUnited s_UDTUnited;               // UDT global management base
 
 public:

@@ -47,7 +47,11 @@
 #include "com_barchart_udt_SocketUDT.h"
 
 #include <udt.h>
+
+// ### temp hack
 #include <api.h>
+#include <core.h>
+// ###
 
 using namespace UDT;
 
@@ -2075,18 +2079,6 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testCrashJVM0(
 
 }
 
-JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testSocketStatus0(
-		JNIEnv *env, jobject self, const jint socketID) {
-
-	printf("native: test socket status \n");
-
-//	CUDT:: handle = CUDT::getUDTHandle(socketID);
-
-	CUDTSocket::UDTSTATUS status;
-
-}
-
-
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectByteBufferAccess0(
 		JNIEnv* env, jobject self, jobject bufferObj) {
 
@@ -2149,6 +2141,21 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillBuffer0(
 	for (int k = 0; k < capacity; k++) {
 		buffer[k] = (char) k;
 	}
+
+}
+
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testSocketStatus0(
+		JNIEnv *env, jobject self) {
+
+	const jint socketID = UDT_GetSocketID(env, self);
+
+	printf("native: test socket status; id=%d \n", socketID);
+
+	// TODO ask Yunhong Gu to expose status api
+
+	const CUDTSocket::UDTSTATUS status = CUDT::s_UDTUnited.getStatus(socketID);
+
+	printf("native: test socket status; status=%d \n", status);
 
 }
 
