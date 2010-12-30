@@ -15,8 +15,8 @@
 	<packaging>jar</packaging>
 
 	<name>barchart-udt</name>
-	<description>Java wrapper around native C++ UDT protocol implementation
-UDT version: 4.8</description>
+
+	<description>Java wrapper around native C++ UDT protocol implementation UDT version: 4.8</description>
 
 	<url>http://code.google.com/p/barchart-udt/</url>
 
@@ -83,13 +83,90 @@ UDT version: 4.8</description>
 		<url>http://www.barchart.com</url>
 	</organization>
 
+
 	<build>
+
+		<pluginManagement>
+			<plugins>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>groovy-maven-plugin</artifactId>
+					<version>1.0</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>1.6</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.ant</groupId>
+							<artifactId>ant</artifactId>
+							<version>1.8.1</version>
+						</dependency>
+						<dependency>
+							<groupId>org.apache.ant</groupId>
+							<artifactId>ant-nodeps</artifactId>
+							<version>1.8.1</version>
+						</dependency>
+						<dependency>
+							<groupId>ant-contrib</groupId>
+							<artifactId>cpptasks</artifactId>
+							<version>1.0b5</version>
+						</dependency>
+						<dependency>
+							<groupId>ant-contrib</groupId>
+							<artifactId>ant-contrib</artifactId>
+							<version>1.0b3</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+
+				<plugin>
+					<groupId>com.google.code.maven-license-plugin</groupId>
+					<artifactId>maven-license-plugin</artifactId>
+					<version>1.4.0</version>
+				</plugin>
+
+				<plugin>
+					<groupId>javolution</groupId>
+					<artifactId>colapi</artifactId>
+					<version>1.0.0</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.4.3</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-scm-plugin</artifactId>
+					<version>1.4</version>
+				</plugin>
+
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>groovy-maven-plugin</artifactId>
-				<version>1.0</version>
 				<executions>
 					<execution>
 						<id>make-timestamp-property</id>
@@ -107,36 +184,6 @@ UDT version: 4.8</description>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.6</version>
-				<dependencies>
-<!--					<dependency>-->
-<!--						<groupId>com.sun.jdk</groupId>-->
-<!--						<artifactId>jdk-tools</artifactId>-->
-<!--						<version>1.6.0</version>-->
-<!--						<scope>system</scope>-->
-<!--						<systemPath>${java.home}/../lib/tools.jar</systemPath>-->
-<!--					</dependency>-->
-					<dependency>
-						<groupId>org.apache.ant</groupId>
-						<artifactId>ant</artifactId>
-						<version>1.8.1</version>
-					</dependency>
-					<dependency>
-						<groupId>org.apache.ant</groupId>
-						<artifactId>ant-nodeps</artifactId>
-						<version>1.8.1</version>
-					</dependency>
-					<dependency>
-						<groupId>ant-contrib</groupId>
-						<artifactId>cpptasks</artifactId>
-						<version>1.0b5</version>
-					</dependency>
-					<dependency>
-						<groupId>ant-contrib</groupId>
-						<artifactId>ant-contrib</artifactId>
-						<version>1.0b3</version>
-					</dependency>
-				</dependencies>
 				<executions>
 					<execution>
 						<id>generate-version-class</id>
@@ -207,10 +254,6 @@ UDT version: 4.8</description>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.4.3</version>
-				<configuration>
-					<encoding>UTF-8</encoding>
-				</configuration>
 				<executions>
 					<execution>
 						<id>copy-udt-artifact-files</id>
@@ -236,16 +279,6 @@ UDT version: 4.8</description>
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-
-			<plugin>
-				<!-- used to set m2e properties http://m2eclipse.sonatype.org/ -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
 			</plugin>
 
 		</plugins>
@@ -331,7 +364,6 @@ UDT version: 4.8</description>
 					<plugin>
 						<groupId>javolution</groupId>
 						<artifactId>colapi</artifactId>
-						<version>1.0.0</version>
 						<configuration>
 							<directory>doc</directory>
 						</configuration>
@@ -394,7 +426,6 @@ UDT version: 4.8</description>
 					<plugin>
 						<groupId>com.google.code.maven-license-plugin</groupId>
 						<artifactId>maven-license-plugin</artifactId>
-						<version>1.4.0</version>
 						<configuration>
 							<encoding>UTF-8</encoding>
 							<quiet>false</quiet>
@@ -448,7 +479,6 @@ UDT version: 4.8</description>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-scm-plugin</artifactId>
-						<version>1.4</version>
 						<configuration>
 							<connectionType>connection</connectionType>
 							<connectionUrl>${connectionUDT}</connectionUrl>
@@ -473,10 +503,6 @@ UDT version: 4.8</description>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-resources-plugin</artifactId>
-						<version>2.4</version>
-						<configuration>
-							<encoding>UTF-8</encoding>
-						</configuration>
 						<executions>
 							<execution>
 								<id>copy-udt-sources-after-checkout</id>
@@ -501,5 +527,41 @@ UDT version: 4.8</description>
 				</plugins>
 			</build>
 		</profile>
+
+		<profile>
+			<!-- "think different": macosx provides tools.jar classes already in classes.jar 
+				and does not provide tools.jar -->
+			<!-- vendor @ macosx: java.vendor=Apple, Inc. -->
+			<!-- vendor @ windows: java.vendor=Sun Microsystems Inc. -->
+			<!-- vendor @ linux: java.vendor=Sun Microsystems Inc. -->
+			<id>tools.jar</id>
+			<activation>
+				<property>
+					<name>java.vendor</name>
+					<value>Sun Microsystems Inc.</value>
+				</property>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-antrun-plugin</artifactId>
+							<dependencies>
+								<dependency>
+									<groupId>com.sun.jdk</groupId>
+									<artifactId>jdk-tools</artifactId>
+									<version>1.6.0</version>
+									<scope>system</scope>
+									<systemPath>${java.home}/../lib/tools.jar</systemPath>
+								</dependency>
+							</dependencies>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+
 	</profiles>
+
 </project>

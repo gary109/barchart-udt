@@ -511,9 +511,9 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
                 0x000000000001af50                Java_com_barchart_udt_SocketUDT_testGetSetArray0
                 0x000000000001afd0                Java_com_barchart_udt_SocketUDT_testFillArray0
                 0x000000000001b190                Java_com_barchart_udt_SocketUDT_testFillBuffer0
-                0x000000000001b360                Java_com_barchart_udt_SocketUDT_testDirectIntBufferAccess0
-                0x000000000001b3e0                Java_com_barchart_udt_SocketUDT_testDirectByteBufferAccess0
-                0x000000000001b450                Java_com_barchart_udt_SocketUDT_testSocketStatus0
+                0x000000000001b360                Java_com_barchart_udt_SocketUDT_testSocketStatus0
+                0x000000000001b380                Java_com_barchart_udt_SocketUDT_testDirectIntBufferAccess0
+                0x000000000001b400                Java_com_barchart_udt_SocketUDT_testDirectByteBufferAccess0
                 0x000000000001b470                Java_com_barchart_udt_SocketUDT_testCrashJVM0
                 0x000000000001b4a0                UDT_InitMethodRefAll
                 0x000000000001b7b0                X_InitMethodRef
@@ -1179,13 +1179,13 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/4.4.3/../../../../lib/crtn.o
                 0x0000000000037e30                _ZN7CPacket13m_iPktHdrSizeE
                 0x0000000000037e34                _ZN10CHandShake14m_iContentSizeE
  .rodata.str1.1
-                0x0000000000037e38      0x8d2 com_barchart_udt_SocketUDT.o
-                                        0x8da (size before relaxing)
- *fill*         0x000000000003870a        0x6 00
+                0x0000000000037e38      0x8b5 com_barchart_udt_SocketUDT.o
+                                        0x8bd (size before relaxing)
+ *fill*         0x00000000000386ed        0x3 00
  .rodata.str1.8
-                0x0000000000038710      0x2c0 com_barchart_udt_SocketUDT.o
-                                        0x2bd (size before relaxing)
- *fill*         0x00000000000389d0       0x10 00
+                0x00000000000386f0      0x2e8 com_barchart_udt_SocketUDT.o
+                                        0x2e5 (size before relaxing)
+ *fill*         0x00000000000389d8        0x8 00
  .rodata        0x00000000000389e0      0x275 com_barchart_udt_SocketUDT.o
  *fill*         0x0000000000038c55        0xb 00
  .rodata.cst16  0x0000000000038c60       0x20 com_barchart_udt_SocketUDT.o
