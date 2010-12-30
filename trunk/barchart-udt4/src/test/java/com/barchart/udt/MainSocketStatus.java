@@ -56,7 +56,7 @@ public class MainSocketStatus {
 		socket.testSocketStatus0();
 
 		InetSocketAddress localAddress1 = new InetSocketAddress(//
-				"localhost", 8001);
+				"0.0.0.0", 8001);
 
 		socket.bind(localAddress1);
 		socket.testSocketStatus0();
