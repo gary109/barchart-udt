@@ -50,7 +50,7 @@ public class MainSocketStatus {
 
 	public static void main(String[] args) throws Exception {
 
-		log.info("started");
+		log.info("started {}", System.getProperty("os.arch"));
 
 		final SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
 		socket.testSocketStatus0();
