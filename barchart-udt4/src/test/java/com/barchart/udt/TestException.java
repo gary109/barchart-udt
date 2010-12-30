@@ -77,6 +77,8 @@ public class TestException {
 	@Before
 	public void setUp() throws Exception {
 
+		log.info("started {}", System.getProperty("os.arch"));
+
 		exceptionCount = new AtomicInteger(0);
 
 		barrier = new CyclicBarrier(THREADS + 1);

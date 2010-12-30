@@ -2,9 +2,21 @@ package com.barchart.udt;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestStatusUDT {
+
+	static final Logger log = LoggerFactory.getLogger(TestStatusUDT.class);
+
+	@Before
+	public void setUp() throws Exception {
+
+		log.info("started {}", System.getProperty("os.arch"));
+
+	}
 
 	@Test
 	public void testFromCode() {

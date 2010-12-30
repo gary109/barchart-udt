@@ -57,7 +57,11 @@ public class TestRangeCheck {
 
 	@Before
 	public void setUp() throws Exception {
+
+		log.info("started {}", System.getProperty("os.arch"));
+
 		socket = new SocketUDT(TypeUDT.DATAGRAM);
+
 	}
 
 	@After

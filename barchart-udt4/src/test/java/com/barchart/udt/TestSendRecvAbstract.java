@@ -191,6 +191,8 @@ public abstract class TestSendRecvAbstract<T> {
 	@Before
 	public void setUp() throws Exception {
 
+		log.info("started {}", System.getProperty("os.arch"));
+
 		serverQueue = new LinkedBlockingQueue<T>();
 		clientQueue = new LinkedBlockingQueue<T>();
 
