@@ -15,6 +15,9 @@ public class TestHelperUDT {
 
 	@Before
 	public void setUp() throws Exception {
+
+		log.info("started {}", System.getProperty("os.arch"));
+
 	}
 
 	@After
