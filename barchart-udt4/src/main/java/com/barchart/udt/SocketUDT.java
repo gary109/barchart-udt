@@ -1328,6 +1328,8 @@ public class SocketUDT {
 
 	native void testCrashJVM0();
 
+	native void testSocketStatus0();
+
 	native void testDirectByteBufferAccess0(ByteBuffer buffer);
 
 	native void testDirectIntBufferAccess0(IntBuffer buffer);
@@ -1388,6 +1390,13 @@ public class SocketUDT {
 
 		return text.toString();
 
+	}
+
+	/**
+	*/
+	// TODO
+	public StatusUDT getStatus() {
+		return StatusUDT.UNKNOWN;
 	}
 
 }
