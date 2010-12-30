@@ -105,7 +105,7 @@
 	</target>
 
 	<property name="artifact" value="barchart-udt4" />
-	<property name="version" value="1.0.0-SNAPSHOT" />
+	<property name="version" value="1.0.1-SNAPSHOT" />
 
 	<property name="repoID" value="com.googlecode.barchart-udt" />
 	<property name="repoURL"
