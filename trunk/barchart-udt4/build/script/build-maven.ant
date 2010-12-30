@@ -1,7 +1,7 @@
 <project name="project-compile" default="target-info" basedir="${mvn.basedir}">
 
-	<!-- 
-		used by maven ant builder; keep in sync with eclipse cdt builder 
+	<!--
+		used by maven ant builder; keep in sync with eclipse cdt builder
 	-->
 
 	<!-- ####################################################### -->
@@ -139,13 +139,13 @@
 	<!-- cpptasks working directory; will contain compilation result -->
 	<property name="work.cpptasks" value="${mvn.target}/cpptasks" />
 
-	<!-- cpptasks nees both folder and root name provided to "outfile"; 
-	cpptasks will add prefix/suffix to the root - based on compiler name, 
+	<!-- cpptasks nees both folder and root name provided to "outfile";
+	cpptasks will add prefix/suffix to the root - based on compiler name,
 	not platform type; note: must porvie "name.root" - hence all this mess -->
 	<property name="path.cpptasks.root" value="${work.cpptasks}/${name.root}" />
 
-	<!-- make own name with prefix/suffix that will match cpptasks name; 
-	note: cpptasks will produce libXXX.so on both linux and windows, 
+	<!-- make own name with prefix/suffix that will match cpptasks name;
+	note: cpptasks will produce libXXX.so on both linux and windows,
 	based on 'g++' compiler type, not build platform type -->
 	<property name="name.cpptasks" value="lib${name.root}.so" />
 	<property name="name.cpptasks.map" value="${name.cpptasks}.map" />
@@ -443,10 +443,13 @@
 		<copy file="${path.cpptasks.sym}" tofile="${path.real.sym}" />
 	</target>
 
-	<!-- ================================= 
-          target-build              
+	<!-- =================================
+          target-build
          ================================= -->
-	<target name="target-build" depends="target-copy-artifact">
+	<target name="target-build">
+		<echo message="### SKIPPING BUILD ###" />
+	</target>
+	<target name="target-build-really" depends="target-copy-artifact">
 		<echo message="### SUCESS" />
 	</target>
 
