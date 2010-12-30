@@ -2148,14 +2148,11 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testSocketStatus0(
 		JNIEnv *env, jobject self) {
 
 	const jint socketID = UDT_GetSocketID(env, self);
-
 	printf("native: test socket status; id=%d \n", socketID);
 
 	// TODO ask Yunhong Gu to expose status api
-
-	const CUDTSocket::UDTSTATUS status = CUDT::s_UDTUnited.getStatus(socketID);
-
-	printf("native: test socket status; status=%d \n", status);
+	//	const CUDTSocket::UDTSTATUS status = CUDT::s_UDTUnited.getStatus(socketID);
+	//	printf("native: test socket status; status=%d \n", status);
 
 }
 
