@@ -48,21 +48,19 @@
 
 #include <udt.h>
 
-// ### temp hack
-#include <api.h>
-#include <core.h>
-// ###
-
-using namespace UDT;
-
 #include <cassert>
 #include <climits>
 #include <cstring>
 #include <vector>
 #include <algorithm>
+
 // do not use cout; else will introduce GLIBCXX_3.4.9 dependency with 'g++ -O2'
 //#include <iostream>
+
 using namespace std;
+
+// do not use to avoid ambiguity
+//using namespace UDT;
 
 // for JNI method signature compatibility
 extern "C" { /* specify the C calling convention */
@@ -642,27 +640,27 @@ void UDT_InitMethodRefAll(JNIEnv* env) {
 
 }
 
-bool UDT_IsSocketOpen(JNIEnv* env, jobject self) {
-
-	// hack to test if socket is already closed
-
-	// must use int to match option size of UDT_MSS
-	int value = 0;
-	int valueSize = sizeof(value);
-
-	const jint socketID = UDT_GetSocketID(env, self);
-
-	const int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
-
-	//	printf("native: UDT_IsSocketOpen: rv=%d\n", rv);
-
-	if (rv == UDT::ERROR) {
-		return false;
-	} else {
-		return true;
-	}
-
-}
+//bool UDT_IsSocketOpen(JNIEnv* env, jobject self) {
+//
+//	// hack to test if socket is already closed
+//
+//	// must use int to match option size of UDT_MSS
+//	int value = 0;
+//	int valueSize = sizeof(value);
+//
+//	const jint socketID = UDT_GetSocketID(env, self);
+//
+//	const int rv = UDT::getsockopt(socketID, 0, UDT_MSS, &value, &valueSize);
+//
+//	//	printf("native: UDT_IsSocketOpen: rv=%d\n", rv);
+//
+//	if (rv == UDT::ERROR) {
+//		return false;
+//	} else {
+//		return true;
+//	}
+//
+//}
 
 // ########################################################
 
@@ -764,7 +762,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_initInstance1(
 JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv* env,
 		jobject self) {
 
-	//	printf("udt-accept\n");
+	//	printf("native : accept\n");
 
 	sockaddr remoteSockAddr;
 	int remoteSockAddrSize = sizeof(remoteSockAddr);
@@ -778,7 +776,7 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_accept0(JNIEnv* env,
 
 		UDT::ERRORINFO errorInfo = UDT::getlasterror();
 
-		jint errorCode = errorInfo.getErrorCode();
+		const jint errorCode = errorInfo.getErrorCode();
 
 		if (errorCode == CUDTException::EASYNCRCV) {
 			// not a java exception: non-blocking mode return, when not connections in the queue
@@ -848,12 +846,12 @@ JNIEXPORT JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(
 	const jint socketID = UDT_GetSocketID(env, self);
 
 	// check if descriptor valid
-	const bool isOpen = UDT_IsSocketOpen(env, self);
+	//	const bool isOpen = UDT_IsSocketOpen(env, self);
 
-	if (!isOpen) {
-		UDT_ThrowExceptionUDT_Message(env, socketID, "close0 - not open");
-		return;
-	}
+	//	if (!isOpen) {
+	//		UDT_ThrowExceptionUDT_Message(env, socketID, "close0 - not open");
+	//		return;
+	//	}
 
 	// real close
 	const int rv = UDT::close(socketID);
@@ -870,8 +868,6 @@ JNIEXPORT JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(
 //
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_connect0(JNIEnv* env,
 		jobject self, jobject objRemoteSocketAddress) {
-
-	//	cout << "udt-connect0;" << EOL;
 
 	const jint socketID = UDT_GetSocketID(env, self);
 
@@ -950,7 +946,7 @@ JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedRemoteSocket
 JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_hasLoadedLocalSocketAddress(
 		JNIEnv* env, jobject self) {
 
-	//	printf("udt-hasLoadedLocalSocketAddress\n");
+	//	printf("native : hasLoadedLocalSocketAddress\n");
 
 	sockaddr localSockAddr;
 	int localSockAddrSize = sizeof(localSockAddr);
@@ -995,7 +991,7 @@ union UDT_OptVal {
 JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_getOption0(
 		JNIEnv *env, jobject self, jint enumCode, jclass klaz) {
 
-	//	printf("udt-getSocketOption\n");
+	//	printf("native : getSocketOption\n");
 
 	UDT::SOCKOPT optionName = (UDT::SOCKOPT) enumCode;
 	UDT_OptVal optionValue;
@@ -1042,7 +1038,7 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_getOption0(
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_setOption0(JNIEnv *env,
 		jobject self, jint enumCode, jclass klaz, jobject objValue) {
 
-	//	printf("udt-setSocketOption\n");
+	//	printf("native : setSocketOption\n");
 
 	const jint socketID = UDT_GetSocketID(env, self);
 
@@ -1109,7 +1105,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_setOption0(JNIEnv *env,
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_listen0(JNIEnv *env,
 		jobject self, jint queueSize) {
 
-	//	printf("udt-listen\n");
+	// printf("native : listen\n");
 
 	const jint socketID = UDT_GetSocketID(env, self);
 
@@ -1171,7 +1167,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive0(JNIEnv *env,
 		jobject self, const jint socketID, const jint socketType,
 		jbyteArray arrayObj) {
 
-	//	printf("udt-receive0\n");
+	//	printf("native : receive0\n");
 
 	jboolean isCopy; // whether JVM returns a reference or a copy
 	jbyte* data = env->GetByteArrayElements(arrayObj, &isCopy); // note: must release
@@ -1504,11 +1500,11 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_clearError0(JNIEnv *env,
 	UDT::getlasterror().clear();
 }
 
-JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_isOpen0(JNIEnv *env,
-		jobject self) {
-	bool isOpen = UDT_IsSocketOpen(env, self);
-	return BOOLEAN(isOpen);
-}
+//JNIEXPORT jboolean JNICALL Java_com_barchart_udt_SocketUDT_isOpen0(JNIEnv *env,
+//		jobject self) {
+//	bool isOpen = UDT_IsSocketOpen(env, self);
+//	return BOOLEAN(isOpen);
+//}
 
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 		JNIEnv *env, jobject self, jboolean makeClear) {
@@ -1573,8 +1569,8 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_updateMonitor0(
 
 // #########################################################################
 
-void UDT_CopyArrayToSet(jint* array, UDSET* udSet, const jsize size) {
-	pair<UDSET::iterator, bool> rv;
+void UDT_CopyArrayToSet(jint* array, UDT::UDSET* udSet, const jsize size) {
+	pair<UDT::UDSET::iterator, bool> rv;
 	for (jint index = 0; index < size; index++) {
 		const jint socketID = array[index];
 		rv = UD_SET(socketID, udSet);
@@ -1582,8 +1578,8 @@ void UDT_CopyArrayToSet(jint* array, UDSET* udSet, const jsize size) {
 	}
 }
 
-void UDT_CopySetToArray(UDSET* udSet, jint* array, const jsize size) {
-	UDSET::iterator iterator = udSet->begin();
+void UDT_CopySetToArray(UDT::UDSET* udSet, jint* array, const jsize size) {
+	UDT::UDSET::iterator iterator = udSet->begin();
 	for (jint index = 0; index < size; index++) {
 		const jint socketID = *iterator;
 		array[index] = socketID;
@@ -1636,9 +1632,9 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select0(JNIEnv *env,
 	jint* writeArray = NULL;
 
 	// make empty sets
-	UDSET readSet;
-	UDSET writeSet;
-	UDSET exceptSet;
+	UDT::UDSET readSet;
+	UDT::UDSET writeSet;
+	UDT::UDSET exceptSet;
 
 	// interested in read
 	if (isInterestedInRead) {
@@ -1774,9 +1770,9 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_select1(JNIEnv* env,
 	jint* writeArray = NULL;
 
 	// make empty sets
-	UDSET readSet;
-	UDSET writeSet;
-	UDSET exceptSet;
+	UDT::UDSET readSet;
+	UDT::UDSET writeSet;
+	UDT::UDSET exceptSet;
 
 	// interested in read
 	if (isInterestedInRead) {
@@ -1997,6 +1993,17 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 
 }
 
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_getStatus0(JNIEnv *env,
+		jobject self) {
+
+	const jint socketID = UDT_GetSocketID(env, self);
+
+	const UDTSTATUS status = UDT::getsockstate(socketID);
+
+	return static_cast<jint> (status);
+
+}
+
 // #########################################3
 // start - used for development only
 
@@ -2147,12 +2154,11 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillBuffer0(
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testSocketStatus0(
 		JNIEnv *env, jobject self) {
 
-	//	const jint socketID = UDT_GetSocketID(env, self);
-	//	printf("native: test socket status; id=%ld \n", socketID);
+	const jint socketID = UDT_GetSocketID(env, self);
+	printf("native: test socket status; id=%d \n", socketID);
 
-	// TODO ask Yunhong Gu to expose status api
-	//	const CUDTSocket::UDTSTATUS status = CUDT::s_UDTUnited.getStatus(socketID);
-	//	printf("native: test socket status; status=%d \n", status);
+	const UDTSTATUS status = UDT::getsockstate(socketID);
+	printf("native: test socket status; status=%d \n", status);
 
 }
 

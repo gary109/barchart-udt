@@ -152,44 +152,47 @@ public class TestSocketUDT {
 	}
 
 	@Test
-	public void testIsOpen() {
-		try {
+	public void testIsOpen() throws Exception {
 
-			SocketUDT socket = null;
+		SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
+		assertTrue(socket.isOpen());
 
-			socket = new SocketUDT(TypeUDT.DATAGRAM);
-			assertTrue(socket.isOpen());
+		socket.setOption(OptionUDT.Is_Receive_Synchronous, false);
+		socket.setOption(OptionUDT.Is_Send_Synchronous, false);
+		assertTrue(socket.isOpen());
 
-			socket.setOption(OptionUDT.Is_Receive_Synchronous, false);
-			socket.setOption(OptionUDT.Is_Send_Synchronous, false);
-			assertTrue(socket.isOpen());
+		final InetSocketAddress localSocketAddress = //
+		new InetSocketAddress("0.0.0.0", 0);
 
-			InetSocketAddress localSocketAddress = new InetSocketAddress(
-					"0.0.0.0", 0);
+		socket.bind(localSocketAddress);
+		assertTrue(socket.isOpen());
 
-			socket.bind(localSocketAddress);
-			assertTrue(socket.isOpen());
+		socket.listen(1);
+		assertTrue(socket.isOpen());
 
-			socket.listen(128);
-			assertTrue(socket.isOpen());
+		final SocketUDT connector = socket.accept();
+		assertNull(connector);
+		assertTrue(socket.isOpen());
 
-			SocketUDT connector = socket.accept();
-			assertNull(connector);
-			assertTrue(socket.isOpen());
+		socket.close();
+		assertFalse(socket.isOpen());
 
-			socket.close();
+		socket.close();
+		assertFalse(socket.isOpen());
 
-			/* it takes about 5 seconds to time out */
-			Thread.sleep(5 * 1000);
+		// log.info("sleep 1");
+		// Thread.sleep(10 * 1000);
 
-			assertTrue(socket.isClosed());
-			assertFalse(socket.isOpen());
+		socket.close();
+		assertTrue(socket.isClosed());
 
-			log.info("isOpen pass");
+		// log.info("sleep 2");
+		// Thread.sleep(10 * 1000);
 
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+		socket.close();
+		assertTrue(socket.isClosed());
+
+		log.info("isOpen pass");
 
 	}
 

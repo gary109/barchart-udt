@@ -64,6 +64,8 @@ public class MainSocketStatus {
 		socket.listen(1);
 		socket.testSocketStatus0();
 
+		// socket.accept();
+
 		socket.close();
 		socket.testSocketStatus0();
 
