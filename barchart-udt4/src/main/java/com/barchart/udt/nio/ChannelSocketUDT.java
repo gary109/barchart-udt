@@ -265,12 +265,13 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			// see contract for receive()
 
 			if (sizeReceived < 0) {
-				log.trace("nothing was received; socketID={}", socket.socketID);
+				log.trace("nothing was received; socketID={}",
+						socket.getSocketId());
 				return 0;
 			}
 
 			if (sizeReceived == 0) {
-				log.trace("receive timeout; socketID={}", socket.socketID);
+				log.trace("receive timeout; socketID={}", socket.getSocketId());
 				return 0;
 			}
 
@@ -278,7 +279,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				return sizeReceived;
 			} else { // should not happen
 				log.error("unexpected: sizeReceived > remaining; socketID={}",
-						socket.socketID);
+						socket.getSocketId());
 				return 0;
 			}
 
@@ -366,7 +367,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 
 			if (sizeSent < 0) {
 				log.trace("no buffer space for send; socketID={}",
-						socket.socketID);
+						socket.getSocketId());
 				// logStatus();
 				// log.info("writeCount={} writeSize={}", writeCount,
 				// writeSize);
@@ -375,7 +376,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 			}
 
 			if (sizeSent == 0) {
-				log.trace("send timeout; socketID={}", socket.socketID);
+				log.trace("send timeout; socketID={}", socket.getSocketId());
 				return 0;
 			}
 
@@ -384,7 +385,7 @@ public class ChannelSocketUDT extends SocketChannel implements ChannelUDT {
 				return sizeSent;
 			} else { // should not happen
 				log.error("unexpected: sizeSent > remaining; socketID={}",
-						socket.socketID);
+						socket.getSocketId());
 				return 0;
 			}
 

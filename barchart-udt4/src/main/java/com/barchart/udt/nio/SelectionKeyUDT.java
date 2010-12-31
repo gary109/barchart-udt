@@ -72,7 +72,7 @@ public class SelectionKeyUDT extends AbstractSelectionKey {
 		this.interestOps = ops;
 
 		this.socketUDT = channel.getSocketUDT();
-		this.socketID = socketUDT.socketID;
+		this.socketID = socketUDT.getSocketId();
 
 		if (channel.getChannelKind() == KindUDT.CONNECTOR) {
 			// special relationship for connectors

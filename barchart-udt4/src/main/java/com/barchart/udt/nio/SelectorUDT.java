@@ -149,7 +149,7 @@ public class SelectorUDT extends AbstractSelector {
 					this, channelUDT, attachment, interestOps);
 
 			// XXX the only place with "add/put"
-			registeredKeyMap.put(socketUDT.socketID, keyUDT);
+			registeredKeyMap.put(socketUDT.getSocketId(), keyUDT);
 			registeredKeySet.add(keyUDT);
 
 			return keyUDT;
