@@ -144,8 +144,8 @@ public class TestSelectorProviderUDT {
 			final int[] exceptArray = new int[arraySize];
 			final int[] sizeArray = new int[3];
 
-			readArray[0] = channelServer.serverSocketUDT.socketID;
-			readArray[1] = channelClient.socketUDT.socketID;
+			readArray[0] = channelServer.serverSocketUDT.getSocketId();
+			readArray[1] = channelClient.socketUDT.getSocketId();
 
 			sizeArray[0] = 2;
 

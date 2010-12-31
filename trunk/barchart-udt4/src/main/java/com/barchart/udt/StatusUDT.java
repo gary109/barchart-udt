@@ -57,7 +57,7 @@ public enum StatusUDT {
 	/**
 	 * map UDT socket status to emulate JDK expected behavior
 	 */
-	public boolean isOpenJDK() {
+	public boolean isOpenEmulateJDK() {
 		switch (this) {
 		case INIT:
 		case OPENED:
