@@ -10,7 +10,7 @@
 
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>barchart-udt</name>
@@ -72,9 +72,9 @@
 	</developers>
 
 	<scm>
-		<url>http://code.google.com/p/barchart-udt/source/browse/tags/barchart-udt4-1.0.1</url>
-		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/tags/barchart-udt4-1.0.1</connection>
-		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/tags/barchart-udt4-1.0.1</developerConnection>
+		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</developerConnection>
 	</scm>
 
 	<organization>
