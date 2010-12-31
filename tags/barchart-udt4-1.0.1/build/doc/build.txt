@@ -1,0 +1,51 @@
+
+**** Build of configuration build-windows-x86-32 for project barchart-udt4 ****
+
+**** Internal Builder is used for build               ****
+sh -c ../build/script/build-eclipse.sh start
+build-eclipse.sh: detected OS=cygwin_nt-5.1
+build-eclipse.sh: detected MACH=i686
+build-eclipse.sh: detected LIB_EXTENSION=dll
+build-eclipse.sh: pre-build task;
+build-eclipse.sh: done
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\ccc.o ..\native\udt\src\ccc.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\common.o ..\native\udt\src\common.cpp
+..\native\udt\src\common.cpp: In destructor `CGuard::~CGuard()':
+..\native\udt\src\common.cpp:304: warning: comparison between signed and unsigned integer expressions
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\list.o ..\native\udt\src\list.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\buffer.o ..\native\udt\src\buffer.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\core.o ..\native\udt\src\core.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\window.o ..\native\udt\src\window.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\md5.o ..\native\udt\src\md5.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\cache.o ..\native\udt\src\cache.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\channel.o ..\native\udt\src\channel.cpp
+..\native\udt\src\channel.cpp: In member function `int CChannel::sendto(const sockaddr*, CPacket&) const':
+..\native\udt\src\channel.cpp:265: warning: converting of negative value `-0x000000001' to `long unsigned int'
+..\native\udt\src\channel.cpp: In member function `int CChannel::recvfrom(sockaddr*, CPacket&) const':
+..\native\udt\src\channel.cpp:314: warning: converting of negative value `-0x000000001' to `long unsigned int'
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\packet.o ..\native\udt\src\packet.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\api.o ..\native\udt\src\api.cpp
+..\native\udt\src\api.cpp: In member function `int CUDTUnited::startup()':
+..\native\udt\src\api.cpp:206: warning: passing NULL used for non-pointer converting 5 of `void* CreateThread(_SECURITY_ATTRIBUTES*, DWORD, DWORD (*)(void*), void*, DWORD, DWORD*)'
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\jni\com_barchart_udt_SocketUDT.o ..\native\jni\com_barchart_udt_SocketUDT.cpp
+g++ -D__MINGW__ -DWIN32 -D_WIN32_WINNT=0x0501 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\include\win32 -IC:\user1\workspace\workspace-barchart-3.5\barchart-udt4\native\udt\src -O0 -finline-functions -fno-strict-aliasing -fno-omit-frame-pointer -g3 -Wall -c -fmessage-length=0 -mthreads -onative\udt\src\queue.o ..\native\udt\src\queue.cpp
+g++ -Wl,-Map,barchart-udt4.map -Wl,--kill-at -Wl,--add-stdcall-alias -Wl,--image-base,0x10000000 -mthreads -shared -obarchart-udt4.dll native\udt\src\window.o native\udt\src\queue.o native\udt\src\packet.o native\udt\src\md5.o native\udt\src\list.o native\udt\src\core.o native\udt\src\common.o native\udt\src\channel.o native\udt\src\ccc.o native\udt\src\cache.o native\udt\src\buffer.o native\udt\src\api.o native\jni\com_barchart_udt_SocketUDT.o -lgcc -lcrtdll -lstdc++ -lws2_32
+sh -c ../build/script/build-eclipse.sh finish
+build-eclipse.sh: detected OS=cygwin_nt-5.1
+build-eclipse.sh: detected MACH=i686
+build-eclipse.sh: detected LIB_EXTENSION=dll
+build-eclipse.sh: post-build task;
+build-eclipse.sh: ARTIFACT     : barchart-udt4.dll
+build-eclipse.sh: ARTIFACT_MAP : barchart-udt4.map
+build-eclipse.sh: TARGET     : C:\user1\workspace\workspace-barchart-3.5\barchart-udt4\build-windows-x86-32/../target/classes/SocketUDT-windows-x86-32.dll
+build-eclipse.sh: TARGET_MAP : C:\user1\workspace\workspace-barchart-3.5\barchart-udt4\build-windows-x86-32/../target/classes/SocketUDT-windows-x86-32.dll.map
+build-eclipse.sh: TARGET_SYM : C:\user1\workspace\workspace-barchart-3.5\barchart-udt4\build-windows-x86-32/../target/classes/SocketUDT-windows-x86-32.dll.sym
+../build/script/build-eclipse.sh: line 156: ldd: command not found
+total 5980
+-rwx------  1 a-pozolotin mkgroup-l-d 4847296 Oct  2 12:10 SocketUDT-windows-x86-32.dll
+-rwx------  1 a-pozolotin mkgroup-l-d  793168 Oct  2 12:10 SocketUDT-windows-x86-32.dll.map
+-rw-rw-rw-  1 a-pozolotin mkgroup-l-d  476249 Oct  2 12:10 SocketUDT-windows-x86-32.dll.sym
+drwx------+ 3 a-pozolotin ????????          0 Oct  2 12:03 com
+build-eclipse.sh: done
+Build complete for project barchart-udt4
+Time consumed: 18249  ms.  
