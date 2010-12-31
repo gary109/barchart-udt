@@ -105,6 +105,7 @@ public: //API
    static int epoll_release(const int eid);
    static CUDTException& getlasterror();
    static int perfmon(UDTSOCKET u, CPerfMon* perf, bool clear = true);
+   static UDTSTATUS getsockstate(UDTSOCKET u);
 
 public: // internal API
    static CUDT* getUDTHandle(UDTSOCKET u);
@@ -307,6 +308,8 @@ private: // Status
    int m_iRTT;                                  // RTT
    int m_iRTTVar;                               // RTT variance
    int m_iDeliveryRate;				// Packet arrival rate at the receiver side
+
+   uint64_t m_ullLingerExpiration;		// Linger expiration time (for GC to close a socket with data in sending buffer) 
 
 private: // Sending related data
    CSndBuffer* m_pSndBuffer;                    // Sender buffer
