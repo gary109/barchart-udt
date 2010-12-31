@@ -22,10 +22,10 @@
 		<copy file="${BASE}/build-macosx-x86-64/libSocketUDT-macosx-x86-64.jnilib" todir="${RESOURCES}" failonerror="false" />
 		<copy file="${BASE}/build-macosx-x86-64/libSocketUDT-macosx-x86-64.map" todir="${RESOURCES}" failonerror="false" />
 
-		<copy file="${BASE}/build-macosx-x86-32/SocketUDT-windows-x86-32.dll" todir="${RESOURCES}" failonerror="false" />
-		<copy file="${BASE}/build-macosx-x86-32/SocketUDT-windows-x86-32.map" todir="${RESOURCES}" failonerror="false" />
-		<copy file="${BASE}/build-macosx-x86-64/SocketUDT-windows-x86-64.dll" todir="${RESOURCES}" failonerror="false" />
-		<copy file="${BASE}/build-macosx-x86-64/SocketUDT-windows-x86-64.map" todir="${RESOURCES}" failonerror="false" />
+		<copy file="${BASE}/build-windows-x86-32/SocketUDT-windows-x86-32.dll" todir="${RESOURCES}" failonerror="false" />
+		<copy file="${BASE}/build-windows-x86-32/SocketUDT-windows-x86-32.map" todir="${RESOURCES}" failonerror="false" />
+		<copy file="${BASE}/build-windows-x86-64/SocketUDT-windows-x86-64.dll" todir="${RESOURCES}" failonerror="false" />
+		<copy file="${BASE}/build-windows-x86-64/SocketUDT-windows-x86-64.map" todir="${RESOURCES}" failonerror="false" />
 
 	</target>
 
