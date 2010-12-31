@@ -12,13 +12,21 @@ public class MainLoadSocketUDT {
 
 	public static void main(String[] args) {
 
-		log.info("this example tests if barchart-udt dependency works");
+		log.info("this example tests if barchart-udt maven dependency works");
 
 		try {
 
-			SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
+			final SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
 
-			log.info("made socketID={}", socket.socketID);
+			log.info("made socketID={}", socket.getSocketId());
+
+			log.info("socket status={}", socket.getStatus());
+
+			log.info("socket isOpen={}", socket.isOpen());
+
+			log.info("socket isBlocking={}", socket.isBlocking());
+
+			log.info("socket options{}", socket.toStringOptions());
 
 		} catch (Throwable e) {
 
