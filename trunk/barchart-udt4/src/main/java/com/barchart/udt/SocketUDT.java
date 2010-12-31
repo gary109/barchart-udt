@@ -1,11 +1,11 @@
 /**
  * =================================================================================
  *
-final  * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
+ * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
  *
- * ARTIFACT='barchart-udt4'.VERSION='1.0.0-SNAPSHOT'.TIMESTAMP='2009-09-20_18-55-32'
+ * ARTIFACT='barchart-udt4';VERSION='1.0.1-SNAPSHOT';TIMESTAMP='2010-12-31_15-20-13';
  *
- * Copyright (C) 2009, Barchart, Inc. (http://www.barchart.com/)
+ * Copyright (C) 2009-2011, Barchart, Inc. (http://www.barchart.com/)
  *
  * All rights reserved.
  *
