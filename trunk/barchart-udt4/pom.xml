@@ -73,9 +73,9 @@
 	</developers>
 
 	<scm>
-		<connection>http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</connection>
-		<developerConnection>https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</developerConnection>
 		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</developerConnection>
 	</scm>
 
 	<organization>
