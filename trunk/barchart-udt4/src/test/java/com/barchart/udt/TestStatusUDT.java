@@ -2,6 +2,8 @@ package com.barchart.udt;
 
 import static org.junit.Assert.*;
 
+import java.net.InetSocketAddress;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -33,7 +35,101 @@ public class TestStatusUDT {
 	}
 
 	@Test
-	public void testSocketStatus() throws ExceptionUDT {
+	public void testSocketStatus1() throws Exception {
+
+		final SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
+		assertEquals(StatusUDT.INIT, socket.getStatus());
+
+		final InetSocketAddress localAddress1 = new InetSocketAddress(
+				"0.0.0.0", 8001);
+
+		socket.bind(localAddress1);
+		assertEquals(StatusUDT.OPENED, socket.getStatus());
+
+		socket.close();
+		assertEquals(StatusUDT.CLOSED, socket.getStatus());
+
+		log.info("finished");
+
+	}
+
+	@Test
+	public void testSocketStatus2() throws Exception {
+
+		final SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
+		assertEquals(StatusUDT.INIT, socket.getStatus());
+
+		final InetSocketAddress localAddress1 = new InetSocketAddress(
+				"0.0.0.0", 8002);
+
+		socket.bind(localAddress1);
+		assertEquals(StatusUDT.OPENED, socket.getStatus());
+
+		socket.listen(1);
+		assertEquals(StatusUDT.LISTENING, socket.getStatus());
+
+		socket.close();
+		assertEquals(StatusUDT.BROKEN, socket.getStatus());
+
+		log.info("finished");
+
+	}
+
+	@Test
+	public void testSocketStatus3() throws Exception {
+
+		final InetSocketAddress clientAddress = new InetSocketAddress(
+				"0.0.0.0", 8031);
+
+		final InetSocketAddress serverAddress = new InetSocketAddress(
+				"0.0.0.0", 8032);
+
+		//
+
+		final SocketUDT client = new SocketUDT(TypeUDT.DATAGRAM);
+		assertEquals(StatusUDT.INIT, client.getStatus());
+
+		final SocketUDT server = new SocketUDT(TypeUDT.DATAGRAM);
+		assertEquals(StatusUDT.INIT, server.getStatus());
+
+		//
+
+		client.bind(clientAddress);
+		assertEquals(StatusUDT.OPENED, client.getStatus());
+
+		server.bind(serverAddress);
+		assertEquals(StatusUDT.OPENED, server.getStatus());
+
+		//
+
+		server.listen(10);
+		assertEquals(StatusUDT.LISTENING, server.getStatus());
+
+		//
+
+		// final SocketUDT accept = server.accept();
+
+		//
+
+		final Thread serverThread = new Thread() {
+			@Override
+			public void run() {
+				try {
+
+					// final SocketUDT accept = server.accept();
+					// assertEquals(StatusUDT.LISTENING, accept.getStatus());
+
+				} catch (Exception e) {
+					fail(e.getMessage());
+				}
+			}
+		};
+
+		serverThread.start();
+
+		serverThread.join();
+
+		// Thread.sleep(10 * 1000);
 
 	}
 

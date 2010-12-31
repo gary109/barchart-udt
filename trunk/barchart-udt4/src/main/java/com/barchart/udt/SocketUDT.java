@@ -64,13 +64,14 @@ public class SocketUDT {
 	//
 
 	/**
-	 * JNI Signature that must match between java code and c++ code
+	 * JNI Signature that must match between java code and c++ code on all
+	 * platforms; failure to match will abort native library load
 	 */
 	/*
 	 * do not use automatic signature based on time stamp until all platforms
-	 * are built at once
+	 * are built at once by hudson
 	 */
-	public static final int SIGNATURE_JNI = 1004; // VersionUDT.BUILDTIME;
+	public static final int SIGNATURE_JNI = 20101231; // VersionUDT.BUILDTIME;
 
 	/**
 	 * infinite message time to live;
@@ -901,26 +902,35 @@ public class SocketUDT {
 	}
 
 	/**
-	 * not yet available in UDT; use a native hack to detect open state
-	 */
-	protected native boolean isOpen0();
-
-	/**
 	 * Check if socket is open.
 	 * 
-	 * @see #isOpen0()
+	 * @see StatusUDT#isOpenJDK()
 	 */
 	public final boolean isOpen() {
-		return isOpen0();
+
+		final StatusUDT status = getStatus();
+
+		return status.isOpenJDK();
+
 	}
 
 	/**
 	 * Check if socket is closed.
 	 * 
-	 * @see #isOpen0()
+	 * @see #isOpen()
 	 */
 	public boolean isClosed() {
-		return !isOpen0();
+		return !isOpen();
+	}
+
+	//
+
+	protected native int getStatus0();
+
+	/**
+	*/
+	public StatusUDT getStatus() {
+		return StatusUDT.fromCode(getStatus0());
 	}
 
 	// ###
@@ -947,7 +957,7 @@ public class SocketUDT {
 	 * @param type
 	 *            UDT socket type
 	 */
-	public SocketUDT(TypeUDT type) throws ExceptionUDT {
+	public SocketUDT(final TypeUDT type) throws ExceptionUDT {
 		synchronized (SocketUDT.class) {
 			this.type = type;
 			this.monitor = new MonitorUDT(this);
@@ -965,7 +975,8 @@ public class SocketUDT {
 	 * @param socketID
 	 *            UDT socket descriptor;
 	 */
-	protected SocketUDT(TypeUDT type, int socketID) throws ExceptionUDT {
+	protected SocketUDT(final TypeUDT type, final int socketID)
+			throws ExceptionUDT {
 		synchronized (SocketUDT.class) {
 			this.type = type;
 			this.monitor = new MonitorUDT(this);
@@ -1310,38 +1321,6 @@ public class SocketUDT {
 		return false;
 	}
 
-	// #############################
-	// ### used for development only
-	// ###
-
-	native void testEmptyCall0();
-
-	native void testIterateArray0(Object[] array);
-
-	native void testIterateSet0(Set<Object> set);
-
-	native int[] testMakeArray0(int size);
-
-	native void testGetSetArray0(int[] array, boolean isReturn);
-
-	native void testInvalidClose0(int socketID) throws ExceptionUDT;
-
-	native void testCrashJVM0();
-
-	native void testSocketStatus0();
-
-	native void testDirectByteBufferAccess0(ByteBuffer buffer);
-
-	native void testDirectIntBufferAccess0(IntBuffer buffer);
-
-	native void testFillArray0(byte[] array);
-
-	native void testFillBuffer0(ByteBuffer buffer);
-
-	// ###
-	// ### used for development only
-	// #############################
-
 	//
 	@Override
 	public String toString() {
@@ -1392,11 +1371,36 @@ public class SocketUDT {
 
 	}
 
-	/**
-	*/
-	// TODO
-	public StatusUDT getStatus() {
-		return StatusUDT.UNKNOWN;
-	}
+	// #############################
+	// ### used for development only
+	// ###
+
+	native void testEmptyCall0();
+
+	native void testIterateArray0(Object[] array);
+
+	native void testIterateSet0(Set<Object> set);
+
+	native int[] testMakeArray0(int size);
+
+	native void testGetSetArray0(int[] array, boolean isReturn);
+
+	native void testInvalidClose0(int socketID) throws ExceptionUDT;
+
+	native void testCrashJVM0();
+
+	native void testDirectByteBufferAccess0(ByteBuffer buffer);
+
+	native void testDirectIntBufferAccess0(IntBuffer buffer);
+
+	native void testFillArray0(byte[] array);
+
+	native void testFillBuffer0(ByteBuffer buffer);
+
+	native void testSocketStatus0();
+
+	// ###
+	// ### used for development only
+	// #############################
 
 }
