@@ -3,11 +3,10 @@
 	<property name="packagePath" value="com/barchart/udt" />
 	<property name="packageName" value="com.barchart.udt" />
 
-
 	<target name="generate-version">
 		<mkdir dir="${mvn.generatedSources}/${packagePath}" />
 		<echo file="${mvn.generatedSources}/${packagePath}/VersionUDT.java">
-			
+
 package ${packageName};
 
 /** automatically generated file; do not edit */
@@ -26,7 +25,7 @@ public static final String TIMESTAMP = "${mvn.timestamp}";
 public static final long BUILDTIME = ${mvn.buildtime}L;
 
 }
-    	</echo>
+   		</echo>
 	</target>
 
 </project>

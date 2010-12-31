@@ -36,7 +36,7 @@
 		<buildStamp>${maven.build.timestamp}</buildStamp>
 		<mavenStamp>ARTIFACT='${artifactId}';VERSION='${version}';TIMESTAMP='${buildStamp}';</mavenStamp>
 
-		<licenceYear>2009</licenceYear>
+		<licenceYear>2009-2011</licenceYear>
 		<licenceOrganization>Barchart, Inc.</licenceOrganization>
 		<licenceWebsite>http://www.barchart.com/</licenceWebsite>
 		<licenceDevelopers>Andrei Pozolotin;</licenceDevelopers>
@@ -291,6 +291,7 @@
 			<version>1.6.1</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<optional>false</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -298,6 +299,7 @@
 			<version>1.6.1</version>
 			<type>jar</type>
 			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -529,7 +531,7 @@
 		</profile>
 
 		<profile>
-			<!-- "think different": macosx provides tools.jar classes already in classes.jar 
+			<!-- "think different": macosx provides tools.jar classes already in classes.jar
 				and does not provide tools.jar -->
 			<!-- vendor @ macosx: java.vendor=Apple, Inc. -->
 			<!-- vendor @ windows: java.vendor=Sun Microsystems Inc. -->
