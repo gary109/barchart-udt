@@ -367,7 +367,7 @@
 						<groupId>javolution</groupId>
 						<artifactId>colapi</artifactId>
 						<configuration>
-							<directory>doc</directory>
+							<directory>apidocs</directory>
 						</configuration>
 						<executions>
 							<execution>
