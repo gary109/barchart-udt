@@ -70,8 +70,10 @@ public enum LibraryUDT {
 	UNKNOWN(new String[] { "UNKNOWN" }), //
 
 	/** The WINDOWS_32 library entry. */
-	WINDOWS_32(new String[] { "mingwm10.dll", "SocketUDT-windows-x86-32.dll",
-			"LICENCE_BARCHART.txt" }), // 
+	// WINDOWS_32(new String[] { "mingwm10.dll", "SocketUDT-windows-x86-32.dll",
+	// "LICENCE_BARCHART.txt" }), //
+	WINDOWS_32(new String[] { "SocketUDT-windows-x86-32.dll",
+			"LICENCE_BARCHART.txt" }), //
 
 	/** The WINDOWS_64 library entry. */
 	WINDOWS_64(new String[] { "SocketUDT-windows-x86-64.dll",
@@ -79,7 +81,7 @@ public enum LibraryUDT {
 
 	/** The LINUX_32 library entry. */
 	LINUX_32(new String[] { "libSocketUDT-linux-x86-32.so",
-			"LICENCE_BARCHART.txt" }), // 
+			"LICENCE_BARCHART.txt" }), //
 
 	/** The LINUX_64 library entry. */
 	LINUX_64(new String[] { "libSocketUDT-linux-x86-64.so",
@@ -87,7 +89,7 @@ public enum LibraryUDT {
 
 	/** The MACOSX_32 library entry. */
 	MACOSX_32(new String[] { "libSocketUDT-macosx-x86-32.jnilib",
-			"LICENCE_BARCHART.txt" }), // 
+			"LICENCE_BARCHART.txt" }), //
 
 	/** The MACOSX_64 library entry. */
 	MACOSX_64(new String[] { "libSocketUDT-macosx-x86-64.jnilib",
@@ -218,9 +220,7 @@ public enum LibraryUDT {
 		}
 
 		if (library.fileNameArray.length == 0) {
-			log
-					.error("invalid library file name array for library={}",
-							library);
+			log.error("invalid library file name array for library={}", library);
 			throw new IllegalArgumentException("invalid name array");
 		}
 
@@ -247,7 +247,7 @@ public enum LibraryUDT {
 		if (fileName.endsWith(".so")) {
 			return true;
 		}
-		if(fileName.endsWith(".jnilib")){
+		if (fileName.endsWith(".jnilib")) {
 			return true;
 		}
 		return false;
