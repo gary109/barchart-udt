@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -43,12 +44,13 @@
 		<moduleUDT>UDT4</moduleUDT>
 
 		<target>${project.build.directory}</target>
-		<checkoutUDT>${target}/checkout</checkoutUDT>
+		<checkoutUDT>${target}/udt</checkoutUDT>
 		<connectionUDT>scm:cvs:pserver:anonymous:@udt.cvs.sourceforge.net:/cvsroot/udt:${moduleUDT}</connectionUDT>
 
-		<nativeSrc>native</nativeSrc>
+		<nativeSrc>src/main/c++</nativeSrc>
 		<nativeSrcJNI>${nativeSrc}/jni</nativeSrcJNI>
 		<nativeSrcUDT>${nativeSrc}/udt</nativeSrcUDT>
+
 		<nativeLibName>SocketUDT</nativeLibName>
 		<nativeInclude>include</nativeInclude>
 
@@ -198,7 +200,8 @@
 								<property name="mvn.timestamp" value="${timestamp}" />
 								<property name="mvn.mavenStamp" value="${mavenStamp}" />
 								<property name="mvn.buildtime" value="${buildtime}" />
-								<property name="mvn.generatedSources" value="${project.build.directory}/generated-sources" />
+								<property name="mvn.generatedSources"
+									value="${project.build.directory}/generated-sources" />
 								<ant antfile="${basedir}/build/script/build-version.ant">
 								</ant>
 							</tasks>
@@ -320,16 +323,16 @@
 	</distributionManagement>
 
 	<!-- <repositories> -->
-	
+
 	<!-- <repository> -->
 	<!-- <id>barchart-nexus-server</id> -->
 	<!-- <url>https://moe.barchart.com/nexus/content/groups/all</url> -->
 	<!-- </repository> -->
-	
+
 	<!-- </repositories> -->
 
 	<!-- <pluginRepositories> -->
-	
+
 	<!-- <pluginRepository> -->
 	<!-- licence formatter: maven-license-plugin -->
 	<!-- <id>mc-release</id> -->
@@ -342,7 +345,7 @@
 	<!-- <enabled>true</enabled> -->
 	<!-- </releases> -->
 	<!-- </pluginRepository> -->
-	
+
 	<!-- <pluginRepository> -->
 	<!-- javadoc formatter: javolution-colapi -->
 	<!-- <id>maven2-repository.dev.java.net</id> -->
@@ -350,7 +353,7 @@
 	<!-- <url>http://download.java.net/maven/2/</url> -->
 	<!-- <layout>default</layout> -->
 	<!-- </pluginRepository> -->
-	
+
 	<!-- </pluginRepositories> -->
 
 	<profiles>
