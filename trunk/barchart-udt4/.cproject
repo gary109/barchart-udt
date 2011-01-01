@@ -3139,9 +3139,9 @@
 								<option id="gnu.cpp.compiler.option.debugging.level.676498790" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.583015733" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -m32   -fPIC   -pthread   -Wno-unused   -Wno-parentheses   -fmessage-length=0" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1187754330" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/include/linux}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/native/udt/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/cdt/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/cdt/include/linux}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/main/c++/udt/src}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.1506048543" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="LINUX"/>
