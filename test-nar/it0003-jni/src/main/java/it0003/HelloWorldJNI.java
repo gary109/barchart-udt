@@ -19,18 +19,22 @@ package it0003;
  * under the License.
  */
 
-public class HelloWorldJNI
-{
-    static
-    {
-        NarSystem.loadLibrary();
-    }
+public class HelloWorldJNI {
 
-    public final native String sayHello();
+	static {
 
-    public static void main( String[] args )
-    {
-        HelloWorldJNI app = new HelloWorldJNI();
-        System.out.println( app.sayHello() );
-    }
+		NarSystemOne.loadLibrary();
+
+	}
+
+	public final native String sayHello();
+
+	public static void main(String[] args) {
+
+		HelloWorldJNI app = new HelloWorldJNI();
+
+		System.out.println(app.sayHello());
+
+	}
+
 }

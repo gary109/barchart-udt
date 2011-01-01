@@ -11,11 +11,11 @@ import org.slf4j.LoggerFactory;
  * 
  * @author maven-nar-plugin
  */
-public final class NarSystem {
+public final class NarSystemOne {
 
-	private final static Logger log = LoggerFactory.getLogger(NarSystem.class);
+	private final static Logger log = LoggerFactory.getLogger(NarSystemOne.class);
 
-	private NarSystem() {
+	private NarSystemOne() {
 	}
 
 	final static String PATH = "./target/nar/it0003-jni-1.0-SNAPSHOT-amd64-Linux-g++-jni/lib/amd64-Linux-g++/jni";
