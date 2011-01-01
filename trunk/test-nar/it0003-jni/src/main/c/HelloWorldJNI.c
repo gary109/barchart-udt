@@ -26,7 +26,7 @@ JNIEXPORT jstring JNICALL Java_it0003_HelloWorldJNI_sayHello( JNIEnv *env, jobje
 	char buf[40];            /* working buffer (really only need 20 ) */
 
 
-	sprintf ( buf, "%s", "Hello NAR World!" );
+	sprintf ( buf, "%s", "Hello NAR World! 1" );
 
 	value = (*env)->NewStringUTF( env, buf );
 
