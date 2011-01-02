@@ -46,7 +46,7 @@
 
 #include "com_barchart_udt_SocketUDT.h"
 
-#include <udt.h>
+#include "udt.h"
 
 #include <cassert>
 #include <climits>
