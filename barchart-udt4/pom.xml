@@ -48,8 +48,10 @@
 		<connectionUDT>scm:cvs:pserver:anonymous:@udt.cvs.sourceforge.net:/cvsroot/udt:${moduleUDT}</connectionUDT>
 
 		<nativeSrc>src/main/c++</nativeSrc>
-		<nativeSrcJNI>${nativeSrc}/jni</nativeSrcJNI>
-		<nativeSrcUDT>${nativeSrc}/udt</nativeSrcUDT>
+		<folderJNI>jni</folderJNI>
+		<folderUDT>udt</folderUDT>
+		<nativeSrcJNI>${nativeSrc}/${folderJNI}</nativeSrcJNI>
+		<nativeSrcUDT>${nativeSrc}/${folderUDT}</nativeSrcUDT>
 
 		<nativeLibName>SocketUDT</nativeLibName>
 		<nativeInclude>include</nativeInclude>
@@ -83,6 +85,37 @@
 		<name>Barchart, Inc.</name>
 		<url>http://www.barchart.com</url>
 	</organization>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.6.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
 
 
 	<build>
@@ -160,6 +193,12 @@
 					<version>1.4</version>
 				</plugin>
 
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-nar-plugin</artifactId>
+					<version>2.1-SNAPSHOT</version>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 
@@ -177,76 +216,6 @@
 						</goals>
 						<configuration>
 							<source>${basedir}/build/script/timestamp.groovy</source>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>generate-version-class</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<property name="mvn.basedir" value="${basedir}" />
-								<property name="mvn.artifactId" value="${artifactId}" />
-								<property name="mvn.version" value="${version}" />
-								<property name="mvn.timestamp" value="${timestamp}" />
-								<property name="mvn.mavenStamp" value="${mavenStamp}" />
-								<property name="mvn.buildtime" value="${buildtime}" />
-								<property name="mvn.generatedSources"
-									value="${project.build.directory}/generated-sources" />
-								<ant antfile="${basedir}/build/script/build-version.ant">
-								</ant>
-							</tasks>
-							<sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
-						</configuration>
-					</execution>
-					<execution>
-						<id>report-timestamp-value</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<echo message="buildtime : ${buildtime}" />
-								<echo message="mavenStamp : ${mavenStamp}" />
-							</tasks>
-						</configuration>
-					</execution>
-					<execution>
-						<id>compile-native</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<property name="mvn.plugin.classpath" refid="maven.plugin.classpath" />
-								<property name="mvn.licenceYear" value="${licenceYear}" />
-								<property name="mvn.licenceOrganization" value="${licenceOrganization}" />
-								<property name="mvn.licenceWebsite" value="${licenceWebsite}" />
-								<property name="mvn.licenceDevelopers" value="${licenceDevelopers}" />
-								<property name="mvn.version" value="${version}" />
-								<property name="mvn.mavenStamp" value="${mavenStamp}" />
-								<property name="mvn.nativeLibName" value="${nativeLibName}" />
-								<property name="mvn.nativeSrcJNI" value="${nativeSrcJNI}" />
-								<property name="mvn.nativeSrcUDT" value="${nativeSrcUDT}" />
-								<property name="mvn.nativeInclude" value="${nativeInclude}" />
-								<property name="mvn.basedir" value="${basedir}" />
-								<property name="mvn.resources" value="${basedir}/src/main/resources" />
-								<property name="mvn.target" value="${project.build.directory}" />
-								<ant antfile="${basedir}/build/script/build-maven.ant">
-									<target name="target-build" />
-								</ant>
-							</tasks>
 						</configuration>
 					</execution>
 				</executions>
@@ -285,78 +254,190 @@
 		</plugins>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.6.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.1</version>
-			<type>jar</type>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
-			<type>jar</type>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
-	<distributionManagement>
-		<!-- <repository> -->
-		<!-- <id>barchart-nexus-server</id> -->
-		<!-- <url>https://moe.barchart.com/nexus/content/repositories/releases/</url> -->
-		<!-- </repository> -->
-		<!-- <snapshotRepository> -->
-		<!-- <id>barchart-nexus-server</id> -->
-		<!-- <url>https://moe.barchart.com/nexus/content/repositories/snapshots/</url> -->
-		<!-- </snapshotRepository> -->
-	</distributionManagement>
-
-	<!-- <repositories> -->
-
-	<!-- <repository> -->
-	<!-- <id>barchart-nexus-server</id> -->
-	<!-- <url>https://moe.barchart.com/nexus/content/groups/all</url> -->
-	<!-- </repository> -->
-
-	<!-- </repositories> -->
-
-	<!-- <pluginRepositories> -->
-
-	<!-- <pluginRepository> -->
-	<!-- licence formatter: maven-license-plugin -->
-	<!-- <id>mc-release</id> -->
-	<!-- <name>Local Maven repository of releases</name> -->
-	<!-- <url>http://mc-repo.googlecode.com/svn/maven2/releases</url> -->
-	<!-- <snapshots> -->
-	<!-- <enabled>false</enabled> -->
-	<!-- </snapshots> -->
-	<!-- <releases> -->
-	<!-- <enabled>true</enabled> -->
-	<!-- </releases> -->
-	<!-- </pluginRepository> -->
-
-	<!-- <pluginRepository> -->
-	<!-- javadoc formatter: javolution-colapi -->
-	<!-- <id>maven2-repository.dev.java.net</id> -->
-	<!-- <name>Java.net Repository for Maven</name> -->
-	<!-- <url>http://download.java.net/maven/2/</url> -->
-	<!-- <layout>default</layout> -->
-	<!-- </pluginRepository> -->
-
-	<!-- </pluginRepositories> -->
-
 	<profiles>
+
+		<profile>
+			<id>nar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<extensions>true</extensions>
+						<configuration>
+							<libraries>
+								<library>
+									<type>jni</type>
+									<narSystemPackage>com.barchart.udt</narSystemPackage>
+									<linkCPP>false</linkCPP>
+								</library>
+							</libraries>
+							<cpp>
+								<debug>true</debug>
+								<clearDefaultOptions>true</clearDefaultOptions>
+								<options>
+									<option>-Wall</option>
+								</options>
+								<clearDefaultDefines>true</clearDefaultDefines>
+								<clearDefaultUndefines>true</clearDefaultUndefines>
+								<sourceDirectory>${nativeSrc}</sourceDirectory>
+								<includes>
+									<include>${folderJNI}/*.cpp</include>
+									<include>${folderUDT}/src/*.cpp</include>
+								</includes>
+								<includePaths>
+									<includePath>${nativeSrcJNI}</includePath>
+									<includePath>${nativeSrcUDT}/src</includePath>
+								</includePaths>
+							</cpp>
+							<java>
+								<include>true</include>
+							</java>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>nar-compile</goal>
+									<goal>nar-package</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar-i386-linux</id>
+			<activation>
+				<os>
+					<arch>i386</arch>
+					<name>linux</name>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<cpp>
+								<defines>
+									<define>IA32</define>
+									<define>LINUX</define>
+								</defines>
+							</cpp>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar-amd64-linux</id>
+			<activation>
+				<os>
+					<arch>amd64</arch>
+					<name>linux</name>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<cpp>
+								<defines>
+									<define>AMD64</define>
+									<define>LINUX</define>
+								</defines>
+							</cpp>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+
+			<id>unused</id>
+
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-version-class</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<property name="mvn.basedir" value="${basedir}" />
+										<property name="mvn.artifactId" value="${artifactId}" />
+										<property name="mvn.version" value="${version}" />
+										<property name="mvn.timestamp" value="${timestamp}" />
+										<property name="mvn.mavenStamp" value="${mavenStamp}" />
+										<property name="mvn.buildtime" value="${buildtime}" />
+										<property name="mvn.generatedSources"
+											value="${project.build.directory}/generated-sources" />
+										<ant antfile="${basedir}/build/script/build-version.ant">
+										</ant>
+									</tasks>
+									<sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
+								</configuration>
+							</execution>
+							<execution>
+								<id>report-timestamp-value</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<echo message="buildtime : ${buildtime}" />
+										<echo message="mavenStamp : ${mavenStamp}" />
+									</tasks>
+								</configuration>
+							</execution>
+							<execution>
+								<id>compile-native</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<property name="mvn.plugin.classpath" refid="maven.plugin.classpath" />
+										<property name="mvn.licenceYear" value="${licenceYear}" />
+										<property name="mvn.licenceOrganization" value="${licenceOrganization}" />
+										<property name="mvn.licenceWebsite" value="${licenceWebsite}" />
+										<property name="mvn.licenceDevelopers" value="${licenceDevelopers}" />
+										<property name="mvn.version" value="${version}" />
+										<property name="mvn.mavenStamp" value="${mavenStamp}" />
+										<property name="mvn.nativeLibName" value="${nativeLibName}" />
+										<property name="mvn.nativeSrcJNI" value="${nativeSrcJNI}" />
+										<property name="mvn.nativeSrcUDT" value="${nativeSrcUDT}" />
+										<property name="mvn.nativeInclude" value="${nativeInclude}" />
+										<property name="mvn.basedir" value="${basedir}" />
+										<property name="mvn.resources" value="${basedir}/src/main/resources" />
+										<property name="mvn.target" value="${project.build.directory}" />
+										<ant antfile="${basedir}/build/script/build-maven.ant">
+											<target name="target-build" />
+										</ant>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+
+		</profile>
 
 		<profile>
 			<!-- update documents -->
