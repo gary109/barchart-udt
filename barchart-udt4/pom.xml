@@ -301,8 +301,10 @@
 								<jniDirectory>${nativeSrcJNI}</jniDirectory>
 							</javah>
 							<linker>
+								<map>true</map>
+								<clearDefaultOptions>true</clearDefaultOptions>
 								<options>
-									<option>-Wl,-Map,${project.build.finalName}.map</option>
+									<!-- <option>-Wl,-Map,${project.build.finalName}.map</option> -->
 								</options>
 							</linker>
 						</configuration>
@@ -326,7 +328,7 @@
 			<activation>
 				<os>
 					<arch>i386</arch>
-					<name>linux</name>
+					<name>Linux</name>
 				</os>
 			</activation>
 			<build>
@@ -359,7 +361,7 @@
 			<activation>
 				<os>
 					<arch>amd64</arch>
-					<name>linux</name>
+					<name>Linux</name>
 				</os>
 			</activation>
 			<build>
@@ -379,6 +381,75 @@
 							<linker>
 								<options>
 									<option>-m64</option>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar-i386-macosx</id>
+			<activation>
+				<os>
+					<arch>i386</arch>
+					<name>Mac Os X</name>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<cpp>
+								<defines>
+									<define>IA32</define>
+									<define>OSX</define>
+								</defines>
+								<options>
+									<option>-arch</option>
+									<option>i386</option>
+								</options>
+							</cpp>
+							<linker>
+								<clearDefaultOptions>true</clearDefaultOptions>
+								<options>
+									<option>-arch,i386</option>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar-x86_64-macosx</id>
+			<activation>
+				<os>
+					<arch>x86_64</arch>
+					<name>Mac OS X</name>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<cpp>
+								<defines>
+									<define>AMD64</define>
+									<define>OSX</define>
+								</defines>
+								<options>
+									<option>-arch</option>
+									<option>x86_64</option>
+								</options>
+							</cpp>
+							<linker>
+								<options>
+									<option>-arch,x86_64</option>
 								</options>
 							</linker>
 						</configuration>
