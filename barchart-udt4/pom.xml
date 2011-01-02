@@ -273,9 +273,14 @@
 							</libraries>
 							<cpp>
 								<debug>true</debug>
+								<optimize>speed</optimize>
+								<exceptions>true</exceptions>
+								<multiThreaded>true</multiThreaded>
 								<clearDefaultOptions>true</clearDefaultOptions>
 								<options>
 									<option>-Wall</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
 								</options>
 								<clearDefaultDefines>true</clearDefaultDefines>
 								<clearDefaultUndefines>true</clearDefaultUndefines>
@@ -295,6 +300,11 @@
 							<javah>
 								<jniDirectory>${nativeSrcJNI}</jniDirectory>
 							</javah>
+							<linker>
+								<options>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
+								</options>
+							</linker>
 						</configuration>
 						<executions>
 							<execution>
