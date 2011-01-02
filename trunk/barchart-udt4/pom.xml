@@ -339,7 +339,15 @@
 									<define>IA32</define>
 									<define>LINUX</define>
 								</defines>
+								<options>
+									<option>-m32</option>
+								</options>
 							</cpp>
+							<linker>
+								<options>
+									<option>-m32</option>
+								</options>
+							</linker>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -364,7 +372,15 @@
 									<define>AMD64</define>
 									<define>LINUX</define>
 								</defines>
+								<options>
+									<option>-m64</option>
+								</options>
 							</cpp>
+							<linker>
+								<options>
+									<option>-m64</option>
+								</options>
+							</linker>
 						</configuration>
 					</plugin>
 				</plugins>
