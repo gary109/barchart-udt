@@ -56,6 +56,35 @@ public class NAR {
 		return OS_ARCH;
 	}
 
+	enum SupportedLinker {
+
+		UNKNOWN(""), //
+
+		GPP("g++"), //
+
+		;
+
+		final String name;
+
+		SupportedLinker(String name) {
+			this.name = name;
+		}
+
+		static SupportedLinker fromName(String name) {
+			for (SupportedLinker linker : values()) {
+				if (linker.name.equals(name)) {
+					return linker;
+				}
+			}
+			return UNKNOWN;
+		}
+
+		boolean isKnown() {
+			return this != UNKNOWN;
+		}
+
+	}
+
 	static final String NAR_AOL = "/nar-aol.properties";
 
 	public static void main(String... args) throws Exception {
@@ -82,17 +111,17 @@ public class NAR {
 				continue;
 			}
 
-			String[] entry = line.split("=");
-			String[] terms = entry[0].split("\\.");
-			for (String term : terms) {
-				// log.info("term={}", term);
-			}
+			AOL aol = new AOL(line);
 
-			if (terms[2].contains("linker")) {
+			if (aol.linker.contains("linker")) {
 				continue;
 			}
 
-			String name = terms[0] + "-" + terms[1] + "-" + terms[2];
+			if (!SupportedLinker.fromName(aol.linker).isKnown()) {
+				continue;
+			}
+
+			String name = aol.folderName();
 
 			set.add(name);
 
