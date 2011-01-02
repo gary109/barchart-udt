@@ -9,7 +9,7 @@
 	</target>
 
 	<target name="target-run-javah">
-		<javah classpath="target/classes" destdir="native/jni" verbose="yes">
+		<javah classpath="target/classes" destdir="src/main/c++/jni" verbose="yes">
 			<class name="com.barchart.udt.SocketUDT" />
 		</javah>
 	</target>

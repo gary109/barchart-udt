@@ -292,10 +292,14 @@
 							<java>
 								<include>true</include>
 							</java>
+							<javah>
+								<jniDirectory>${nativeSrcJNI}</jniDirectory>
+							</javah>
 						</configuration>
 						<executions>
 							<execution>
 								<goals>
+									<goal>nar-javah</goal>
 									<goal>nar-compile</goal>
 									<goal>nar-package</goal>
 								</goals>
