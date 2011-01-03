@@ -455,8 +455,12 @@
 								<options>
 									<option>-m64</option>
 									<option>-arch,x86_64</option>
-									<option>-lstdc++</option>
 								</options>
+								<sysLibs>
+									<sysLib>
+										<name>stdc++</name>
+									</sysLib>
+								</sysLibs>
 							</linker>
 						</configuration>
 					</plugin>
