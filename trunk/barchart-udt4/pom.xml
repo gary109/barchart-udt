@@ -418,8 +418,12 @@
 								<options>
 									<option>-m32</option>
 									<option>-arch,i386</option>
-									<option>-lstdc++</option>
 								</options>
+								<sysLibs>
+									<sysLib>
+										<name>stdc++</name>
+									</sysLib>
+								</sysLibs>
 							</linker>
 						</configuration>
 					</plugin>
