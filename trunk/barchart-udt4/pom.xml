@@ -305,6 +305,7 @@
 								<map>false</map>
 								<clearDefaultOptions>true</clearDefaultOptions>
 								<options>
+									<!--nar bug: these linker options are ignored by overriding profiles -->
 								</options>
 							</linker>
 						</configuration>
@@ -349,6 +350,7 @@
 							<linker>
 								<options>
 									<option>-m32</option>
+									<option>-Map,${project.build.finalName}.map</option>
 								</options>
 							</linker>
 						</configuration>
@@ -383,6 +385,7 @@
 							<linker>
 								<options>
 									<option>-m64</option>
+									<option>-Map,${project.build.finalName}.map</option>
 								</options>
 							</linker>
 						</configuration>
