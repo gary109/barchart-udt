@@ -1,4 +1,4 @@
-#Thu Dec 30 13:04:07 CST 2010
+#Mon Jan 03 07:56:01 CST 2011
 eclipse.preferences.version=1
 environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.201085892/CPATH/delimiter=\:
 environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.201085892/CPATH/operation=remove
@@ -16,6 +16,14 @@ environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.
 environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.171840419/C_INCLUDE_PATH/operation=remove
 environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.171840419/append=true
 environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.171840419/appendContributed=true
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/CPATH/delimiter=\:
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/CPATH/operation=remove
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/CPLUS_INCLUDE_PATH/delimiter=\:
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/CPLUS_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/C_INCLUDE_PATH/delimiter=\:
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/C_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/append=true
+environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/appendContributed=true
 environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436/CPATH/delimiter=\:
 environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436/CPATH/operation=remove
 environment/buildEnvironmentInclude/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436/CPLUS_INCLUDE_PATH/delimiter=\:
@@ -48,6 +56,10 @@ environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.
 environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.171840419/LIBRARY_PATH/operation=remove
 environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.171840419/append=true
 environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.171840419/appendContributed=true
+environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/LIBRARY_PATH/delimiter=\:
+environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/LIBRARY_PATH/operation=remove
+environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/append=true
+environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.683786176/appendContributed=true
 environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436/LIBRARY_PATH/delimiter=\:
 environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436/LIBRARY_PATH/operation=remove
 environment/buildEnvironmentLibrary/cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436/append=true
