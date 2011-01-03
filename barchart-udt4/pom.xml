@@ -279,9 +279,7 @@
 								<multiThreaded>true</multiThreaded>
 								<clearDefaultOptions>true</clearDefaultOptions>
 								<options>
-									<option>-Wall</option>
-									<option>-fno-strict-aliasing</option>
-									<option>-fno-omit-frame-pointer</option>
+									<!--these options are ignored by overriding profiles -->
 								</options>
 								<clearDefaultDefines>true</clearDefaultDefines>
 								<clearDefaultUndefines>true</clearDefaultUndefines>
@@ -305,7 +303,7 @@
 								<map>false</map>
 								<clearDefaultOptions>true</clearDefaultOptions>
 								<options>
-									<!--nar bug: these linker options are ignored by overriding profiles -->
+									<!--these options are ignored by overriding profiles -->
 								</options>
 							</linker>
 						</configuration>
@@ -343,8 +341,11 @@
 									<define>LINUX</define>
 								</defines>
 								<options>
-									<option>-O2</option>
 									<option>-m32</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
 								</options>
 							</cpp>
 							<linker>
@@ -378,8 +379,11 @@
 									<define>LINUX</define>
 								</defines>
 								<options>
-									<option>-O2</option>
 									<option>-m64</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
 								</options>
 							</cpp>
 							<linker>
@@ -413,10 +417,13 @@
 									<define>OSX</define>
 								</defines>
 								<options>
-									<option>-O2</option>
 									<option>-m32</option>
 									<option>-arch</option>
 									<option>i386</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
 								</options>
 							</cpp>
 							<linker>
@@ -450,10 +457,13 @@
 									<define>OSX</define>
 								</defines>
 								<options>
-									<option>-O2</option>
 									<option>-m64</option>
 									<option>-arch</option>
 									<option>x86_64</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
 								</options>
 							</cpp>
 							<linker>
@@ -490,15 +500,16 @@
 									<define>__MINGW__</define>
 								</defines>
 								<options>
-									<!-- <option>-v</option> -->
-									<option>-O2</option>
 									<option>-mthreads</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
 								</options>
 							</cpp>
 							<linker>
 								<name>g++</name>
 								<options>
-									<!-- <option>-v</option> -->
 									<option>-mthreads</option>
 									<option>--kill-at</option>
 									<option>--add-stdcall-alias</option>
