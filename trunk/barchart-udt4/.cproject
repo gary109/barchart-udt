@@ -74,10 +74,9 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1704321135" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
 								<option defaultValue="true" id="gnu.cpp.link.option.shared.1250305200" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.link.option.libs.1561144783" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="stdc++"/>
 									<listOptionValue builtIn="false" value="ws2_32"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.670619428" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-v    -mthreads    -Wl,-Map,SocketUDT-windows-x86-32.map   -Wl,--kill-at   -Wl,--add-stdcall-alias   -Wl,--image-base,0x10000000   -shared   -shared-libgcc" valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.670619428" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-v -shared -fexceptions  -mthreads  -Wl,--kill-at -Wl,--add-stdcall-alias -Wl,--image-base,0x10000000 -Wl,-Map,SocketUDT-windows-x86-32.map" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.12493630" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
