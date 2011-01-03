@@ -493,15 +493,20 @@
 							<linker>
 								<name>g++</name>
 								<options>
-									<option>-v</option>
+									<!-- <option>-v</option> -->
 									<option>-mthreads</option>
 									<option>--kill-at</option>
 									<option>--add-stdcall-alias</option>
 									<option>--image-base,0x10000000</option>
-									<option>-lm</option>
-									<option>-lstdc++</option>
-									<option>-lws2_32</option>
 								</options>
+								<sysLibs>
+									<sysLib>
+										<name>stdc++</name>
+									</sysLib>
+									<sysLib>
+										<name>ws2_32</name>
+									</sysLib>
+								</sysLibs>
 							</linker>
 						</configuration>
 					</plugin>
