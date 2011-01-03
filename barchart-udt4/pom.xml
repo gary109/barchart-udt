@@ -269,7 +269,7 @@
 								<library>
 									<type>jni</type>
 									<narSystemPackage>com.barchart.udt</narSystemPackage>
-									<linkCPP>false</linkCPP>
+									<linkCPP>true</linkCPP>
 								</library>
 							</libraries>
 							<cpp>
@@ -305,7 +305,6 @@
 								<map>false</map>
 								<clearDefaultOptions>true</clearDefaultOptions>
 								<options>
-									<!-- <option>-Wl,-Map,${project.build.finalName}.map</option> -->
 								</options>
 							</linker>
 						</configuration>
@@ -325,7 +324,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-i386-linux</id>
+			<id>nar-i386-linux-g++</id>
 			<activation>
 				<os>
 					<arch>i386</arch>
@@ -359,7 +358,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-amd64-linux</id>
+			<id>nar-amd64-linux-g++</id>
 			<activation>
 				<os>
 					<arch>amd64</arch>
@@ -393,7 +392,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-i386-macosx</id>
+			<id>nar-i386-macosx-g++</id>
 			<activation>
 				<os>
 					<arch>i386</arch>
@@ -435,7 +434,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-x86_64-macosx</id>
+			<id>nar-x86_64-macosx-g++</id>
 			<activation>
 				<os>
 					<arch>x86_64</arch>
@@ -477,7 +476,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-x86-windows</id>
+			<id>nar-x86-windows-g++</id>
 			<activation>
 				<os>
 					<arch>x86</arch>
@@ -511,11 +510,9 @@
 									<option>--kill-at</option>
 									<option>--add-stdcall-alias</option>
 									<option>--image-base,0x10000000</option>
+									<option>-Map,${project.build.finalName}.map</option>
 								</options>
 								<sysLibs>
-									<sysLib>
-										<name>stdc++</name>
-									</sysLib>
 									<sysLib>
 										<name>ws2_32</name>
 									</sysLib>
