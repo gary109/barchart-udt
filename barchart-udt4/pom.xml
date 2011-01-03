@@ -409,12 +409,14 @@
 									<define>OSX</define>
 								</defines>
 								<options>
+									<option>-m32</option>
 									<option>-arch</option>
 									<option>i386</option>
 								</options>
 							</cpp>
 							<linker>
 								<options>
+									<option>-m32</option>
 									<option>-arch,i386</option>
 									<option>-lstdc++</option>
 								</options>
@@ -444,12 +446,14 @@
 									<define>OSX</define>
 								</defines>
 								<options>
+									<option>-m64</option>
 									<option>-arch</option>
 									<option>x86_64</option>
 								</options>
 							</cpp>
 							<linker>
 								<options>
+									<option>-m64</option>
 									<option>-arch,x86_64</option>
 									<option>-lstdc++</option>
 								</options>
