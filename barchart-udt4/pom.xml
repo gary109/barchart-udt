@@ -16,7 +16,8 @@
 
 	<name>barchart-udt</name>
 
-	<description>Java wrapper around native C++ UDT protocol implementation UDT version: 4.8</description>
+	<description>Java wrapper around native C++ UDT protocol implementation
+		UDT version: 4.8</description>
 
 	<url>http://code.google.com/p/barchart-udt/</url>
 
@@ -413,9 +414,9 @@
 								</options>
 							</cpp>
 							<linker>
-								<clearDefaultOptions>true</clearDefaultOptions>
 								<options>
 									<option>-arch,i386</option>
+									<option>-lstdc++</option>
 								</options>
 							</linker>
 						</configuration>
@@ -450,6 +451,7 @@
 							<linker>
 								<options>
 									<option>-arch,x86_64</option>
+									<option>-lstdc++</option>
 								</options>
 							</linker>
 						</configuration>
@@ -488,7 +490,8 @@
 										<ant antfile="${basedir}/build/script/build-version.ant">
 										</ant>
 									</tasks>
-									<sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
+									<sourceRoot>${project.build.directory}/generated-sources
+									</sourceRoot>
 								</configuration>
 							</execution>
 							<execution>
@@ -567,7 +570,8 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<encoding>UTF-8</encoding>
-							<stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+							<stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css
+							</stylesheetfile>
 							<docfilessubdirs>true</docfilessubdirs>
 							<links>
 								<link>http://java.sun.com/javase/6/docs/api/</link>
@@ -750,3 +754,5 @@
 	</profiles>
 
 </project>
+
+
