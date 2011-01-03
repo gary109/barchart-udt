@@ -351,7 +351,7 @@
 							<linker>
 								<options>
 									<option>-m32</option>
-									<option>-Map,${project.build.finalName}.map</option>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
 								</options>
 							</linker>
 						</configuration>
@@ -389,7 +389,7 @@
 							<linker>
 								<options>
 									<option>-m64</option>
-									<option>-Map,${project.build.finalName}.map</option>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
 								</options>
 							</linker>
 						</configuration>
@@ -513,10 +513,10 @@
 								<name>g++</name>
 								<options>
 									<option>-mthreads</option>
-									<option>--kill-at</option>
-									<option>--add-stdcall-alias</option>
-									<option>--image-base,0x10000000</option>
-									<option>-Map,${project.build.finalName}.map</option>
+									<option>-Wl,--kill-at</option>
+									<option>-Wl,--add-stdcall-alias</option>
+									<option>-Wl,--image-base,0x10000000</option>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
 								</options>
 								<sysLibs>
 									<sysLib>
