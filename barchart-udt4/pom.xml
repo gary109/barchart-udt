@@ -428,8 +428,10 @@
 							</cpp>
 							<linker>
 								<options>
+									<option>-v</option>
 									<option>-m32</option>
-									<option>-arch,i386</option>
+									<option>-Wl,-arch,i386</option>
+									<option>-Wl,-map,${project.build.finalName}.map</option>
 								</options>
 							</linker>
 						</configuration>
@@ -469,7 +471,8 @@
 							<linker>
 								<options>
 									<option>-m64</option>
-									<option>-arch,x86_64</option>
+									<option>-Wl,-arch,x86_64</option>
+									<option>-Wl,-map,${project.build.finalName}.map</option>
 								</options>
 							</linker>
 						</configuration>
