@@ -14,22 +14,7 @@
 	<version>1.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>barchart-udt</name>
-
-	<description>Java wrapper around native C++ UDT protocol implementation
-		UDT version: 4.8</description>
-
-	<url>http://code.google.com/p/barchart-udt/</url>
-
-	<inceptionYear>2009</inceptionYear>
-
-	<licenses>
-		<license>
-			<name>The BSD License</name>
-			<url>http://www.opensource.org/licenses/bsd-license.php</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+	<name>${project.artifactId}</name>
 
 	<properties>
 
@@ -61,164 +46,27 @@
 
 	</properties>
 
-	<issueManagement>
-		<system>google code</system>
-		<url>http://code.google.com/p/barchart-udt/issues/list</url>
-	</issueManagement>
-
-	<developers>
-		<developer>
-			<id>andrei.pozolotin</id>
-			<name>Andrei Pozolotin</name>
-			<roles>
-				<role>Project Owner</role>
-			</roles>
-		</developer>
-	</developers>
-
-	<scm>
-		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
-		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</connection>
-		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</developerConnection>
-	</scm>
-
-	<organization>
-		<name>Barchart, Inc.</name>
-		<url>http://www.barchart.com</url>
-	</organization>
-
-	<pluginRepositories>
-
-		<pluginRepository>
-			<id>Mark.Donszelmann@gmail.com</id>
-			<name>Duns' Maven Snapshot Repository</name>
-			<url>http://duns.github.com/maven-snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-			</snapshots>
-		</pluginRepository>
-
-	</pluginRepositories>
-
 	<dependencies>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.6.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
-			<optional>false</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.6.1</version>
-			<type>jar</type>
-			<scope>runtime</scope>
-			<optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
-			<type>jar</type>
-			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
 
 
 	<build>
-
-		<pluginManagement>
-			<plugins>
-
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>groovy-maven-plugin</artifactId>
-					<version>1.0</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.6</version>
-					<dependencies>
-						<dependency>
-							<groupId>org.apache.ant</groupId>
-							<artifactId>ant</artifactId>
-							<version>1.8.1</version>
-						</dependency>
-						<dependency>
-							<groupId>org.apache.ant</groupId>
-							<artifactId>ant-nodeps</artifactId>
-							<version>1.8.1</version>
-						</dependency>
-						<dependency>
-							<groupId>ant-contrib</groupId>
-							<artifactId>cpptasks</artifactId>
-							<version>1.0b5</version>
-						</dependency>
-						<dependency>
-							<groupId>ant-contrib</groupId>
-							<artifactId>ant-contrib</artifactId>
-							<version>1.0b3</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-
-				<plugin>
-					<groupId>com.google.code.maven-license-plugin</groupId>
-					<artifactId>maven-license-plugin</artifactId>
-					<version>1.4.0</version>
-				</plugin>
-
-				<plugin>
-					<groupId>javolution</groupId>
-					<artifactId>colapi</artifactId>
-					<version>1.0.0</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>2.4.3</version>
-					<configuration>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-scm-plugin</artifactId>
-					<version>1.4</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-nar-plugin</artifactId>
-					<version>2.1-SNAPSHOT</version>
-				</plugin>
-
-			</plugins>
-		</pluginManagement>
 
 		<plugins>
 
@@ -833,40 +681,6 @@
 					</plugin>
 
 				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<!-- "think different": macosx provides tools.jar classes already in classes.jar
-				and does not provide tools.jar -->
-			<!-- vendor @ macosx: java.vendor=Apple, Inc. -->
-			<!-- vendor @ windows: java.vendor=Sun Microsystems Inc. -->
-			<!-- vendor @ linux: java.vendor=Sun Microsystems Inc. -->
-			<id>tools.jar</id>
-			<activation>
-				<property>
-					<name>java.vendor</name>
-					<value>Sun Microsystems Inc.</value>
-				</property>
-			</activation>
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-antrun-plugin</artifactId>
-							<dependencies>
-								<dependency>
-									<groupId>com.sun.jdk</groupId>
-									<artifactId>jdk-tools</artifactId>
-									<version>1.6.0</version>
-									<scope>system</scope>
-									<systemPath>${java.home}/../lib/tools.jar</systemPath>
-								</dependency>
-							</dependencies>
-						</plugin>
-					</plugins>
-				</pluginManagement>
 			</build>
 		</profile>
 
