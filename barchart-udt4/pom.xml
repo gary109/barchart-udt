@@ -324,7 +324,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-i386-linux-g++</id>
+			<id>nar_i386-Linux-g++</id>
 			<activation>
 				<os>
 					<arch>i386</arch>
@@ -358,7 +358,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-amd64-linux-g++</id>
+			<id>nar_amd64-Linux-g++</id>
 			<activation>
 				<os>
 					<arch>amd64</arch>
@@ -392,7 +392,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-i386-macosx-g++</id>
+			<id>nar_i386-MacOSX-g++</id>
 			<activation>
 				<os>
 					<arch>i386</arch>
@@ -421,11 +421,6 @@
 									<option>-m32</option>
 									<option>-arch,i386</option>
 								</options>
-								<sysLibs>
-									<sysLib>
-										<name>stdc++</name>
-									</sysLib>
-								</sysLibs>
 							</linker>
 						</configuration>
 					</plugin>
@@ -434,7 +429,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-x86_64-macosx-g++</id>
+			<id>nar_x86_64-MacOSX-g++</id>
 			<activation>
 				<os>
 					<arch>x86_64</arch>
@@ -463,11 +458,6 @@
 									<option>-m64</option>
 									<option>-arch,x86_64</option>
 								</options>
-								<sysLibs>
-									<sysLib>
-										<name>stdc++</name>
-									</sysLib>
-								</sysLibs>
 							</linker>
 						</configuration>
 					</plugin>
@@ -476,7 +466,7 @@
 		</profile>
 
 		<profile>
-			<id>nar-x86-windows-g++</id>
+			<id>nar_x86-Windows-g++</id>
 			<activation>
 				<os>
 					<arch>x86</arch>
