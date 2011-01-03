@@ -94,9 +94,11 @@
 			<url>http://duns.github.com/maven-snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
