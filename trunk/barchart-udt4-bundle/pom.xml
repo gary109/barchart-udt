@@ -24,15 +24,23 @@
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>${barchart.version}</version>
 			<type>jar</type>
 		</dependency>
 
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>${barchart.version}</version>
 			<classifier>i386-Linux-g++-jni</classifier>
+			<type>nar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.barchart.udt</groupId>
+			<artifactId>barchart-udt4</artifactId>
+			<version>${barchart.version}</version>
+			<classifier>amd64-Linux-g++-jni</classifier>
 			<type>nar</type>
 		</dependency>
 
@@ -42,31 +50,30 @@
 
 		<plugins>
 
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-nar-plugin</artifactId> -->
-			<!-- <extensions>true</extensions> -->
-			<!-- </plugin> -->
-
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-assembly-plugin</artifactId> -->
-			<!-- </plugin> -->
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>unpack-template</id>
+						<id>unpack</id>
 						<phase>validate</phase>
 						<goals>
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
+							<excludeTransitive>true</excludeTransitive>
+							<excludes>META-INF/</excludes>
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>target/dependency</classesDirectory>
+				</configuration>
 			</plugin>
 
 		</plugins>
