@@ -87,6 +87,19 @@
 		<url>http://www.barchart.com</url>
 	</organization>
 
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Mark.Donszelmann@gmail.com</id>
+			<name>Duns' Maven Snapshot Repository</name>
+			<url>http://duns.github.com/maven-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<dependencies>
 
