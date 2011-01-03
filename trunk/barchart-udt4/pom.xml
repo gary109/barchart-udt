@@ -302,7 +302,7 @@
 								<jniDirectory>${nativeSrcJNI}</jniDirectory>
 							</javah>
 							<linker>
-								<map>true</map>
+								<map>false</map>
 								<clearDefaultOptions>true</clearDefaultOptions>
 								<options>
 									<!-- <option>-Wl,-Map,${project.build.finalName}.map</option> -->
@@ -456,6 +456,51 @@
 									<option>-m64</option>
 									<option>-arch,x86_64</option>
 									<option>-lstdc++</option>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar-x86-windows</id>
+			<activation>
+				<os>
+					<arch>x86</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<cpp>
+								<name>g++</name>
+								<defines>
+									<define>IA32</define>
+									<define>WIN32</define>
+									<define>_WIN32_WINNT=0x0501</define>
+									<define>__MINGW__</define>
+								</defines>
+								<options>
+									<!-- <option>-v</option> -->
+									<option>-mthreads</option>
+								</options>
+							</cpp>
+							<linker>
+								<name>g++</name>
+								<options>
+									<option>-v</option>
+									<option>-mthreads</option>
+									<option>--kill-at</option>
+									<option>--add-stdcall-alias</option>
+									<option>--image-base,0x10000000</option>
+									<option>-lm</option>
+									<option>-lstdc++</option>
+									<option>-lws2_32</option>
 								</options>
 							</linker>
 						</configuration>
