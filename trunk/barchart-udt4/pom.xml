@@ -274,7 +274,7 @@
 							</libraries>
 							<cpp>
 								<debug>true</debug>
-								<optimize>speed</optimize>
+								<optimize>none</optimize>
 								<exceptions>true</exceptions>
 								<multiThreaded>true</multiThreaded>
 								<clearDefaultOptions>true</clearDefaultOptions>
@@ -343,6 +343,7 @@
 									<define>LINUX</define>
 								</defines>
 								<options>
+									<option>-O2</option>
 									<option>-m32</option>
 								</options>
 							</cpp>
@@ -376,6 +377,7 @@
 									<define>LINUX</define>
 								</defines>
 								<options>
+									<option>-O2</option>
 									<option>-m64</option>
 								</options>
 							</cpp>
@@ -409,6 +411,7 @@
 									<define>OSX</define>
 								</defines>
 								<options>
+									<option>-O2</option>
 									<option>-m32</option>
 									<option>-arch</option>
 									<option>i386</option>
@@ -450,6 +453,7 @@
 									<define>OSX</define>
 								</defines>
 								<options>
+									<option>-O2</option>
 									<option>-m64</option>
 									<option>-arch</option>
 									<option>x86_64</option>
@@ -495,6 +499,7 @@
 								</defines>
 								<options>
 									<!-- <option>-v</option> -->
+									<option>-O2</option>
 									<option>-mthreads</option>
 								</options>
 							</cpp>
