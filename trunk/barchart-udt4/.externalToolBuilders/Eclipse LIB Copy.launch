@@ -4,26 +4,12 @@
 <stringAttribute key="org.eclipse.ant.ui.ATTR_ANT_MANUAL_TARGETS" value="target-copy-artifact,"/>
 <booleanAttribute key="org.eclipse.ant.ui.ATTR_TARGETS_UPDATED" value="true"/>
 <booleanAttribute key="org.eclipse.ant.ui.DEFAULT_VM_INSTALL" value="false"/>
-<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/barchart-udt4/build/script/build-eclipse.xml"/>
-</listAttribute>
-<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
-<listEntry value="1"/>
-</listAttribute>
 <booleanAttribute key="org.eclipse.debug.ui.ATTR_LAUNCH_IN_BACKGROUND" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="true"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="barchart-udt4"/>
-<mapAttribute key="org.eclipse.ui.externaltools.ATTR_ANT_PROPERTIES">
-<mapEntry key="eclipse.running" value="true"/>
-<mapEntry key="XXX" value="${build_files}"/>
-<mapEntry key="eclipse.home" value="/opt/eclipse"/>
-<mapEntry key="eclipse.pdebuild.templates" value="/opt/eclipse/plugins/org.eclipse.pde.build_3.5.0.v20090527-1800/templates/"/>
-<mapEntry key="eclipse.pdebuild.scripts" value="/opt/eclipse/plugins/org.eclipse.pde.build_3.5.0.v20090527-1800/scripts/"/>
-<mapEntry key="eclipse.pdebuild.home" value="/opt/eclipse/plugins/org.eclipse.pde.build_3.5.0.v20090527-1800/./"/>
-</mapAttribute>
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_BUILDER_ENABLED" value="false"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/barchart-udt4/build/script/build-eclipse.xml}"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/barchart-udt4/build/script/build-eclipse.ant}"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_RUN_BUILD_KINDS" value="full,incremental,"/>
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_TRIGGERS_CONFIGURED" value="true"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:/barchart-udt4}"/>

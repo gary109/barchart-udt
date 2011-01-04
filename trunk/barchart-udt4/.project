@@ -87,7 +87,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/Eclipse Artifact Copy.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/Eclipse LIB Copy.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>

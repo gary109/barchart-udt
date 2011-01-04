@@ -1554,7 +1554,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/sourceforge-udt-wrapper"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/barchart-udt4"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-linux-x86-64"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="SocketUDT-linux-x86-64"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="amd64-Linux-g++"/>
 					</externalSetting>
 					<externalSetting languages="cdt.managedbuild.tool.gnu.cpp.linker.input.1143733746">
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/sourceforge-udt/src"/>
@@ -1576,7 +1576,7 @@
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="so" artifactName="SocketUDT-linux-x86-64" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419" name="build-linux-x86-64" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="so" artifactName="amd64-Linux-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419" name="build-linux-x86-64" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.base.672076899" name="Linux GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" superClass="cdt.managedbuild.toolchain.gnu.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.base.1335863791" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
@@ -3096,7 +3096,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/sourceforge-udt-wrapper/build-debug-lin-64"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-linux-x86-64"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-linux-x86-32"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="SocketUDT-linux-x86-32"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="i386-Linux-g++"/>
 					</externalSetting>
 					<externalSetting languages="cdt.managedbuild.tool.gnu.cpp.linker.input.1143733746">
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/sourceforge-udt/src"/>
@@ -3118,7 +3118,7 @@
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="so" artifactName="SocketUDT-linux-x86-32" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.201085892" name="build-linux-x86-32" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="so" artifactName="i386-Linux-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.201085892" name="build-linux-x86-32" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.201085892." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.base.1546435608" name="Linux GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" superClass="cdt.managedbuild.toolchain.gnu.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.base.245891740" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
@@ -4637,7 +4637,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/sourceforge-udt-wrapper"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/barchart-udt4"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-macosx-x86-64"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="SocketUDT-macosx-x86-64"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="amd64-MacOSX-g++"/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -4655,7 +4655,7 @@
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="jnilib" artifactName="SocketUDT-macosx-x86-64" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991" name="build-macosx-x86-64" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="jnilib" artifactName="amd64-MacOSX-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991" name="build-macosx-x86-64" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.1136854868" name="MacOSX GCC" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.1381376133" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
@@ -6177,7 +6177,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-macosx-x86-32"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-macosx-x86-64"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-macos-x86-32"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="SocketUDT-macosx-x86-32"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="i386-MacOSX-g++"/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -6195,7 +6195,7 @@
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="jnilib" artifactName="SocketUDT-macosx-x86-32" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436" name="build-macosx-x86-32" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="jnilib" artifactName="i386-MacOSX-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436" name="build-macosx-x86-32" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.1088931553" name="MacOSX GCC" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.1053359636" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
