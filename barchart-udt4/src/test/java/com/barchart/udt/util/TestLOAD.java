@@ -3,6 +3,7 @@ package com.barchart.udt.util;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.net.URL;
 import java.net.URLConnection;
 
 import org.junit.After;
@@ -43,6 +44,37 @@ public class TestLOAD {
 
 		assertTrue(conn.getContentLength() > 0);
 		log.info("getContentLength : {}", conn.getContentLength());
+
+	}
+
+	@Test
+	public void testExtractResource() throws Exception {
+
+		// inside jar
+		String sourcePath = "lib/bin/test-resource.txt";
+
+		// outside of jar
+		String targetPath = "lib/bin/test-resource-extracted.txt";
+
+		File targetFile = new File(targetPath);
+		targetFile.delete();
+
+		LOAD.extractResource(sourcePath, targetPath);
+
+		assertTrue(targetFile.exists());
+
+		URL sourceURL = TestLOAD.class.getClassLoader().getResource(sourcePath);
+
+		URL targetURL = targetFile.toURI().toURL();
+
+		URLConnection sourceCONN = sourceURL.openConnection();
+
+		URLConnection targetCONN = targetURL.openConnection();
+
+		assertEquals(sourceCONN.getContentLength(),
+				targetCONN.getContentLength());
+
+		assertEquals(sourceCONN.getLastModified(), targetCONN.getLastModified());
 
 	}
 
