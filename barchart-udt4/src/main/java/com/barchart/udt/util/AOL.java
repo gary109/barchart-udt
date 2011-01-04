@@ -12,7 +12,7 @@ class AOL {
 	/** The Constant OS_ARCH. */
 	public final static String OS_ARCH = System.getProperty("os.arch");
 
-	AOL(String line) {
+	AOL(final String line) {
 
 		String[] entry = line.split("=");
 		String[] terms = entry[0].split("\\.");
@@ -23,12 +23,21 @@ class AOL {
 
 	}
 
-	String propertyKey() {
+	String propertyName() {
 		return arch + "." + os + "." + linker;
 	}
 
-	String folderName() {
+	String resourceName() {
 		return arch + "-" + os + "-" + linker;
+	}
+
+	boolean isMatchJVM() {
+
+		if (arch.equals(filterOsArch()) && os.equals(filterOsName())) {
+			return true;
+		}
+
+		return false;
 	}
 
 	static String filterOsName() {
@@ -40,10 +49,6 @@ class AOL {
 
 	static String filterOsArch() {
 		return OS_ARCH;
-	}
-
-	static String folderPrefix() {
-		return null;
 	}
 
 }
