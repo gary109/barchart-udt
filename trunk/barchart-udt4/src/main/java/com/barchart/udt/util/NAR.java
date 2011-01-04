@@ -104,7 +104,7 @@ public class NAR {
 				continue;
 			}
 
-			String name = aol.folderName();
+			String name = aol.resourceName();
 
 			set.add(name);
 
