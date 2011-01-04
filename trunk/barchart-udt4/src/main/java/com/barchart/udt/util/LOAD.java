@@ -81,7 +81,7 @@ public class LOAD {
 		final URLConnection targetConn = fileConnection(targetFile);
 
 		if (isSameResource(sourceConn, targetConn)) {
-			log.debug("already extracted");
+			log.info("already extracted; sourcePath={}", sourcePath);
 			return;
 		} else {
 			log.debug("making new destination resource for extraction");
@@ -112,7 +112,7 @@ public class LOAD {
 		// synchronize target time stamp with source to avoid repeated copy
 		targetFile.setLastModified(sourceTime);
 
-		log.debug("resource extracted OK");
+		log.info("extracted OK; sourcePath={}", sourcePath);
 
 	}
 

@@ -5,7 +5,7 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum LibraryUDT2 {
+public enum LibraryUDT_2 {
 
 	UNKNOWN("xxx.xxx.xxx"), //
 
@@ -24,19 +24,19 @@ public enum LibraryUDT2 {
 	;
 
 	private final static Logger log = LoggerFactory
-			.getLogger(LibraryUDT2.class);
+			.getLogger(LibraryUDT_2.class);
 
 	/** The Constant DEFAULT_EXTRACT_FOLDER_NAME. */
 	public final static String DEFAULT_EXTRACT_FOLDER_NAME = "./lib";
 
 	private final AOL aol;
 
-	LibraryUDT2(final String aolKey) {
+	LibraryUDT_2(final String aolKey) {
 		this.aol = new AOL(aolKey);
 	}
 
-	static LibraryUDT2 detectLibrary() {
-		for (final LibraryUDT2 lib : values()) {
+	static LibraryUDT_2 detectLibrary() {
+		for (final LibraryUDT_2 lib : values()) {
 			if (lib.aol.isMatchJVM()) {
 				return lib;
 			}
@@ -56,11 +56,11 @@ public enum LibraryUDT2 {
 			log.warn("using default targetFolder={}", targetFolder);
 		}
 
-		final LibraryUDT2 lib = detectLibrary();
+		final LibraryUDT_2 lib = detectLibrary();
 
 		try {
-			// load testing library
-			final String sourcePath = lib.sourceCDT();
+			// load CDT testing library
+			final String sourcePath = lib.sourceTestCDT();
 			loadPath(lib, sourcePath, targetFolder);
 			return;
 		} catch (Exception e) {
@@ -68,8 +68,17 @@ public enum LibraryUDT2 {
 		}
 
 		try {
-			// load production library
-			final String sourcePath = lib.sourceNAR();
+			// load NAR testing library
+			final String sourcePath = lib.sourceTestNAR();
+			loadPath(lib, sourcePath, targetFolder);
+			return;
+		} catch (Exception e) {
+			log.warn("{}", e.getMessage());
+		}
+
+		try {
+			// load NAR production library
+			final String sourcePath = lib.sourceRealNAR();
 			loadPath(lib, sourcePath, targetFolder);
 			return;
 		} catch (Exception e) {
@@ -81,19 +90,34 @@ public enum LibraryUDT2 {
 	}
 
 	/** testing: custom name convention */
-	String sourceCDT() {
+	String sourceTestCDT() {
 		String name = VersionUDT.BARCHART_ARTIFACT + "-" + aol.resourceName();
 		String library = System.mapLibraryName(name);
 		String path = "./" + library;
 		return path;
 	}
 
-	/** production: maven-nar-plugin name convention */
-	String sourceNAR() {
+	/**
+	 * testing: maven-nar-plugin name convention; custom location:
+	 * target/test-classes; parth of java test classpath
+	 */
+	String sourceTestNAR() {
 		String name = VersionUDT.BARCHART_NAME;
-		String folder = aol.resourceName();
+		String classifier = aol.resourceName();
+		String folder = name + "-" + classifier + "-jni";
+		String path = "./" + folder + "/" + sourceRealNAR();
+		return path;
+	}
+
+	/**
+	 * production: maven-nar-plugin name convention; production location; part
+	 * of production java classpath
+	 */
+	String sourceRealNAR() {
+		String name = VersionUDT.BARCHART_NAME;
+		String classifier = aol.resourceName();
 		String library = System.mapLibraryName(name);
-		String path = "./lib/" + folder + "/jni/" + library;
+		String path = "./lib/" + classifier + "/jni/" + library;
 		return path;
 	}
 
@@ -104,7 +128,7 @@ public enum LibraryUDT2 {
 		return path;
 	}
 
-	static void loadPath(final LibraryUDT2 lib, final String sourcePath,
+	static void loadPath(final LibraryUDT_2 lib, final String sourcePath,
 			final String targetFolder) throws Exception {
 		final String targetPath = lib.targetLIB(targetFolder);
 		LOAD.extractResource(sourcePath, targetPath);
