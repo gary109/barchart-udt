@@ -1,5 +1,7 @@
 package com.barchart.udt.util;
 
+import java.io.File;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,11 +15,11 @@ public enum LIB {
 
 	I386_MACOSX_GPP("i386.MacOSX.g++"), //
 
-	AMD64_MACOSXGPP("amd64.MacOSX.g++"), //
+	X86_64_MACOSXGPP("x86_64.MacOSX.g++"), //
 
 	X86_WINDOWS_GPP("x86.Windows.g++"), //
 
-	X86_32_WINDOWS_GPP("x86_32.Windows.g++"), //
+	X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
 
 	;
 
@@ -53,18 +55,24 @@ public enum LIB {
 			log.warn("using default targetFolder={}", targetFolder);
 		}
 
+		final LIB lib = detect();
+
 		try {
-			loadTest(targetFolder);
+			// load testing library
+			final String sourcePath = lib.sourceCDT();
+			loadPath(lib, sourcePath, targetFolder);
 			return;
 		} catch (Exception e) {
-			log.warn("", e);
+			log.warn("{}", e.getMessage());
 		}
 
 		try {
-			loadReal(targetFolder);
+			// load production library
+			final String sourcePath = lib.sourceNAR();
+			loadPath(lib, sourcePath, targetFolder);
 			return;
 		} catch (Exception e) {
-			log.error("", e);
+			log.warn("{}", e.getMessage());
 		}
 
 		throw new Exception("load failed");
@@ -95,20 +103,12 @@ public enum LIB {
 		return path;
 	}
 
-	public static void loadTest(final String targetFolder) throws Exception {
-		LIB lib = detect();
-		String sourcePath = lib.sourceCDT();
-		String targetPath = lib.targetLIB(targetFolder);
+	static void loadPath(final LIB lib, final String sourcePath,
+			final String targetFolder) throws Exception {
+		final String targetPath = lib.targetLIB(targetFolder);
 		LOAD.extractResource(sourcePath, targetPath);
-		System.load(targetPath);
-	}
-
-	public static void loadReal(final String targetFolder) throws Exception {
-		LIB lib = detect();
-		String sourcePath = lib.sourceNAR();
-		String targetPath = lib.targetLIB(targetFolder);
-		LOAD.extractResource(sourcePath, targetPath);
-		System.load(targetPath);
+		final String loadPath = (new File(targetPath)).getAbsolutePath();
+		System.load(loadPath);
 	}
 
 }

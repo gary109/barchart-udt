@@ -15,10 +15,7 @@
 	</target>
 
 	<target name="target-copy-artifact">
-		<echo message="hello" />
-		<echo message="HOME : ${env.HOME}" />
-		<echo message="ARTIFACT : ${env.ARTIFACT}" />
-		<echo message="XXX : ${XXX}" />
+		<echo message="basedir : ${basedir}" />
 	</target>
 
 </project>

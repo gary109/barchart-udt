@@ -19,17 +19,24 @@ toUpper() {
 log "########################################"
 
 KIND=$1
+LIB_FOLDER="$PWD/../target/test-classes"
 
-log "mode : $KIND"
 log "current folder : $PWD"
 
-LIB_NAME="SocketUDT"
-LIB_FOLDER="$PWD/../target/classes"
-
-cp -f -v *"$LIB_NAME"* "$LIB_FOLDER"
-
-log "available libraries : "
-
-ls -las *"$LIB_NAME"*
+case $KIND in
+	start)
+		log "pre-build task;"
+		log "done"
+	;;
+	finish)
+		log "post-build task;"
+		cp -f -v *.so *.dll *.jnilib "$LIB_FOLDER"
+		log "done"
+	;;
+	*)
+		log "error; unecpected KIND=$KIND"
+		exit 1
+	;;
+esac
 
 log "########################################"
