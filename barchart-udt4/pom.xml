@@ -162,6 +162,8 @@
 						<artifactId>maven-nar-plugin</artifactId>
 						<extensions>true</extensions>
 						<configuration>
+							<!-- place nar artifacts into test classpath -->
+							<targetDirectory>target/test-classes</targetDirectory>
 							<libraries>
 								<library>
 									<type>jni</type>

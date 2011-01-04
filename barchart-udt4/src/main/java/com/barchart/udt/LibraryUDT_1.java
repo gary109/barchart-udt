@@ -64,7 +64,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * .
  */
-public enum LibraryUDT1 {
+public enum LibraryUDT_1 {
 
 	/** The UNKNOWN. */
 	UNKNOWN(new String[] { "UNKNOWN" }), //
@@ -106,12 +106,12 @@ public enum LibraryUDT1 {
 	 * @param fileNameArray
 	 *            the file name array
 	 */
-	private LibraryUDT1(String[] fileNameArray) {
+	private LibraryUDT_1(String[] fileNameArray) {
 		this.fileNameArray = fileNameArray;
 	}
 
 	/** The log. */
-	private final static Logger log = LoggerFactory.getLogger(LibraryUDT1.class);
+	private final static Logger log = LoggerFactory.getLogger(LibraryUDT_1.class);
 
 	/** The Constant OS_NAME. */
 	public final static String OS_NAME = System.getProperty("os.name")
@@ -126,16 +126,16 @@ public enum LibraryUDT1 {
 	 * 
 	 * @return the library udt
 	 */
-	public static LibraryUDT1 detect() {
+	public static LibraryUDT_1 detect() {
 
 		if (OS_NAME.contains("windows")) {
 			if (OS_ARCH.contains("x86")) {
-				LibraryUDT1 library = WINDOWS_32;
+				LibraryUDT_1 library = WINDOWS_32;
 				log.debug("detected: library={}", library);
 				return library;
 			}
 			if (OS_ARCH.contains("amd64")) {
-				LibraryUDT1 library = WINDOWS_64;
+				LibraryUDT_1 library = WINDOWS_64;
 				log.debug("detected: library={}", library);
 				return library;
 			}
@@ -144,12 +144,12 @@ public enum LibraryUDT1 {
 		if (OS_NAME.contains("linux")) {
 			if (OS_ARCH.contains("i386") || OS_ARCH.contains("i586")
 					|| OS_ARCH.contains("i686")) {
-				LibraryUDT1 library = LINUX_32;
+				LibraryUDT_1 library = LINUX_32;
 				log.debug("detected: library={}", library);
 				return library;
 			}
 			if (OS_ARCH.contains("amd64") || OS_ARCH.contains("x86_64")) {
-				LibraryUDT1 library = LINUX_64;
+				LibraryUDT_1 library = LINUX_64;
 				log.debug("detected: library={}", library);
 				return library;
 			}
@@ -158,12 +158,12 @@ public enum LibraryUDT1 {
 		if (OS_NAME.contains("mac") || OS_NAME.contains("darwin")) {
 			if (OS_ARCH.contains("i386") || OS_ARCH.contains("i586")
 					|| OS_ARCH.contains("i686")) {
-				LibraryUDT1 library = MACOSX_32;
+				LibraryUDT_1 library = MACOSX_32;
 				log.debug("detected: library={}", library);
 				return library;
 			}
 			if (OS_ARCH.contains("amd64") || OS_ARCH.contains("x86_64")) {
-				LibraryUDT1 library = MACOSX_64;
+				LibraryUDT_1 library = MACOSX_64;
 				log.debug("detected: library={}", library);
 				return library;
 			}
@@ -212,7 +212,7 @@ public enum LibraryUDT1 {
 
 		//
 
-		LibraryUDT1 library = detect();
+		LibraryUDT_1 library = detect();
 
 		if (library == UNKNOWN) {
 			throw new UnsupportedOperationException(
@@ -287,7 +287,7 @@ public enum LibraryUDT1 {
 	private static void extractFile(File folder, String fileName)
 			throws Exception {
 
-		ClassLoader classLoader = LibraryUDT1.class.getClassLoader();
+		ClassLoader classLoader = LibraryUDT_1.class.getClassLoader();
 
 		if (classLoader == null) {
 			log.error("resource classLoader not available: {}", fileName);

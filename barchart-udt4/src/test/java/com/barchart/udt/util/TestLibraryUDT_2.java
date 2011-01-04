@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestLIB {
+public class TestLibraryUDT_2 {
 
 	@Before
 	public void setUp() throws Exception {
@@ -19,7 +19,7 @@ public class TestLIB {
 	@Test
 	public void testLoad() throws Exception {
 
-		LibraryUDT2.load();
+		LibraryUDT_2.load();
 
 		assertTrue(true);
 
