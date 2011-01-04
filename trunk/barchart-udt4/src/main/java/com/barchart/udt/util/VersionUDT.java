@@ -6,9 +6,9 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Version {
+public class VersionUDT {
 
-	static final Logger log = LoggerFactory.getLogger(Version.class);
+	static final Logger log = LoggerFactory.getLogger(VersionUDT.class);
 
 	//
 
@@ -67,7 +67,7 @@ public class Version {
 
 			final Properties props = new Properties();
 
-			final InputStream stream = Version.class.getClassLoader()
+			final InputStream stream = VersionUDT.class.getClassLoader()
 					.getResourceAsStream(PROP_FILE);
 
 			props.load(stream);
