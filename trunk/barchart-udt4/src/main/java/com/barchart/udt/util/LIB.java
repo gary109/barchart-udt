@@ -15,7 +15,7 @@ public enum LIB {
 
 	I386_MACOSX_GPP("i386.MacOSX.g++"), //
 
-	X86_64_MACOSXGPP("x86_64.MacOSX.g++"), //
+	X86_64_MACOSX_GPP("x86_64.MacOSX.g++"), //
 
 	X86_WINDOWS_GPP("x86.Windows.g++"), //
 
