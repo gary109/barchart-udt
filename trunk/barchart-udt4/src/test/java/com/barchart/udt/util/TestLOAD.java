@@ -51,10 +51,10 @@ public class TestLOAD {
 	public void testExtractResource() throws Exception {
 
 		// inside jar
-		String sourcePath = "lib/bin/test-resource.txt";
+		String sourcePath = "./lib/bin/test-resource.txt";
 
 		// outside of jar
-		String targetPath = "lib/bin/test-resource-extracted.txt";
+		String targetPath = "./lib/bin/test-resource-extracted.txt";
 
 		File targetFile = new File(targetPath);
 		targetFile.delete();
@@ -73,8 +73,12 @@ public class TestLOAD {
 
 		assertEquals(sourceCONN.getContentLength(),
 				targetCONN.getContentLength());
-
 		assertEquals(sourceCONN.getLastModified(), targetCONN.getLastModified());
+
+		targetFile.delete();
+
+		assertEquals(0, targetCONN.getContentLength());
+		assertEquals(0, targetCONN.getLastModified());
 
 	}
 
