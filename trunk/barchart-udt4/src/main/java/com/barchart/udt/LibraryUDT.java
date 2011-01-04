@@ -326,10 +326,10 @@ public enum LibraryUDT {
 
 		final long timeStamp = timeStamp(connIN);
 
-		InputStream streamIN = new BufferedInputStream(//
+		final InputStream streamIN = new BufferedInputStream(//
 				classLoader.getResourceAsStream(fileName));
 
-		OutputStream streamOUT = new BufferedOutputStream(//
+		final OutputStream streamOUT = new BufferedOutputStream(//
 				new FileOutputStream(fileOUT));
 
 		byte[] array = new byte[64 * 1024];

@@ -6,6 +6,12 @@ class AOL {
 	final String os;
 	final String linker;
 
+	/** The Constant OS_NAME. */
+	public final static String OS_NAME = System.getProperty("os.name");
+
+	/** The Constant OS_ARCH. */
+	public final static String OS_ARCH = System.getProperty("os.arch");
+
 	AOL(String line) {
 
 		String[] entry = line.split("=");
@@ -23,6 +29,21 @@ class AOL {
 
 	String folderName() {
 		return arch + "-" + os + "-" + linker;
+	}
+
+	static String filterOsName() {
+		if (OS_NAME.contains("mac")) {
+			return "MacOSX";
+		}
+		return OS_NAME;
+	}
+
+	static String filterOsArch() {
+		return OS_ARCH;
+	}
+
+	static String folderPrefix() {
+		return null;
 	}
 
 }
