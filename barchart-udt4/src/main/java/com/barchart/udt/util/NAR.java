@@ -14,12 +14,6 @@ public class NAR {
 	/** The log. */
 	private final static Logger log = LoggerFactory.getLogger(NAR.class);
 
-	/** The Constant OS_NAME. */
-	public final static String OS_NAME = System.getProperty("os.name");
-
-	/** The Constant OS_ARCH. */
-	public final static String OS_ARCH = System.getProperty("os.arch");
-
 	static String readFileAsString(String filePath) throws Exception {
 
 		StringBuffer fileData = new StringBuffer(1024 * 4);
@@ -43,17 +37,6 @@ public class NAR {
 
 		return fileData.toString();
 
-	}
-
-	static String filterOsName() {
-		if (OS_NAME.contains("mac")) {
-			return "MacOSX";
-		}
-		return OS_NAME;
-	}
-
-	static String filterOsArch() {
-		return OS_ARCH;
 	}
 
 	enum SupportedLinker {
@@ -129,7 +112,7 @@ public class NAR {
 
 		for (String line : set.toArray(new String[] {})) {
 
-			String find = filterOsArch() + "-" + filterOsName();
+			String find = AOL.filterOsArch() + "-" + AOL.filterOsName();
 
 			if (line.contains(find)) {
 				log.info("{}", line);
