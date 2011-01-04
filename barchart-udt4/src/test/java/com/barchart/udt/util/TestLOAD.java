@@ -50,13 +50,18 @@ public class TestLOAD {
 	@Test
 	public void testExtractResource() throws Exception {
 
-		// inside jar
+		log.info("java.class.path = {}", System.getProperty("java.class.path"));
+
+		// path inside jar, relative to the root of java.class.path
 		String sourcePath = "./lib/bin/test-resource.txt";
 
-		// outside of jar
+		log.info("user.dir = {}", System.getProperty("user.dir"));
+
+		// path outside of jar, in file system, relative to user.dir
 		String targetPath = "./lib/bin/test-resource-extracted.txt";
 
 		File targetFile = new File(targetPath);
+
 		targetFile.delete();
 
 		LOAD.extractResource(sourcePath, targetPath);
@@ -81,5 +86,4 @@ public class TestLOAD {
 		assertEquals(0, targetCONN.getLastModified());
 
 	}
-
 }
