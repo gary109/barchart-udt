@@ -18,7 +18,13 @@ toUpper() {
 
 log "########################################"
 
+# "start" or "stop"
 KIND=$1
+
+# java code expects this to match maven artifactId
+LIB_NAME="barchart-udt4"
+
+# cdt build is used by java test code only
 LIB_FOLDER="$PWD/../target/test-classes"
 
 log "current folder : $PWD"
@@ -30,7 +36,7 @@ case $KIND in
 	;;
 	finish)
 		log "post-build task;"
-		cp -f -v *.so *.dll *.jnilib "$LIB_FOLDER"
+		cp -f -v *$LIB_NAME* "$LIB_FOLDER"
 		log "done"
 	;;
 	*)
@@ -40,3 +46,4 @@ case $KIND in
 esac
 
 log "########################################"
+

@@ -5,7 +5,7 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum LIB {
+public enum LibraryUDT2 {
 
 	UNKNOWN("xxx.xxx.xxx"), //
 
@@ -23,19 +23,20 @@ public enum LIB {
 
 	;
 
-	private final static Logger log = LoggerFactory.getLogger(LIB.class);
+	private final static Logger log = LoggerFactory
+			.getLogger(LibraryUDT2.class);
 
 	/** The Constant DEFAULT_EXTRACT_FOLDER_NAME. */
 	public final static String DEFAULT_EXTRACT_FOLDER_NAME = "./lib";
 
 	private final AOL aol;
 
-	LIB(final String aolKey) {
+	LibraryUDT2(final String aolKey) {
 		this.aol = new AOL(aolKey);
 	}
 
-	static LIB detect() {
-		for (final LIB lib : values()) {
+	static LibraryUDT2 detectLibrary() {
+		for (final LibraryUDT2 lib : values()) {
 			if (lib.aol.isMatchJVM()) {
 				return lib;
 			}
@@ -55,7 +56,7 @@ public enum LIB {
 			log.warn("using default targetFolder={}", targetFolder);
 		}
 
-		final LIB lib = detect();
+		final LibraryUDT2 lib = detectLibrary();
 
 		try {
 			// load testing library
@@ -79,17 +80,17 @@ public enum LIB {
 
 	}
 
-	// testing
+	/** testing: custom name convention */
 	String sourceCDT() {
-		String name = aol.resourceName();
+		String name = VersionUDT.BARCHART_ARTIFACT + "-" + aol.resourceName();
 		String library = System.mapLibraryName(name);
 		String path = "./" + library;
 		return path;
 	}
 
-	// production
+	/** production: maven-nar-plugin name convention */
 	String sourceNAR() {
-		String name = Version.BARCHART_NAME;
+		String name = VersionUDT.BARCHART_NAME;
 		String folder = aol.resourceName();
 		String library = System.mapLibraryName(name);
 		String path = "./lib/" + folder + "/jni/" + library;
@@ -97,13 +98,13 @@ public enum LIB {
 	}
 
 	String targetLIB(final String targetFolder) {
-		String name = Version.BARCHART_NAME + "-" + aol.resourceName();
+		String name = VersionUDT.BARCHART_NAME + "-" + aol.resourceName();
 		String library = System.mapLibraryName(name);
 		String path = targetFolder + "/" + library;
 		return path;
 	}
 
-	static void loadPath(final LIB lib, final String sourcePath,
+	static void loadPath(final LibraryUDT2 lib, final String sourcePath,
 			final String targetFolder) throws Exception {
 		final String targetPath = lib.targetLIB(targetFolder);
 		LOAD.extractResource(sourcePath, targetPath);

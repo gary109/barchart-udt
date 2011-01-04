@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestVersion {
+public class TestVersionUDT {
 
 	@Before
 	public void setUp() throws Exception {
@@ -19,7 +19,7 @@ public class TestVersion {
 	@Test
 	public void testLog() {
 
-		Version.log();
+		VersionUDT.log();
 
 		assertTrue(true);
 

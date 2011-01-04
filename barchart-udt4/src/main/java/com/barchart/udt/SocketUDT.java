@@ -135,7 +135,7 @@ public class SocketUDT {
 			final String location = System.getProperty(
 					PROPERTY_LIBRARY_EXTRACT_LOCATION,
 					DEFAULT_LIBRARY_EXTRACT_LOCATION);
-			LibraryUDT.load(location);
+			LibraryUDT1.load(location);
 		} catch (Throwable e) {
 			log.error("failed to LOAD native library; terminating", e);
 			System.exit(1);

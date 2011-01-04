@@ -19,7 +19,7 @@ public class TestLIB {
 	@Test
 	public void testLoad() throws Exception {
 
-		LIB.load();
+		LibraryUDT2.load();
 
 		assertTrue(true);
 
