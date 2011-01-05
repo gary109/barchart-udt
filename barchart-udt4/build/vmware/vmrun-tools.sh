@@ -61,6 +61,9 @@ stop)
 	;;
 esac
 
+log "guest list"
+$VMRUN_LIST
+
 ###
 
 exit 0
