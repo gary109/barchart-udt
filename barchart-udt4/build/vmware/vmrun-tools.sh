@@ -49,6 +49,10 @@ start)
 	log "guest start"
 	$VMRUN_START
 	verify_run_status "$?" "vm start"
+	#
+	log "guest pwd"
+	$VMRUN_SCRIPT "/bin/bash" "pwd"
+	verify_run_status "$?" "guest pwd"
 	;;
 stop)
 	log "guest stop"
