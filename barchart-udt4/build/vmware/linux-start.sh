@@ -44,4 +44,3 @@ verify_run_status "$?" "vm start"
 ###
 
 exit 0
-
