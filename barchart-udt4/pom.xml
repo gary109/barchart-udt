@@ -302,7 +302,7 @@
 			<activation>
 				<os>
 					<arch>i386</arch>
-					<name>Mac Os X</name>
+					<name>Mac OS X</name>
 				</os>
 			</activation>
 			<build>
@@ -334,6 +334,13 @@
 							</linker>
 						</configuration>
 					</plugin>
+					<!-- <plugin> -->
+					<!-- <groupId>org.apache.maven.plugins</groupId> -->
+					<!-- <artifactId>maven-surefire-plugin</artifactId> -->
+					<!-- <configuration> -->
+					<!-- <jvm>-d32</jvm> -->
+					<!-- </configuration> -->
+					<!-- </plugin> -->
 				</plugins>
 			</build>
 		</profile>
@@ -375,6 +382,13 @@
 							</linker>
 						</configuration>
 					</plugin>
+					<!-- <plugin> -->
+					<!-- <groupId>org.apache.maven.plugins</groupId> -->
+					<!-- <artifactId>maven-surefire-plugin</artifactId> -->
+					<!-- <configuration> -->
+					<!-- <jvm>-d64</jvm> -->
+					<!-- </configuration> -->
+					<!-- </plugin> -->
 				</plugins>
 			</build>
 		</profile>
