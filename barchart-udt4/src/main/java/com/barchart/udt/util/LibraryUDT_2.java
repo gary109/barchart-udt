@@ -26,8 +26,10 @@ public enum LibraryUDT_2 {
 	private final static Logger log = LoggerFactory
 			.getLogger(LibraryUDT_2.class);
 
+	static final String BAR = File.separator;
+
 	/** The Constant DEFAULT_EXTRACT_FOLDER_NAME. */
-	public final static String DEFAULT_EXTRACT_FOLDER_NAME = "./lib";
+	public final static String DEFAULT_EXTRACT_FOLDER_NAME = "." + BAR + "lib";
 
 	private final AOL aol;
 
@@ -88,8 +90,6 @@ public enum LibraryUDT_2 {
 		throw new Exception("load failed");
 
 	}
-
-	static final String BAR = File.separator;
 
 	/** testing: custom name convention */
 	String sourceTestCDT() {
