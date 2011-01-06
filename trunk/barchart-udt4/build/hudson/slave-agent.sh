@@ -81,13 +81,14 @@ do_uninstall(){
 
 
 #
+#	example:
 #	java -jar slave.jar -jnlpUrl https://moe.barchart.com:443/hudson/computer/linux/slave-agent.jnlp -jnlpCredentials USER:PASSWORD
 #
 
-MASTER="https://moe.barchart.com/hudson"
-log "Hudson Master : $MASTER"
 
-SLAVE="linux"
+source	THIS_PATH/slave-props.sh
+
+log "Hudson Master : $MASTER"
 log "Hudson Slave  : $SLAVE"
 
 ######################3
