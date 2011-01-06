@@ -192,8 +192,12 @@
 
 				<plugin>
 					<groupId>org.apache.maven.surefire</groupId>
-					<artifactId>surefire-junit47</artifactId>
+					<artifactId>surefire</artifactId>
 					<version>2.7.1</version>
+					<configuration>
+						<!-- do not fork to enforce java bits during tests -->
+						<forkMode>never</forkMode>
+					</configuration>
 				</plugin>
 
 				<plugin>
