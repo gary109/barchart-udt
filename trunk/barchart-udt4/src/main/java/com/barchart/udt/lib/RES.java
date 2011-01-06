@@ -12,9 +12,9 @@ import java.net.URLConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LOAD {
+class RES {
 
-	private final static Logger log = LoggerFactory.getLogger(LOAD.class);
+	private final static Logger log = LoggerFactory.getLogger(RES.class);
 
 	public static boolean isSameResource(final URLConnection conONE,
 			final URLConnection conTWO) throws Exception {
@@ -51,10 +51,10 @@ public class LOAD {
 	public static void extractResource(final String sourcePath,
 			final String targetPath) throws Exception {
 
-		final ClassLoader classLoader = LOAD.class.getClassLoader();
+		final ClassLoader classLoader = RES.class.getClassLoader();
 
 		if (classLoader == null) {
-			log.error("resource classLoader not available: {}", sourcePath);
+			log.warn("\n\t resource classLoader not available: {}", sourcePath);
 			throw new IllegalArgumentException("resource not found");
 		}
 
@@ -62,7 +62,7 @@ public class LOAD {
 		final URL sourceUrl = classLoader.getResource(sourcePath);
 
 		if (sourceUrl == null) {
-			log.error("resource url not found: {}", sourcePath);
+			log.warn("\n\t classpath resource not found: {}", sourcePath);
 			throw new IllegalArgumentException("resource not found");
 		}
 
@@ -71,7 +71,8 @@ public class LOAD {
 		final URLConnection sourceConn = sourceUrl.openConnection();
 
 		if (sourceConn == null) {
-			log.error("resource connection not available: {}", sourcePath);
+			log.warn("\n\t classpath resource connection not available: {}",
+					sourcePath);
 			throw new IllegalArgumentException("resource not found");
 		}
 
@@ -81,10 +82,12 @@ public class LOAD {
 		final URLConnection targetConn = fileConnection(targetFile);
 
 		if (isSameResource(sourceConn, targetConn)) {
-			log.info("already extracted; sourcePath={}", sourcePath);
+			log.info("\n\t already extracted;" + "\n\t sourcePath={}"
+					+ "\n\t targetPath={}", sourcePath, targetPath);
 			return;
 		} else {
-			log.debug("making new destination resource for extraction");
+			log.warn("\n\t make new extraction destination for targetPath={}",
+					targetPath);
 			targetFile.delete();
 			targetFile.createNewFile();
 		}
@@ -112,8 +115,39 @@ public class LOAD {
 		// synchronize target time stamp with source to avoid repeated copy
 		targetFile.setLastModified(sourceTime);
 
-		log.info("extracted OK; sourcePath={}", sourcePath);
+		log.info("\n\t extracted OK;" + "\n\t sourcePath={}"
+				+ "\n\t targetPath={}", sourcePath, targetPath);
 
+	}
+
+	public static void makeTargetFolder(final String targetFolder)
+			throws Exception {
+		final File folder = new File(targetFolder);
+		if (folder.exists()) {
+			if (folder.isDirectory()) {
+				log.warn("found folder={}", folder);
+			} else {
+				log.warn("not a directory; folder={}", folder);
+				throw new IllegalArgumentException(
+						"extract destination exists, but as a file and not a folder");
+			}
+		} else {
+			final boolean isSuccess = folder.mkdirs();
+			if (isSuccess) {
+				log.info("made folder={}", folder);
+			} else {
+				throw new IllegalStateException(
+						"failed to make extract destination  folder");
+			}
+		}
+
+	}
+
+	public static void systemLoad(final String sourcePath,
+			final String targetPath) throws Exception {
+		extractResource(sourcePath, targetPath);
+		final String loadPath = (new File(targetPath)).getAbsolutePath();
+		System.load(loadPath);
 	}
 
 }
