@@ -78,6 +78,34 @@ do_uninstall(){
         exit 1
     fi
 }
+#################################
+
+# ensure network is available
+
+do_ping(){
+	log "network ping test"
+	ping 8.8.8.8 -c 1 -i 0.2 -t 100 -W 1 && echo 1 || echo 0
+}
+
+IS_ONLINE=do_ping
+MAX_CHECKS=30
+CHECKS=0
+
+while [ $IS_ONLINE -eq 0 ];do
+    IS_ONLINE=do_ping
+    CHECKS=$[ $CHECKS + 1 ]
+    if [ $CHECKS -gt $MAX_CHECKS ]; then
+        break
+    fi
+done
+
+if [ $IS_ONLINE -eq 0 ]; then
+	log "network is not available"
+    exit 1
+fi
+
+
+#################################
 
 
 #
@@ -91,7 +119,7 @@ source	THIS_PATH/slave-props.sh
 log "Hudson Master : $MASTER"
 log "Hudson Slave  : $SLAVE"
 
-######################3
+#################################
 
 
 start(){
