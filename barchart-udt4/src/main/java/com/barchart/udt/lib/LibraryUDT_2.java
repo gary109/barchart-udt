@@ -1,7 +1,5 @@
 package com.barchart.udt.lib;
 
-import java.io.File;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,35 +60,37 @@ public enum LibraryUDT_2 {
 			log.warn("using default targetFolder={}", targetFolder);
 		}
 
-		final LibraryUDT_2 lib = detectLibrary();
+		RES.makeTargetFolder(targetFolder);
 
-		final String targetPath = lib.targetPath(targetFolder);
+		final LibraryUDT_2 library = detectLibrary();
+
+		final String targetPath = library.targetPath(targetFolder);
 
 		try {
-			/** load CDT testing library; produced by local interactive build */
-			final String sourcePath = lib.sourceTestCDT();
-			load(sourcePath, targetPath);
+			log.info("source #1: CDT testing library");
+			final String sourcePath = library.sourceTestCDT();
+			RES.systemLoad(sourcePath, targetPath);
 			return;
 		} catch (Exception e) {
-			log.warn("{}", e.getMessage());
+			log.warn("\n\t {} {}", e.getClass().getSimpleName(), e.getMessage());
 		}
 
 		try {
-			/** load NAR testing library; produced by local interactive build */
-			final String sourcePath = lib.sourceTestNAR();
-			load(sourcePath, targetPath);
+			log.info("source #2: NAR testing library");
+			final String sourcePath = library.sourceTestNAR();
+			RES.systemLoad(sourcePath, targetPath);
 			return;
 		} catch (Exception e) {
-			log.warn("{}", e.getMessage());
+			log.warn("\n\t {} {}", e.getClass().getSimpleName(), e.getMessage());
 		}
 
 		try {
-			/** load NAR production library; produced by remote hudson build */
-			final String sourcePath = lib.sourceRealNAR();
-			load(sourcePath, targetPath);
+			log.info("source #3: NAR production library");
+			final String sourcePath = library.sourceRealNAR();
+			RES.systemLoad(sourcePath, targetPath);
 			return;
 		} catch (Exception e) {
-			log.warn("{}", e.getMessage());
+			log.warn("\n\t {} {}", e.getClass().getSimpleName(), e.getMessage());
 		}
 
 		throw new Exception("load failed");
@@ -99,7 +99,7 @@ public enum LibraryUDT_2 {
 
 	/**
 	 * testing: custom CDT name convention; produced by CDT interactive build
-	 * and moved to the target/test-classes/
+	 * and moved to the target/test-classes/ to make it part of test classpath
 	 */
 	// example:
 	// ./libbarchart-i386-Linux-g++.so
@@ -121,7 +121,7 @@ public enum LibraryUDT_2 {
 	String sourceTestNAR() {
 		final String classifier = aol.resourceName();
 		final String name = VersionUDT.BARCHART_NAME;
-		final String folder = name + DASH + classifier + JNI;
+		final String folder = name + DASH + classifier + DASH + JNI;
 		final String path = //
 		DOT + BAR + folder + BAR + sourceRealNAR();
 		return path;
@@ -156,13 +156,6 @@ public enum LibraryUDT_2 {
 		final String path = //
 		targetFolder + BAR + library;
 		return path;
-	}
-
-	static void load(final String sourcePath, final String targetPath)
-			throws Exception {
-		LOAD.extractResource(sourcePath, targetPath);
-		final String loadPath = (new File(targetPath)).getAbsolutePath();
-		System.load(loadPath);
 	}
 
 }

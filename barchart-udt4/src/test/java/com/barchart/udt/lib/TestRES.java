@@ -12,9 +12,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestLOAD {
+public class TestRES {
 
-	static final Logger log = LoggerFactory.getLogger(TestLOAD.class);
+	static final Logger log = LoggerFactory.getLogger(TestRES.class);
 
 	@Before
 	public void setUp() throws Exception {
@@ -37,7 +37,7 @@ public class TestLOAD {
 
 		log.info("getAbsolutePath : {}", file.getAbsolutePath());
 
-		URLConnection conn = LOAD.fileConnection(file);
+		URLConnection conn = RES.fileConnection(file);
 
 		assertTrue(conn.getLastModified() > 0);
 		log.info("getLastModified : {}", conn.getLastModified());
@@ -64,11 +64,11 @@ public class TestLOAD {
 
 		targetFile.delete();
 
-		LOAD.extractResource(sourcePath, targetPath);
+		RES.extractResource(sourcePath, targetPath);
 
 		assertTrue(targetFile.exists());
 
-		URL sourceURL = TestLOAD.class.getClassLoader().getResource(sourcePath);
+		URL sourceURL = TestRES.class.getClassLoader().getResource(sourcePath);
 
 		URL targetURL = targetFile.toURI().toURL();
 
