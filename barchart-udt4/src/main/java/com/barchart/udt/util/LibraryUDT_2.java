@@ -89,11 +89,13 @@ public enum LibraryUDT_2 {
 
 	}
 
+	static final String BAR = File.separator;
+
 	/** testing: custom name convention */
 	String sourceTestCDT() {
 		String name = VersionUDT.BARCHART_ARTIFACT + "-" + aol.resourceName();
 		String library = System.mapLibraryName(name);
-		String path = "./" + library;
+		String path = "." + BAR + library;
 		return path;
 	}
 
@@ -105,7 +107,7 @@ public enum LibraryUDT_2 {
 		String name = VersionUDT.BARCHART_NAME;
 		String classifier = aol.resourceName();
 		String folder = name + "-" + classifier + "-jni";
-		String path = "./" + folder + "/" + sourceRealNAR();
+		String path = "." + BAR + folder + BAR + sourceRealNAR();
 		return path;
 	}
 
@@ -117,14 +119,15 @@ public enum LibraryUDT_2 {
 		String name = VersionUDT.BARCHART_NAME;
 		String classifier = aol.resourceName();
 		String library = System.mapLibraryName(name);
-		String path = "./lib/" + classifier + "/jni/" + library;
+		String path = "." + BAR + "lib" + BAR + classifier + BAR + "jni" + BAR
+				+ library;
 		return path;
 	}
 
 	String targetLIB(final String targetFolder) {
 		String name = VersionUDT.BARCHART_NAME + "-" + aol.resourceName();
 		String library = System.mapLibraryName(name);
-		String path = targetFolder + "/" + library;
+		String path = targetFolder + BAR + library;
 		return path;
 	}
 
