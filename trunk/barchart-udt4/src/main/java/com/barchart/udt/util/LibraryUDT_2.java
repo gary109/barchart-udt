@@ -26,7 +26,7 @@ public enum LibraryUDT_2 {
 	private final static Logger log = LoggerFactory
 			.getLogger(LibraryUDT_2.class);
 
-	static final String BAR = File.separator;
+	static final String BAR = "/";;
 
 	/** The Constant DEFAULT_EXTRACT_FOLDER_NAME. */
 	public final static String DEFAULT_EXTRACT_FOLDER_NAME = "." + BAR + "lib";
