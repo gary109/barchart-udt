@@ -50,8 +50,11 @@ class AOL {
 	}
 
 	static String filterName() {
-		if (OS_NAME.equals("Mac OS X")) {
+		if (OS_NAME.contains("Mac OS X")) {
 			return "MacOSX";
+		}
+		if (OS_NAME.contains("Windows")) {
+			return "Windows";
 		}
 		return OS_NAME;
 	}
