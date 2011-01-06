@@ -20,7 +20,7 @@
 
 		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
 		<buildStamp>${maven.build.timestamp}</buildStamp>
-		<mavenStamp>ARTIFACT='${artifactId}';VERSION='${version}';TIMESTAMP='${buildStamp}';</mavenStamp>
+		<mavenStamp>ARTIFACT='${project.artifactId}';VERSION='${project.version}';TIMESTAMP='${buildStamp}';</mavenStamp>
 
 		<licenceYear>2009-2011</licenceYear>
 		<licenceOrganization>Barchart, Inc.</licenceOrganization>
@@ -449,8 +449,8 @@
 								<configuration>
 									<tasks>
 										<property name="mvn.basedir" value="${basedir}" />
-										<property name="mvn.artifactId" value="${artifactId}" />
-										<property name="mvn.version" value="${version}" />
+										<property name="mvn.artifactId" value="${project.artifactId}" />
+										<property name="mvn.version" value="${project.version}" />
 										<property name="mvn.timestamp" value="${timestamp}" />
 										<property name="mvn.mavenStamp" value="${mavenStamp}" />
 										<property name="mvn.buildtime" value="${buildtime}" />
@@ -489,7 +489,7 @@
 										<property name="mvn.licenceOrganization" value="${licenceOrganization}" />
 										<property name="mvn.licenceWebsite" value="${licenceWebsite}" />
 										<property name="mvn.licenceDevelopers" value="${licenceDevelopers}" />
-										<property name="mvn.version" value="${version}" />
+										<property name="mvn.version" value="${project.version}" />
 										<property name="mvn.mavenStamp" value="${mavenStamp}" />
 										<property name="mvn.nativeLibName" value="${nativeLibName}" />
 										<property name="mvn.nativeSrcJNI" value="${nativeSrcJNI}" />
