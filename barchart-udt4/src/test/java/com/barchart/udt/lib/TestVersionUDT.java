@@ -1,4 +1,4 @@
-package com.barchart.udt.util;
+package com.barchart.udt.lib;
 
 import static org.junit.Assert.*;
 
