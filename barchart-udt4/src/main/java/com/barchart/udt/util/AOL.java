@@ -1,6 +1,11 @@
 package com.barchart.udt.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 class AOL {
+
+	private final static Logger log = LoggerFactory.getLogger(AOL.class);
 
 	final String arch;
 	final String os;
@@ -33,22 +38,26 @@ class AOL {
 
 	boolean isMatchJVM() {
 
-		if (arch.equals(filterOsArch()) && os.equals(filterOsName())) {
+		// log.info("aol;    arch={} os={}", arch, os);
+		// log.info("jvm;    arch={} os={}", OS_ARCH, OS_NAME);
+		// log.info("filter; arch={} os={}", filterArch(), filterName());
+
+		if (arch.equals(filterArch()) && os.equals(filterName())) {
 			return true;
 		}
 
 		return false;
 	}
 
-	static String filterOsName() {
-		if (OS_NAME.contains("mac")) {
+	static String filterName() {
+		if (OS_NAME.equals("Mac OS X")) {
 			return "MacOSX";
 		}
 		return OS_NAME;
 	}
 
-	static String filterOsArch() {
+	static String filterArch() {
 		return OS_ARCH;
 	}
 
-}
+};

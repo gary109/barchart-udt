@@ -112,7 +112,7 @@ public class NAR {
 
 		for (String line : set.toArray(new String[] {})) {
 
-			String find = AOL.filterOsArch() + "-" + AOL.filterOsName();
+			String find = AOL.filterArch() + "-" + AOL.filterName();
 
 			if (line.contains(find)) {
 				log.info("{}", line);
