@@ -1,10 +1,12 @@
-package com.barchart.udt.util;
+package com.barchart.udt.lib;
 
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.barchart.udt.lib.LibraryUDT_2;
 
 public class TestLibraryUDT_2 {
 

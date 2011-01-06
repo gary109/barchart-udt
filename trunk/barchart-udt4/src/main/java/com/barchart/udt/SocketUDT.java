@@ -48,6 +48,8 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.lib.LibraryUDT_2;
+
 /* note: do not change field names; used by JNI */
 /* note: must synchronize create/destroy - workaround for bug in UDT */
 // TODO centralize http references
@@ -135,7 +137,7 @@ public class SocketUDT {
 			final String location = System.getProperty(
 					PROPERTY_LIBRARY_EXTRACT_LOCATION,
 					DEFAULT_LIBRARY_EXTRACT_LOCATION);
-			LibraryUDT_1.load(location);
+			LibraryUDT_2.load(location);
 		} catch (Throwable e) {
 			log.error("failed to LOAD native library; terminating", e);
 			System.exit(1);

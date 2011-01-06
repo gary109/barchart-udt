@@ -1,4 +1,4 @@
-package com.barchart.udt.util;
+package com.barchart.udt.lib;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

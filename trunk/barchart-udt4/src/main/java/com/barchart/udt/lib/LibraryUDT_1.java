@@ -37,7 +37,7 @@
  *
  * =================================================================================
  */
-package com.barchart.udt;
+package com.barchart.udt.lib;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -51,7 +51,6 @@ import java.net.URLConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * CONTRACT:
  * <p>
@@ -64,7 +63,8 @@ import org.slf4j.LoggerFactory;
  * <p>
  * .
  */
-public enum LibraryUDT_1 {
+@Deprecated
+enum LibraryUDT_1 {
 
 	/** The UNKNOWN. */
 	UNKNOWN(new String[] { "UNKNOWN" }), //
@@ -111,7 +111,8 @@ public enum LibraryUDT_1 {
 	}
 
 	/** The log. */
-	private final static Logger log = LoggerFactory.getLogger(LibraryUDT_1.class);
+	private final static Logger log = LoggerFactory
+			.getLogger(LibraryUDT_1.class);
 
 	/** The Constant OS_NAME. */
 	public final static String OS_NAME = System.getProperty("os.name")
