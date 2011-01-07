@@ -487,6 +487,7 @@
 			</build>
 		</profile>
 
+		<!-- TODO -->
 		<profile>
 			<id>nar_x86_64-Windows-msvc</id>
 			<activation>
@@ -503,8 +504,6 @@
 							<cpp>
 								<name>msvc</name>
 								<defines>
-									<define>WIN32</define>
-									<define>_WIN32_WINNT=0x0501</define>
 								</defines>
 								<options>
 								</options>
