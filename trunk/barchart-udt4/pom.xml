@@ -382,12 +382,9 @@
 		<profile>
 			<id>nar_x86-Windows-g++</id>
 			<activation>
-				<property>
-					<name>nar-mingw</name>
-					<value>true</value>
-				</property>
 				<os>
-					<arch>x86 XXX</arch>
+					<name>DISABLED</name>
+					<arch>x86</arch>
 					<family>windows</family>
 				</os>
 			</activation>
@@ -436,9 +433,6 @@
 		<profile>
 			<id>nar_x86-Windows-msvc</id>
 			<activation>
-				<property>
-					<name>nar-msvc</name>
-				</property>
 				<os>
 					<arch>x86</arch>
 					<family>windows</family>
@@ -472,9 +466,6 @@
 		<profile>
 			<id>nar_x86_64-Windows-msvc</id>
 			<activation>
-				<property>
-					<name>nar-msvc</name>
-				</property>
 				<os>
 					<arch>x86_64</arch>
 					<family>windows</family>
