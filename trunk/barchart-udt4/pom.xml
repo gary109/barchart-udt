@@ -12,7 +12,7 @@
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>nar</packaging>
 
 	<name>${project.artifactId}</name>
 
@@ -206,15 +206,15 @@
 								</options>
 							</linker>
 						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>nar-javah</goal>
-									<goal>nar-compile</goal>
-									<goal>nar-package</goal>
-								</goals>
-							</execution>
-						</executions>
+						<!-- <executions> -->
+						<!-- <execution> -->
+						<!-- <goals> -->
+						<!-- <goal>nar-javah</goal> -->
+						<!-- <goal>nar-compile</goal> -->
+						<!-- <goal>nar-package</goal> -->
+						<!-- </goals> -->
+						<!-- </execution> -->
+						<!-- </executions> -->
 					</plugin>
 
 				</plugins>
