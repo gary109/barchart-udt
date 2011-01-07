@@ -178,6 +178,13 @@ static jfieldID udtm_byteAvailRcvBuf; // available UDT receiver buffer size
 // special UDT method return value
 #define UDT_TIMEOUT 0
 
+
+// TODO make more portable mingw / msvc
+#ifdef _MSC_VER
+#define __func__ __FUNCTION__
+#endif
+
+
 // null pointer safety
 //
 #define CHK_LOG(title,comment) printf ("%s function: %s comment: %s", title, __func__, comment);
