@@ -384,9 +384,10 @@
 			<activation>
 				<property>
 					<name>nar-mingw</name>
+					<value>true</value>
 				</property>
 				<os>
-					<arch>x86</arch>
+					<arch>x86 XXX</arch>
 					<family>windows</family>
 				</os>
 			</activation>
