@@ -15,9 +15,11 @@ public enum LibraryUDT_2 {
 
 	X86_64_MACOSX_GPP("x86_64.MacOSX.g++"), //
 
-	X86_WINDOWS_GPP("x86.Windows.g++"), //
+	X86_WINDOWS_MSVC("x86.Windows.msvc"), //
+//	X86_WINDOWS_GPP("x86.Windows.g++"), //
 
-	X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
+	X86_64_WINDOWS_MSVC("x86_64.Windows.msvc"), //
+//	X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
 
 	;
 

@@ -420,6 +420,12 @@
 								</options>
 								<sysLibs>
 									<sysLib>
+										<name>kernel32</name>
+									</sysLib>
+									<sysLib>
+										<name>user32</name>
+									</sysLib>
+									<sysLib>
 										<name>ws2_32</name>
 									</sysLib>
 								</sysLibs>
@@ -447,15 +453,33 @@
 								<name>msvc</name>
 								<defines>
 									<define>WIN32</define>
-									<define>_WIN32_WINNT=0x0501</define>
+									<define>UDT_EXPORTS</define>
+									<define>_CONSOLE</define>
+									<define>_WINDLL</define>
 								</defines>
 								<options>
+									<option>/RTC1</option>
+									<option>/MD</option>
+									<option>/W4</option>
 								</options>
 							</cpp>
 							<linker>
 								<name>msvc</name>
 								<options>
+									<option>/DYNAMICBASE:NO</option>
 								</options>
+
+								<sysLibs>
+									<sysLib>
+										<name>kernel32</name>
+									</sysLib>
+									<sysLib>
+										<name>user32</name>
+									</sysLib>
+									<sysLib>
+										<name>ws2_32</name>
+									</sysLib>
+								</sysLibs>
 							</linker>
 						</configuration>
 					</plugin>
