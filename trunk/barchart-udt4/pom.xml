@@ -382,6 +382,9 @@
 		<profile>
 			<id>nar_x86-Windows-g++</id>
 			<activation>
+				<property>
+					<name>nar-mingw</name>
+				</property>
 				<os>
 					<arch>x86</arch>
 					<family>windows</family>
@@ -422,6 +425,78 @@
 										<name>ws2_32</name>
 									</sysLib>
 								</sysLibs>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_x86-Windows-msvc</id>
+			<activation>
+				<property>
+					<name>nar-msvc</name>
+				</property>
+				<os>
+					<arch>x86</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<cpp>
+								<name>msvc</name>
+								<defines>
+									<define>WIN32</define>
+									<define>_WIN32_WINNT=0x0501</define>
+								</defines>
+								<options>
+								</options>
+							</cpp>
+							<linker>
+								<name>msvc</name>
+								<options>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_x86_64-Windows-msvc</id>
+			<activation>
+				<property>
+					<name>nar-msvc</name>
+				</property>
+				<os>
+					<arch>x86_64</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<cpp>
+								<name>msvc</name>
+								<defines>
+									<define>WIN32</define>
+									<define>_WIN32_WINNT=0x0501</define>
+								</defines>
+								<options>
+								</options>
+							</cpp>
+							<linker>
+								<name>msvc</name>
+								<options>
+								</options>
 							</linker>
 						</configuration>
 					</plugin>
