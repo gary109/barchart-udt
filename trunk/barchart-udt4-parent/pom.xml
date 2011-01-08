@@ -57,19 +57,18 @@
 		<url>http://www.barchart.com</url>
 	</organization>
 
-	<repositories>
-
-		<repository>
-			<id>barchart-nexus-server</id>
-			<url>https://barchart-nexus-server</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
+	<!-- <repositories> -->
+	<!-- <repository> -->
+	<!-- <id>barchart-nexus-server</id> -->
+	<!-- <url>https://barchart-nexus-server</url> -->
+	<!-- <snapshots> -->
+	<!-- <enabled>false</enabled> -->
+	<!-- </snapshots> -->
+	<!-- <releases> -->
+	<!-- <enabled>false</enabled> -->
+	<!-- </releases> -->
+	<!-- </repository> -->
+	<!-- </repositories> -->
 
 	<pluginRepositories>
 
