@@ -9,6 +9,8 @@ REM must provide maven home via
 REM http://wiki.hudson-ci.org/display/HUDSON/Tool+Environment+Plugin
 REM
 
+ECHO "PWD=%CD%"
+
 SET MSVC_HOME=C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\
 ECHO ### MSVC_HOME=%MSVC_HOME%
 

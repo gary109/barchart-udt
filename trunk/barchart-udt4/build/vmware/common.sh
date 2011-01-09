@@ -16,6 +16,8 @@ function log {
 	local MESSAGE="$1"
 	echo "### $MESSAGE"
 }
+
+log "PWD=$PWD"
 log "PATH=$PATH"
 log "THIS_PATH=$THIS_PATH"
 log "THIS_FILE=$THIS_FILE"
@@ -31,7 +33,7 @@ function verify_root_user {
 }
 
 function verify_tool_present {
-	
+
 	local TOOL="$1"
 
 	which "$TOOL" > /dev/null
@@ -45,7 +47,7 @@ function verify_tool_present {
 }
 
 function verify_run_status {
-	
+
 	local STATUS="$1"
 	local COMMENT="$2"
 
