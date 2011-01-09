@@ -57,10 +57,12 @@ public class TestRES {
 
 		log.info("user.dir = {}", System.getProperty("user.dir"));
 
+		String targetFolder = "./lib-2/bin/";
 
+		RES.makeTargetFolder(targetFolder);
 
 		// path outside of jar, in file system, relative to user.dir
-		String targetPath = "./lib/bin/test-resource-extracted.txt";
+		String targetPath = targetFolder + "/test-resource-extracted.txt";
 
 		File targetFile = new File(targetPath);
 
