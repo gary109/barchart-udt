@@ -57,6 +57,8 @@ public class TestRES {
 
 		log.info("user.dir = {}", System.getProperty("user.dir"));
 
+
+
 		// path outside of jar, in file system, relative to user.dir
 		String targetPath = "./lib/bin/test-resource-extracted.txt";
 
