@@ -13,7 +13,7 @@ ECHO start >> slave-agent.log
 REM
 REM http://issues.hudson-ci.org/browse/HUDSON-8455
 REM
-call sleep 30
+call :sleep 30
 
 java -jar c:\hudson\slave.jar -jnlpUrl file:///c:/hudson/slave-agent.jnlp 1> hudson.log 2>&1
 
