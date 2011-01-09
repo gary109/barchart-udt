@@ -57,7 +57,7 @@ public class TestRES {
 
 		log.info("user.dir = {}", System.getProperty("user.dir"));
 
-		String targetFolder = "./lib-2/bin/";
+		String targetFolder = "./target/test-lib-2/bin/";
 
 		RES.makeTargetFolder(targetFolder);
 
