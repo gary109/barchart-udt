@@ -41,7 +41,7 @@ VMRUN_COPY_GUEST_HOST="vmrun -T ws -gu $USER -gp $PASS copyFileFromGuestToHost $
 
 ###
 
-log "guest list"
+log "guest list before"
 $VMRUN_LIST
 
 case $CMD in
@@ -49,11 +49,15 @@ start)
 	log "guest start"
 	$VMRUN_START
 	verify_run_status "$?" "vm start"
+	log "sleep"
+	sleep 30
 	;;
 stop)
 	log "guest stop"
 	$VMRUN_STOP
 	verify_run_status "$?" "vm stop"
+	log "sleep"
+	sleep 30
 	;;
 *)
 	log "invalid CMD=$CMD"
@@ -61,7 +65,7 @@ stop)
 	;;
 esac
 
-log "guest list"
+log "guest list after"
 $VMRUN_LIST
 
 ###
