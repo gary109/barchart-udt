@@ -41,6 +41,8 @@ VMRUN_COPY_GUEST_HOST="vmrun -T ws -gu $USER -gp $PASS copyFileFromGuestToHost $
 
 ###
 
+log "host PWD=$PWD"
+
 log "guest list before"
 $VMRUN_LIST
 
