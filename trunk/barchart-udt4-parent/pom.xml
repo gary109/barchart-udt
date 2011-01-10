@@ -85,7 +85,8 @@
 	<distributionManagement>
 		<site>
 			<id>barchart-google-code</id>
-			<url>dav:http://barchart-udt.googlecode.com/svn/site</url>
+			<!-- <url>dav:https://barchart-udt.googlecode.com/svn/site</url> -->
+			<url>svn:https://barchart-udt.googlecode.com/svn/site</url>
 		</site>
 	</distributionManagement>
 
