@@ -341,7 +341,6 @@
 								</reportSets>
 							</plugin>
 
-
 						</reportPlugins>
 					</configuration>
 				</plugin>
@@ -350,12 +349,6 @@
 		</pluginManagement>
 
 		<plugins>
-
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-nar-plugin</artifactId> -->
-			<!-- <extensions>true</extensions> -->
-			<!-- </plugin> -->
 
 		</plugins>
 
