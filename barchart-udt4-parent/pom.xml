@@ -58,10 +58,18 @@
 	</organization>
 
 	<properties>
+
 		<javaVersion>1.6</javaVersion>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
 		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+
+		<siteID>barchart-google-code</siteID>
+		<siteURL>svn:https://barchart-udt.googlecode.com/svn/site</siteURL>
+		<siteProject>${project.artifactId}</siteProject>
+
 	</properties>
 
 	<pluginRepositories>
@@ -84,10 +92,8 @@
 
 	<distributionManagement>
 		<site>
-			<!-- http://babyloncandle.blogspot.com/2009/04/deploying-maven-artifacts-to-googlecode.html -->
-			<id>barchart-google-code</id>
-			<url>dav:https://barchart-udt.googlecode.com/svn/site</url>
-			<!-- <url>svn:https://barchart-udt.googlecode.com/svn/site</url> -->
+			<id>${siteID}</id>
+			<url>${siteURL}</url>
 		</site>
 	</distributionManagement>
 
@@ -141,8 +147,13 @@
 				<version>1.0-beta-2</version>
 			</extension>
 
-		</extensions>
+			<!-- <extension> -->
+			<!-- <groupId>org.apache.maven.wagon</groupId> -->
+			<!-- <artifactId>wagon-webdav-jackrabbit</artifactId> -->
+			<!-- <version>1.0-beta-7</version> -->
+			<!-- </extension> -->
 
+		</extensions>
 
 		<pluginManagement>
 			<plugins>
@@ -402,6 +413,43 @@
 			</build>
 		</profile>
 
+		<profile>
+			<id>site-upload</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>wagon-maven-plugin</artifactId>
+						<version>1.0-beta-3</version>
+						<executions>
+							<execution>
+								<id>upload-javadoc</id>
+								<phase>package</phase>
+								<goals>
+									<goal>upload</goal>
+								</goals>
+								<configuration>
+									<fromDir>target/site</fromDir>
+									<serverId>${siteID}</serverId>
+									<url>${siteURL}</url>
+									<toDir>${siteProject}</toDir>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
 	</profiles>
+
+	<reporting>
+		<plugins>
+
+
+		</plugins>
+	</reporting>
 
 </project>
