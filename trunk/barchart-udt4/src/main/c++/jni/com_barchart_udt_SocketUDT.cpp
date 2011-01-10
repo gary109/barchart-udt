@@ -180,12 +180,10 @@ static jfieldID udtm_byteAvailRcvBuf; // available UDT receiver buffer size
 // special UDT method return value
 #define UDT_TIMEOUT 0
 
-
 // TODO make more portable mingw / msvc
 #ifdef _MSC_VER
 #define __func__ __FUNCTION__
 #endif
-
 
 // null pointer safety
 //
@@ -860,8 +858,8 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_bind0(JNIEnv* env,
 
 }
 
-JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(
-		JNIEnv* env, jobject self) {
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(JNIEnv* env,
+		jobject self) {
 
 	const jint socketID = UDT_GetSocketID(env, self);
 
@@ -2235,7 +2233,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testSocketStatus0(
 		JNIEnv *env, jobject self) {
 
 	const jint socketID = UDT_GetSocketID(env, self);
-	printf("native: test socket status; id=%d \n", socketID);
+	//	printf("native: test socket status; id=%d \n", socketID);
 
 	const UDTSTATUS status = UDT::getsockstate(socketID);
 	printf("native: test socket status; status=%d \n", status);

@@ -56,7 +56,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/main/c++/jni}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/main/c++/udt/src}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.1306335827" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -mthreads    -fexceptions  " valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.1306335827" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -mthreads    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.85023210" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.toerrors.874149994" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.484386018" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -1588,7 +1588,7 @@
 							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1431316150" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.optimization.level.1590485845" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1738288977" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.other.other.1293374811" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -m64   -fPIC    -fexceptions  " valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.1293374811" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -m64   -fPIC    -fexceptions    -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.95458597" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.toerrors.297424161" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.include.paths.971825002" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
@@ -4681,7 +4681,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.2119446137" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option id="gnu.cpp.compiler.option.optimization.level.453488960" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1045593744" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.other.other.2113591517" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -fPIC   -m64   -arch x86_64    -fexceptions  " valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.2113591517" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -fPIC   -m64   -arch x86_64    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.toerrors.937183763" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.385753180" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1134231421" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
@@ -6228,7 +6228,7 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.level.1176230458" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.321258357" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.other.other.865644080" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -fPIC   -m32   -arch i386    -fexceptions  " valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.865644080" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -fPIC   -m32   -arch i386    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.488247243" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="OSX"/>
 									<listOptionValue builtIn="false" value="IA32"/>
