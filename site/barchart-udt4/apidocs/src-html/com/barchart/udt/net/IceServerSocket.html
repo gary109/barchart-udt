@@ -1,0 +1,470 @@
+<HTML>
+<BODY BGCOLOR="white">
+<PRE>
+<FONT color="green">001</FONT>    /**<a name="line.1"></a>
+<FONT color="green">002</FONT>     * =================================================================================<a name="line.2"></a>
+<FONT color="green">003</FONT>     *<a name="line.3"></a>
+<FONT color="green">004</FONT>     * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)<a name="line.4"></a>
+<FONT color="green">005</FONT>     *<a name="line.5"></a>
+<FONT color="green">006</FONT>     * ARTIFACT='barchart-udt4';VERSION='1.0.1-SNAPSHOT';TIMESTAMP='2010-12-31_15-20-13';<a name="line.6"></a>
+<FONT color="green">007</FONT>     *<a name="line.7"></a>
+<FONT color="green">008</FONT>     * Copyright (C) 2009-2011, Barchart, Inc. (http://www.barchart.com/)<a name="line.8"></a>
+<FONT color="green">009</FONT>     *<a name="line.9"></a>
+<FONT color="green">010</FONT>     * All rights reserved.<a name="line.10"></a>
+<FONT color="green">011</FONT>     *<a name="line.11"></a>
+<FONT color="green">012</FONT>     * Redistribution and use in source and binary forms, with or without modification,<a name="line.12"></a>
+<FONT color="green">013</FONT>     * are permitted provided that the following conditions are met:<a name="line.13"></a>
+<FONT color="green">014</FONT>     *<a name="line.14"></a>
+<FONT color="green">015</FONT>     *     * Redistributions of source code must retain the above copyright notice,<a name="line.15"></a>
+<FONT color="green">016</FONT>     *     this list of conditions and the following disclaimer.<a name="line.16"></a>
+<FONT color="green">017</FONT>     *<a name="line.17"></a>
+<FONT color="green">018</FONT>     *     * Redistributions in binary form must reproduce the above copyright notice,<a name="line.18"></a>
+<FONT color="green">019</FONT>     *     this list of conditions and the following disclaimer in the documentation<a name="line.19"></a>
+<FONT color="green">020</FONT>     *     and/or other materials provided with the distribution.<a name="line.20"></a>
+<FONT color="green">021</FONT>     *<a name="line.21"></a>
+<FONT color="green">022</FONT>     *     * Neither the name of the Barchart, Inc. nor the names of its contributors<a name="line.22"></a>
+<FONT color="green">023</FONT>     *     may be used to endorse or promote products derived from this software<a name="line.23"></a>
+<FONT color="green">024</FONT>     *     without specific prior written permission.<a name="line.24"></a>
+<FONT color="green">025</FONT>     *<a name="line.25"></a>
+<FONT color="green">026</FONT>     * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"<a name="line.26"></a>
+<FONT color="green">027</FONT>     * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED<a name="line.27"></a>
+<FONT color="green">028</FONT>     * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.<a name="line.28"></a>
+<FONT color="green">029</FONT>     * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,<a name="line.29"></a>
+<FONT color="green">030</FONT>     * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,<a name="line.30"></a>
+<FONT color="green">031</FONT>     * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,<a name="line.31"></a>
+<FONT color="green">032</FONT>     * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,<a name="line.32"></a>
+<FONT color="green">033</FONT>     * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING<a name="line.33"></a>
+<FONT color="green">034</FONT>     * IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<a name="line.34"></a>
+<FONT color="green">035</FONT>     *<a name="line.35"></a>
+<FONT color="green">036</FONT>     * Developers: Andrei Pozolotin;<a name="line.36"></a>
+<FONT color="green">037</FONT>     *<a name="line.37"></a>
+<FONT color="green">038</FONT>     * =================================================================================<a name="line.38"></a>
+<FONT color="green">039</FONT>     */<a name="line.39"></a>
+<FONT color="green">040</FONT>    package com.barchart.udt.net;<a name="line.40"></a>
+<FONT color="green">041</FONT>    <a name="line.41"></a>
+<FONT color="green">042</FONT>    import java.io.IOException;<a name="line.42"></a>
+<FONT color="green">043</FONT>    import java.net.InetAddress;<a name="line.43"></a>
+<FONT color="green">044</FONT>    import java.net.Socket;<a name="line.44"></a>
+<FONT color="green">045</FONT>    import java.net.SocketAddress;<a name="line.45"></a>
+<FONT color="green">046</FONT>    import java.net.SocketException;<a name="line.46"></a>
+<FONT color="green">047</FONT>    import java.net.SocketTimeoutException;<a name="line.47"></a>
+<FONT color="green">048</FONT>    import java.nio.channels.ServerSocketChannel;<a name="line.48"></a>
+<FONT color="green">049</FONT>    <a name="line.49"></a>
+<FONT color="green">050</FONT>    public interface IceServerSocket {<a name="line.50"></a>
+<FONT color="green">051</FONT>    <a name="line.51"></a>
+<FONT color="green">052</FONT>            /**<a name="line.52"></a>
+<FONT color="green">053</FONT>             * <a name="line.53"></a>
+<FONT color="green">054</FONT>             * Binds the &lt;code&gt;ServerSocket&lt;/code&gt; to a specific address (IP address and<a name="line.54"></a>
+<FONT color="green">055</FONT>             * port number).<a name="line.55"></a>
+<FONT color="green">056</FONT>             * &lt;p&gt;<a name="line.56"></a>
+<FONT color="green">057</FONT>             * If the address is &lt;code&gt;null&lt;/code&gt;, then the system will pick up an<a name="line.57"></a>
+<FONT color="green">058</FONT>             * ephemeral port and a valid local address to bind the socket.<a name="line.58"></a>
+<FONT color="green">059</FONT>             * &lt;p&gt;<a name="line.59"></a>
+<FONT color="green">060</FONT>             * <a name="line.60"></a>
+<FONT color="green">061</FONT>             * @param endpoint<a name="line.61"></a>
+<FONT color="green">062</FONT>             *            The IP address &amp; port number to bind to.<a name="line.62"></a>
+<FONT color="green">063</FONT>             * @throws IOException<a name="line.63"></a>
+<FONT color="green">064</FONT>             *             if the bind operation fails, or if the socket is already<a name="line.64"></a>
+<FONT color="green">065</FONT>             *             bound.<a name="line.65"></a>
+<FONT color="green">066</FONT>             * @throws SecurityException<a name="line.66"></a>
+<FONT color="green">067</FONT>             *             if a &lt;code&gt;SecurityManager&lt;/code&gt; is present and its<a name="line.67"></a>
+<FONT color="green">068</FONT>             *             &lt;code&gt;checkListen&lt;/code&gt; method doesn't allow the operation.<a name="line.68"></a>
+<FONT color="green">069</FONT>             * @throws IllegalArgumentException<a name="line.69"></a>
+<FONT color="green">070</FONT>             *             if endpoint is a SocketAddress subclass not supported by this<a name="line.70"></a>
+<FONT color="green">071</FONT>             *             socket<a name="line.71"></a>
+<FONT color="green">072</FONT>             * @since 1.4<a name="line.72"></a>
+<FONT color="green">073</FONT>             */<a name="line.73"></a>
+<FONT color="green">074</FONT>            void bind(SocketAddress endpoint) throws IOException;<a name="line.74"></a>
+<FONT color="green">075</FONT>    <a name="line.75"></a>
+<FONT color="green">076</FONT>            /**<a name="line.76"></a>
+<FONT color="green">077</FONT>             * <a name="line.77"></a>
+<FONT color="green">078</FONT>             * Binds the &lt;code&gt;ServerSocket&lt;/code&gt; to a specific address (IP address and<a name="line.78"></a>
+<FONT color="green">079</FONT>             * port number).<a name="line.79"></a>
+<FONT color="green">080</FONT>             * &lt;p&gt;<a name="line.80"></a>
+<FONT color="green">081</FONT>             * If the address is &lt;code&gt;null&lt;/code&gt;, then the system will pick up an<a name="line.81"></a>
+<FONT color="green">082</FONT>             * ephemeral port and a valid local address to bind the socket.<a name="line.82"></a>
+<FONT color="green">083</FONT>             * &lt;P&gt;<a name="line.83"></a>
+<FONT color="green">084</FONT>             * The &lt;code&gt;backlog&lt;/code&gt; argument must be a positive value greater than<a name="line.84"></a>
+<FONT color="green">085</FONT>             * 0. If the value passed if equal or less than 0, then the default value<a name="line.85"></a>
+<FONT color="green">086</FONT>             * will be assumed.<a name="line.86"></a>
+<FONT color="green">087</FONT>             * <a name="line.87"></a>
+<FONT color="green">088</FONT>             * @param endpoint<a name="line.88"></a>
+<FONT color="green">089</FONT>             *            The IP address &amp; port number to bind to.<a name="line.89"></a>
+<FONT color="green">090</FONT>             * @param backlog<a name="line.90"></a>
+<FONT color="green">091</FONT>             *            The listen backlog length.<a name="line.91"></a>
+<FONT color="green">092</FONT>             * @throws IOException<a name="line.92"></a>
+<FONT color="green">093</FONT>             *             if the bind operation fails, or if the socket is already<a name="line.93"></a>
+<FONT color="green">094</FONT>             *             bound.<a name="line.94"></a>
+<FONT color="green">095</FONT>             * @throws SecurityException<a name="line.95"></a>
+<FONT color="green">096</FONT>             *             if a &lt;code&gt;SecurityManager&lt;/code&gt; is present and its<a name="line.96"></a>
+<FONT color="green">097</FONT>             *             &lt;code&gt;checkListen&lt;/code&gt; method doesn't allow the operation.<a name="line.97"></a>
+<FONT color="green">098</FONT>             * @throws IllegalArgumentException<a name="line.98"></a>
+<FONT color="green">099</FONT>             *             if endpoint is a SocketAddress subclass not supported by this<a name="line.99"></a>
+<FONT color="green">100</FONT>             *             socket<a name="line.100"></a>
+<FONT color="green">101</FONT>             * @since 1.4<a name="line.101"></a>
+<FONT color="green">102</FONT>             */<a name="line.102"></a>
+<FONT color="green">103</FONT>            void bind(SocketAddress endpoint, int backlog) throws IOException;<a name="line.103"></a>
+<FONT color="green">104</FONT>    <a name="line.104"></a>
+<FONT color="green">105</FONT>            /**<a name="line.105"></a>
+<FONT color="green">106</FONT>             * Returns the local address of this server socket.<a name="line.106"></a>
+<FONT color="green">107</FONT>             * <a name="line.107"></a>
+<FONT color="green">108</FONT>             * @return the address to which this socket is bound, or &lt;code&gt;null&lt;/code&gt;<a name="line.108"></a>
+<FONT color="green">109</FONT>             *         if the socket is unbound.<a name="line.109"></a>
+<FONT color="green">110</FONT>             */<a name="line.110"></a>
+<FONT color="green">111</FONT>            InetAddress getInetAddress();<a name="line.111"></a>
+<FONT color="green">112</FONT>    <a name="line.112"></a>
+<FONT color="green">113</FONT>            /**<a name="line.113"></a>
+<FONT color="green">114</FONT>             * Returns the port on which this socket is listening.<a name="line.114"></a>
+<FONT color="green">115</FONT>             * <a name="line.115"></a>
+<FONT color="green">116</FONT>             * @return the port number to which this socket is listening or -1 if the<a name="line.116"></a>
+<FONT color="green">117</FONT>             *         socket is not bound yet.<a name="line.117"></a>
+<FONT color="green">118</FONT>             */<a name="line.118"></a>
+<FONT color="green">119</FONT>            int getLocalPort();<a name="line.119"></a>
+<FONT color="green">120</FONT>    <a name="line.120"></a>
+<FONT color="green">121</FONT>            /**<a name="line.121"></a>
+<FONT color="green">122</FONT>             * Returns the address of the endpoint this socket is bound to, or<a name="line.122"></a>
+<FONT color="green">123</FONT>             * &lt;code&gt;null&lt;/code&gt; if it is not bound yet.<a name="line.123"></a>
+<FONT color="green">124</FONT>             * <a name="line.124"></a>
+<FONT color="green">125</FONT>             * @return a &lt;code&gt;SocketAddress&lt;/code&gt; representing the local endpoint of<a name="line.125"></a>
+<FONT color="green">126</FONT>             *         this socket, or &lt;code&gt;null&lt;/code&gt; if it is not bound yet.<a name="line.126"></a>
+<FONT color="green">127</FONT>             * @see #getInetAddress()<a name="line.127"></a>
+<FONT color="green">128</FONT>             * @see #getLocalPort()<a name="line.128"></a>
+<FONT color="green">129</FONT>             * @see #bind(SocketAddress)<a name="line.129"></a>
+<FONT color="green">130</FONT>             * @since 1.4<a name="line.130"></a>
+<FONT color="green">131</FONT>             */<a name="line.131"></a>
+<FONT color="green">132</FONT>    <a name="line.132"></a>
+<FONT color="green">133</FONT>            SocketAddress getLocalSocketAddress();<a name="line.133"></a>
+<FONT color="green">134</FONT>    <a name="line.134"></a>
+<FONT color="green">135</FONT>            /**<a name="line.135"></a>
+<FONT color="green">136</FONT>             * Listens for a connection to be made to this socket and accepts it. The<a name="line.136"></a>
+<FONT color="green">137</FONT>             * method blocks until a connection is made.<a name="line.137"></a>
+<FONT color="green">138</FONT>             * <a name="line.138"></a>
+<FONT color="green">139</FONT>             * &lt;p&gt;<a name="line.139"></a>
+<FONT color="green">140</FONT>             * A new Socket &lt;code&gt;s&lt;/code&gt; is created and, if there is a security<a name="line.140"></a>
+<FONT color="green">141</FONT>             * manager, the security manager's &lt;code&gt;checkAccept&lt;/code&gt; method is called<a name="line.141"></a>
+<FONT color="green">142</FONT>             * with &lt;code&gt;s.getInetAddress().getHostAddress()&lt;/code&gt; and<a name="line.142"></a>
+<FONT color="green">143</FONT>             * &lt;code&gt;s.getPort()&lt;/code&gt; as its arguments to ensure the operation is<a name="line.143"></a>
+<FONT color="green">144</FONT>             * allowed. This could result in a SecurityException.<a name="line.144"></a>
+<FONT color="green">145</FONT>             * <a name="line.145"></a>
+<FONT color="green">146</FONT>             * @exception IOException<a name="line.146"></a>
+<FONT color="green">147</FONT>             *                if an I/O error occurs when waiting for a connection.<a name="line.147"></a>
+<FONT color="green">148</FONT>             * @exception SecurityException<a name="line.148"></a>
+<FONT color="green">149</FONT>             *                if a security manager exists and its<a name="line.149"></a>
+<FONT color="green">150</FONT>             *                &lt;code&gt;checkAccept&lt;/code&gt; method doesn't allow the<a name="line.150"></a>
+<FONT color="green">151</FONT>             *                operation.<a name="line.151"></a>
+<FONT color="green">152</FONT>             * @exception SocketTimeoutException<a name="line.152"></a>
+<FONT color="green">153</FONT>             *                if a timeout was previously set with setSoTimeout and the<a name="line.153"></a>
+<FONT color="green">154</FONT>             *                timeout has been reached.<a name="line.154"></a>
+<FONT color="green">155</FONT>             * @exception java.nio.channels.IllegalBlockingModeException<a name="line.155"></a>
+<FONT color="green">156</FONT>             *                if this socket has an associated channel, the channel is<a name="line.156"></a>
+<FONT color="green">157</FONT>             *                in non-blocking mode, and there is no connection ready to<a name="line.157"></a>
+<FONT color="green">158</FONT>             *                be accepted<a name="line.158"></a>
+<FONT color="green">159</FONT>             * <a name="line.159"></a>
+<FONT color="green">160</FONT>             * @return the new Socket<a name="line.160"></a>
+<FONT color="green">161</FONT>             * @see SecurityManager#checkAccept revised 1.4 spec JSR-51<a name="line.161"></a>
+<FONT color="green">162</FONT>             */<a name="line.162"></a>
+<FONT color="green">163</FONT>            Socket accept() throws IOException;<a name="line.163"></a>
+<FONT color="green">164</FONT>    <a name="line.164"></a>
+<FONT color="green">165</FONT>            /**<a name="line.165"></a>
+<FONT color="green">166</FONT>             * Closes this socket.<a name="line.166"></a>
+<FONT color="green">167</FONT>             * <a name="line.167"></a>
+<FONT color="green">168</FONT>             * Any thread currently blocked in {@link #accept()} will throw a<a name="line.168"></a>
+<FONT color="green">169</FONT>             * {@link SocketException}.<a name="line.169"></a>
+<FONT color="green">170</FONT>             * <a name="line.170"></a>
+<FONT color="green">171</FONT>             * &lt;p&gt;<a name="line.171"></a>
+<FONT color="green">172</FONT>             * If this socket has an associated channel then the channel is closed as<a name="line.172"></a>
+<FONT color="green">173</FONT>             * well.<a name="line.173"></a>
+<FONT color="green">174</FONT>             * <a name="line.174"></a>
+<FONT color="green">175</FONT>             * @exception IOException<a name="line.175"></a>
+<FONT color="green">176</FONT>             *                if an I/O error occurs when closing the socket. revised<a name="line.176"></a>
+<FONT color="green">177</FONT>             *                1.4 spec JSR-51<a name="line.177"></a>
+<FONT color="green">178</FONT>             */<a name="line.178"></a>
+<FONT color="green">179</FONT>            void close() throws IOException;<a name="line.179"></a>
+<FONT color="green">180</FONT>    <a name="line.180"></a>
+<FONT color="green">181</FONT>            /**<a name="line.181"></a>
+<FONT color="green">182</FONT>             * Returns the unique {@link java.nio.channels.ServerSocketChannel} object<a name="line.182"></a>
+<FONT color="green">183</FONT>             * associated with this socket, if any.<a name="line.183"></a>
+<FONT color="green">184</FONT>             * <a name="line.184"></a>
+<FONT color="green">185</FONT>             * &lt;p&gt;<a name="line.185"></a>
+<FONT color="green">186</FONT>             * A server socket will have a channel if, and only if, the channel itself<a name="line.186"></a>
+<FONT color="green">187</FONT>             * was created via the {@link java.nio.channels.ServerSocketChannel#open<a name="line.187"></a>
+<FONT color="green">188</FONT>             * ServerSocketChannel.open} method.<a name="line.188"></a>
+<FONT color="green">189</FONT>             * <a name="line.189"></a>
+<FONT color="green">190</FONT>             * @return the server-socket channel associated with this socket, or<a name="line.190"></a>
+<FONT color="green">191</FONT>             *         &lt;tt&gt;null&lt;/tt&gt; if this socket was not created for a channel<a name="line.191"></a>
+<FONT color="green">192</FONT>             * <a name="line.192"></a>
+<FONT color="green">193</FONT>             * @since 1.4 spec JSR-51<a name="line.193"></a>
+<FONT color="green">194</FONT>             */<a name="line.194"></a>
+<FONT color="green">195</FONT>            ServerSocketChannel getChannel();<a name="line.195"></a>
+<FONT color="green">196</FONT>    <a name="line.196"></a>
+<FONT color="green">197</FONT>            /**<a name="line.197"></a>
+<FONT color="green">198</FONT>             * Returns the binding state of the ServerSocket.<a name="line.198"></a>
+<FONT color="green">199</FONT>             * <a name="line.199"></a>
+<FONT color="green">200</FONT>             * @return true if the ServerSocket succesfuly bound to an address<a name="line.200"></a>
+<FONT color="green">201</FONT>             * @since 1.4<a name="line.201"></a>
+<FONT color="green">202</FONT>             */<a name="line.202"></a>
+<FONT color="green">203</FONT>            boolean isBound();<a name="line.203"></a>
+<FONT color="green">204</FONT>    <a name="line.204"></a>
+<FONT color="green">205</FONT>            /**<a name="line.205"></a>
+<FONT color="green">206</FONT>             * Returns the closed state of the ServerSocket.<a name="line.206"></a>
+<FONT color="green">207</FONT>             * <a name="line.207"></a>
+<FONT color="green">208</FONT>             * @return true if the socket has been closed<a name="line.208"></a>
+<FONT color="green">209</FONT>             * @since 1.4<a name="line.209"></a>
+<FONT color="green">210</FONT>             */<a name="line.210"></a>
+<FONT color="green">211</FONT>            boolean isClosed();<a name="line.211"></a>
+<FONT color="green">212</FONT>    <a name="line.212"></a>
+<FONT color="green">213</FONT>            /**<a name="line.213"></a>
+<FONT color="green">214</FONT>             * Enable/disable SO_TIMEOUT with the specified timeout, in milliseconds.<a name="line.214"></a>
+<FONT color="green">215</FONT>             * With this option set to a non-zero timeout, a call to accept() for this<a name="line.215"></a>
+<FONT color="green">216</FONT>             * ServerSocket will block for only this amount of time. If the timeout<a name="line.216"></a>
+<FONT color="green">217</FONT>             * expires, a &lt;B&gt;java.net.SocketTimeoutException&lt;/B&gt; is raised, though the<a name="line.217"></a>
+<FONT color="green">218</FONT>             * ServerSocket is still valid. The option &lt;B&gt;must&lt;/B&gt; be enabled prior to<a name="line.218"></a>
+<FONT color="green">219</FONT>             * entering the blocking operation to have effect. The timeout must be &gt; 0.<a name="line.219"></a>
+<FONT color="green">220</FONT>             * A timeout of zero is interpreted as an infinite timeout.<a name="line.220"></a>
+<FONT color="green">221</FONT>             * <a name="line.221"></a>
+<FONT color="green">222</FONT>             * @param timeout<a name="line.222"></a>
+<FONT color="green">223</FONT>             *            the specified timeout, in milliseconds<a name="line.223"></a>
+<FONT color="green">224</FONT>             * @exception SocketException<a name="line.224"></a>
+<FONT color="green">225</FONT>             *                if there is an error in the underlying protocol, such as a<a name="line.225"></a>
+<FONT color="green">226</FONT>             *                TCP error.<a name="line.226"></a>
+<FONT color="green">227</FONT>             * @since JDK1.1<a name="line.227"></a>
+<FONT color="green">228</FONT>             * @see #getSoTimeout()<a name="line.228"></a>
+<FONT color="green">229</FONT>             */<a name="line.229"></a>
+<FONT color="green">230</FONT>            void setSoTimeout(int timeout) throws SocketException;<a name="line.230"></a>
+<FONT color="green">231</FONT>    <a name="line.231"></a>
+<FONT color="green">232</FONT>            /**<a name="line.232"></a>
+<FONT color="green">233</FONT>             * Retrieve setting for SO_TIMEOUT. 0 returns implies that the option is<a name="line.233"></a>
+<FONT color="green">234</FONT>             * disabled (i.e., timeout of infinity).<a name="line.234"></a>
+<FONT color="green">235</FONT>             * <a name="line.235"></a>
+<FONT color="green">236</FONT>             * @return the SO_TIMEOUT value<a name="line.236"></a>
+<FONT color="green">237</FONT>             * @exception IOException<a name="line.237"></a>
+<FONT color="green">238</FONT>             *                if an I/O error occurs<a name="line.238"></a>
+<FONT color="green">239</FONT>             * @since JDK1.1<a name="line.239"></a>
+<FONT color="green">240</FONT>             * @see #setSoTimeout(int)<a name="line.240"></a>
+<FONT color="green">241</FONT>             */<a name="line.241"></a>
+<FONT color="green">242</FONT>            int getSoTimeout() throws IOException;<a name="line.242"></a>
+<FONT color="green">243</FONT>    <a name="line.243"></a>
+<FONT color="green">244</FONT>            /**<a name="line.244"></a>
+<FONT color="green">245</FONT>             * Enable/disable the SO_REUSEADDR socket option.<a name="line.245"></a>
+<FONT color="green">246</FONT>             * &lt;p&gt;<a name="line.246"></a>
+<FONT color="green">247</FONT>             * When a TCP connection is closed the connection may remain in a timeout<a name="line.247"></a>
+<FONT color="green">248</FONT>             * state for a period of time after the connection is closed (typically<a name="line.248"></a>
+<FONT color="green">249</FONT>             * known as the &lt;tt&gt;TIME_WAIT&lt;/tt&gt; state or &lt;tt&gt;2MSL&lt;/tt&gt; wait state). For<a name="line.249"></a>
+<FONT color="green">250</FONT>             * applications using a well known socket address or port it may not be<a name="line.250"></a>
+<FONT color="green">251</FONT>             * possible to bind a socket to the required &lt;tt&gt;SocketAddress&lt;/tt&gt; if there<a name="line.251"></a>
+<FONT color="green">252</FONT>             * is a connection in the timeout state involving the socket address or<a name="line.252"></a>
+<FONT color="green">253</FONT>             * port.<a name="line.253"></a>
+<FONT color="green">254</FONT>             * &lt;p&gt;<a name="line.254"></a>
+<FONT color="green">255</FONT>             * Enabling &lt;tt&gt;SO_REUSEADDR&lt;/tt&gt; prior to binding the socket using<a name="line.255"></a>
+<FONT color="green">256</FONT>             * {@link #bind(SocketAddress)} allows the socket to be bound even though a<a name="line.256"></a>
+<FONT color="green">257</FONT>             * previous connection is in a timeout state.<a name="line.257"></a>
+<FONT color="green">258</FONT>             * &lt;p&gt;<a name="line.258"></a>
+<FONT color="green">259</FONT>             * When a &lt;tt&gt;ServerSocket&lt;/tt&gt; is created the initial setting of<a name="line.259"></a>
+<FONT color="green">260</FONT>             * &lt;tt&gt;SO_REUSEADDR&lt;/tt&gt; is not defined. Applications can use<a name="line.260"></a>
+<FONT color="green">261</FONT>             * {@link #getReuseAddress()} to determine the initial setting of<a name="line.261"></a>
+<FONT color="green">262</FONT>             * &lt;tt&gt;SO_REUSEADDR&lt;/tt&gt;.<a name="line.262"></a>
+<FONT color="green">263</FONT>             * &lt;p&gt;<a name="line.263"></a>
+<FONT color="green">264</FONT>             * The behaviour when &lt;tt&gt;SO_REUSEADDR&lt;/tt&gt; is enabled or disabled after a<a name="line.264"></a>
+<FONT color="green">265</FONT>             * socket is bound (See {@link #isBound()}) is not defined.<a name="line.265"></a>
+<FONT color="green">266</FONT>             * <a name="line.266"></a>
+<FONT color="green">267</FONT>             * @param on<a name="line.267"></a>
+<FONT color="green">268</FONT>             *            whether to enable or disable the socket option<a name="line.268"></a>
+<FONT color="green">269</FONT>             * @exception SocketException<a name="line.269"></a>
+<FONT color="green">270</FONT>             *                if an error occurs enabling or disabling the<a name="line.270"></a>
+<FONT color="green">271</FONT>             *                &lt;tt&gt;SO_RESUEADDR&lt;/tt&gt; socket option, or the socket is<a name="line.271"></a>
+<FONT color="green">272</FONT>             *                closed.<a name="line.272"></a>
+<FONT color="green">273</FONT>             * @since 1.4<a name="line.273"></a>
+<FONT color="green">274</FONT>             * @see #getReuseAddress()<a name="line.274"></a>
+<FONT color="green">275</FONT>             * @see #bind(SocketAddress)<a name="line.275"></a>
+<FONT color="green">276</FONT>             * @see #isBound()<a name="line.276"></a>
+<FONT color="green">277</FONT>             * @see #isClosed()<a name="line.277"></a>
+<FONT color="green">278</FONT>             */<a name="line.278"></a>
+<FONT color="green">279</FONT>            void setReuseAddress(boolean on) throws SocketException;<a name="line.279"></a>
+<FONT color="green">280</FONT>    <a name="line.280"></a>
+<FONT color="green">281</FONT>            /**<a name="line.281"></a>
+<FONT color="green">282</FONT>             * Tests if SO_REUSEADDR is enabled.<a name="line.282"></a>
+<FONT color="green">283</FONT>             * <a name="line.283"></a>
+<FONT color="green">284</FONT>             * @return a &lt;code&gt;boolean&lt;/code&gt; indicating whether or not SO_REUSEADDR is<a name="line.284"></a>
+<FONT color="green">285</FONT>             *         enabled.<a name="line.285"></a>
+<FONT color="green">286</FONT>             * @exception SocketException<a name="line.286"></a>
+<FONT color="green">287</FONT>             *                if there is an error in the underlying protocol, such as a<a name="line.287"></a>
+<FONT color="green">288</FONT>             *                TCP error.<a name="line.288"></a>
+<FONT color="green">289</FONT>             * @since 1.4<a name="line.289"></a>
+<FONT color="green">290</FONT>             * @see #setReuseAddress(boolean)<a name="line.290"></a>
+<FONT color="green">291</FONT>             */<a name="line.291"></a>
+<FONT color="green">292</FONT>            boolean getReuseAddress() throws SocketException;<a name="line.292"></a>
+<FONT color="green">293</FONT>    <a name="line.293"></a>
+<FONT color="green">294</FONT>            /**<a name="line.294"></a>
+<FONT color="green">295</FONT>             * Returns the implementation address and implementation port of this socket<a name="line.295"></a>
+<FONT color="green">296</FONT>             * as a &lt;code&gt;String&lt;/code&gt;.<a name="line.296"></a>
+<FONT color="green">297</FONT>             * <a name="line.297"></a>
+<FONT color="green">298</FONT>             * @return a string representation of this socket.<a name="line.298"></a>
+<FONT color="green">299</FONT>             */<a name="line.299"></a>
+<FONT color="green">300</FONT>            String toString();<a name="line.300"></a>
+<FONT color="green">301</FONT>    <a name="line.301"></a>
+<FONT color="green">302</FONT>            /**<a name="line.302"></a>
+<FONT color="green">303</FONT>             * Sets a default proposed value for the SO_RCVBUF option for sockets<a name="line.303"></a>
+<FONT color="green">304</FONT>             * accepted from this &lt;tt&gt;ServerSocket&lt;/tt&gt;. The value actually set in the<a name="line.304"></a>
+<FONT color="green">305</FONT>             * accepted socket must be determined by calling<a name="line.305"></a>
+<FONT color="green">306</FONT>             * {@link Socket#getReceiveBufferSize()} after the socket is returned by<a name="line.306"></a>
+<FONT color="green">307</FONT>             * {@link #accept()}.<a name="line.307"></a>
+<FONT color="green">308</FONT>             * &lt;p&gt;<a name="line.308"></a>
+<FONT color="green">309</FONT>             * The value of SO_RCVBUF is used both to set the size of the internal<a name="line.309"></a>
+<FONT color="green">310</FONT>             * socket receive buffer, and to set the size of the TCP receive window that<a name="line.310"></a>
+<FONT color="green">311</FONT>             * is advertized to the remote peer.<a name="line.311"></a>
+<FONT color="green">312</FONT>             * &lt;p&gt;<a name="line.312"></a>
+<FONT color="green">313</FONT>             * It is possible to change the value subsequently, by calling<a name="line.313"></a>
+<FONT color="green">314</FONT>             * {@link Socket#setReceiveBufferSize(int)}. However, if the application<a name="line.314"></a>
+<FONT color="green">315</FONT>             * wishes to allow a receive window larger than 64K bytes, as defined by<a name="line.315"></a>
+<FONT color="green">316</FONT>             * RFC1323 then the proposed value must be set in the ServerSocket<a name="line.316"></a>
+<FONT color="green">317</FONT>             * &lt;B&gt;before&lt;/B&gt; it is bound to a local address. This implies, that the<a name="line.317"></a>
+<FONT color="green">318</FONT>             * ServerSocket must be created with the no-argument constructor, then<a name="line.318"></a>
+<FONT color="green">319</FONT>             * setReceiveBufferSize() must be called and lastly the ServerSocket is<a name="line.319"></a>
+<FONT color="green">320</FONT>             * bound to an address by calling bind().<a name="line.320"></a>
+<FONT color="green">321</FONT>             * &lt;p&gt;<a name="line.321"></a>
+<FONT color="green">322</FONT>             * Failure to do this will not cause an error, and the buffer size may be<a name="line.322"></a>
+<FONT color="green">323</FONT>             * set to the requested value but the TCP receive window in sockets accepted<a name="line.323"></a>
+<FONT color="green">324</FONT>             * from this ServerSocket will be no larger than 64K bytes.<a name="line.324"></a>
+<FONT color="green">325</FONT>             * <a name="line.325"></a>
+<FONT color="green">326</FONT>             * @exception SocketException<a name="line.326"></a>
+<FONT color="green">327</FONT>             *                if there is an error in the underlying protocol, such as a<a name="line.327"></a>
+<FONT color="green">328</FONT>             *                TCP error.<a name="line.328"></a>
+<FONT color="green">329</FONT>             * <a name="line.329"></a>
+<FONT color="green">330</FONT>             * @param size<a name="line.330"></a>
+<FONT color="green">331</FONT>             *            the size to which to set the receive buffer size. This value<a name="line.331"></a>
+<FONT color="green">332</FONT>             *            must be greater than 0.<a name="line.332"></a>
+<FONT color="green">333</FONT>             * <a name="line.333"></a>
+<FONT color="green">334</FONT>             * @exception IllegalArgumentException<a name="line.334"></a>
+<FONT color="green">335</FONT>             *                if the value is 0 or is negative.<a name="line.335"></a>
+<FONT color="green">336</FONT>             * <a name="line.336"></a>
+<FONT color="green">337</FONT>             * @since 1.4<a name="line.337"></a>
+<FONT color="green">338</FONT>             * @see #getReceiveBufferSize<a name="line.338"></a>
+<FONT color="green">339</FONT>             */<a name="line.339"></a>
+<FONT color="green">340</FONT>            void setReceiveBufferSize(int size) throws SocketException;<a name="line.340"></a>
+<FONT color="green">341</FONT>    <a name="line.341"></a>
+<FONT color="green">342</FONT>            /**<a name="line.342"></a>
+<FONT color="green">343</FONT>             * Gets the value of the SO_RCVBUF option for this &lt;tt&gt;ServerSocket&lt;/tt&gt;,<a name="line.343"></a>
+<FONT color="green">344</FONT>             * that is the proposed buffer size that will be used for Sockets accepted<a name="line.344"></a>
+<FONT color="green">345</FONT>             * from this &lt;tt&gt;ServerSocket&lt;/tt&gt;.<a name="line.345"></a>
+<FONT color="green">346</FONT>             * <a name="line.346"></a>
+<FONT color="green">347</FONT>             * &lt;p&gt;<a name="line.347"></a>
+<FONT color="green">348</FONT>             * Note, the value actually set in the accepted socket is determined by<a name="line.348"></a>
+<FONT color="green">349</FONT>             * calling {@link Socket#getReceiveBufferSize()}.<a name="line.349"></a>
+<FONT color="green">350</FONT>             * <a name="line.350"></a>
+<FONT color="green">351</FONT>             * @return the value of the SO_RCVBUF option for this &lt;tt&gt;Socket&lt;/tt&gt;.<a name="line.351"></a>
+<FONT color="green">352</FONT>             * @exception SocketException<a name="line.352"></a>
+<FONT color="green">353</FONT>             *                if there is an error in the underlying protocol, such as a<a name="line.353"></a>
+<FONT color="green">354</FONT>             *                TCP error.<a name="line.354"></a>
+<FONT color="green">355</FONT>             * @see #setReceiveBufferSize(int)<a name="line.355"></a>
+<FONT color="green">356</FONT>             * @since 1.4<a name="line.356"></a>
+<FONT color="green">357</FONT>             */<a name="line.357"></a>
+<FONT color="green">358</FONT>            int getReceiveBufferSize() throws SocketException;<a name="line.358"></a>
+<FONT color="green">359</FONT>    <a name="line.359"></a>
+<FONT color="green">360</FONT>            /**<a name="line.360"></a>
+<FONT color="green">361</FONT>             * Sets performance preferences for this ServerSocket.<a name="line.361"></a>
+<FONT color="green">362</FONT>             * <a name="line.362"></a>
+<FONT color="green">363</FONT>             * &lt;p&gt;<a name="line.363"></a>
+<FONT color="green">364</FONT>             * Sockets use the TCP/IP protocol by default. Some implementations may<a name="line.364"></a>
+<FONT color="green">365</FONT>             * offer alternative protocols which have different performance<a name="line.365"></a>
+<FONT color="green">366</FONT>             * characteristics than TCP/IP. This method allows the application to<a name="line.366"></a>
+<FONT color="green">367</FONT>             * express its own preferences as to how these tradeoffs should be made when<a name="line.367"></a>
+<FONT color="green">368</FONT>             * the implementation chooses from the available protocols.<a name="line.368"></a>
+<FONT color="green">369</FONT>             * <a name="line.369"></a>
+<FONT color="green">370</FONT>             * &lt;p&gt;<a name="line.370"></a>
+<FONT color="green">371</FONT>             * Performance preferences are described by three integers whose values<a name="line.371"></a>
+<FONT color="green">372</FONT>             * indicate the relative importance of short connection time, low latency,<a name="line.372"></a>
+<FONT color="green">373</FONT>             * and high bandwidth. The absolute values of the integers are irrelevant;<a name="line.373"></a>
+<FONT color="green">374</FONT>             * in order to choose a protocol the values are simply compared, with larger<a name="line.374"></a>
+<FONT color="green">375</FONT>             * values indicating stronger preferences. If the application prefers short<a name="line.375"></a>
+<FONT color="green">376</FONT>             * connection time over both low latency and high bandwidth, for example,<a name="line.376"></a>
+<FONT color="green">377</FONT>             * then it could invoke this method with the values &lt;tt&gt;(1, 0, 0)&lt;/tt&gt;. If<a name="line.377"></a>
+<FONT color="green">378</FONT>             * the application prefers high bandwidth above low latency, and low latency<a name="line.378"></a>
+<FONT color="green">379</FONT>             * above short connection time, then it could invoke this method with the<a name="line.379"></a>
+<FONT color="green">380</FONT>             * values &lt;tt&gt;(0, 1, 2)&lt;/tt&gt;.<a name="line.380"></a>
+<FONT color="green">381</FONT>             * <a name="line.381"></a>
+<FONT color="green">382</FONT>             * &lt;p&gt;<a name="line.382"></a>
+<FONT color="green">383</FONT>             * Invoking this method after this socket has been bound will have no<a name="line.383"></a>
+<FONT color="green">384</FONT>             * effect. This implies that in order to use this capability requires the<a name="line.384"></a>
+<FONT color="green">385</FONT>             * socket to be created with the no-argument constructor.<a name="line.385"></a>
+<FONT color="green">386</FONT>             * <a name="line.386"></a>
+<FONT color="green">387</FONT>             * @param connectionTime<a name="line.387"></a>
+<FONT color="green">388</FONT>             *            An &lt;tt&gt;int&lt;/tt&gt; expressing the relative importance of a short<a name="line.388"></a>
+<FONT color="green">389</FONT>             *            connection time<a name="line.389"></a>
+<FONT color="green">390</FONT>             * <a name="line.390"></a>
+<FONT color="green">391</FONT>             * @param latency<a name="line.391"></a>
+<FONT color="green">392</FONT>             *            An &lt;tt&gt;int&lt;/tt&gt; expressing the relative importance of low<a name="line.392"></a>
+<FONT color="green">393</FONT>             *            latency<a name="line.393"></a>
+<FONT color="green">394</FONT>             * <a name="line.394"></a>
+<FONT color="green">395</FONT>             * @param bandwidth<a name="line.395"></a>
+<FONT color="green">396</FONT>             *            An &lt;tt&gt;int&lt;/tt&gt; expressing the relative importance of high<a name="line.396"></a>
+<FONT color="green">397</FONT>             *            bandwidth<a name="line.397"></a>
+<FONT color="green">398</FONT>             * <a name="line.398"></a>
+<FONT color="green">399</FONT>             * @since 1.5<a name="line.399"></a>
+<FONT color="green">400</FONT>             */<a name="line.400"></a>
+<FONT color="green">401</FONT>            void setPerformancePreferences(int connectionTime, int latency,<a name="line.401"></a>
+<FONT color="green">402</FONT>                            int bandwidth);<a name="line.402"></a>
+<FONT color="green">403</FONT>    <a name="line.403"></a>
+<FONT color="green">404</FONT>    }<a name="line.404"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>
