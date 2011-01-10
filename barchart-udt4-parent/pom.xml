@@ -360,7 +360,8 @@
 									<generateHtml>true</generateHtml>
 									<inputDirectory>${basedir}/src/main/c++</inputDirectory>
 									<recursive>true</recursive>
-									<outputDirectory>${basedir}/target/site/doxygen</outputDirectory>
+<!--									<outputDirectory>${basedir}/target/site/doxygen</outputDirectory>-->
+									<workDirectory>${basedir}/target/site/doxygen</workDirectory>
 								</configuration>
 							</plugin>
 
