@@ -16,10 +16,10 @@ public enum LibraryUDT_2 {
 	X86_64_MACOSX_GPP("x86_64.MacOSX.g++"), //
 
 	X86_WINDOWS_MSVC("x86.Windows.msvc"), //
-//	X86_WINDOWS_GPP("x86.Windows.g++"), //
+	// X86_WINDOWS_GPP("x86.Windows.g++"), //
 
 	X86_64_WINDOWS_MSVC("x86_64.Windows.msvc"), //
-//	X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
+	// X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
 
 	;
 
@@ -104,13 +104,13 @@ public enum LibraryUDT_2 {
 	 * and moved to the target/test-classes/ to make it part of test classpath
 	 */
 	// example:
-	// ./libbarchart-i386-Linux-g++.so
+	// /libbarchart-i386-Linux-g++.so
 	String sourceTestCDT() {
 		final String classifier = aol.resourceName();
 		final String name = VersionUDT.BARCHART_ARTIFACT + DASH + classifier;
 		final String library = System.mapLibraryName(name);
 		final String path = //
-		DOT + BAR + library;
+		BAR + library;
 		return path;
 	}
 
@@ -119,13 +119,13 @@ public enum LibraryUDT_2 {
 	 * target/test-classes; part of java test classpath
 	 */
 	// example:
-	// ./libbarchart-i386-Linux-g++-jni/./lib/i386-Linux-g++/jni/libbarchart-1.0.2-SNAPSHOT.so
+	// /libbarchart-i386-Linux-g++-jni/./lib/i386-Linux-g++/jni/libbarchart-1.0.2-SNAPSHOT.so
 	String sourceTestNAR() {
 		final String classifier = aol.resourceName();
 		final String name = VersionUDT.BARCHART_NAME;
 		final String folder = name + DASH + classifier + DASH + JNI;
 		final String path = //
-		DOT + BAR + folder + BAR + sourceRealNAR();
+		BAR + folder + BAR + sourceRealNAR();
 		return path;
 	}
 
@@ -134,13 +134,13 @@ public enum LibraryUDT_2 {
 	 * of production java classpath
 	 */
 	// example:
-	// ./lib/i386-Linux-g++/jni/libbarchart-1.0.2-SNAPSHOT.so
+	// /lib/i386-Linux-g++/jni/libbarchart-1.0.2-SNAPSHOT.so
 	String sourceRealNAR() {
 		final String name = VersionUDT.BARCHART_NAME;
 		final String classifier = aol.resourceName();
 		final String library = System.mapLibraryName(name);
 		final String path = //
-		DOT + BAR + LIB + BAR + classifier + BAR + JNI + BAR + library;
+		BAR + LIB + BAR + classifier + BAR + JNI + BAR + library;
 		return path;
 	}
 
