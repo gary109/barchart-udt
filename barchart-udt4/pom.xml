@@ -608,7 +608,7 @@
 
 		<profile>
 			<!-- update documents -->
-			<id>documents</id>
+			<id>unused-documents</id>
 			<build>
 				<plugins>
 
