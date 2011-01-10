@@ -243,6 +243,7 @@
 									<option>-m32</option>
 									<option>-O2</option>
 									<option>-Wall</option>
+									<option>-Wextra</option>
 									<option>-fno-strict-aliasing</option>
 									<option>-fno-omit-frame-pointer</option>
 								</options>
@@ -281,6 +282,7 @@
 									<option>-m64</option>
 									<option>-O2</option>
 									<option>-Wall</option>
+									<option>-Wextra</option>
 									<option>-fno-strict-aliasing</option>
 									<option>-fno-omit-frame-pointer</option>
 								</options>
@@ -321,6 +323,7 @@
 									<option>i386</option>
 									<option>-O2</option>
 									<option>-Wall</option>
+									<option>-Wextra</option>
 									<option>-fno-strict-aliasing</option>
 									<option>-fno-omit-frame-pointer</option>
 								</options>
@@ -362,6 +365,7 @@
 									<option>x86_64</option>
 									<option>-O2</option>
 									<option>-Wall</option>
+									<option>-Wextra</option>
 									<option>-fno-strict-aliasing</option>
 									<option>-fno-omit-frame-pointer</option>
 								</options>
@@ -405,6 +409,7 @@
 									<option>-mthreads</option>
 									<option>-O2</option>
 									<option>-Wall</option>
+									<option>-Wextra</option>
 									<option>-fno-strict-aliasing</option>
 									<option>-fno-omit-frame-pointer</option>
 								</options>
