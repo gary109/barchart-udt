@@ -64,8 +64,32 @@
 
 	</dependencies>
 
-
 	<build>
+
+		<resources>
+
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.dll</include>
+					<include>**/*.so</include>
+					<include>**/*.jnilib</include>
+					<include>**/*.map</include>
+					<include>**/*.sym</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.txt</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+
+		</resources>
 
 		<plugins>
 
@@ -86,41 +110,22 @@
 				</executions>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<resources>
-						<resource>
-							<directory>src/main/resources</directory>
-							<filtering>false</filtering>
-							<includes>
-								<include>**/*.dll</include>
-								<include>**/*.so</include>
-								<include>**/*.jnilib</include>
-								<include>**/*.map</include>
-								<include>**/*.sym</include>
-							</includes>
-						</resource>
-						<resource>
-							<directory>src/main/resources</directory>
-							<filtering>true</filtering>
-							<includes>
-								<include>**/*.txt</include>
-								<include>**/*.properties</include>
-							</includes>
-						</resource>
-					</resources>
-					<outputDirectory>${basedir}/target/classes</outputDirectory>
-					<executions>
-						<execution>
-							<goals>
-								<goal>resources</goal>
-							</goals>
-						</execution>
-					</executions>
-				</configuration>
-			</plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-resources-plugin</artifactId> -->
+			<!-- <configuration> -->
+			<!-- <resources> -->
+			<!-- </resources> -->
+			<!-- <outputDirectory>${basedir}/target/classes</outputDirectory> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <goals> -->
+			<!-- <goal>resources</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
 
 		</plugins>
 	</build>
