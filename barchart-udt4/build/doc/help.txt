@@ -93,3 +93,9 @@ Bypassing the Mac OS X GUI
 http://oreilly.com/pub/h/348
 
 #####################################################
+
+The pain of vcvars32.bat, and an ant solution
+http://blogs.sun.com/kto/entry/the_pain_of_vcvars32_bat
+
+#####################################################
+
