@@ -25,24 +25,6 @@
 
 	</repositories>
 
-	<pluginRepositories>
-
-		<pluginRepository>
-			<id>Mark.Donszelmann@gmail.com</id>
-			<name>Duns' Maven Snapshot Repository</name>
-			<url>http://duns.github.com/maven-snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-			</snapshots>
-		</pluginRepository>
-
-	</pluginRepositories>
-
 	<dependencies>
 
 		<!-- provides UDT socket wrapper -->
@@ -52,6 +34,7 @@
 			<version>1.0.2-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<optional>false</optional>
 		</dependency>
 
 		<!-- provides logging backend -->
@@ -67,19 +50,25 @@
 	</dependencies>
 
 	<build>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<!-- used to set m2e properties http://m2eclipse.sonatype.org/ -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 		<plugins>
 
-			<plugin>
-				<!-- used to set m2e properties http://m2eclipse.sonatype.org/ -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-
 		</plugins>
+
 	</build>
 
 </project>
