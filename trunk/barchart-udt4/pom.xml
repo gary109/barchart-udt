@@ -112,6 +112,13 @@
 						</resource>
 					</resources>
 					<outputDirectory>${basedir}/target/classes</outputDirectory>
+					<executions>
+						<execution>
+							<goals>
+								<goal>copy-resources</goal>
+							</goals>
+						</execution>
+					</executions>
 				</configuration>
 			</plugin>
 
