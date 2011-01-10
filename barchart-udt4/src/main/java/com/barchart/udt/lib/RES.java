@@ -51,15 +51,15 @@ class RES {
 	public static void extractResource(final String sourcePath,
 			final String targetPath) throws Exception {
 
-		final ClassLoader classLoader = RES.class.getClassLoader();
+		// final ClassLoader classLoader = RES.class.getClassLoader();
 
-		if (classLoader == null) {
-			log.warn("\n\t resource classLoader not available: {}", sourcePath);
-			throw new IllegalArgumentException("resource not found");
-		}
+		// if (classLoader == null) {
+		// log.warn("\n\t resource classLoader not available: {}", sourcePath);
+		// throw new IllegalArgumentException("resource not found");
+		// }
 
-		// no root "/" prefix for this call
-		final URL sourceUrl = classLoader.getResource(sourcePath);
+		// final URL sourceUrl = classLoader.getResource(sourcePath);
+		final URL sourceUrl = RES.class.getResource(sourcePath);
 
 		if (sourceUrl == null) {
 			log.warn("\n\t classpath resource not found: {}", sourcePath);
@@ -95,7 +95,7 @@ class RES {
 		final long sourceTime = timeStamp(sourceConn);
 
 		final InputStream sourceStream = new BufferedInputStream(//
-				classLoader.getResourceAsStream(sourcePath));
+				sourceUrl.openStream());
 
 		final OutputStream targetStream = new BufferedOutputStream(//
 				new FileOutputStream(targetFile));

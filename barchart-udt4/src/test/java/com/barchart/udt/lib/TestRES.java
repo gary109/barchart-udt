@@ -53,7 +53,7 @@ public class TestRES {
 		log.info("java.class.path = {}", System.getProperty("java.class.path"));
 
 		// path inside jar, relative to the root of java.class.path
-		String sourcePath = "./lib/bin/test-resource.txt";
+		String sourcePath = "/lib/bin/test-resource.txt";
 
 		log.info("user.dir = {}", System.getProperty("user.dir"));
 
@@ -72,7 +72,7 @@ public class TestRES {
 
 		assertTrue(targetFile.exists());
 
-		URL sourceURL = TestRES.class.getClassLoader().getResource(sourcePath);
+		URL sourceURL = TestRES.class.getResource(sourcePath);
 
 		URL targetURL = targetFile.toURI().toURL();
 

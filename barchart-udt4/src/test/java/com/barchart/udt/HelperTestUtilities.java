@@ -39,6 +39,7 @@
  */
 package com.barchart.udt;
 
+import java.io.File;
 import java.net.InetSocketAddress;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -85,6 +86,37 @@ public class HelperTestUtilities {
 			array[i] = generator.nextInt(range);
 		}
 		return array;
+	}
+
+	public static void logClassPath() {
+
+		String classPath = System.getProperty("java.class.path");
+
+		String[] entries = classPath.split(File.pathSeparator);
+
+		StringBuilder text = new StringBuilder(1024);
+
+		for (String item : entries) {
+			text.append("\n\t");
+			text.append(item);
+		}
+
+		log.info("{}", text);
+
+	}
+
+	public static void logOsArch() {
+
+		StringBuilder text = new StringBuilder(1024);
+
+		text.append("\n\t");
+		text.append(System.getProperty("os.name"));
+
+		text.append("\n\t");
+		text.append(System.getProperty("os.arch"));
+
+		log.info("{}", text);
+
 	}
 
 }
