@@ -82,6 +82,13 @@
 
 	</pluginRepositories>
 
+	<distributionManagement>
+		<site>
+			<id>barchart-google-code</id>
+			<url>svn:http://barchart-udt.googlecode.com/svn/site</url>
+		</site>
+	</distributionManagement>
+
 	<dependencyManagement>
 
 		<dependencies>
@@ -117,6 +124,14 @@
 	</dependencyManagement>
 
 	<build>
+
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.11</version>
+			</extension>
+		</extensions>
 
 		<pluginManagement>
 			<plugins>
