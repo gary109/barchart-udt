@@ -18,6 +18,7 @@
 
 	<properties>
 
+		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
 		<buildStamp>${maven.build.timestamp}</buildStamp>
 		<mavenStamp>ARTIFACT='${project.artifactId}';VERSION='${project.version}';TIMESTAMP='${buildStamp}';</mavenStamp>
 
@@ -89,30 +90,38 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<resources>
-						<resource>
-							<directory>src/main/resources</directory>
-							<filtering>false</filtering>
-							<includes>
-								<include>**/*.dll</include>
-								<include>**/*.so</include>
-								<include>**/*.jnilib</include>
-								<include>**/*.map</include>
-								<include>**/*.sym</include>
-							</includes>
-						</resource>
-						<resource>
-							<directory>src/main/resources</directory>
-							<filtering>true</filtering>
-							<includes>
-								<include>**/*.txt</include>
-								<include>**/*.properties</include>
-							</includes>
-						</resource>
-					</resources>
-					<outputDirectory>${basedir}/target/classes</outputDirectory>
-				</configuration>
+				<executions>
+					<execution>
+						<id>copy-udt-artifact-files</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+									<filtering>false</filtering>
+									<includes>
+										<include>**/*.dll</include>
+										<include>**/*.so</include>
+										<include>**/*.jnilib</include>
+										<include>**/*.map</include>
+										<include>**/*.sym</include>
+									</includes>
+								</resource>
+								<resource>
+									<directory>src/main/resources</directory>
+									<filtering>true</filtering>
+									<includes>
+										<include>**/*.properties</include>
+									</includes>
+								</resource>
+							</resources>
+							<outputDirectory>${basedir}/target/classes</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
@@ -510,6 +519,152 @@
 							</linker>
 						</configuration>
 					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+
+			<id>unused</id>
+
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-version-class</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<property name="mvn.basedir" value="${basedir}" />
+										<property name="mvn.artifactId" value="${project.artifactId}" />
+										<property name="mvn.version" value="${project.version}" />
+										<property name="mvn.timestamp" value="${timestamp}" />
+										<property name="mvn.mavenStamp" value="${mavenStamp}" />
+										<property name="mvn.buildtime" value="${buildtime}" />
+										<property name="mvn.generatedSources"
+											value="${project.build.directory}/generated-sources" />
+										<ant antfile="${basedir}/build/script/build-version.ant">
+										</ant>
+									</tasks>
+									<sourceRoot>${project.build.directory}/generated-sources
+									</sourceRoot>
+								</configuration>
+							</execution>
+							<execution>
+								<id>report-timestamp-value</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<echo message="buildtime : ${buildtime}" />
+										<echo message="mavenStamp : ${mavenStamp}" />
+									</tasks>
+								</configuration>
+							</execution>
+							<execution>
+								<id>compile-native</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<property name="mvn.plugin.classpath" refid="maven.plugin.classpath" />
+										<property name="mvn.licenceYear" value="${licenceYear}" />
+										<property name="mvn.licenceOrganization" value="${licenceOrganization}" />
+										<property name="mvn.licenceWebsite" value="${licenceWebsite}" />
+										<property name="mvn.licenceDevelopers" value="${licenceDevelopers}" />
+										<property name="mvn.version" value="${project.version}" />
+										<property name="mvn.mavenStamp" value="${mavenStamp}" />
+										<property name="mvn.nativeLibName" value="${nativeLibName}" />
+										<property name="mvn.nativeSrcJNI" value="${nativeSrcJNI}" />
+										<property name="mvn.nativeSrcUDT" value="${nativeSrcUDT}" />
+										<property name="mvn.nativeInclude" value="${nativeInclude}" />
+										<property name="mvn.basedir" value="${basedir}" />
+										<property name="mvn.resources" value="${basedir}/src/main/resources" />
+										<property name="mvn.target" value="${project.build.directory}" />
+										<ant antfile="${basedir}/build/script/build-maven.ant">
+											<target name="target-build" />
+										</ant>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+
+		</profile>
+
+		<profile>
+			<!-- update documents -->
+			<id>unused-documents</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>javolution</groupId>
+						<artifactId>colapi</artifactId>
+						<configuration>
+							<directory>apidocs</directory>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>colorize</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css
+							</stylesheetfile>
+							<docfilessubdirs>true</docfilessubdirs>
+							<links>
+								<link>http://java.sun.com/javase/6/docs/api/</link>
+							</links>
+						</configuration>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
