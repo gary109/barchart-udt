@@ -14,17 +14,12 @@
 	<version>1.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<properties>
-		<barchart.version>1.0.2-SNAPSHOT</barchart.version>
-	</properties>
-
-
 	<dependencies>
 
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>${barchart.version}</version>
+			<version>${project.version}</version>
 			<type>jar</type>
 			<optional>true</optional>
 		</dependency>
@@ -32,7 +27,7 @@
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>${barchart.version}</version>
+			<version>${project.version}</version>
 			<classifier>i386-Linux-g++-jni</classifier>
 			<type>nar</type>
 			<optional>true</optional>
@@ -41,7 +36,7 @@
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>${barchart.version}</version>
+			<version>${project.version}</version>
 			<classifier>amd64-Linux-g++-jni</classifier>
 			<type>nar</type>
 			<optional>true</optional>
@@ -50,7 +45,7 @@
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>${barchart.version}</version>
+			<version>${project.version}</version>
 			<classifier>i386-MacOSX-g++-jni</classifier>
 			<type>nar</type>
 			<optional>true</optional>
@@ -59,7 +54,7 @@
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>${barchart.version}</version>
+			<version>${project.version}</version>
 			<classifier>x86_64-MacOSX-g++-jni</classifier>
 			<type>nar</type>
 			<optional>true</optional>
@@ -68,7 +63,7 @@
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>${barchart.version}</version>
+			<version>${project.version}</version>
 			<classifier>x86-Windows-msvc-jni</classifier>
 			<type>nar</type>
 			<optional>true</optional>
