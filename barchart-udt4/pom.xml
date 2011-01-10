@@ -115,7 +115,7 @@
 					<executions>
 						<execution>
 							<goals>
-								<goal>process-resources</goal>
+								<goal>resources</goal>
 							</goals>
 						</execution>
 					</executions>
