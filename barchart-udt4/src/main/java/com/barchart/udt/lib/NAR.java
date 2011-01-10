@@ -9,7 +9,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NAR {
+class NAR {
 
 	/** The log. */
 	private final static Logger log = LoggerFactory.getLogger(NAR.class);
