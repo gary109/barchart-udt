@@ -26,7 +26,7 @@
 			<artifactId>barchart-udt4</artifactId>
 			<version>${barchart.version}</version>
 			<type>jar</type>
-			<optional>false</optional>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
