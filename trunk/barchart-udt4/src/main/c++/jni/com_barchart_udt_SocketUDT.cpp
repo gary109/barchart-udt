@@ -264,7 +264,7 @@ inline void X_ConvertMillisIntoTimeValue(const jlong millisTimeout,
 		timeValue->tv_sec = INT_MAX;
 		timeValue->tv_usec = 0;
 	} else if (millisTimeout > 0) { // finite wait
-		timeValue->tv_sec = millisTimeout / 1000;
+		timeValue->tv_sec = millisTimeout / 1000; // msvc C4244
 		timeValue->tv_usec = (millisTimeout % 1000) * 1000;
 	} else { // immediate return (not less the UDT event slice of 10 ms)
 		timeValue->tv_sec = 0;
@@ -290,7 +290,7 @@ int X_ConvertInetSocketAddressToSockaddr(JNIEnv* env,
 	sockaddr_in* sockAddrIn = (sockaddr_in*) sockAddr;
 
 	sockAddrIn->sin_addr.s_addr = htonl(address);
-	sockAddrIn->sin_port = htons(port);
+	sockAddrIn->sin_port = htons(port); // msvc C4244
 
 	return JNI_OK;
 
@@ -860,7 +860,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_bind0(JNIEnv* env,
 
 }
 
-JNIEXPORT JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_close0(
 		JNIEnv* env, jobject self) {
 
 	const jint socketID = UDT_GetSocketID(env, self);
@@ -1051,8 +1051,6 @@ JNIEXPORT jobject JNICALL Java_com_barchart_udt_SocketUDT_getOption0(
 		return NULL;
 	}
 
-	return NULL;
-
 }
 
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_setOption0(JNIEnv *env,
@@ -1090,7 +1088,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_setOption0(JNIEnv *env,
 			optionValue.lingerValue.l_linger = 0;
 		} else {
 			optionValue.lingerValue.l_onoff = 1;
-			optionValue.lingerValue.l_linger = value;
+			optionValue.lingerValue.l_linger = value; // msvc C4244
 		}
 		optionValueSize = sizeof(linger);
 	} else if (env->IsSameObject(klaz, jdk_clsLong)) {
