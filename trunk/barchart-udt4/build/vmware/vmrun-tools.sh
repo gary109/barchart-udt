@@ -52,14 +52,14 @@ start)
 	$VMRUN_START
 	verify_run_status "$?" "vm start"
 	log "sleep"
-	sleep 45
+	sleep 60
 	;;
 stop)
 	log "guest stop"
 	$VMRUN_STOP
 	verify_run_status "$?" "vm stop"
 	log "sleep"
-	sleep 15
+	sleep 60
 	;;
 *)
 	log "invalid CMD=$CMD"
