@@ -359,7 +359,7 @@
 								<version>1.0.1</version>
 								<configuration>
 									<projectName>${project.build.finalName</projectName>
-									<input>src/main/c++</input>
+									<input>${basedir}/src/main/c++</input>
 									<recursive>true</recursive>
 									<filePatterns>*.h *.c *.cpp</filePatterns>
 									<haveDot>true</haveDot>
