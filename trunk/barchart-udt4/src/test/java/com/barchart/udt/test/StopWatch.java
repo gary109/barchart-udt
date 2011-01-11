@@ -37,7 +37,7 @@
  *
  * =================================================================================
  */
-package com.barchart.udt;
+package com.barchart.udt.test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
