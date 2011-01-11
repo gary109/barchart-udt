@@ -118,6 +118,11 @@ class RES {
 		final File targetFile = new File(targetPath);
 		log.debug("targetFile={} ", targetFile.getAbsolutePath());
 
+		final File targetFolder = targetFile.getParentFile();
+		log.debug("targetFolder={} ", targetFolder.getAbsolutePath());
+
+		makeTargetFolder(targetFolder);
+
 		final URLConnection targetConn = fileConnection(targetFile);
 
 		if (isSameResource(sourceConn, targetConn)) {
@@ -159,9 +164,7 @@ class RES {
 
 	}
 
-	public static void makeTargetFolder(final String targetFolder)
-			throws Exception {
-		final File folder = new File(targetFolder);
+	public static void makeTargetFolder(final File folder){
 		if (folder.exists()) {
 			if (folder.isDirectory()) {
 				log.warn("found folder={}", folder);
@@ -179,7 +182,13 @@ class RES {
 						"failed to make extract destination  folder");
 			}
 		}
+	}
 
+
+	public static void makeTargetFolder(final String targetFolder)
+			throws Exception {
+		final File folder = new File(targetFolder);
+		makeTargetFolder(folder);
 	}
 
 	public static void systemLoad(final String sourcePath,

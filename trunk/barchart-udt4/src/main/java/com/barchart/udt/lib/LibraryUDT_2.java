@@ -42,7 +42,8 @@ package com.barchart.udt.lib;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum LibraryUDT_2 {
+@Deprecated
+ enum LibraryUDT_2 {
 
 	UNKNOWN("xxx.xxx.xxx"), //
 

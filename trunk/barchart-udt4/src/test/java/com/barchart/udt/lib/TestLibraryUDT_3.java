@@ -14,6 +14,7 @@ public class TestLibraryUDT_3 {
 	public void setUp() throws Exception {
 		HelperTestUtilities.logOsArch();
 		HelperTestUtilities.logClassPath();
+		HelperTestUtilities.logLibraryPath();
 	}
 
 	@After

@@ -54,10 +54,10 @@ public enum LibraryUDT_3 {
 
 	X86_64_MACOSX_GPP(null, "x86_64.MacOSX.g++"), //
 
-	X86_WINDOWS_MSVC(null, "x86.Windows.msvc"), //
+	X86_WINDOWS_MSVC("msvcr90.dll,msvcp90.dll", "x86.Windows.msvc"), //
 	// X86_WINDOWS_GPP("x86.Windows.g++"), //
 
-	X86_64_WINDOWS_MSVC("msvcr90.dll|msvcp90.dll", "x86_64.Windows.msvc"), //
+	X86_64_WINDOWS_MSVC("msvcr90.dll,msvcp90.dll", "x86_64.Windows.msvc"), //
 	// X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
 
 	;
@@ -66,7 +66,7 @@ public enum LibraryUDT_3 {
 			.getLogger(LibraryUDT_3.class);
 
 	static final String DOT = ".";
-	static final String BAR = "|";
+	static final String COMMA = ",";
 	static final String SLASH = "/";
 	static final String DASH = "-";
 	static final String LIB = "lib";
@@ -94,7 +94,7 @@ public enum LibraryUDT_3 {
 		if (depsNames == null) {
 			return null;
 		}
-		final String[] depsList = depsNames.split(BAR);
+		final String[] depsList = depsNames.split(COMMA);
 		if (depsList == null || depsList.length == 0) {
 			return null;
 		}
@@ -126,13 +126,11 @@ public enum LibraryUDT_3 {
 			log.warn("using default targetFolder={}", targetFolder);
 		}
 
-		RES.makeTargetFolder(targetFolder);
-
 		final LibraryUDT_3 library = detectLibrary();
 
 		//
 
-		library.loadDeps(targetFolder);
+//		library.loadDeps(targetFolder);
 
 		//
 
@@ -177,11 +175,13 @@ public enum LibraryUDT_3 {
 
 		for (final String depName : depsList) {
 
+			log.info("\n\t depName:{}:", depName);
+
 			final String sourcePath = sourceDepPath(depName);
 
 			final String targetPath = targetDepPath(targetFoler, depName);
 
-			RES.extractResource(sourcePath, targetPath);
+			RES.systemLoad(sourcePath, targetPath);
 
 		}
 

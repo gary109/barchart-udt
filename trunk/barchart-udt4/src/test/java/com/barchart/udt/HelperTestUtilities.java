@@ -105,6 +105,23 @@ public class HelperTestUtilities {
 
 	}
 
+	public static void logLibraryPath() {
+
+		String classPath = System.getProperty("java.library.path");
+
+		String[] entries = classPath.split(File.pathSeparator);
+
+		StringBuilder text = new StringBuilder(1024);
+
+		for (String item : entries) {
+			text.append("\n\t");
+			text.append(item);
+		}
+
+		log.info("{}", text);
+
+	}
+
 	public static void logOsArch() {
 
 		StringBuilder text = new StringBuilder(1024);
