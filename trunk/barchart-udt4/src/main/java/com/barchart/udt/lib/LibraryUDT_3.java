@@ -57,7 +57,7 @@ public enum LibraryUDT_3 {
 	X86_WINDOWS_MSVC(null, "x86.Windows.msvc"), //
 	// X86_WINDOWS_GPP("x86.Windows.g++"), //
 
-	X86_64_WINDOWS_MSVC(null, "x86_64.Windows.msvc"), //
+	X86_64_WINDOWS_MSVC("msvcr90.dll|msvcp90.dll", "x86_64.Windows.msvc"), //
 	// X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
 
 	;
@@ -71,36 +71,34 @@ public enum LibraryUDT_3 {
 	static final String DASH = "-";
 	static final String LIB = "lib";
 	static final String JNI = "jni";
+	static final String DEP = "dep";
 
 	/** The Constant DEFAULT_EXTRACT_FOLDER_NAME. */
 	public final static String DEFAULT_EXTRACT_FOLDER_NAME = DOT + SLASH + LIB;
 
-	private final String[] depList;
+	final static String DEFAULT_LIB_DEP = SLASH + LIB + SLASH + DEP;
+
+	private final String[] depsList;
 
 	private final AOL aol;
 
 	LibraryUDT_3(final String depNames, final String aolKey) {
 
-		this.depList = getDeps(depNames);
+		this.depsList = getDeps(depNames);
 
 		this.aol = new AOL(aolKey);
 
 	}
 
-	private String[] getDeps(final String depNames) {
-
-		if (depNames == null) {
+	String[] getDeps(final String depsNames) {
+		if (depsNames == null) {
 			return null;
 		}
-
-		final String[] deps = depNames.split(BAR);
-
-		if (deps == null || deps.length == 0) {
+		final String[] depsList = depsNames.split(BAR);
+		if (depsList == null || depsList.length == 0) {
 			return null;
 		}
-
-		return deps;
-
+		return depsList;
 	}
 
 	static LibraryUDT_3 detectLibrary() {
@@ -110,6 +108,10 @@ public enum LibraryUDT_3 {
 			}
 		}
 		return UNKNOWN;
+	}
+
+	String sourceDepPath(final String depName) {
+		return DEFAULT_LIB_DEP + SLASH + aol.resourceName() + SLASH + depName;
 	}
 
 	public static void load() throws Exception {
@@ -127,6 +129,12 @@ public enum LibraryUDT_3 {
 		RES.makeTargetFolder(targetFolder);
 
 		final LibraryUDT_3 library = detectLibrary();
+
+		//
+
+		library.loadDeps(targetFolder);
+
+		//
 
 		final String targetPath = library.targetPath(targetFolder);
 
@@ -159,6 +167,28 @@ public enum LibraryUDT_3 {
 
 		throw new Exception("load failed");
 
+	}
+
+	void loadDeps(final String targetFoler) throws Exception {
+
+		if (depsList == null) {
+			return;
+		}
+
+		for (final String depName : depsList) {
+
+			final String sourcePath = sourceDepPath(depName);
+
+			final String targetPath = targetDepPath(targetFoler, depName);
+
+			RES.extractResource(sourcePath, targetPath);
+
+		}
+
+	}
+
+	String targetDepPath(final String targetFolder, final String depName) {
+		return targetFolder + SLASH + aol.resourceName() + SLASH + depName;
 	}
 
 	/**
