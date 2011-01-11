@@ -23,7 +23,7 @@ public class TestLibraryUDT_2 {
 	@Test
 	public void testLoad() throws Exception {
 
-		String targetFolder = "./target/test-lib-1";
+		String targetFolder = "./target/test-lib-2";
 
 		LibraryUDT_2.load(targetFolder);
 
