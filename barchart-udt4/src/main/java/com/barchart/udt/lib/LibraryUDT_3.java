@@ -42,30 +42,31 @@ package com.barchart.udt.lib;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum LibraryUDT_2 {
+public enum LibraryUDT_3 {
 
-	UNKNOWN("xxx.xxx.xxx"), //
+	UNKNOWN(null, "xxx.xxx.xxx"), //
 
-	I386_LINUX_GPP("i386.Linux.g++"), //
+	I386_LINUX_GPP(null, "i386.Linux.g++"), //
 
-	AMD64_LINUX_GPP("amd64.Linux.g++"), //
+	AMD64_LINUX_GPP(null, "amd64.Linux.g++"), //
 
-	I386_MACOSX_GPP("i386.MacOSX.g++"), //
+	I386_MACOSX_GPP(null, "i386.MacOSX.g++"), //
 
-	X86_64_MACOSX_GPP("x86_64.MacOSX.g++"), //
+	X86_64_MACOSX_GPP(null, "x86_64.MacOSX.g++"), //
 
-	X86_WINDOWS_MSVC("x86.Windows.msvc"), //
+	X86_WINDOWS_MSVC(null, "x86.Windows.msvc"), //
 	// X86_WINDOWS_GPP("x86.Windows.g++"), //
 
-	X86_64_WINDOWS_MSVC("x86_64.Windows.msvc"), //
+	X86_64_WINDOWS_MSVC(null, "x86_64.Windows.msvc"), //
 	// X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
 
 	;
 
 	private final static Logger log = LoggerFactory
-			.getLogger(LibraryUDT_2.class);
+			.getLogger(LibraryUDT_3.class);
 
 	static final String DOT = ".";
+	static final String BAR = "|";
 	static final String SLASH = "/";
 	static final String DASH = "-";
 	static final String LIB = "lib";
@@ -74,14 +75,36 @@ public enum LibraryUDT_2 {
 	/** The Constant DEFAULT_EXTRACT_FOLDER_NAME. */
 	public final static String DEFAULT_EXTRACT_FOLDER_NAME = DOT + SLASH + LIB;
 
+	private final String[] depList;
+
 	private final AOL aol;
 
-	LibraryUDT_2(final String aolKey) {
+	LibraryUDT_3(final String depNames, final String aolKey) {
+
+		this.depList = getDeps(depNames);
+
 		this.aol = new AOL(aolKey);
+
 	}
 
-	static LibraryUDT_2 detectLibrary() {
-		for (final LibraryUDT_2 lib : values()) {
+	private String[] getDeps(final String depNames) {
+
+		if (depNames == null) {
+			return null;
+		}
+
+		final String[] deps = depNames.split(BAR);
+
+		if (deps == null || deps.length == 0) {
+			return null;
+		}
+
+		return deps;
+
+	}
+
+	static LibraryUDT_3 detectLibrary() {
+		for (final LibraryUDT_3 lib : values()) {
 			if (lib.aol.isMatchJVM()) {
 				return lib;
 			}
@@ -103,7 +126,7 @@ public enum LibraryUDT_2 {
 
 		RES.makeTargetFolder(targetFolder);
 
-		final LibraryUDT_2 library = detectLibrary();
+		final LibraryUDT_3 library = detectLibrary();
 
 		final String targetPath = library.targetPath(targetFolder);
 
