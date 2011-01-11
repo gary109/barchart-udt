@@ -3,7 +3,7 @@
  *
  * BSD LICENCE (http://en.wikipedia.org/wiki/BSD_licenses)
  *
- * ${mavenStamp}
+ * ARTIFACT='barchart-udt4';VERSION='1.0.2-SNAPSHOT';TIMESTAMP='2011-01-11_09-30-59';
  *
  * Copyright (C) 2009-2011, Barchart, Inc. (http://www.barchart.com/)
  *

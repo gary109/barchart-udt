@@ -110,23 +110,6 @@
 				</executions>
 			</plugin>
 
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-resources-plugin</artifactId> -->
-			<!-- <configuration> -->
-			<!-- <resources> -->
-			<!-- </resources> -->
-			<!-- <outputDirectory>${basedir}/target/classes</outputDirectory> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <goals> -->
-			<!-- <goal>resources</goal> -->
-			<!-- </goals> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </configuration> -->
-			<!-- </plugin> -->
-
 		</plugins>
 	</build>
 
@@ -165,7 +148,8 @@
 						<artifactId>maven-nar-plugin</artifactId>
 						<extensions>true</extensions>
 						<configuration>
-							<!-- place nar artifacts into test classpath -->
+							<!-- place nar artifacts into test classpath for unit tests; will
+								also use for jar/nar packaging -->
 							<targetDirectory>target/test-classes</targetDirectory>
 							<libraries>
 								<library>
@@ -527,7 +511,7 @@
 		</profile>
 
 		<profile>
-			<!-- update license -->
+			<!-- update license headers -->
 			<id>license</id>
 			<build>
 				<plugins>
@@ -580,7 +564,7 @@
 		</profile>
 
 		<profile>
-			<!-- get updated UDT sources form CVS -->
+			<!-- get updated UDT sources form Yunhong Gu CVS -->
 			<id>checkout</id>
 			<build>
 				<plugins>
