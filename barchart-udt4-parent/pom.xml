@@ -352,6 +352,7 @@
 								</reportSets>
 							</plugin>
 
+							<!-- http://site.supose.org/doxygen-maven-plugin/report-mojo.html -->
 							<plugin>
 								<groupId>com.soebes.maven.plugins.dmg</groupId>
 								<artifactId>doxygen-maven-plugin</artifactId>
@@ -361,6 +362,10 @@
 									<input>src/main/c++</input>
 									<recursive>true</recursive>
 									<filePatterns>*.h *.c *.cpp</filePatterns>
+									<haveDot>true</haveDot>
+									<classGraph>true</classGraph>
+									<collaborationGraph>true</collaborationGraph>
+									<stripFromPath>${basedir}</stripFromPath>
 								</configuration>
 							</plugin>
 
