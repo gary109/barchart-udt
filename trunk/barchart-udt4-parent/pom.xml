@@ -358,7 +358,7 @@
 								<artifactId>doxygen-maven-plugin</artifactId>
 								<version>1.0.1</version>
 								<configuration>
-									<projectName>${project.name}</projectName>
+									<projectName>${project.build.finalName</projectName>
 									<input>src/main/c++</input>
 									<recursive>true</recursive>
 									<filePatterns>*.h *.c *.cpp</filePatterns>
