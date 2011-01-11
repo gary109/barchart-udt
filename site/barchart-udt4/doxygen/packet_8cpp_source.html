@@ -68,7 +68,7 @@ window.onload = initDynSections;
 </div>
 <div class="contents">
 <h1>packet.cpp</h1><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="comment">/*****************************************************************************</span>
-<a name="l00002"></a>00002 <span class="comment">Copyright (c) 2001 - 2010, The Board of Trustees of the University of Illinois.</span>
+<a name="l00002"></a>00002 <span class="comment">Copyright (c) 2001 - 2011, The Board of Trustees of the University of Illinois.</span>
 <a name="l00003"></a>00003 <span class="comment">All rights reserved.</span>
 <a name="l00004"></a>00004 <span class="comment"></span>
 <a name="l00005"></a>00005 <span class="comment">Redistribution and use in source and binary forms, with or without</span>
@@ -104,7 +104,7 @@ window.onload = initDynSections;
 <a name="l00035"></a>00035 
 <a name="l00036"></a>00036 <span class="comment">/*****************************************************************************</span>
 <a name="l00037"></a>00037 <span class="comment">written by</span>
-<a name="l00038"></a>00038 <span class="comment">   Yunhong Gu, last updated 12/14/2010</span>
+<a name="l00038"></a>00038 <span class="comment">   Yunhong Gu, last updated 01/02/2011</span>
 <a name="l00039"></a>00039 <span class="comment">*****************************************************************************/</span>
 <a name="l00040"></a>00040 
 <a name="l00041"></a>00041 
@@ -433,7 +433,7 @@ window.onload = initDynSections;
 <a name="l00365"></a>00365 {
 <a name="l00366"></a>00366 }
 <a name="l00367"></a>00367 
-<a name="l00368"></a>00368 <span class="keywordtype">int</span> CHandShake::serialize(<span class="keywordtype">char</span>* buf, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; size)
+<a name="l00368"></a>00368 <span class="keywordtype">int</span> CHandShake::serialize(<span class="keywordtype">char</span>* buf, <span class="keywordtype">int</span>&amp; size)
 <a name="l00369"></a>00369 {
 <a name="l00370"></a>00370    <span class="keywordflow">if</span> (size &lt; m_iContentSize)
 <a name="l00371"></a>00371       <span class="keywordflow">return</span> -1;
@@ -450,28 +450,30 @@ window.onload = initDynSections;
 <a name="l00382"></a>00382    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++ i)
 <a name="l00383"></a>00383       *p++ = m_piPeerIP[i];
 <a name="l00384"></a>00384 
-<a name="l00385"></a>00385    <span class="keywordflow">return</span> 0;
-<a name="l00386"></a>00386 }
-<a name="l00387"></a>00387 
-<a name="l00388"></a>00388 <span class="keywordtype">int</span> CHandShake::deserialize(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; size)
-<a name="l00389"></a>00389 {
-<a name="l00390"></a>00390    <span class="keywordflow">if</span> (size &lt; m_iContentSize)
-<a name="l00391"></a>00391       <span class="keywordflow">return</span> -1;
-<a name="l00392"></a>00392 
-<a name="l00393"></a>00393    int32_t* p = (int32_t*)buf;
-<a name="l00394"></a>00394    m_iVersion = *p++;
-<a name="l00395"></a>00395    m_iType = *p++;
-<a name="l00396"></a>00396    m_iISN = *p++;
-<a name="l00397"></a>00397    m_iMSS = *p++;
-<a name="l00398"></a>00398    m_iFlightFlagSize = *p++;
-<a name="l00399"></a>00399    m_iReqType = *p++;
-<a name="l00400"></a>00400    m_iID = *p++;
-<a name="l00401"></a>00401    m_iCookie = *p++;
-<a name="l00402"></a>00402    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++ i)
-<a name="l00403"></a>00403       m_piPeerIP[i] = *p++;
-<a name="l00404"></a>00404 
-<a name="l00405"></a>00405    <span class="keywordflow">return</span> 0;
-<a name="l00406"></a>00406 }
+<a name="l00385"></a>00385    size = m_iContentSize;
+<a name="l00386"></a>00386 
+<a name="l00387"></a>00387    <span class="keywordflow">return</span> 0;
+<a name="l00388"></a>00388 }
+<a name="l00389"></a>00389 
+<a name="l00390"></a>00390 <span class="keywordtype">int</span> CHandShake::deserialize(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, <span class="keyword">const</span> <span class="keywordtype">int</span>&amp; size)
+<a name="l00391"></a>00391 {
+<a name="l00392"></a>00392    <span class="keywordflow">if</span> (size &lt; m_iContentSize)
+<a name="l00393"></a>00393       <span class="keywordflow">return</span> -1;
+<a name="l00394"></a>00394 
+<a name="l00395"></a>00395    int32_t* p = (int32_t*)buf;
+<a name="l00396"></a>00396    m_iVersion = *p++;
+<a name="l00397"></a>00397    m_iType = *p++;
+<a name="l00398"></a>00398    m_iISN = *p++;
+<a name="l00399"></a>00399    m_iMSS = *p++;
+<a name="l00400"></a>00400    m_iFlightFlagSize = *p++;
+<a name="l00401"></a>00401    m_iReqType = *p++;
+<a name="l00402"></a>00402    m_iID = *p++;
+<a name="l00403"></a>00403    m_iCookie = *p++;
+<a name="l00404"></a>00404    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++ i)
+<a name="l00405"></a>00405       m_piPeerIP[i] = *p++;
+<a name="l00406"></a>00406 
+<a name="l00407"></a>00407    <span class="keywordflow">return</span> 0;
+<a name="l00408"></a>00408 }
 </pre></div></div>
 <hr size="1"/><address style="text-align: right;"><small>Generated on 11 Jan 2011 for barchart-udt4 by&nbsp;
 <a href="http://www.doxygen.org/index.html">
