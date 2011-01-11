@@ -1,5 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" href="$structCUnit.html" title="CUnit" alt="" coords="60,101,113,131"/>
-<area shape="rect" href="$classCUnitQueue.html" title="CUnitQueue" alt="" coords="56,331,147,360"/>
-<area shape="rect" href="$classCPacket.html" title="CPacket" alt="" coords="52,5,121,35"/>
+<area shape="rect" href="$structCUnit.html" title="CUnit" alt="" coords="60,103,116,130"/>
+<area shape="rect" href="$classCUnitQueue.html" title="CUnitQueue" alt="" coords="56,330,149,356"/>
+<area shape="rect" href="$classCPacket.html" title="CPacket" alt="" coords="52,7,124,34"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" href="$classCTCP.html" title="CTCP" alt="" coords="5,83,59,112"/>
-<area shape="rect" href="$classCUDPBlast.html" title="CUDPBlast" alt="" coords="83,83,171,112"/>
-<area shape="rect" href="$classCUDTCC.html" title="CUDTCC" alt="" coords="195,83,267,112"/>
+<area shape="rect" href="$classCTCP.html" title="CTCP" alt="" coords="5,84,64,110"/>
+<area shape="rect" href="$classCUDPBlast.html" title="CUDPBlast" alt="" coords="88,84,179,110"/>
+<area shape="rect" href="$classCUDTCC.html" title="CUDTCC" alt="" coords="203,84,283,110"/>
 </map>
