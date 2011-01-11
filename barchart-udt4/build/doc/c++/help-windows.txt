@@ -9,3 +9,9 @@ How to: Enable a 64-Bit Visual C++ Toolset at the Command Line
 http://msdn.microsoft.com/en-us/library/x4d2c09s%28v=vs.80%29.aspx
 
 #####################################################
+
+
+Description of the default C and C++ libraries that a program will link with when built by using Visual C++
+
+http://support.microsoft.com/kb/154753
+
