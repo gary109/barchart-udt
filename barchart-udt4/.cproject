@@ -26,11 +26,14 @@
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="dll" artifactName="barchart-udt4-x86-Windows-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714" name="cdt_x86-Windows-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="dll" artifactName="barchart-udt4-x86-Windows-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.CWDLocator" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714" name="cdt_x86-Windows-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.base.248637454" name="MinGW GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.mingw.base.1367706420" name="Debug Platform" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
@@ -72,7 +75,7 @@
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1694810745" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base">
 								<option defaultValue="true" id="gnu.c.link.option.shared.750287620" name="Shared (-shared)" superClass="gnu.c.link.option.shared" valueType="boolean"/>
 							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1704321135" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
+							<tool errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base.1704321135" name="MinGW C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.base">
 								<option defaultValue="true" id="gnu.cpp.link.option.shared.1250305200" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.link.option.libs.1561144783" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="ws2_32"/>
@@ -1214,8 +1217,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -1297,8 +1300,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -1573,16 +1576,19 @@
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="so" artifactName="barchart-udt4-amd64-Linux-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419" name="cdt_amd64-Linux-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="so" artifactName="barchart-udt4-amd64-Linux-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.CWDLocator" id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419" name="cdt_amd64-Linux-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.base.672076899" name="Linux GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" superClass="cdt.managedbuild.toolchain.gnu.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.base.1335863791" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
-							<builder autoBuildTarget="all" buildPath="${workspace_loc:/sourceforge-udt-wrapper/build-linux-x86-64}" cleanBuildTarget="clean" enableAutoBuild="true" id="org.eclipse.cdt.build.core.internal.builder.876749779" incrementalBuildTarget="build" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder autoBuildTarget="all" buildPath="${workspace_loc:/sourceforge-udt-wrapper/build-linux-x86-64}" cleanBuildTarget="clean" enableAutoBuild="true" errorParsers="" id="org.eclipse.cdt.build.core.internal.builder.876749779" incrementalBuildTarget="build" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.250883360" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base">
 								<option id="gnu.both.lib.option.flags.146475494" name="Archiver flags" superClass="gnu.both.lib.option.flags" value="-rcs" valueType="string"/>
 								<outputType id="cdt.managedbuild.tool.gnu.archiver.output.2044073376" outputPrefix="" superClass="cdt.managedbuild.tool.gnu.archiver.output"/>
@@ -2754,8 +2760,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -2837,8 +2843,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -3116,12 +3122,15 @@
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
 			<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="so" artifactName="barchart-udt4-i386-Linux-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.201085892" name="cdt_i386-Linux-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="so" artifactName="barchart-udt4-i386-Linux-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.CWDLocator" id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.201085892" name="cdt_i386-Linux-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="/bin/bash -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.201085892." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.base.1546435608" name="Linux GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" superClass="cdt.managedbuild.toolchain.gnu.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.base.245891740" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
@@ -4299,8 +4308,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -4382,8 +4391,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -4655,21 +4664,24 @@
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="jnilib" artifactName="barchart-udt4-x86_64-MacOSX-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991" name="cdt_x86_64-MacOSX-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="jnilib" artifactName="barchart-udt4-x86_64-MacOSX-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.CWDLocator" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991" name="cdt_x86_64-MacOSX-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991." name="/" resourcePath="">
-						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.1136854868" name="MacOSX GCC" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
+						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.macosx.base.1136854868" name="MacOSX GCC" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.1381376133" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder buildPath="${workspace_loc:/barchart-udt4/build-macosx-x86-32}" enableAutoBuild="true" id="org.eclipse.cdt.build.core.internal.builder.1130247438" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/barchart-udt4/build-macosx-x86-32}" enableAutoBuild="true" errorParsers="" id="org.eclipse.cdt.build.core.internal.builder.1130247438" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.1811294330" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base">
 								<option defaultValue="true" id="macosx.c.link.option.nostart.1114377544" name="Do not use standard start files (-nostartfiles)" superClass="macosx.c.link.option.nostart" valueType="boolean"/>
 								<option defaultValue="true" id="macosx.c.link.option.nodeflibs.623454040" name="Do not use default libraries (-nodefaultlibs)" superClass="macosx.c.link.option.nodeflibs" valueType="boolean"/>
 								<option defaultValue="true" id="macosx.c.link.option.shared.604616121" name="Shared (-dynamiclib)" superClass="macosx.c.link.option.shared" valueType="boolean"/>
 							</tool>
-							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.571648671" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
+							<tool errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.571648671" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
 								<option defaultValue="true" id="macosx.cpp.link.option.shared.974380057" name="Shared (-dynamiclib)" superClass="macosx.cpp.link.option.shared" value="false" valueType="boolean"/>
 								<option id="macosx.cpp.link.option.flags.1636652189" name="Linker flags" superClass="macosx.cpp.link.option.flags" value="-m64   -arch x86_64   -dynamic   -bundle   -Wl,-map,barchart-udt4-x86_64-MacOSX-g++.map  " valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.macosx.cpp.linker.input.1959963162" superClass="cdt.managedbuild.tool.macosx.cpp.linker.input">
@@ -4678,11 +4690,11 @@
 								</inputType>
 								<outputType id="cdt.managedbuild.tool.macosx.cpp.linker.output.1106583013" outputPrefix="lib" superClass="cdt.managedbuild.tool.macosx.cpp.linker.output"/>
 							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.assembler.macosx.base.1821665057" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.macosx.base">
+							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.macosx.base.1821665057" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.macosx.base">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1239912117" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.1977800133" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.2119446137" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.2119446137" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option id="gnu.cpp.compiler.option.optimization.level.453488960" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1045593744" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.other.other.2113591517" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -fPIC   -m64   -arch x86_64    -fexceptions     -Wextra" valueType="string"/>
@@ -4700,7 +4712,7 @@
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1604886069" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1325080136" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.1325080136" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1594013328" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.628234513" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.misc.other.1191664526" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c" valueType="string"/>
@@ -5836,8 +5848,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -5919,8 +5931,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -6196,21 +6208,24 @@
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="jnilib" artifactName="barchart-udt4-i386-MacOSX-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436" name="cdt_i386-MacOSX-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="jnilib" artifactName="barchart-udt4-i386-MacOSX-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.CWDLocator" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436" name="cdt_i386-MacOSX-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.920811574.809330991.1963512436." name="/" resourcePath="">
-						<toolChain id="cdt.managedbuild.toolchain.gnu.macosx.base.1088931553" name="MacOSX GCC" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
+						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.macosx.base.1088931553" name="MacOSX GCC" superClass="cdt.managedbuild.toolchain.gnu.macosx.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.macosx.base.1053359636" name="Debug Platform" osList="macosx" superClass="cdt.managedbuild.target.gnu.platform.macosx.base"/>
-							<builder buildPath="${workspace_loc:/barchart-udt4/build-macosx-x86-32}" enableAutoBuild="true" id="org.eclipse.cdt.build.core.internal.builder.2121647826" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
+							<builder buildPath="${workspace_loc:/barchart-udt4/build-macosx-x86-32}" enableAutoBuild="true" errorParsers="" id="org.eclipse.cdt.build.core.internal.builder.2121647826" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" superClass="org.eclipse.cdt.build.core.internal.builder"/>
 							<tool id="cdt.managedbuild.tool.macosx.c.linker.macosx.base.22445945" name="MacOS X C Linker" superClass="cdt.managedbuild.tool.macosx.c.linker.macosx.base">
 								<option defaultValue="true" id="macosx.c.link.option.nostart.790972059" name="Do not use standard start files (-nostartfiles)" superClass="macosx.c.link.option.nostart" valueType="boolean"/>
 								<option defaultValue="true" id="macosx.c.link.option.nodeflibs.1369685521" name="Do not use default libraries (-nodefaultlibs)" superClass="macosx.c.link.option.nodeflibs" valueType="boolean"/>
 								<option defaultValue="true" id="macosx.c.link.option.shared.1347115572" name="Shared (-dynamiclib)" superClass="macosx.c.link.option.shared" valueType="boolean"/>
 							</tool>
-							<tool id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.639384995" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
+							<tool errorParsers="org.eclipse.cdt.core.GLDErrorParser" id="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base.639384995" name="MacOS X C++ Linker" superClass="cdt.managedbuild.tool.macosx.cpp.linker.macosx.base">
 								<option defaultValue="true" id="macosx.cpp.link.option.shared.579315431" name="Shared (-dynamiclib)" superClass="macosx.cpp.link.option.shared" value="false" valueType="boolean"/>
 								<option id="macosx.cpp.link.option.flags.15536295" name="Linker flags" superClass="macosx.cpp.link.option.flags" value="-m32   -arch i386   -dynamic   -bundle   -Wl,-map,barchart-udt4-MacOSX-g++.map   " valueType="string"/>
 								<option id="macosx.cpp.link.option.libs.1032942051" name="Libraries (-l)" superClass="macosx.cpp.link.option.libs"/>
@@ -6220,11 +6235,11 @@
 								</inputType>
 								<outputType id="cdt.managedbuild.tool.macosx.cpp.linker.output.1699666518" outputPrefix="lib" superClass="cdt.managedbuild.tool.macosx.cpp.linker.output"/>
 							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.assembler.macosx.base.722510418" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.macosx.base">
+							<tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.macosx.base.722510418" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.macosx.base">
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.876363927" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.macosx.base.1999574944" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.macosx.base"/>
-							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.664900693" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.664900693" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option id="gnu.cpp.compiler.option.include.paths.1934286505" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/cdt/jni/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/cdt/jni/include/macosx}&quot;"/>
@@ -6242,7 +6257,7 @@
 								<option id="gnu.cpp.compiler.option.optimization.flags.367275328" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.435436162" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 							</tool>
-							<tool id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.437192977" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
+							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.macosx.base.437192977" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.macosx.base">
 								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.1122933419" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.debugging.level.630011747" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.c.compiler.option.misc.other.117905316" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c" valueType="string"/>
@@ -7378,8 +7393,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>
@@ -7461,8 +7476,8 @@
 						</scannerInfoProvider>
 					</profile>
 				</scannerConfigBuildInfo>
-				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.release.935602654;cdt.managedbuild.config.gnu.cygwin.so.release.935602654.;cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.so.release.597297906;cdt.managedbuild.tool.gnu.cpp.compiler.input.cygwin.1517162981">
-					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP"/>
+				<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865;cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.567636865.;cdt.managedbuild.tool.gnu.c.compiler.mingw.base.200163309;cdt.managedbuild.tool.gnu.c.compiler.input.1203756148">
+					<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 					<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
 						<buildOutputProvider>
 							<openAction enabled="true" filePath=""/>

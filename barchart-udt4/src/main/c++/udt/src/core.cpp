@@ -1,5 +1,5 @@
 /*****************************************************************************
-Copyright (c) 2001 - 2010, The Board of Trustees of the University of Illinois.
+Copyright (c) 2001 - 2011, The Board of Trustees of the University of Illinois.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 12/21/2010
+   Yunhong Gu, last updated 01/02/2011
 *****************************************************************************/
 
 #ifndef WIN32
@@ -845,9 +845,10 @@ void CUDT::connect(const sockaddr* peer, CHandShake* hs)
 
    //send the response to the peer, see listen() for more discussions about this
    CPacket response;
-   char* buffer = new char[CHandShake::m_iContentSize];
-   hs->serialize(buffer, CHandShake::m_iContentSize);
-   response.pack(0, NULL, buffer, CHandShake::m_iContentSize);
+   int size = CHandShake::m_iContentSize;
+   char* buffer = new char[size];
+   hs->serialize(buffer, size);
+   response.pack(0, NULL, buffer, size);
    response.m_iID = m_PeerID;
    m_pSndQueue->sendto(peer, response);
    delete [] buffer;
@@ -892,10 +893,6 @@ void CUDT::close()
    if (m_bConnected)
       m_pSndQueue->m_pSndUList->remove(this);
 
-   // remove itself from all epoll monitoring
-   for (set<int>::iterator i = m_sPollID.begin(); i != m_sPollID.end(); ++ i)
-      s_UDTUnited.m_EPoll.remove_usock(*i, m_SocketID);
-
    CGuard cg(m_ConnectionLock);
 
    if (!m_bOpened)
@@ -930,6 +927,14 @@ void CUDT::close()
    // waiting all send and recv calls to stop
    CGuard sendguard(m_SendLock);
    CGuard recvguard(m_RecvLock);
+
+   // remove itself from all epoll monitoring
+   // however, if an epoll is mornitoring this socket, needs to acknowledge the app
+   s_UDTUnited.m_EPoll.enable_read(m_SocketID, m_sPollID);
+   s_UDTUnited.m_EPoll.enable_write(m_SocketID, m_sPollID);
+   for (set<int>::iterator i = m_sPollID.begin(); i != m_sPollID.end(); ++ i)
+      s_UDTUnited.m_EPoll.remove_usock(*i, m_SocketID);
+
 
    // CLOSED.
    m_bOpened = false;
@@ -1006,7 +1011,12 @@ int CUDT::send(const char* data, const int& len)
    }
 
    if (m_iSndBufSize <= m_pSndBuffer->getCurrBufSize())
-      return 0; 
+   {
+      if (m_iSndTimeOut >= 0)
+         throw CUDTException(6, 1, 0); 
+
+      return 0;
+   }
 
    int size = (m_iSndBufSize - m_pSndBuffer->getCurrBufSize()) * m_iPayloadSize;
    if (size > len)
@@ -1112,6 +1122,9 @@ int CUDT::recv(char* data, const int& len)
       s_UDTUnited.m_EPoll.disable_read(m_SocketID, m_sPollID);
    }
 
+   if ((res <= 0) && (m_iRcvTimeOut >= 0))
+      throw CUDTException(6, 2, 0);
+
    return res;
 }
 
@@ -1184,7 +1197,12 @@ int CUDT::sendmsg(const char* data, const int& len, const int& msttl, const bool
    }
 
    if ((m_iSndBufSize - m_pSndBuffer->getCurrBufSize()) * m_iPayloadSize < len)
+   {
+      if (m_iSndTimeOut >= 0)
+         throw CUDTException(6, 1, 0);
+
       return 0;
+   }
 
    // record total time used for sending
    if (0 == m_pSndBuffer->getCurrBufSize())
@@ -1295,6 +1313,9 @@ int CUDT::recvmsg(char* data, const int& len)
       // read is not available any more
       s_UDTUnited.m_EPoll.disable_read(m_SocketID, m_sPollID);
    }
+
+   if ((res <= 0) && (m_iRcvTimeOut >= 0))
+      throw CUDTException(6, 2, 0);
 
    return res;
 }
@@ -2079,7 +2100,11 @@ void CUDT::processCtrl(CPacket& ctrlpkt)
          initdata.m_iFlightFlagSize = m_iFlightFlagSize;
          initdata.m_iReqType = (!m_bRendezvous) ? -1 : -2;
          initdata.m_iID = m_SocketID;
-         sendCtrl(0, NULL, (char *)&initdata, sizeof(CHandShake));
+
+         char buffer[1500];
+         int size = 1500;
+         initdata.serialize(buffer, size);
+         sendCtrl(0, NULL, buffer, size);
       }
 
       break;
@@ -2361,7 +2386,8 @@ int CUDT::listen(sockaddr* addr, CPacket& packet)
    {
       hs.m_iCookie = *(int*)cookie;
       packet.m_iID = hs.m_iID;
-      hs.serialize(packet.m_pcData, packet.getLength());
+      int size = packet.getLength();
+      hs.serialize(packet.m_pcData, size);
       m_pSndQueue->sendto(addr, packet);
       return 0;
    }
@@ -2387,7 +2413,8 @@ int CUDT::listen(sockaddr* addr, CPacket& packet)
       {
          // mismatch, reject the request
          hs.m_iReqType = 1002;
-         hs.serialize(packet.m_pcData, CHandShake::m_iContentSize);
+         int size = CHandShake::m_iContentSize;
+         hs.serialize(packet.m_pcData, size);
          packet.m_iID = id;
          m_pSndQueue->sendto(addr, packet);
       }
@@ -2401,7 +2428,8 @@ int CUDT::listen(sockaddr* addr, CPacket& packet)
          // new connection response should be sent in connect()
          if (result != 1)
          {
-            hs.serialize(packet.m_pcData, CHandShake::m_iContentSize);
+            int size = CHandShake::m_iContentSize;
+            hs.serialize(packet.m_pcData, size);
             packet.m_iID = id;
             m_pSndQueue->sendto(addr, packet);
          }
