@@ -159,7 +159,8 @@
 								</library>
 							</libraries>
 							<cpp>
-								<debug>true</debug>
+								<!-- NOTE: debug=true will introduce msvc XXXd.dll dependencies -->
+								<debug>false</debug>
 								<optimize>none</optimize>
 								<exceptions>true</exceptions>
 								<multiThreaded>true</multiThreaded>
@@ -450,9 +451,9 @@
 									<define>_WINDLL</define>
 								</defines>
 								<options>
+									<option>/W4</option>
 									<option>/RTC1</option>
 									<option>/MD</option>
-									<option>/W4</option>
 								</options>
 							</cpp>
 							<linker>
