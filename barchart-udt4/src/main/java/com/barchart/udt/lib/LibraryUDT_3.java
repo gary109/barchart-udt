@@ -54,11 +54,11 @@ public enum LibraryUDT_3 {
 
 	X86_64_MACOSX_GPP(null, "x86_64.MacOSX.g++"), //
 
-	X86_WINDOWS_MSVC("msvcr90.dll,msvcp90.dll", "x86.Windows.msvc"), //
-	// X86_WINDOWS_GPP("x86.Windows.g++"), //
+	// X86_WINDOWS_MSVC("msvcr90.dll,msvcp90.dll", "x86.Windows.msvc"), //
+	X86_WINDOWS_GPP("libgcc_s_dw2-1.dll,libstdc++-6.dll", "x86.Windows.g++"), //
 
-	X86_64_WINDOWS_MSVC("msvcr90.dll,msvcp90.dll", "x86_64.Windows.msvc"), //
-	// X86_64_WINDOWS_GPP("x86_64.Windows.g++"), //
+	// X86_64_WINDOWS_MSVC("msvcr90.dll,msvcp90.dll", "x86_64.Windows.msvc"), //
+	X86_64_WINDOWS_GPP(null, "x86_64.Windows.g++"), //
 
 	;
 
@@ -130,7 +130,7 @@ public enum LibraryUDT_3 {
 
 		//
 
-//		library.loadDeps(targetFolder);
+		library.loadDeps(targetFolder);
 
 		//
 
@@ -175,7 +175,7 @@ public enum LibraryUDT_3 {
 
 		for (final String depName : depsList) {
 
-			log.info("\n\t depName:{}:", depName);
+			log.info("\n\t depName={}", depName);
 
 			final String sourcePath = sourceDepPath(depName);
 
