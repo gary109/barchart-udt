@@ -60,11 +60,20 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- <dependency> -->
+		<!-- <groupId>com.barchart.udt</groupId> -->
+		<!-- <artifactId>barchart-udt4</artifactId> -->
+		<!-- <version>${project.version}</version> -->
+		<!-- <classifier>x86-Windows-msvc-jni</classifier> -->
+		<!-- <type>nar</type> -->
+		<!-- <optional>true</optional> -->
+		<!-- </dependency> -->
+
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
 			<version>${project.version}</version>
-			<classifier>x86-Windows-msvc-jni</classifier>
+			<classifier>x86-Windows-g++-jni</classifier>
 			<type>nar</type>
 			<optional>true</optional>
 		</dependency>
