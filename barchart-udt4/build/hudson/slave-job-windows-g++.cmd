@@ -12,15 +12,16 @@ REM
 ECHO "PWD=%CD%"
 
 SET MINGW_HOME=C:\mingw\bin
-ECHO ### MINGW_HOME=%MINGW_HOME%
+ECHO "### MINGW_HOME=%MINGW_HOME%"
 
 IF [%jdk%]==[java32] (
-ECHO ### mingw for java32
-SET PATH=%MINGW_HOME%;%PATH%
+ECHO "### mingw for java32"
+PATH=%MINGW_HOME%;%PATH%
+ECHO "### PATH=%PATH%"
 )
 
 IF [%jdk%]==[java64] (
-ECHO ### mingw for java64: NOT ready
+ECHO "### mingw for java64: NOT tested"
 exit
 )
 
