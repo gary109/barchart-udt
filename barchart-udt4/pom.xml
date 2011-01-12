@@ -386,6 +386,7 @@
 						<configuration>
 							<cpp>
 								<name>g++</name>
+								<!-- in fact, nar calls g++ -->
 								<defines>
 									<define>IA32</define>
 									<define>WIN32</define>
@@ -393,6 +394,7 @@
 									<define>__MINGW__</define>
 								</defines>
 								<options>
+									<option>-v</option>
 									<option>-mthreads</option>
 									<option>-O2</option>
 									<option>-Wall</option>
@@ -403,19 +405,19 @@
 							</cpp>
 							<linker>
 								<name>g++</name>
+								<!-- in fact, nar calls cpp -->
 								<options>
+									<option>-v</option>
 									<option>-mthreads</option>
 									<option>-Wl,--kill-at</option>
 									<option>-Wl,--add-stdcall-alias</option>
 									<option>-Wl,--image-base,0x10000000</option>
 									<option>-Wl,-Map,${project.build.finalName}.map</option>
+									<option>-shared-libgcc</option>
 								</options>
 								<sysLibs>
 									<sysLib>
-										<name>kernel32</name>
-									</sysLib>
-									<sysLib>
-										<name>user32</name>
+										<name>stdc++</name>
 									</sysLib>
 									<sysLib>
 										<name>ws2_32</name>
