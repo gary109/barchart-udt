@@ -9,7 +9,7 @@ REM must provide maven home via
 REM http://wiki.hudson-ci.org/display/HUDSON/Tool+Environment+Plugin
 REM
 
-ECHO "PWD=%CD%"
+ECHO "### PWD=%CD%"
 
 SET MINGW_HOME=C:\mingw\bin
 ECHO "### MINGW_HOME=%MINGW_HOME%"
