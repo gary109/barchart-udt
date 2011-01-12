@@ -22,7 +22,7 @@ ECHO "### PATH=%PATH%"
 
 IF [%jdk%]==[java64] (
 ECHO "### mingw for java64: NOT tested"
-exit
+exit -1
 )
 
 "%APACHE_MAVEN_3_0_1_HOME%\bin\mvn" clean deploy --activate-profiles nar --show-version --update-snapshots
