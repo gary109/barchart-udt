@@ -228,6 +228,7 @@
 									<define>LINUX</define>
 								</defines>
 								<options>
+									<option>-v</option>
 									<option>-m32</option>
 									<option>-O2</option>
 									<option>-Wall</option>
@@ -238,6 +239,7 @@
 							</cpp>
 							<linker>
 								<options>
+									<option>-v</option>
 									<option>-m32</option>
 									<option>-Wl,-Map,${project.build.finalName}.map</option>
 								</options>
