@@ -228,7 +228,6 @@
 									<define>LINUX</define>
 								</defines>
 								<options>
-									<option>-v</option>
 									<option>-m32</option>
 									<option>-O2</option>
 									<option>-Wall</option>
@@ -239,7 +238,6 @@
 							</cpp>
 							<linker>
 								<options>
-									<option>-v</option>
 									<option>-m32</option>
 									<option>-Wl,-Map,${project.build.finalName}.map</option>
 								</options>
@@ -396,7 +394,6 @@
 									<define>__MINGW__</define>
 								</defines>
 								<options>
-									<option>-v</option>
 									<option>-mthreads</option>
 									<option>-O2</option>
 									<option>-Wall</option>
@@ -409,7 +406,6 @@
 								<name>g++</name>
 								<!-- in fact, nar calls cpp -->
 								<options>
-									<option>-v</option>
 									<option>-mthreads</option>
 									<option>-Wl,--kill-at</option>
 									<option>-Wl,--add-stdcall-alias</option>
