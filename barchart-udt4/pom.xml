@@ -375,7 +375,6 @@
 			<id>nar_x86-Windows-g++</id>
 			<activation>
 				<os>
-					<name>DISABLED</name>
 					<arch>x86</arch>
 					<family>windows</family>
 				</os>
@@ -433,6 +432,7 @@
 			<id>nar_x86-Windows-msvc</id>
 			<activation>
 				<os>
+					<name>DISABLED</name>
 					<arch>x86</arch>
 					<family>windows</family>
 				</os>
@@ -484,6 +484,7 @@
 			<id>nar_x86_64-Windows-msvc</id>
 			<activation>
 				<os>
+					<name>DISABLED</name>
 					<arch>x86_64</arch>
 					<family>windows</family>
 				</os>
