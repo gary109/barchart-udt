@@ -12,7 +12,7 @@ echo "### svn delete"
 svn delete --force "$SITE"
 
 echo "### svn commit"
-svn commit --force --message "clear site" "$SITE"
+svn commit --message "clear site" "$SITE"
 
 echo "### copy new"
 cp --verbose --force --recursive "$BASE/target/site/"* "$SITE/"
