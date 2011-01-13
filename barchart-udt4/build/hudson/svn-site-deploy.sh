@@ -3,13 +3,12 @@
 PROJ="barchart-udt4"
 
 BASE="$WORKSPACE/$PROJ"
-SITE="$WORKSPACE/site"
+SITE="$WORKSPACE/site/$PROJ"
 
 echo "### BASE=$BASE"
 echo "### SITE=$SITE"
 
-cd "$SITE"
+svn delete --force "$SITE"
 
-svn delete --force "$PROJ"
-
+cp --force --recursive "$BASE/target/site/" "$SITE"
 
