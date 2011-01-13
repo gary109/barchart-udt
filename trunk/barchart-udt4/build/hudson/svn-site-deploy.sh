@@ -10,5 +10,5 @@ echo "### SITE=$SITE"
 
 svn delete --force "$SITE"
 
-cp --force --recursive "$BASE/target/site/" "$SITE"
+cp --verbose --force --recursive "$BASE/target/site/" "$SITE"
 
