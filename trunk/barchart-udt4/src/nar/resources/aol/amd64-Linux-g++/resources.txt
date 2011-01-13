@@ -1,2 +1,0 @@
-additional resources from folder:
-src/nar/resources/aol/${aol}
