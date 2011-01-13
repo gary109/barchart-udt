@@ -197,6 +197,7 @@
 						<executions>
 							<execution>
 								<goals>
+									<goal>nar-resources</goal>
 									<goal>nar-javah</goal>
 									<goal>nar-compile</goal>
 									<goal>nar-package</goal>
