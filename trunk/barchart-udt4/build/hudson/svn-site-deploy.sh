@@ -12,7 +12,7 @@ echo "### svn delete"
 svn delete --force "$SITE"
 
 echo "### svn commit"
-svn commit --message "clear site" "$SITE"
+svn commit --message "remove site" "$SITE"
 
 echo "### mkdir new"
 mkdir --parents "$SITE"
@@ -24,8 +24,11 @@ echo "### svn add new"
 svn add --force "$SITE"
 
 echo "### svn propset html"
-svn propset --force --recursive svn:mime-type text/html "$SITE"/*.html
+find "$SITE" -name '*.html' -exec svn propset --force svn:mime-type text/html {} \;
 
 echo "### svn propset css"
-svn propset --force --recursive svn:mime-type text/css "$SITE"/*.css
+find "$SITE" -name '*.css' -exec svn propset --force svn:mime-type text/css {} \;
+
+echo "### svn commit"
+svn commit --message "pulish site" "$SITE"
 
