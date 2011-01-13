@@ -16,9 +16,12 @@ cp --verbose --force --recursive "$BASE/target/site/"* "$SITE/"
 
 cd "$SITE"
 
+echo "### svn add new"
+svn add --force *
+
 echo "### svn propset html"
-svn propset --recursive svn:mime-type text/html *.html
+svn propset --force --recursive svn:mime-type text/html *.html
 
 echo "### svn propset css"
-svn propset --recursive svn:mime-type text/css *.css
+svn propset --force --recursive svn:mime-type text/css *.css
 
