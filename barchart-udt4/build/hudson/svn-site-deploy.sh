@@ -20,14 +20,12 @@ mkdir --parents "$SITE"
 echo "### copy new"
 cp --verbose --force --recursive "$BASE/target/site/"* "$SITE/"
 
-cd "$SITE"
-
 echo "### svn add new"
-svn add --force *
+svn add --force "$SITE"
 
 echo "### svn propset html"
-svn propset --force --recursive svn:mime-type text/html *.html
+svn propset --force --recursive svn:mime-type text/html "$SITE"/*.html
 
 echo "### svn propset css"
-svn propset --force --recursive svn:mime-type text/css *.css
+svn propset --force --recursive svn:mime-type text/css "$SITE"/*.css
 
