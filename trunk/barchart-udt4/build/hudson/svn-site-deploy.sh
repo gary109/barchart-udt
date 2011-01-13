@@ -5,11 +5,11 @@ PROJ="barchart-udt4"
 BASE="$WORKSPACE/$PROJ"
 SITE="$WORKSPACE/site"
 
-echo "BASE=$BASE"
-echo "SITE=$SITE"
+echo "### BASE=$BASE"
+echo "### SITE=$SITE"
 
 cd "$SITE"
 
-svn delete --force --message "delete site" "$PROJ"
+svn delete --force "$PROJ"
 
 
