@@ -1,10 +1,15 @@
 #/bin/sh
 
 PROJ="barchart-udt4"
-SITE="https://barchart-udt.googlecode.com/svn/site/$PROJ"
-BASE="$WORKSPACE/$PROJ"
 
-echo "SITE=$SITE"
+BASE="$WORKSPACE/$PROJ"
+SITE="$WORKSPACE/site"
 
 echo "BASE=$BASE"
+echo "SITE=$SITE"
+
+cd "$SITE"
+
+svn delete --force --message "delete site" "$PROJ"
+
 
