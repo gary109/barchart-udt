@@ -1,7 +1,9 @@
 #/bin/sh
 
+# must provide project name
 PROJ="barchart-udt4"
 
+# google code convention
 BASE="$WORKSPACE/$PROJ"
 SITE="$WORKSPACE/site/$PROJ"
 
@@ -12,7 +14,7 @@ echo "### svn delete"
 svn delete --force "$SITE"
 
 echo "### svn commit"
-svn commit --message "remove site" "$SITE"
+svn commit --message "hudson: remove site" "$SITE"
 
 echo "### mkdir new"
 mkdir --parents "$SITE"
@@ -27,8 +29,8 @@ echo "### svn propset html"
 find "$SITE" -name '*.html' -exec svn propset --force svn:mime-type text/html {} \;
 
 echo "### svn propset css"
-find "$SITE" -name '*.css' -exec svn propset --force svn:mime-type text/css {} \;
+find "$SITE" -name '*.css'  -exec svn propset --force svn:mime-type text/css {} \;
 
 echo "### svn commit"
-svn commit --message "pulish site" "$SITE"
+svn commit --message "hudson: pulish site" "$SITE"
 
