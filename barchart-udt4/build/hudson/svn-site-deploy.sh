@@ -14,9 +14,11 @@ svn delete --force "$SITE"
 echo "### copy new"
 cp --verbose --force --recursive "$BASE/target/site/"* "$SITE/"
 
+cd "$SITE"
+
 echo "### svn propset html"
-svn propset --recursive svn:mime-type text/html *.html "$SITE"
+svn propset --recursive svn:mime-type text/html *.html
 
 echo "### svn propset css"
-svn propset --recursive svn:mime-type text/css *.css "$SITE"
+svn propset --recursive svn:mime-type text/css *.css
 
