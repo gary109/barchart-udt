@@ -1,7 +1,8 @@
 #/bin/sh
 
-SITE="https://barchart-udt.googlecode.com/svn/site/barchart-udt4"
-BASE="$PWD"
+PROJ="barchart-udt4"
+SITE="https://barchart-udt.googlecode.com/svn/site/$PROJ"
+BASE="$WORKSPACE/$PROJ"
 
 echo "SITE=$SITE"
 
