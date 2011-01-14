@@ -9,9 +9,10 @@
 # http://wiki.hudson-ci.org/display/HUDSON/Tool+Environment+Plugin
 #
 
-echo "### PWD=$PWD"
+echo "### pwd   = $PWD"
 
-echo "### JDK=$jdk"
+echo "### label = $label"
+echo "### jdk   = $jdk"
 
 case "$jdk" in
 java32)
