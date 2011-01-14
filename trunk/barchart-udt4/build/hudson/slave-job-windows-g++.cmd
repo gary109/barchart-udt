@@ -21,7 +21,7 @@ IF [%jdk%]==[java32] call :do_mingw_32
 
 IF [%jdk%]==[java64] call :do_mingw_64
 
-"%APACHE_MAVEN_3_0_1_HOME%\bin\mvn" clean deploy --activate-profiles nar --show-version --update-snapshots
+"%APACHE_MAVEN_3_HOME%\bin\mvn" clean deploy --activate-profiles nar --show-version --update-snapshots
 
 goto :EOF
 
