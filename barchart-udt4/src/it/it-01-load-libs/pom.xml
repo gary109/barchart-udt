@@ -19,15 +19,8 @@
 		<dependency>
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.barchart.udt</groupId>
-			<artifactId>barchart-udt4</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
-			<classifier>i386-Linux-g++-jni</classifier>
-			<type>nar</type>
+			<version>${barchartVersion}</version>
+			<type>jar</type>
 		</dependency>
 
 		<dependency>
@@ -41,6 +34,105 @@
 		</dependency>
 
 	</dependencies>
+
+	<profiles>
+
+		<profile>
+			<id>nar_i386-Linux-g++</id>
+			<activation>
+				<os>
+					<name>Linux</name>
+					<arch>i386</arch>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>i386-Linux-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>nar_amd64-Linux-g++</id>
+			<activation>
+				<os>
+					<name>Linux</name>
+					<arch>amd64</arch>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>amd64-Linux-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>nar_i386-MacOSX-g++</id>
+			<activation>
+				<os>
+					<arch>i386</arch>
+					<name>Mac OS X</name>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>i386-MacOSX-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>nar_x86_64-MacOSX-g++</id>
+			<activation>
+				<os>
+					<arch>x86_64</arch>
+					<name>Mac OS X</name>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>x86_64-MacOSX-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>nar_x86-Windows-g++</id>
+			<activation>
+				<os>
+					<arch>x86</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>x86-Windows-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+	</profiles>
 
 	<build>
 

@@ -42,6 +42,7 @@
 		<nativeInclude>include</nativeInclude>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<barchartVersion>${project.version}</barchartVersion>
 
 	</properties>
 
@@ -654,8 +655,8 @@
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-invoker-plugin</artifactId>
-						<version>1.5</version>
 						<configuration>
 							<debug>false</debug>
 							<ignoreFailures>false</ignoreFailures>
@@ -663,12 +664,6 @@
 							<settingsFile>src/it/settings.xml</settingsFile>
 							<cloneProjectsTo>${project.build.directory}/it-work</cloneProjectsTo>
 							<localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
-							<setupIncludes>
-								<setupInclude>it-parent/pom.xml</setupInclude>
-							</setupIncludes>
-							<pomIncludes>
-								<pomInclude>*/pom.xml</pomInclude>
-							</pomIncludes>
 							<goals>
 								<goal>clean</goal>
 								<goal>install</goal>
@@ -676,7 +671,7 @@
 						</configuration>
 						<executions>
 							<execution>
-								<id>integration-test</id>
+								<id>it-install-and-run</id>
 								<phase>integration-test</phase>
 								<goals>
 									<goal>install</goal>
