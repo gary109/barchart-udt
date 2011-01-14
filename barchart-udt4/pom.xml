@@ -72,9 +72,9 @@
 				<directory>src/main/resources</directory>
 				<filtering>false</filtering>
 				<includes>
-					<include>**/*.dll</include>
 					<include>**/*.so</include>
 					<include>**/*.jnilib</include>
+					<include>**/*.dll</include>
 					<include>**/*.map</include>
 					<include>**/*.sym</include>
 				</includes>
@@ -90,6 +90,31 @@
 			</resource>
 
 		</resources>
+
+		<testResources>
+
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.txt</include>
+					<include>**/*.properties</include>
+				</includes>
+			</testResource>
+
+			<testResource>
+				<directory>src/nar/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.so</include>
+					<include>**/*.jnilib</include>
+					<include>**/*.dll</include>
+					<include>**/*.map</include>
+					<include>**/*.sym</include>
+				</includes>
+			</testResource>
+
+		</testResources>
 
 		<plugins>
 
@@ -148,7 +173,7 @@
 						<artifactId>maven-nar-plugin</artifactId>
 						<extensions>true</extensions>
 						<configuration>
-							<!-- place nar artifacts into test classpath for unit tests; will
+							<!-- place nar artifacts into test classpath for unit tests; will 
 								also use for jar/nar packaging -->
 							<targetDirectory>target/test-classes</targetDirectory>
 							<libraries>
