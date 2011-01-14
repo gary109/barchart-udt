@@ -664,6 +664,7 @@
 							<settingsFile>src/it/settings.xml</settingsFile>
 							<cloneProjectsTo>${project.build.directory}/it-work</cloneProjectsTo>
 							<localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+							<invokerPropertiesFile>invoker-${label}-${jdk}.properties</invokerPropertiesFile>
 							<goals>
 								<goal>clean</goal>
 								<goal>install</goal>
