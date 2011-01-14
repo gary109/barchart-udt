@@ -27,5 +27,5 @@ esac
 
 echo "### MAVEN_OPTS=$MAVEN_OPTS"
 
-"$APACHE_MAVEN_3_HOME/bin/mvn" clean deploy --activate-profiles nar --show-version --update-snapshots
+"$APACHE_MAVEN_3_HOME/bin/mvn" clean deploy --activate-profiles nar it-run --show-version --update-snapshots
 
