@@ -393,31 +393,31 @@
 
 		<plugins>
 
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-enforcer-plugin</artifactId> -->
-			<!-- <version>1.0</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <id>enforce-barchart</id> -->
-			<!-- <goals> -->
-			<!-- <goal>enforce</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <rules> -->
-			<!-- <requireJavaVersion> -->
-			<!-- <message>### You must run Java version ${javaVersion} ###</message> -->
-			<!-- <version>${javaVersion}</version> -->
-			<!-- </requireJavaVersion> -->
-			<!-- <requireMavenVersion> -->
-			<!-- <message>### You must run Maven version ${mavenVersion} ###</message> -->
-			<!-- <version>${mavenVersion}</version> -->
-			<!-- </requireMavenVersion> -->
-			<!-- </rules> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>enforce-barchart</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireJavaVersion>
+									<message>### You must run Java version ${javaVersion} ###</message>
+									<version>${javaVersion}</version>
+								</requireJavaVersion>
+								<requireMavenVersion>
+									<message>### You must run Maven version ${mavenVersion} ###</message>
+									<version>${mavenVersion}</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 
