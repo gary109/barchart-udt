@@ -133,6 +133,8 @@
 
 	<build>
 
+		<defaultGoal>test</defaultGoal>
+
 		<extensions>
 
 			<extension>
