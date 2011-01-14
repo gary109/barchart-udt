@@ -11,7 +11,9 @@ REM
 
 REM #####################
 
-ECHO ### PWD=%CD%
+ECHO ### pwd   = %CD%
+ECHO ### label = %label%
+ECHO ### jde   = %jdk%
 
 SET MINGW_HOME=c:\mingw\bin
 
