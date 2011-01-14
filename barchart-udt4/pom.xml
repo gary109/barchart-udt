@@ -661,6 +661,7 @@
 							<ignoreFailures>false</ignoreFailures>
 							<projectsDirectory>src/it/</projectsDirectory>
 							<settingsFile>src/it/settings.xml</settingsFile>
+							<cloneProjectsTo>${project.build.directory}/it-clone</cloneProjectsTo>
 							<localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
 							<setupIncludes>
 								<setupInclude>it-parent/pom.xml</setupInclude>
@@ -675,7 +676,7 @@
 						</configuration>
 						<executions>
 							<execution>
-								<id>integration-test</id>
+								<id>it-run</id>
 								<goals>
 									<goal>install</goal>
 									<goal>run</goal>
