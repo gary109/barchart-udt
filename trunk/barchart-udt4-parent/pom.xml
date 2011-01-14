@@ -60,6 +60,7 @@
 	<properties>
 
 		<javaVersion>1.6</javaVersion>
+		<mavenVersion>3.0.2</mavenVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -381,10 +382,42 @@
 					<version>1.5</version>
 				</plugin>
 
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>1.0</version>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 
 		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>enforce-barchart</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireJavaVersion>
+									<message>### You must run Java version ${javaVersion} ###</message>
+									<version>${javaVersion}</version>
+								</requireJavaVersion>
+								<requireMavenVersion>
+									<message>### You must run Maven version ${mavenVersion} ###</message>
+									<version>${mavenVersion}</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 
