@@ -1,8 +1,10 @@
 package com.barchart.udt.it;
 
+import static org.junit.Assert.*;
 
 import java.io.File;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +15,24 @@ public class TestLoadSocketUDT {
 
 	static final Logger log = LoggerFactory.getLogger(TestLoadSocketUDT.class);
 
-	public static void main(String[] args) {
+	static void logClassPath() {
+
+		String classPath = System.getProperty("java.class.path");
+
+		String[] entries = classPath.split(File.pathSeparator);
+
+		StringBuilder text = new StringBuilder(1024);
+
+		for (String item : entries) {
+			text.append("\n\t");
+			text.append(item);
+		}
+
+		log.info("{}", text);
+	}
+
+	@Test
+	public void testLoadLibs() {
 
 		log.info("this example tests if barchart-udt maven dependency works");
 
@@ -33,28 +52,16 @@ public class TestLoadSocketUDT {
 
 			log.info("socket options{}", socket.toStringOptions());
 
+			assertTrue(true);
+
 		} catch (Throwable e) {
 
-			log.error("can not make socket", e);
+			log.error("", e);
+
+			fail("can not make socket");
 
 		}
 
-	}
-
-	static void logClassPath() {
-
-		String classPath = System.getProperty("java.class.path");
-
-		String[] entries = classPath.split(File.pathSeparator);
-
-		StringBuilder text = new StringBuilder(1024);
-
-		for (String item : entries) {
-			text.append("\n\t");
-			text.append(item);
-		}
-
-		log.info("{}", text);
 	}
 
 }

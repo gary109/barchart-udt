@@ -23,6 +23,14 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.barchart.udt</groupId>
+			<artifactId>barchart-udt4</artifactId>
+			<version>1.0.2-SNAPSHOT</version>
+			<classifier>i386-Linux-g++-jni</classifier>
+			<type>nar</type>
+		</dependency>
+
+		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 		</dependency>

@@ -33,6 +33,8 @@ public class TestLibraryUDT {
 		String targetFolder = "./target/test-lib-3";
 
 		LibraryUDT.load(targetFolder);
+		LibraryUDT.load(targetFolder);
+		LibraryUDT.load(targetFolder);
 
 		assertTrue(true);
 
