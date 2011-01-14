@@ -139,11 +139,11 @@
 
 		<extensions>
 
-			<!-- <extension> -->
-			<!-- <groupId>org.jvnet.wagon-svn</groupId> -->
-			<!-- <artifactId>wagon-svn</artifactId> -->
-			<!-- <version>1.11</version> -->
-			<!-- </extension> -->
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.9</version>
+			</extension>
 
 			<!-- <extension> -->
 			<!-- <groupId>org.apache.maven.wagon</groupId> -->
