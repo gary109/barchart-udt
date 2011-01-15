@@ -681,6 +681,7 @@
 							<invokerPropertiesFile>invoker-${label}-${jdk}.properties</invokerPropertiesFile>
 							<setupIncludes>
 								<setupInclude>int-00-parent/pom.xml</setupInclude>
+								<setupInclude>int-01-bundle/pom.xml</setupInclude>
 							</setupIncludes>
 							<goals>
 								<goal>clean</goal>
