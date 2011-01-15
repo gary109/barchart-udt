@@ -665,7 +665,7 @@
 		</profile>
 
 		<profile>
-			<id>it-run</id>
+			<id>int</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -689,7 +689,7 @@
 						</configuration>
 						<executions>
 							<execution>
-								<id>it-install-and-run</id>
+								<id>install-and-run</id>
 								<phase>integration-test</phase>
 								<goals>
 									<goal>install</goal>
