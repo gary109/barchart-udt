@@ -136,6 +136,19 @@
 				</executions>
 			</plugin>
 
+			<!-- use nar-integration-test instead -->
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-surefire-plugin</artifactId> -->
+			<!-- <configuration> -->
+			<!-- <skip>true</skip> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-nar-plugin</artifactId> -->
+			<!-- <extensions>true</extensions> -->
+			<!-- </plugin> -->
+
 		</plugins>
 	</build>
 
@@ -170,6 +183,7 @@
 			<id>nar</id>
 			<build>
 				<plugins>
+
 					<plugin>
 						<artifactId>maven-nar-plugin</artifactId>
 						<extensions>true</extensions>
@@ -658,13 +672,16 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-invoker-plugin</artifactId>
 						<configuration>
-							<debug>false</debug>
+							<debug>true</debug>
 							<ignoreFailures>false</ignoreFailures>
 							<projectsDirectory>src/it/</projectsDirectory>
 							<settingsFile>src/it/settings.xml</settingsFile>
 							<cloneProjectsTo>${project.build.directory}/it-work</cloneProjectsTo>
 							<localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
 							<invokerPropertiesFile>invoker-${label}-${jdk}.properties</invokerPropertiesFile>
+							<setupIncludes>
+								<setupInclude>it-00-parent/pom.xml</setupInclude>
+							</setupIncludes>
 							<goals>
 								<goal>clean</goal>
 								<goal>install</goal>
