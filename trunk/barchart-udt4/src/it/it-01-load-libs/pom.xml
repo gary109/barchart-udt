@@ -5,12 +5,12 @@
 
 	<parent>
 		<groupId>com.barchart.udt</groupId>
-		<artifactId>barchart-udt4-it-00-parent</artifactId>
+		<artifactId>barchart-udt4-int-00-parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.barchart.udt</groupId>
-	<artifactId>barchart-udt4-it-01-load-libs</artifactId>
+	<artifactId>barchart-udt4-int-make-bundle</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -138,11 +138,29 @@
 
 		<plugins>
 
-			<!-- <plugin> -->
-			<!-- <artifactId>maven-nar-plugin</artifactId> -->
-			<!-- <extensions>true</extensions> -->
-			<!-- </plugin> -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludeTransitive>true</excludeTransitive>
+							<excludes>META-INF/</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>target/dependency</classesDirectory>
+				</configuration>
+			</plugin>
 		</plugins>
 
 	</build>
