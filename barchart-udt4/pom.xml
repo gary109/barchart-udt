@@ -674,13 +674,13 @@
 						<configuration>
 							<debug>true</debug>
 							<ignoreFailures>false</ignoreFailures>
-							<projectsDirectory>src/it/</projectsDirectory>
-							<settingsFile>src/it/settings.xml</settingsFile>
-							<cloneProjectsTo>${project.build.directory}/it-work</cloneProjectsTo>
-							<localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+							<projectsDirectory>src/int/</projectsDirectory>
+							<settingsFile>src/int/settings.xml</settingsFile>
+							<cloneProjectsTo>${project.build.directory}/int-work</cloneProjectsTo>
+							<localRepositoryPath>${project.build.directory}/int-repo</localRepositoryPath>
 							<invokerPropertiesFile>invoker-${label}-${jdk}.properties</invokerPropertiesFile>
 							<setupIncludes>
-								<setupInclude>it-00-parent/pom.xml</setupInclude>
+								<setupInclude>int-00-parent/pom.xml</setupInclude>
 							</setupIncludes>
 							<goals>
 								<goal>clean</goal>
