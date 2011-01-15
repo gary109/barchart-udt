@@ -9,10 +9,12 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
+	<!-- use nar packaging to place nar dependencies on java class path during
+		tests -->
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4-it-01-load-libs</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>nar</packaging>
 
 	<dependencies>
 
@@ -20,7 +22,7 @@
 			<groupId>com.barchart.udt</groupId>
 			<artifactId>barchart-udt4</artifactId>
 			<version>${barchartVersion}</version>
-			<type>jar</type>
+			<type>nar</type>
 		</dependency>
 
 		<dependency>
@@ -41,8 +43,8 @@
 			<id>nar_i386-Linux-g++</id>
 			<activation>
 				<os>
-					<name>Linux</name>
 					<arch>i386</arch>
+					<name>Linux</name>
 				</os>
 			</activation>
 			<dependencies>
@@ -137,6 +139,12 @@
 	<build>
 
 		<plugins>
+
+			<!-- must use nar extensions to enable nar project packaging -->
+			<plugin>
+				<artifactId>maven-nar-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
 
 		</plugins>
 
