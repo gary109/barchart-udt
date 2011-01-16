@@ -45,7 +45,7 @@
 	<profiles>
 
 		<profile>
-			<id>package</id>
+			<id>package-bundle</id>
 			<dependencies>
 
 				<dependency>
@@ -139,17 +139,6 @@
 						</executions>
 					</plugin>
 
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jar-plugin</artifactId>
-						<configuration>
-							<classesDirectory>${dependencyUnpack}</classesDirectory>
-							<archive>
-								<addMavenDescriptor>false</addMavenDescriptor>
-							</archive>
-						</configuration>
-					</plugin>
-
 				</plugins>
 
 			</build>
@@ -158,4 +147,3 @@
 	</profiles>
 
 </project>
-
