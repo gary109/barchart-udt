@@ -48,8 +48,8 @@
 
 	<scm>
 		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
-		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</connection>
-		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4/</developerConnection>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4-parent/</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4-parent/</developerConnection>
 	</scm>
 
 	<organization>
