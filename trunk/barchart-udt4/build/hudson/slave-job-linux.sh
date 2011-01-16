@@ -9,6 +9,7 @@
 # http://wiki.hudson-ci.org/display/HUDSON/Tool+Environment+Plugin
 #
 
+echo "### home  = $HOME"
 echo "### pwd   = $PWD"
 
 echo "### label = $label"
