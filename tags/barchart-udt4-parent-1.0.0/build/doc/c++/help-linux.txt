@@ -1,0 +1,9 @@
+#####################################################
+
+http://stackoverflow.com/questions/2086072/linking-using-g-fails-searching-for-lstdc
+
+Ths solution seems to be a bit of a hack, you need to create a symlink for the 32 bit version of the library (after installing the packages mentioned in @nos's answer):
+
+$ sudo ln -s /usr/lib32/libstdc++.so.6 /usr/lib32/libstdc++.so
+
+
