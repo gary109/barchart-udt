@@ -444,48 +444,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>groovy-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>properties</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>execute</goal>
-						</goals>
-						<configuration>
-							<source>
-								//
-								name=project.properties['scmServerId'];
-								server=settings.servers.find{it.id.equals(name)};
-								project.properties['scmServerUsername']=server.username;
-								project.properties['scmServerPassword']=server.password;
-								//
-								snapshotVersion=project.version;
-								println('###snapshotVersion='+snapshotVersion);
-								snapshot='-SNAPSHOT';
-								if(snapshotVersion.contains(snapshot)){
-								releaseVersion=snapshotVersion.replaceAll(snapshot,'');
-								project.properties['releaseVersion']=releaseVersion;
-								println('###releaseVersion='+releaseVersion);
-								}else{
-								fail('###must-use-snapshot-version');
-								}
-								//
-								osArch=System.getProperty('os.arch');
-								osName=System.getProperty('os.name');
-								if(osName.contains('Windows')) osName='Windows';
-								if(osName.contains('Mac Os X')) osName='MacOSX';
-								releaseClassifier=osArch+'-'+osName+'-'+'g++'+'-'+'jni';
-								project.properties['releaseClassifier']=releaseClassifier;
-								println('###releaseClassifier='+releaseClassifier);
-							</source>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
@@ -562,6 +520,55 @@
 						</executions>
 					</plugin>
 
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>properties</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<source>
+										//
+										name=project.properties['scmServerId'];
+										server=settings.servers.find{it.id.equals(name)};
+										project.properties['scmServerUsername']=server.username;
+										project.properties['scmServerPassword']=server.password;
+										//
+										snapshotVersion=project.version;
+										println('###snapshotVersion='+snapshotVersion);
+										snapshot='-SNAPSHOT';
+										if(snapshotVersion.contains(snapshot)){
+										releaseVersion=snapshotVersion.replaceAll(snapshot,'');
+										project.properties['releaseVersion']=releaseVersion;
+										println('###releaseVersion='+releaseVersion);
+										}else{
+										fail('###must-use-snapshot-version');
+										}
+										//
+										osArch=System.getProperty('os.arch');
+										osName=System.getProperty('os.name');
+										if(osName.contains('Windows')) osName='Windows';
+										if(osName.contains('Mac Os X')) osName='MacOSX';
+										releaseClassifier=osArch+'-'+osName+'-'+'g++'+'-'+'jni';
+										project.properties['releaseClassifier']=releaseClassifier;
+										println('###releaseClassifier='+releaseClassifier);
+							</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
