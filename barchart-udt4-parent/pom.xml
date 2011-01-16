@@ -68,9 +68,11 @@
 
 		<maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
 
-		<siteID>barchart-google-code</siteID>
-		<siteURL>svn:https://barchart-udt.googlecode.com/svn/site</siteURL>
-		<siteProject>${project.artifactId}</siteProject>
+		<!-- must be provided by settingx.xml -->
+		<scmServerId>barchart-google-code</scmServerId>
+
+		<scmSiteURL>svn:https://barchart-udt.googlecode.com/svn/site</scmSiteURL>
+		<scmSiteProject>${project.artifactId}</scmSiteProject>
 
 	</properties>
 
@@ -94,8 +96,8 @@
 
 	<distributionManagement>
 		<site>
-			<id>${siteID}</id>
-			<url>${siteURL}</url>
+			<id>${scmServerId}</id>
+			<url>${scmSiteURL}</url>
 		</site>
 	</distributionManagement>
 
@@ -426,6 +428,38 @@
 				</executions>
 			</plugin>
 
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>groovy-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>read-settings</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<source>
+								name=project.properties['scmServerId'];
+								server=settings.servers.find{it.id.equals(name)};
+								project.properties['scmServerUsername']=server.username;
+								project.properties['scmServerPassword']=server.password;
+							</source>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<preparationGoals>validate clean verify</preparationGoals>
+					<username>${scmServerUsername}</username>
+					<password>${scmServerPassword}</password>
+				</configuration>
+			</plugin>
+
 		</plugins>
 
 	</build>
@@ -484,9 +518,9 @@
 								</goals>
 								<configuration>
 									<fromDir>target/site</fromDir>
-									<serverId>${siteID}</serverId>
-									<url>${siteURL}</url>
-									<toDir>${siteProject}</toDir>
+									<serverId>${scmServerId}</serverId>
+									<url>${scmSiteURL}</url>
+									<toDir>${scmSiteProject}</toDir>
 								</configuration>
 							</execution>
 						</executions>
