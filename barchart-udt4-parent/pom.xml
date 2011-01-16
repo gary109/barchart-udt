@@ -1,11 +1,12 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -72,6 +73,8 @@
 
 		<scmSiteURL>svn:https://barchart-udt.googlecode.com/svn/site</scmSiteURL>
 		<scmSiteProject>${project.artifactId}</scmSiteProject>
+
+		<sonatypeStagingUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</sonatypeStagingUrl>
 
 	</properties>
 
@@ -265,6 +268,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>2.3.1</version>
+					<configuration>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+						</archive>
+					</configuration>
 				</plugin>
 
 				<plugin>
@@ -434,17 +442,37 @@
 				<artifactId>groovy-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>read-settings</id>
+						<id>properties</id>
 						<phase>validate</phase>
 						<goals>
 							<goal>execute</goal>
 						</goals>
 						<configuration>
 							<source>
+								//
 								name=project.properties['scmServerId'];
 								server=settings.servers.find{it.id.equals(name)};
 								project.properties['scmServerUsername']=server.username;
 								project.properties['scmServerPassword']=server.password;
+								//
+								snapshotVersion=project.version;
+								println('###snapshotVersion='+snapshotVersion);
+								snapshot='-SNAPSHOT';
+								if(snapshotVersion.contains(snapshot)){
+								releaseVersion=snapshotVersion.replaceAll(snapshot,'');
+								project.properties['releaseVersion']=releaseVersion;
+								println('###releaseVersion='+releaseVersion);
+								}else{
+								fail('###must-use-snapshot-version');
+								}
+								//
+								osArch=System.getProperty('os.arch');
+								osName=System.getProperty('os.name');
+								if(osName.contains('Windows')) osName='Windows';
+								if(osName.contains('Mac Os X')) osName='MacOSX';
+								releaseClassifier=osArch+'-'+osName+'-'+'g++'+'-'+'jni';
+								project.properties['releaseClassifier']=releaseClassifier;
+								println('###releaseClassifier='+releaseClassifier);
 							</source>
 						</configuration>
 					</execution>
@@ -528,6 +556,112 @@
 						</executions>
 					</plugin>
 
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>release-pom</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sonatype-deploy-pom</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy-file</goal>
+								</goals>
+								<configuration>
+									<repositoryId>sonatype-nexus-snapshots</repositoryId>
+									<file>pom.xml</file>
+									<url>${sonatypeStagingUrl}</url>
+									<generatePom>true</generatePom>
+									<uniqueVersion>true</uniqueVersion>
+									<updateReleaseInfo>true</updateReleaseInfo>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${releaseVersion}</version>
+									<packaging>pom</packaging>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>release-jar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sonatype-deploy-jar</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy-file</goal>
+								</goals>
+								<configuration>
+									<repositoryId>sonatype-nexus-snapshots</repositoryId>
+									<file>target/${project.build.finalName}.jar</file>
+									<url>${sonatypeStagingUrl}</url>
+									<generatePom>true</generatePom>
+									<uniqueVersion>true</uniqueVersion>
+									<updateReleaseInfo>true</updateReleaseInfo>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${releaseVersion}</version>
+									<packaging>jar</packaging>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>release-nar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sonatype-deploy-nar</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy-file</goal>
+								</goals>
+								<configuration>
+									<repositoryId>sonatype-nexus-snapshots</repositoryId>
+									<file>target/${project.build.finalName}-${releaseClassifier}.nar</file>
+									<url>${sonatypeStagingUrl}</url>
+									<generatePom>true</generatePom>
+									<uniqueVersion>true</uniqueVersion>
+									<updateReleaseInfo>true</updateReleaseInfo>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${releaseVersion}</version>
+									<classifier>${releaseClassifier}</classifier>
+									<packaging>nar</packaging>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
