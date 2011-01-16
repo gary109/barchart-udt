@@ -55,7 +55,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
+					<version>${barchartSnapshot}</version>
 					<type>jar</type>
 					<optional>true</optional>
 				</dependency>
@@ -63,7 +63,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
+					<version>${barchartSnapshot}</version>
 					<classifier>i386-Linux-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -72,7 +72,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
+					<version>${barchartSnapshot}</version>
 					<classifier>amd64-Linux-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -81,7 +81,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
+					<version>${barchartSnapshot}</version>
 					<classifier>i386-MacOSX-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -90,7 +90,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
+					<version>${barchartSnapshot}</version>
 					<classifier>x86_64-MacOSX-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -99,7 +99,7 @@
 				<!-- <dependency> -->
 				<!-- <groupId>com.barchart.udt</groupId> -->
 				<!-- <artifactId>barchart-udt4</artifactId> -->
-				<!-- <version>${project.version}</version> -->
+				<!-- <version>${barchartSnapshot}</version> -->
 				<!-- <classifier>x86-Windows-msvc-jni</classifier> -->
 				<!-- <type>nar</type> -->
 				<!-- <optional>true</optional> -->
@@ -108,7 +108,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
+					<version>${barchartSnapshot}</version>
 					<classifier>x86-Windows-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
