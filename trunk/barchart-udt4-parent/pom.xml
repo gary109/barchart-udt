@@ -560,7 +560,7 @@
 										osArch=System.getProperty('os.arch');
 										osName=System.getProperty('os.name');
 										if(osName.contains('Windows')) osName='Windows';
-										if(osName.contains('Mac Os X')) osName='MacOSX';
+										if(osName.contains('Mac OS X')) osName='MacOSX';
 										releaseClassifier=osArch+'-'+osName+'-'+'g++'+'-'+'jni';
 										project.properties['releaseClassifier']=releaseClassifier;
 										println('###releaseClassifier='+releaseClassifier);
