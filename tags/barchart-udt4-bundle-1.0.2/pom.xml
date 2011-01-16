@@ -1,0 +1,156 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.barchart.udt</groupId>
+		<artifactId>barchart-udt4-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<groupId>com.barchart.udt</groupId>
+	<artifactId>barchart-udt4-bundle</artifactId>
+	<version>1.0.2</version>
+	<packaging>jar</packaging>
+
+	<scm>
+		<url>http://code.google.com/p/barchart-udt/source/browse/tags/barchart-udt4-bundle-1.0.2</url>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/tags/barchart-udt4-bundle-1.0.2</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/tags/barchart-udt4-bundle-1.0.2</developerConnection>
+	</scm>
+
+	<properties>
+		<dependencyUnpack>target/dependency-unpack</dependencyUnpack>
+		<dependencyCopy>target/dependency-copy</dependencyCopy>
+	</properties>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>${dependencyUnpack}</classesDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<preparationGoals>package</preparationGoals>
+					<goals>deploy</goals>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+	<profiles>
+
+		<profile>
+			<id>unpack</id>
+			<dependencies>
+
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${project.version}</version>
+					<type>jar</type>
+					<optional>true</optional>
+				</dependency>
+
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${project.version}</version>
+					<classifier>i386-Linux-g++-jni</classifier>
+					<type>nar</type>
+					<optional>true</optional>
+				</dependency>
+
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${project.version}</version>
+					<classifier>amd64-Linux-g++-jni</classifier>
+					<type>nar</type>
+					<optional>true</optional>
+				</dependency>
+
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${project.version}</version>
+					<classifier>i386-MacOSX-g++-jni</classifier>
+					<type>nar</type>
+					<optional>true</optional>
+				</dependency>
+
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${project.version}</version>
+					<classifier>x86_64-MacOSX-g++-jni</classifier>
+					<type>nar</type>
+					<optional>true</optional>
+				</dependency>
+
+				<!-- <dependency> -->
+				<!-- <groupId>com.barchart.udt</groupId> -->
+				<!-- <artifactId>barchart-udt4</artifactId> -->
+				<!-- <version>${project.version}</version> -->
+				<!-- <classifier>x86-Windows-msvc-jni</classifier> -->
+				<!-- <type>nar</type> -->
+				<!-- <optional>true</optional> -->
+				<!-- </dependency> -->
+
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${project.version}</version>
+					<classifier>x86-Windows-g++-jni</classifier>
+					<type>nar</type>
+					<optional>true</optional>
+				</dependency>
+
+			</dependencies>
+
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack</id>
+								<goals>
+									<goal>unpack-dependencies</goal>
+								</goals>
+								<configuration>
+									<excludeTransitive>true</excludeTransitive>
+									<excludes>META-INF/</excludes>
+									<outputDirectory>${dependencyUnpack}</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-nar-plugin</artifactId>
+						<extensions>true</extensions>
+					</plugin>
+
+				</plugins>
+
+			</build>
+		</profile>
+
+	</profiles>
+
+</project>
