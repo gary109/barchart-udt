@@ -1,12 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -410,6 +409,12 @@
 					<version>2.1</version>
 				</plugin>
 
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>1.1</version>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 
@@ -569,6 +574,19 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -579,7 +597,7 @@
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-deploy-plugin</artifactId>
+						<artifactId>maven-gpg-plugin</artifactId>
 						<configuration>
 						</configuration>
 						<executions>
@@ -587,15 +605,15 @@
 								<id>sonatype-deploy-pom</id>
 								<phase>deploy</phase>
 								<goals>
-									<goal>deploy-file</goal>
+									<goal>sign-and-deploy-file</goal>
 								</goals>
 								<configuration>
 									<repositoryId>sonatype-nexus-snapshots</repositoryId>
-									<file>pom.xml</file>
+									<file>target/${project.build.finalName}.pom</file>
 									<url>${sonatypeStagingUrl}</url>
 									<generatePom>true</generatePom>
 									<uniqueVersion>true</uniqueVersion>
-									<updateReleaseInfo>true</updateReleaseInfo>
+									<updateReleaseInfo>false</updateReleaseInfo>
 									<groupId>${project.groupId}</groupId>
 									<artifactId>${project.artifactId}</artifactId>
 									<version>${releaseVersion}</version>
