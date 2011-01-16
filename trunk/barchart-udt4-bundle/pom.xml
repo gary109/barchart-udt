@@ -6,12 +6,11 @@
 	<parent>
 		<groupId>com.barchart.udt</groupId>
 		<artifactId>barchart-udt4-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4-bundle</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<scm>
@@ -21,9 +20,6 @@
 	</scm>
 
 	<properties>
-
-		<barchartRelease>1.0.2</barchartRelease>
-		<barchartSnapshot>${barchartRelease}-SNAPSHOT</barchartSnapshot>
 
 		<dependencyUnpack>target/classes</dependencyUnpack>
 
@@ -55,7 +51,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${barchartSnapshot}</version>
+					<version>${project.version}</version>
 					<type>jar</type>
 					<optional>true</optional>
 				</dependency>
@@ -63,7 +59,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${barchartSnapshot}</version>
+					<version>${project.version}</version>
 					<classifier>i386-Linux-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -72,7 +68,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${barchartSnapshot}</version>
+					<version>${project.version}</version>
 					<classifier>amd64-Linux-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -81,7 +77,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${barchartSnapshot}</version>
+					<version>${project.version}</version>
 					<classifier>i386-MacOSX-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -90,7 +86,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${barchartSnapshot}</version>
+					<version>${project.version}</version>
 					<classifier>x86_64-MacOSX-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -99,7 +95,7 @@
 				<!-- <dependency> -->
 				<!-- <groupId>com.barchart.udt</groupId> -->
 				<!-- <artifactId>barchart-udt4</artifactId> -->
-				<!-- <version>${barchartSnapshot}</version> -->
+				<!-- <version>${project.version}</version> -->
 				<!-- <classifier>x86-Windows-msvc-jni</classifier> -->
 				<!-- <type>nar</type> -->
 				<!-- <optional>true</optional> -->
@@ -108,7 +104,7 @@
 				<dependency>
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
-					<version>${barchartSnapshot}</version>
+					<version>${project.version}</version>
 					<classifier>x86-Windows-g++-jni</classifier>
 					<type>nar</type>
 					<optional>true</optional>
@@ -148,47 +144,14 @@
 						<artifactId>maven-jar-plugin</artifactId>
 						<configuration>
 							<classesDirectory>${dependencyUnpack}</classesDirectory>
+							<archive>
+								<addMavenDescriptor>false</addMavenDescriptor>
+							</archive>
 						</configuration>
-					</plugin>
-				</plugins>
-
-			</build>
-		</profile>
-
-		<profile>
-			<id>deploy</id>
-			<build>
-				<plugins>
-
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-deploy-plugin</artifactId>
-						<configuration>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sonatype-deploy</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>deploy-file</goal>
-								</goals>
-								<configuration>
-									<repositoryId>sonatype-nexus-snapshots</repositoryId>
-									<file>target/${project.build.finalName}.${project.packaging}</file>
-									<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-									<generatePom>true</generatePom>
-									<uniqueVersion>true</uniqueVersion>
-									<updateReleaseInfo>true</updateReleaseInfo>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${barchartRelease}</version>
-									<packaging>jar</packaging>
-								</configuration>
-							</execution>
-						</executions>
 					</plugin>
 
 				</plugins>
+
 			</build>
 		</profile>
 
