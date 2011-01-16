@@ -5,7 +5,7 @@
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -546,11 +546,11 @@
 								<configuration>
 									<source>
 										//
-										name=project.properties['scmServerId'];
-										server=settings.servers.find{it.id.equals(name)};
-										println('###server='+server);
-										project.properties['scmServerUsername']=server.username;
-										project.properties['scmServerPassword']=server.password;
+										//name=project.properties['scmServerId'];
+										//server=settings.servers.find{it.id.equals(name)};
+										//println('###server='+server);
+										//project.properties['scmServerUsername']=server.username;
+										//project.properties['scmServerPassword']=server.password;
 										//
 										snapshotVersion=project.version;
 										snapshot='-SNAPSHOT';
@@ -559,7 +559,7 @@
 										project.properties['releaseVersion']=releaseVersion;
 										println('###releaseVersion='+releaseVersion);
 										}else{
-										//fail('###must-use-snapshot-version');
+										fail('###must-use-snapshot-version');
 										}
 										//
 										osArch=System.getProperty('os.arch');
@@ -574,19 +574,19 @@
 							</execution>
 						</executions>
 					</plugin>
-					<!-- <plugin> -->
-					<!-- <groupId>org.apache.maven.plugins</groupId> -->
-					<!-- <artifactId>maven-gpg-plugin</artifactId> -->
-					<!-- <executions> -->
-					<!-- <execution> -->
-					<!-- <id>sign-artifacts</id> -->
-					<!-- <phase>verify</phase> -->
-					<!-- <goals> -->
-					<!-- <goal>sign</goal> -->
-					<!-- </goals> -->
-					<!-- </execution> -->
-					<!-- </executions> -->
-					<!-- </plugin> -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
