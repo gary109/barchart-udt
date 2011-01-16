@@ -5,7 +5,7 @@
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
