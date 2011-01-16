@@ -268,7 +268,7 @@
 					<name>isNar</name>
 				</property>
 				<os>
-					<arch>i386</arch>
+					<arch>XXXi386</arch>
 					<name>Linux</name>
 				</os>
 			</activation>
