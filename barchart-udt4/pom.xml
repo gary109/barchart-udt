@@ -189,6 +189,9 @@
 
 		<profile>
 			<id>nar</id>
+			<properties>
+				<isNar>true</isNar>
+			</properties>
 			<build>
 				<plugins>
 
@@ -261,6 +264,9 @@
 		<profile>
 			<id>nar_i386-Linux-g++</id>
 			<activation>
+				<property>
+					<name>isNar</name>
+				</property>
 				<os>
 					<arch>i386</arch>
 					<name>Linux</name>
