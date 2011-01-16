@@ -541,11 +541,11 @@
 								<configuration>
 									<source>
 										//
-										name=project.properties['scmServerId'];
-										server=settings.servers.find{it.id.equals(name)};
-										println('###server='+server);
-										project.properties['scmServerUsername']=server.username;
-										project.properties['scmServerPassword']=server.password;
+										//name=project.properties['scmServerId'];
+										//server=settings.servers.find{it.id.equals(name)};
+										//println('###server='+server);
+										//project.properties['scmServerUsername']=server.username;
+										//project.properties['scmServerPassword']=server.password;
 										//
 										snapshotVersion=project.version;
 										println('###snapshotVersion='+snapshotVersion);
