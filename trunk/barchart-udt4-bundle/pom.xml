@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -10,7 +11,7 @@
 
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4-bundle</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<scm>
@@ -20,21 +21,17 @@
 	</scm>
 
 	<properties>
-		<dependencyUnpack>target/dependency-unpack</dependencyUnpack>
-		<dependencyCopy>target/dependency-copy</dependencyCopy>
+
+		<barchartRelease>1.0.2</barchartRelease>
+		<barchartSnapshot>${barchartRelease}-SNAPSHOT</barchartSnapshot>
+
+		<dependencyUnpack>target/classes</dependencyUnpack>
+
 	</properties>
 
 	<build>
 
 		<plugins>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<classesDirectory>${dependencyUnpack}</classesDirectory>
-				</configuration>
-			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -52,7 +49,7 @@
 	<profiles>
 
 		<profile>
-			<id>unpack</id>
+			<id>package</id>
 			<dependencies>
 
 				<dependency>
@@ -124,6 +121,12 @@
 
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-nar-plugin</artifactId>
+						<extensions>true</extensions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
 							<execution>
@@ -142,15 +145,54 @@
 
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-nar-plugin</artifactId>
-						<extensions>true</extensions>
+						<artifactId>maven-jar-plugin</artifactId>
+						<configuration>
+							<classesDirectory>${dependencyUnpack}</classesDirectory>
+						</configuration>
+					</plugin>
+				</plugins>
+
+			</build>
+		</profile>
+
+		<profile>
+			<id>deploy</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sonatype-deploy</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy-file</goal>
+								</goals>
+								<configuration>
+									<repositoryId>sonatype-nexus-snapshots</repositoryId>
+									<file>target/${project.build.finalName}.${project.packaging}</file>
+									<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+									<generatePom>true</generatePom>
+									<uniqueVersion>true</uniqueVersion>
+									<updateReleaseInfo>true</updateReleaseInfo>
+									<groupId>${project.groupId}</groupId>
+									<artifactId>${project.artifactId}</artifactId>
+									<version>${barchartRelease}</version>
+									<packaging>jar</packaging>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 
 				</plugins>
-
 			</build>
 		</profile>
 
 	</profiles>
 
 </project>
+
