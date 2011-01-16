@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.barchart.udt</groupId>
+  <artifactId>barchart-udt4-parent</artifactId>
+  <version>1.0.3</version>
+  <packaging>pom</packaging>
+  <name>barchart-udt4-parent</name>
+  <description>Java wrapper around native C++ UDT protocol implementation
+		UDT version: 4.8</description>
+  <url>http://code.google.com/p/barchart-udt/</url>
+  <inceptionYear>2009</inceptionYear>
+  <organization>
+    <name>Barchart, Inc.</name>
+    <url>http://www.barchart.com</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The BSD License</name>
+      <url>http://www.opensource.org/licenses/bsd-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>andrei.pozolotin</id>
+      <name>Andrei Pozolotin</name>
+      <roles>
+        <role>Project Owner</role>
+      </roles>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:svn:http://barchart-udt.googlecode.com/svn/tags/barchart-udt4-parent-1.0.3</connection>
+    <developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/tags/barchart-udt4-parent-1.0.3</developerConnection>
+    <url>http://code.google.com/p/barchart-udt/source/browse/tags/barchart-udt4-parent-1.0.3</url>
+  </scm>
+  <issueManagement>
+    <system>google code</system>
+    <url>http://code.google.com/p/barchart-udt/issues/list</url>
+  </issueManagement>
+  <distributionManagement>
+    <repository>
+      <id>sonatype-nexus-staging</id>
+      <name>Nexus Release Repository</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+    <snapshotRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <site>
+      <id>barchart-google-code</id>
+      <url>svn:https://barchart-udt.googlecode.com/svn/site</url>
+    </site>
+  </distributionManagement>
+  <properties>
+    <maven.build.timestamp.format>yyyy-MM-dd_HH-mm-ss</maven.build.timestamp.format>
+    <scmSiteProject>barchart-udt4-parent</scmSiteProject>
+    <sonatypeStagingUrl>https://oss.sonatype.org/service/local/staging/deploy/maven2/</sonatypeStagingUrl>
+    <barchartVersion>1.0.2-SNAPSHOT</barchartVersion>
+    <mavenVersion>3.0.2</mavenVersion>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <javaVersion>1.6</javaVersion>
+    <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/</sonatypeOssDistMgmtSnapshotsUrl>
+    <scmSiteURL>svn:https://barchart-udt.googlecode.com/svn/site</scmSiteURL>
+    <scmServerId>barchart-google-code</scmServerId>
+  </properties>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+      <id>Mark.Donszelmann@gmail.com</id>
+      <name>Duns' Maven Snapshot Repository</name>
+      <url>http://duns.github.com/maven-snapshots/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <scriptSourceDirectory>/home/user1/Workspaces/barchart-3.6-work/barchart-udt4-parent/src/main/scripts</scriptSourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <outputDirectory>target/classes</outputDirectory>
+    <testOutputDirectory>target/test-classes</testOutputDirectory>
+    <extensions>
+      <extension>
+        <groupId>org.jvnet.wagon-svn</groupId>
+        <artifactId>wagon-svn</artifactId>
+        <version>1.9</version>
+      </extension>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-2</version>
+      </extension>
+    </extensions>
+    <defaultGoal>test</defaultGoal>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+    <directory>target</directory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.0</version>
+        <extensions>false</extensions>
+        <executions>
+          <execution>
+            <id>enforce-barchart</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <message>### You must run Java version ${javaVersion}; you are
+										running now: ${build.java.runtime.version} ###</message>
+                  <version>${javaVersion}</version>
+                </requireJavaVersion>
+                <requireMavenVersion>
+                  <message>### You must run Maven version ${mavenVersion}; you
+										are running now: ${build.maven.version} ###</message>
+                  <version>${mavenVersion}</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.1</version>
+        <extensions>false</extensions>
+        <configuration>
+          <username>${scmServerUsername}</username>
+          <password>${scmServerPassword}</password>
+          <preparationGoals>clean verify</preparationGoals>
+          <goals>deploy</goals>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+    <outputDirectory>target/site</outputDirectory>
+  </reporting>
+</project>
