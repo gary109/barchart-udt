@@ -14,6 +14,12 @@
 	<version>1.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
+	<scm>
+		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4-bundle</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4-bundle</developerConnection>
+	</scm>
+
 	<properties>
 		<dependencyUnpack>target/dependency-unpack</dependencyUnpack>
 		<dependencyCopy>target/dependency-copy</dependencyCopy>
