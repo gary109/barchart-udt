@@ -456,6 +456,8 @@
 				<configuration>
 					<username>${scmServerUsername}</username>
 					<password>${scmServerPassword}</password>
+					<preparationGoals>clean verify</preparationGoals>
+					<goals>deploy</goals>
 				</configuration>
 			</plugin>
 
