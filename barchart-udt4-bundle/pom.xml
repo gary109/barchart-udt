@@ -42,7 +42,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
 					<arguments>--activate-profiles
-						sonatype-oss-release,release-properties,release-versions</arguments>
+						sonatype-oss-release,release-properties,release-versions,package-bundle</arguments>
 				</configuration>
 			</plugin>
 
