@@ -158,7 +158,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
-					<arguments>--activate-profiles sonatype-oss-release,release-props,release-version</arguments>
+					<arguments>--activate-profiles sonatype-oss-release,release-properties,release-versions</arguments>
 				</configuration>
 			</plugin>
 
@@ -712,46 +712,6 @@
 							</execution>
 						</executions>
 					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>release-version</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>groovy-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>version-numbers</id>
-								<phase>validate</phase>
-								<goals>
-									<goal>execute</goal>
-								</goals>
-								<configuration>
-									<source>
-										//
-										version=project.version;
-										snapshot='-SNAPSHOT';
-										if(version.contains(snapshot)){
-										snapshotVersion=version;
-										releaseVersion=version.replaceAll(snapshot,'');
-										}else{
-										snapshotVersion=version+snapshot;
-										releaseVersion=version;
-										}
-										println('###snapshotVersion='+snapshotVersion);
-										println('###releaseVersion='+releaseVersion);
-										project.properties['snapshotVersion']=snapshotVersion;
-										project.properties['releaseVersion']=releaseVersion;
-									</source>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-
 				</plugins>
 			</build>
 		</profile>
