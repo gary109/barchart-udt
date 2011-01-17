@@ -461,7 +461,7 @@
 				<configuration>
 					<username>${scmServerUsername}</username>
 					<password>${scmServerPassword}</password>
-					<arguments>--activate-profiles sonatype-oss-release,release</arguments>
+					<arguments>--activate-profiles sonatype-oss-release,release-props</arguments>
 					<preparationGoals>clean verify</preparationGoals>
 					<goals>deploy</goals>
 				</configuration>
@@ -538,7 +538,7 @@
 		</profile>
 
 		<profile>
-			<id>release</id>
+			<id>release-props</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -565,146 +565,7 @@
 										println('###server='+server);
 										project.properties['scmServerUsername']=server.username;
 										project.properties['scmServerPassword']=server.password;
-							</source>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<!-- <plugin> -->
-					<!-- <groupId>org.apache.maven.plugins</groupId> -->
-					<!-- <artifactId>maven-gpg-plugin</artifactId> -->
-					<!-- <executions> -->
-					<!-- <execution> -->
-					<!-- <id>sign-artifacts</id> -->
-					<!-- <phase>verify</phase> -->
-					<!-- <goals> -->
-					<!-- <goal>sign</goal> -->
-					<!-- </goals> -->
-					<!-- </execution> -->
-					<!-- </executions> -->
-					<!-- </plugin> -->
-					<!-- <plugin> -->
-					<!-- <groupId>org.codehaus.mojo</groupId> -->
-					<!-- <artifactId>versions-maven-plugin</artifactId> -->
-					<!-- <version>1.2</version> -->
-					<!-- <executions> -->
-					<!-- <execution> -->
-					<!-- <id>set-release</id> -->
-					<!-- <phase>validate</phase> -->
-					<!-- <configuration> -->
-					<!-- <newVersion>${releaseVersion}</newVersion> -->
-					<!-- </configuration> -->
-					<!-- </execution> -->
-					<!-- <execution> -->
-					<!-- <id>set-snapshot</id> -->
-					<!-- <phase>deploy</phase> -->
-					<!-- <configuration> -->
-					<!-- <newVersion>${snapshotVersion}</newVersion> -->
-					<!-- </configuration> -->
-					<!-- </execution> -->
-					<!-- </executions> -->
-					<!-- </plugin> -->
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>release-pom</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<configuration>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sonatype-deploy-pom</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>sign-and-deploy-file</goal>
-								</goals>
-								<configuration>
-									<repositoryId>sonatype-nexus-snapshots</repositoryId>
-									<file>target/${project.build.finalName}.pom</file>
-									<url>${sonatypeStagingUrl}</url>
-									<generatePom>true</generatePom>
-									<uniqueVersion>true</uniqueVersion>
-									<updateReleaseInfo>false</updateReleaseInfo>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${releaseVersion}</version>
-									<packaging>pom</packaging>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>release-jar</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-deploy-plugin</artifactId>
-						<configuration>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sonatype-deploy-jar</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>deploy-file</goal>
-								</goals>
-								<configuration>
-									<repositoryId>sonatype-nexus-snapshots</repositoryId>
-									<file>target/${project.build.finalName}.jar</file>
-									<url>${sonatypeStagingUrl}</url>
-									<generatePom>true</generatePom>
-									<uniqueVersion>true</uniqueVersion>
-									<updateReleaseInfo>true</updateReleaseInfo>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${releaseVersion}</version>
-									<packaging>jar</packaging>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-		<profile>
-			<id>release-nar</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<configuration>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sonatype-deploy-pom</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>sign-and-deploy-file</goal>
-								</goals>
-								<configuration>
-									<repositoryId>sonatype-nexus-snapshots</repositoryId>
-									<file>target/${project.build.finalName}-${releaseClassifier}.nar</file>
-									<url>${sonatypeStagingUrl}</url>
-									<generatePom>false</generatePom>
-									<uniqueVersion>true</uniqueVersion>
-									<updateReleaseInfo>false</updateReleaseInfo>
-									<groupId>${project.groupId}</groupId>
-									<artifactId>${project.artifactId}</artifactId>
-									<version>${releaseVersion}</version>
-									<packaging>nar</packaging>
+									</source>
 								</configuration>
 							</execution>
 						</executions>
@@ -714,12 +575,5 @@
 		</profile>
 
 	</profiles>
-
-	<reporting>
-		<plugins>
-
-
-		</plugins>
-	</reporting>
 
 </project>
