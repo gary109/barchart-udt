@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.barchart.udt</groupId>
+		<artifactId>barchart-udt4-int-00-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>com.barchart.udt</groupId>
+	<artifactId>barchart-udt4-int-01-bundle</artifactId>
+	<packaging>jar</packaging>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.barchart.udt</groupId>
+			<artifactId>barchart-udt4</artifactId>
+			<version>${barchartVersion}</version>
+			<type>jar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+
+		<profile>
+			<id>nar_i386-Linux-g++</id>
+			<activation>
+				<os>
+					<arch>i386</arch>
+					<name>Linux</name>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>i386-Linux-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>nar_amd64-Linux-g++</id>
+			<activation>
+				<os>
+					<name>Linux</name>
+					<arch>amd64</arch>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>amd64-Linux-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>nar_i386-MacOSX-g++</id>
+			<activation>
+				<os>
+					<arch>i386</arch>
+					<name>Mac OS X</name>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>i386-MacOSX-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>nar_x86_64-MacOSX-g++</id>
+			<activation>
+				<os>
+					<arch>x86_64</arch>
+					<name>Mac OS X</name>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>x86_64-MacOSX-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<id>nar_x86-Windows-g++</id>
+			<activation>
+				<os>
+					<arch>x86</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.barchart.udt</groupId>
+					<artifactId>barchart-udt4</artifactId>
+					<version>${barchartVersion}</version>
+					<classifier>x86-Windows-g++-jni</classifier>
+					<type>nar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+	</profiles>
+
+	<version>1.0.0-SNAPSHOT</version>
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludeTransitive>true</excludeTransitive>
+							<excludes>META-INF/</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>target/dependency</classesDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>
