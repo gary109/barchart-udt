@@ -461,7 +461,7 @@
 				<configuration>
 					<username>${scmServerUsername}</username>
 					<password>${scmServerPassword}</password>
-					<arguments>--activate-profiles sonatype-oss-release,release</arguments>
+					<arguments>--activate-profiles sonatype-oss-release,release,version</arguments>
 					<preparationGoals>clean verify</preparationGoals>
 					<goals>deploy</goals>
 				</configuration>
