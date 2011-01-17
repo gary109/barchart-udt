@@ -21,6 +21,8 @@
 
 	<properties>
 
+		<dependencyArtifactId>barchart-udt4</dependencyArtifactId>
+		<dependencyVersion>${snapshotVersion}</dependencyVersion>
 		<dependencyUnpack>target/classes</dependencyUnpack>
 
 	</properties>
@@ -29,12 +31,18 @@
 
 		<plugins>
 
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-nar-plugin</artifactId> -->
+			<!-- <extensions>true</extensions> -->
+			<!-- </plugin> -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
-					<preparationGoals>package</preparationGoals>
-					<goals>deploy</goals>
+					<arguments>--activate-profiles
+						sonatype-oss-release,release-properties,release-versions</arguments>
 				</configuration>
 			</plugin>
 
@@ -46,94 +54,69 @@
 
 		<profile>
 			<id>package-bundle</id>
-			<dependencies>
-
-				<dependency>
-					<groupId>com.barchart.udt</groupId>
-					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
-					<type>jar</type>
-					<optional>true</optional>
-				</dependency>
-
-				<dependency>
-					<groupId>com.barchart.udt</groupId>
-					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
-					<classifier>i386-Linux-g++-jni</classifier>
-					<type>nar</type>
-					<optional>true</optional>
-				</dependency>
-
-				<dependency>
-					<groupId>com.barchart.udt</groupId>
-					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
-					<classifier>amd64-Linux-g++-jni</classifier>
-					<type>nar</type>
-					<optional>true</optional>
-				</dependency>
-
-				<dependency>
-					<groupId>com.barchart.udt</groupId>
-					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
-					<classifier>i386-MacOSX-g++-jni</classifier>
-					<type>nar</type>
-					<optional>true</optional>
-				</dependency>
-
-				<dependency>
-					<groupId>com.barchart.udt</groupId>
-					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
-					<classifier>x86_64-MacOSX-g++-jni</classifier>
-					<type>nar</type>
-					<optional>true</optional>
-				</dependency>
-
-				<!-- <dependency> -->
-				<!-- <groupId>com.barchart.udt</groupId> -->
-				<!-- <artifactId>barchart-udt4</artifactId> -->
-				<!-- <version>${project.version}</version> -->
-				<!-- <classifier>x86-Windows-msvc-jni</classifier> -->
-				<!-- <type>nar</type> -->
-				<!-- <optional>true</optional> -->
-				<!-- </dependency> -->
-
-				<dependency>
-					<groupId>com.barchart.udt</groupId>
-					<artifactId>barchart-udt4</artifactId>
-					<version>${project.version}</version>
-					<classifier>x86-Windows-g++-jni</classifier>
-					<type>nar</type>
-					<optional>true</optional>
-				</dependency>
-
-			</dependencies>
-
 			<build>
 				<plugins>
-
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-nar-plugin</artifactId>
-						<extensions>true</extensions>
-					</plugin>
 
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-dependency-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>unpack</id>
+								<id>package-bundle-unpack</id>
+								<phase>compile</phase>
 								<goals>
-									<goal>unpack-dependencies</goal>
+									<goal>unpack</goal>
 								</goals>
 								<configuration>
 									<excludeTransitive>true</excludeTransitive>
 									<excludes>META-INF/</excludes>
 									<outputDirectory>${dependencyUnpack}</outputDirectory>
+									<overWriteIfNewer>true</overWriteIfNewer>
+									<overWriteReleases>true</overWriteReleases>
+									<overWriteSnapshots>true</overWriteSnapshots>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${dependencyArtifactId}</artifactId>
+											<version>${dependencyVersion}</version>
+											<type>jar</type>
+										</artifactItem>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${dependencyArtifactId}</artifactId>
+											<classifier>i386-Linux-g++-jni</classifier>
+											<version>${dependencyVersion}</version>
+											<type>nar</type>
+										</artifactItem>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${dependencyArtifactId}</artifactId>
+											<classifier>amd64-Linux-g++-jni</classifier>
+											<version>${dependencyVersion}</version>
+											<type>nar</type>
+										</artifactItem>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${dependencyArtifactId}</artifactId>
+											<classifier>i386-MacOSX-g++-jni</classifier>
+											<version>${dependencyVersion}</version>
+											<type>nar</type>
+										</artifactItem>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${dependencyArtifactId}</artifactId>
+											<classifier>x86_64-MacOSX-g++-jni</classifier>
+											<version>${dependencyVersion}</version>
+											<type>nar</type>
+										</artifactItem>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${dependencyArtifactId}</artifactId>
+											<classifier>x86-Windows-g++-jni</classifier>
+											<version>${dependencyVersion}</version>
+											<type>nar</type>
+										</artifactItem>
+									</artifactItems>
 								</configuration>
 							</execution>
 						</executions>
