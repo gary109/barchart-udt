@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -705,6 +706,91 @@
 							</execution>
 						</executions>
 					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>attach-nar</id>
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-nar</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${project.artifactId}</artifactId>
+											<classifier>i386-Linux-g++-jni</classifier>
+											<version>${snapshotVersion}</version>
+											<type>nar</type>
+										</artifactItem>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${project.artifactId}</artifactId>
+											<classifier>amd64-Linux-g++-jni</classifier>
+											<version>${snapshotVersion}</version>
+											<type>nar</type>
+										</artifactItem>
+										<artifactItem>
+											<groupId>${project.groupId}</groupId>
+											<artifactId>${project.artifactId}</artifactId>
+											<classifier>i386-MacOSX-g++-jni</classifier>
+											<version>${snapshotVersion}</version>
+											<type>nar</type>
+										</artifactItem>
+									</artifactItems>
+									<outputDirectory>target/nar-all</outputDirectory>
+									<overWriteIfNewer>true</overWriteIfNewer>
+									<overWriteReleases>true</overWriteReleases>
+									<overWriteSnapshots>true</overWriteSnapshots>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-artifacts</id>
+								<phase>package</phase>
+								<goals>
+									<goal>attach-artifact</goal>
+								</goals>
+								<configuration>
+									<artifacts>
+										<artifact>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-Linux-g++-jni.nar</file>
+											<classifier>i386-Linux-g++-jni</classifier>
+											<type>nar</type>
+										</artifact>
+										<artifact>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-amd64-Linux-g++-jni.nar</file>
+											<classifier>amd64-Linux-g++-jni</classifier>
+											<type>nar</type>
+										</artifact>
+										<artifact>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-MacOSX-g++-jni.nar</file>
+											<classifier>i386-MacOSX-g++-jni</classifier>
+											<type>nar</type>
+										</artifact>
+									</artifacts>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
