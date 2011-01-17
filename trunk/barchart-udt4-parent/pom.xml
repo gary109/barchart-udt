@@ -501,7 +501,7 @@
 								releaseClassifier=osArch+'-'+osName+'-'+'g++'+'-'+'jni';
 								project.properties['releaseClassifier']=releaseClassifier;
 								println('###releaseClassifier='+releaseClassifier);
-										</source>
+							</source>
 						</configuration>
 					</execution>
 				</executions>
