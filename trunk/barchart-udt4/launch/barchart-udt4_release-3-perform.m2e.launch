@@ -4,7 +4,7 @@
 <stringAttribute key="M2_GOALS" value="validate release:perform"/>
 <booleanAttribute key="M2_NON_RECURSIVE" value="false"/>
 <booleanAttribute key="M2_OFFLINE" value="false"/>
-<stringAttribute key="M2_PROFILES" value="release-props,release-version,release-attach,!nar_i386-Linux-g++"/>
+<stringAttribute key="M2_PROFILES" value="sonatype-oss-release,release-properties,release-versions,release-attach,!nar_i386-Linux-g++"/>
 <listAttribute key="M2_PROPERTIES"/>
 <stringAttribute key="M2_RUNTIME" value="/opt/apache-maven-3.0.2"/>
 <booleanAttribute key="M2_SKIP_TESTS" value="false"/>
