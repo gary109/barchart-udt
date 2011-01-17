@@ -622,5 +622,8 @@
 		</profile>
 
 	</profiles>
+	<modules>
+		<module>../barchart-udt4</module>
+	</modules>
 
 </project>
