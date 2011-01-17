@@ -454,7 +454,7 @@
 				<configuration>
 					<username>${scmServerUsername}</username>
 					<password>${scmServerPassword}</password>
-					<arguments>--activate-profiles release</arguments>
+					<arguments>--activate-profiles sonatype-oss-release,release</arguments>
 					<preparationGoals>clean verify</preparationGoals>
 					<goals>deploy</goals>
 				</configuration>
@@ -467,7 +467,7 @@
 	<profiles>
 
 		<profile>
-			<!-- "think different": macosx provides tools.jar classes already in classes.jar 
+			<!-- "think different": macosx provides tools.jar classes already in classes.jar
 				and does not provide tools.jar as sun does -->
 			<!-- vendor @ macosx: java.vendor=Apple, Inc. -->
 			<!-- vendor @ windows: java.vendor=Sun Microsystems Inc. -->
