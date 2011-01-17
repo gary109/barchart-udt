@@ -6,7 +6,7 @@
 	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.2</version>
+	<version>1.0.2-SNAPSHOT</version>
 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -47,9 +47,9 @@
 	</developers>
 
 	<scm>
-		<url>http://code.google.com/p/barchart-udt/source/browse/tags/barchart-udt4-parent-1.0.2/browse</url>
-		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/tags/barchart-udt4-parent-1.0.2/barchart-udt4-parent</connection>
-		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/tags/barchart-udt4-parent-1.0.2/barchart-udt4-parent</developerConnection>
+		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4-parent</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4-parent</developerConnection>
 	</scm>
 
 	<organization>
