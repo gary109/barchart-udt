@@ -461,7 +461,7 @@
 				<configuration>
 					<username>${scmServerUsername}</username>
 					<password>${scmServerPassword}</password>
-					<arguments>--activate-profiles sonatype-oss-release,release-properties</arguments>
+					<arguments>--activate-profiles sonatype-oss-release,release-properties,!nar_i386-Linux-g++</arguments>
 					<preparationGoals>clean verify</preparationGoals>
 					<goals>deploy</goals>
 				</configuration>
