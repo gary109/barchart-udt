@@ -482,7 +482,7 @@
 								//
 								version=project.version;
 								snapshot='-SNAPSHOT';
-								if(snapshotVersion.contains(snapshot)){
+								if(version.contains(snapshot)){
 								snapshotVersion=version;
 								releaseVersion=version.replaceAll(snapshot,'');
 								}else{
