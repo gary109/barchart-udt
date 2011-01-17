@@ -806,7 +806,7 @@
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>i386-Windows-g++-jni</classifier>
+											<classifier>x86-Windows-g++-jni</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
 										</artifactItem>
@@ -853,8 +853,8 @@
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-Windows-g++-jni.nar</file>
-											<classifier>i386-Windows-g++-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-x86-Windows-g++-jni.nar</file>
+											<classifier>x86-Windows-g++-jni</classifier>
 											<type>nar</type>
 										</artifact>
 									</artifacts>
