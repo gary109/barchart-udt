@@ -14,12 +14,12 @@
 
 	<name>${project.artifactId}</name>
 
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<scm>
-		<url>http://code.google.com/p/barchart-udt/source/browse/tags/barchart-udt4-1.0.2</url>
-		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/tags/barchart-udt4-1.0.2</connection>
-		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/tags/barchart-udt4-1.0.2</developerConnection>
+		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4</developerConnection>
 	</scm>
 
 	<properties>
