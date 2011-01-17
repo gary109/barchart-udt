@@ -592,7 +592,7 @@
 						<artifactId>groovy-maven-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>properties</id>
+								<id>subversion-properties</id>
 								<phase>validate</phase>
 								<goals>
 									<goal>execute</goal>
