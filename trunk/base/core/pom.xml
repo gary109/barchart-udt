@@ -1,12 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>com.barchart.udt</groupId>
 		<artifactId>barchart-udt4-parent</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.2</version>
 	</parent>
 
 	<artifactId>barchart-udt4</artifactId>
@@ -16,9 +15,9 @@
 
 
 	<scm>
-		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
-		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/core</connection>
-		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/core</developerConnection>
+		<url>http://code.google.com/p/barchart-udt/source/browse/tags/barchart-udt4-parent-1.0.2/browse</url>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/tags/barchart-udt4-parent-1.0.2/core</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/tags/barchart-udt4-parent-1.0.2/core</developerConnection>
 	</scm>
 
 	<properties>
