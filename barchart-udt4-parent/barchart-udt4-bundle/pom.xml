@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -10,12 +11,6 @@
 
 	<artifactId>barchart-udt4-bundle</artifactId>
 	<packaging>jar</packaging>
-
-	<!-- <scm> -->
-	<!-- <url>http://code.google.com/p/barchart-udt/source/browse/</url> -->
-	<!-- <connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/core-bundle</connection> -->
-	<!-- <developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/core-bundle</developerConnection> -->
-	<!-- </scm> -->
 
 	<properties>
 
@@ -29,17 +24,12 @@
 
 		<plugins>
 
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-nar-plugin</artifactId> -->
-			<!-- <extensions>true</extensions> -->
-			<!-- </plugin> -->
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
-					<arguments>--define skipTests --activate-profiles
+					<!--"arguments" are overwritten by overriding profiles -->
+					<arguments>--define skipTests --activate-profiles \
 						sonatype-oss-release,release-properties,release-versions,package-bundle</arguments>
 				</configuration>
 			</plugin>
@@ -49,6 +39,8 @@
 	</build>
 
 	<profiles>
+
+		<!-- TODO generate appropriate javadocs -->
 
 		<profile>
 			<id>package-bundle</id>
