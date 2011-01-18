@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -13,14 +14,9 @@
 
 	<name>${project.artifactId}</name>
 
-	<!-- <scm> -->
-	<!-- <url>http://code.google.com/p/barchart-udt/source/browse/</url> -->
-	<!-- <connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/core</connection> -->
-	<!-- <developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/core</developerConnection> -->
-	<!-- </scm> -->
-
 	<properties>
 
+		<!--TODO re-do time stamp generator -->
 		<buildStamp>${maven.build.timestamp}</buildStamp>
 		<mavenStamp>ARTIFACT='${project.artifactId}';VERSION='${project.version}';TIMESTAMP='${buildStamp}';</mavenStamp>
 
@@ -40,12 +36,6 @@
 		<folderUDT>udt</folderUDT>
 		<nativeSrcJNI>${nativeSrc}/${folderJNI}</nativeSrcJNI>
 		<nativeSrcUDT>${nativeSrc}/${folderUDT}</nativeSrcUDT>
-
-		<nativeLibName>SocketUDT</nativeLibName>
-		<nativeInclude>include</nativeInclude>
-
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<barchartVersion>${project.version}</barchartVersion>
 
 	</properties>
 
@@ -74,6 +64,15 @@
 
 			<resource>
 				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.txt</include>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+
+			<resource>
+				<directory>src/main/resources</directory>
 				<filtering>false</filtering>
 				<includes>
 					<include>**/*.so</include>
@@ -81,15 +80,6 @@
 					<include>**/*.dll</include>
 					<include>**/*.map</include>
 					<include>**/*.sym</include>
-				</includes>
-			</resource>
-
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/*.txt</include>
-					<include>**/*.properties</include>
 				</includes>
 			</resource>
 
@@ -139,23 +129,11 @@
 				</executions>
 			</plugin>
 
-			<!-- use nar-integration-test instead -->
-			<!-- <plugin> -->
-			<!-- <artifactId>maven-surefire-plugin</artifactId> -->
-			<!-- <configuration> -->
-			<!-- <skip>true</skip> -->
-			<!-- </configuration> -->
-			<!-- </plugin> -->
-
-			<!-- <plugin> -->
-			<!-- <artifactId>maven-nar-plugin</artifactId> -->
-			<!-- <extensions>true</extensions> -->
-			<!-- </plugin> -->
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
+					<!--"arguments" are overwritten by overriding profiles -->
 					<arguments>--define skipTests --activate-profiles
 						sonatype-oss-release,release-properties,release-versions,release-attach,!nar_i386-Linux-g++</arguments>
 				</configuration>
@@ -163,7 +141,6 @@
 
 		</plugins>
 	</build>
-
 
 	<profiles>
 
@@ -192,6 +169,7 @@
 		</profile>
 
 		<profile>
+			<!-- native build configuration -->
 			<id>nar</id>
 			<build>
 				<plugins>
@@ -439,7 +417,7 @@
 						<configuration>
 							<cpp>
 								<name>g++</name>
-								<!-- in fact, nar calls g++ -->
+								<!-- in fact, nar calls g++ as compiler -->
 								<defines>
 									<define>IA32</define>
 									<define>WIN32</define>
@@ -457,7 +435,7 @@
 							</cpp>
 							<linker>
 								<name>g++</name>
-								<!-- in fact, nar calls cpp -->
+								<!-- in fact, nar calls cpp as linker -->
 								<options>
 									<option>-mthreads</option>
 									<option>-Wl,--kill-at</option>
@@ -566,6 +544,7 @@
 		</profile>
 
 		<profile>
+			<!-- TODO enable duting release -->
 			<!-- update license headers -->
 			<id>license</id>
 			<build>
@@ -716,6 +695,7 @@
 		</profile>
 
 		<profile>
+			<!-- attach multiplatform artifacts during release -->
 			<id>release-attach</id>
 			<build>
 				<plugins>

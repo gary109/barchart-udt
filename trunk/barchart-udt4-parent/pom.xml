@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -60,7 +61,6 @@
 
 		<javaVersion>1.6</javaVersion>
 		<mavenVersion>3.0.2</mavenVersion>
-		<barchartVersion>1.0.2-SNAPSHOT</barchartVersion>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -224,8 +224,8 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>${javaVersion}</source>
+						<target>${javaVersion}</target>
 					</configuration>
 				</plugin>
 
@@ -273,11 +273,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>2.3.1</version>
-					<configuration>
-						<archive>
-							<addMavenDescriptor>false</addMavenDescriptor>
-						</archive>
-					</configuration>
 				</plugin>
 
 				<plugin>
@@ -460,6 +455,7 @@
 				<configuration>
 					<username>${scmServerUsername}</username>
 					<password>${scmServerPassword}</password>
+					<!--"arguments" are overwritten by overriding profiles -->
 					<arguments>--define skipTests --activate-profiles \
 						sonatype-oss-release,release-properties,release-versions,release-attach,package-bundle,!nar_i386-Linux-g++</arguments>
 					<preparationGoals>clean verify</preparationGoals>
@@ -496,7 +492,7 @@
 								<dependency>
 									<groupId>com.sun.jdk</groupId>
 									<artifactId>jdk-tools</artifactId>
-									<version>1.6.0</version>
+									<version>${javaVersion}</version>
 									<scope>system</scope>
 									<systemPath>${java.home}/../lib/tools.jar</systemPath>
 								</dependency>
@@ -512,6 +508,8 @@
 			<build>
 				<plugins>
 
+					<!-- does not work reliably with google code svn; use external bash
+						scirpt instead -->
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>wagon-maven-plugin</artifactId>
@@ -542,12 +540,6 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
-					</plugin>
-					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>groovy-maven-plugin</artifactId>
 						<executions>
@@ -558,6 +550,7 @@
 									<goal>execute</goal>
 								</goals>
 								<configuration>
+									<!-- read svn user and pass from settings.xml -->
 									<source>
 										//
 										name=project.properties['scmServerId'];
@@ -580,12 +573,6 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
-					</plugin>
-					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>groovy-maven-plugin</artifactId>
 						<executions>
@@ -596,6 +583,8 @@
 									<goal>execute</goal>
 								</goals>
 								<configuration>
+									<!-- build snapshot and release version numbers during various phases
+										of release plugin -->
 									<source>
 										//
 										version=project.version;
@@ -622,6 +611,7 @@
 		</profile>
 
 	</profiles>
+
 	<modules>
 		<module>barchart-udt4</module>
 		<module>barchart-udt4-bundle</module>
