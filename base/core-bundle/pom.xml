@@ -14,8 +14,8 @@
 
 	<scm>
 		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
-		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/barchart-udt4-bundle</connection>
-		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/barchart-udt4-bundle</developerConnection>
+		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/core-bundle</connection>
+		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/core-bundle</developerConnection>
 	</scm>
 
 	<properties>
