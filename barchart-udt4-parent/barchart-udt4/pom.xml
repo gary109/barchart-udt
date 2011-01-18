@@ -9,7 +9,6 @@
 		<version>1.0.2-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.barchart.udt</groupId>
 	<artifactId>barchart-udt4</artifactId>
 	<packaging>jar</packaging>
 
