@@ -14,12 +14,11 @@
 
 	<name>${project.artifactId}</name>
 
-
-	<scm>
-		<url>http://code.google.com/p/barchart-udt/source/browse/</url>
-		<connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/core</connection>
-		<developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/core</developerConnection>
-	</scm>
+	<!-- <scm> -->
+	<!-- <url>http://code.google.com/p/barchart-udt/source/browse/</url> -->
+	<!-- <connection>scm:svn:http://barchart-udt.googlecode.com/svn/trunk/core</connection> -->
+	<!-- <developerConnection>scm:svn:https://barchart-udt.googlecode.com/svn/trunk/core</developerConnection> -->
+	<!-- </scm> -->
 
 	<properties>
 
