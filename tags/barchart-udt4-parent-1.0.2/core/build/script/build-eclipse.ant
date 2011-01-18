@@ -1,0 +1,21 @@
+<project name="build-eclipse" default="target-info" basedir=".">
+
+	<!-- used by eclipse cdt builder -->
+
+	<property environment="env" />
+
+	<target name="target-info">
+		<echo message="hello" />
+	</target>
+
+	<target name="target-run-javah">
+		<javah classpath="target/classes" destdir="src/main/c++/jni" verbose="yes">
+			<class name="com.barchart.udt.SocketUDT" />
+		</javah>
+	</target>
+
+	<target name="target-copy-artifact">
+		<echo message="basedir : ${basedir}" />
+	</target>
+
+</project>
