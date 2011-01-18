@@ -460,6 +460,63 @@
 		</profile>
 
 		<profile>
+			<id>nar_x86_64-Windows-g++</id>
+			<activation>
+				<os>
+					<arch>x86_64</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-nar-plugin</artifactId>
+						<configuration>
+							<cpp>
+								<name>g++</name>
+								<!-- in fact, nar calls g++ as compiler -->
+								<defines>
+									<define>AMD64</define>
+									<define>WIN32</define>
+									<define>_WIN32_WINNT=0x0501</define>
+									<define>__MINGW__</define>
+								</defines>
+								<options>
+									<option>-mthreads</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-Wextra</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
+								</options>
+							</cpp>
+							<linker>
+								<name>g++</name>
+								<!-- in fact, nar calls cpp as linker -->
+								<options>
+									<option>-mthreads</option>
+									<option>-Wl,--kill-at</option>
+									<option>-Wl,--add-stdcall-alias</option>
+									<option>-Wl,--image-base,0x10000000</option>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
+									<option>-shared-libgcc</option>
+								</options>
+								<sysLibs>
+									<sysLib>
+										<name>stdc++</name>
+									</sysLib>
+									<sysLib>
+										<name>ws2_32</name>
+									</sysLib>
+								</sysLibs>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
 			<id>nar_x86-Windows-msvc</id>
 			<activation>
 				<os>
