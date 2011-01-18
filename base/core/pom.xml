@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>com.barchart.udt</groupId>
 		<artifactId>barchart-udt4-parent</artifactId>
-		<version>1.0.2</version>
+		<version>1.0.3-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>barchart-udt4</artifactId>
