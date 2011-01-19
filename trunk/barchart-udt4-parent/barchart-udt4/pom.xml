@@ -708,6 +708,26 @@
 						</executions>
 					</plugin>
 
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-patch-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>apply-patches</id>
+								<phase>process-sources</phase>
+								<goals>
+									<goal>apply</goal>
+								</goals>
+								<configuration>
+									<targetDirectory>${basedir}</targetDirectory>
+									<patchDirectory>src/main/patches</patchDirectory>
+									<patchTrackingFile>${project.build.directory}/patches/patches-applied.txt</patchTrackingFile>
+									<naturalOrderProcessing>true</naturalOrderProcessing>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
 				</plugins>
 			</build>
 		</profile>
