@@ -721,7 +721,7 @@
 								<configuration>
 									<targetDirectory>${basedir}</targetDirectory>
 									<patchDirectory>src/main/patches</patchDirectory>
-									<patchTrackingFile>${project.build.directory}/patches/patches-applied.txt</patchTrackingFile>
+									<patchTrackingFile>target/patches/patches-applied.txt</patchTrackingFile>
 									<naturalOrderProcessing>true</naturalOrderProcessing>
 								</configuration>
 							</execution>
