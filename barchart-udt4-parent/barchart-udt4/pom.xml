@@ -175,7 +175,8 @@
 				<plugins>
 
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<extensions>true</extensions>
 						<configuration>
 							<!-- place nar artifacts into test classpath for unit tests; will
@@ -251,7 +252,8 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<configuration>
 							<cpp>
 								<defines>
@@ -290,7 +292,8 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<configuration>
 							<cpp>
 								<defines>
@@ -329,7 +332,8 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<configuration>
 							<cpp>
 								<defines>
@@ -371,7 +375,8 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<configuration>
 							<cpp>
 								<defines>
@@ -413,7 +418,8 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<configuration>
 							<cpp>
 								<name>g++</name>
@@ -470,7 +476,8 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<configuration>
 							<cpp>
 								<name>g++</name>
@@ -528,7 +535,8 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<configuration>
 							<cpp>
 								<name>msvc</name>
@@ -580,7 +588,8 @@
 			<build>
 				<plugins>
 					<plugin>
-						<artifactId>maven-nar-plugin</artifactId>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
 						<configuration>
 							<cpp>
 								<name>msvc</name>
