@@ -55,6 +55,7 @@ public enum LibraryUDT {
 	X86_64_MACOSX_GPP("x86_64.MacOSX.g++", null), //
 
 	// X86_WINDOWS_MSVC("x86.Windows.msvc","msvcr90.dll,msvcp90.dll"), //
+	//	X86_WINDOWS_GPP("x86.Windows.g++", "libgcc_s_sjlj-1.dll,libstdc++-6.dll"), //
 	X86_WINDOWS_GPP("x86.Windows.g++", "libgcc_s_dw2-1.dll,libstdc++-6.dll"), //
 
 	// AMD64_WINDOWS_MSVC("amd64.Windows.msvc","msvcr90.dll,msvcp90.dll"), //
