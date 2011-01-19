@@ -1636,8 +1636,8 @@
 					</folderInfo>
 					<fileInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.171840419.1586280445" name="build-eclipse.sh" rcbsApplicability="disable" resourcePath="build/script/build-eclipse.sh" toolsToInvoke=""/>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/main/c++/jni"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/main/c++/udt/src"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/main/c++/jni"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -7738,6 +7738,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-windows-x86-32"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/cdt_x86-Windows-g++"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/cdt_x86_64-Windows-g++"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/cdt_amd64-Windows-g++"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="barchart-udt4-amd64-Windows-g++"/>
 					</externalSetting>
 				</externalSettings>
@@ -7817,8 +7818,8 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/main/c++/udt/src"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/main/c++/jni"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="src/main/c++/udt/src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
