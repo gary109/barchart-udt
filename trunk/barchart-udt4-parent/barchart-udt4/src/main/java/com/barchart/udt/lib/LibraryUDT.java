@@ -47,19 +47,20 @@ public enum LibraryUDT {
 	UNKNOWN("xxx.xxx.xxx", null), //
 
 	I386_LINUX_GPP("i386.Linux.g++", null), //
-
 	AMD64_LINUX_GPP("amd64.Linux.g++", null), //
 
 	I386_MACOSX_GPP("i386.MacOSX.g++", null), //
-
 	X86_64_MACOSX_GPP("x86_64.MacOSX.g++", null), //
 
 	// X86_WINDOWS_MSVC("x86.Windows.msvc","msvcr90.dll,msvcp90.dll"), //
-	//	X86_WINDOWS_GPP("x86.Windows.g++", "libgcc_s_sjlj-1.dll,libstdc++-6.dll"), //
-	X86_WINDOWS_GPP("x86.Windows.g++", "libgcc_s_dw2-1.dll,libstdc++-6.dll"), //
-
 	// AMD64_WINDOWS_MSVC("amd64.Windows.msvc","msvcr90.dll,msvcp90.dll"), //
-	AMD64_WINDOWS_GPP("amd64.Windows.g++", "libgcc_s_sjlj_64-1.dll,libstdc++_64-6.dll"), //
+
+	/* NOTE: mingw dependency libraries must come from the same build of mingw compiler */
+	// X86_WINDOWS_GPP("x86.Windows.g++",
+	// "libgcc_s_sjlj-1.dll,libstdc++-6.dll"),
+	X86_WINDOWS_GPP("x86.Windows.g++", "libgcc_s_dw2-1.dll,libstdc++-6.dll"), //
+	AMD64_WINDOWS_GPP("amd64.Windows.g++",
+			"libgcc_s_sjlj_64-1.dll,libstdc++_64-6.dll"), //
 
 	;
 
