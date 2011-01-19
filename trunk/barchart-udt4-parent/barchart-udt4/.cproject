@@ -60,7 +60,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/main/c++/jni}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/main/c++/udt/src}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.1306335827" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -mthreads    -fexceptions     -Wextra" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.1306335827" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -v   -mthreads    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.85023210" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.toerrors.874149994" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.484386018" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -1597,7 +1597,7 @@
 							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1431316150" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.optimization.level.1590485845" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1738288977" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.other.other.1293374811" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -m64   -fPIC    -fexceptions    -Wextra" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.1293374811" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -v   -mthreads    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.95458597" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.toerrors.297424161" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.include.paths.971825002" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
@@ -3143,7 +3143,7 @@
 							<tool command="g++" commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG}${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1019110346" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
 								<option id="gnu.cpp.compiler.option.optimization.level.293558835" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.676498790" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.other.other.583015733" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -m32   -fPIC    -fexceptions    -Wextra" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.583015733" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -v   -mthreads    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1187754330" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/cdt/jni/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/cdt/jni/include/linux}&quot;"/>
@@ -4698,7 +4698,7 @@
 							<tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base.2119446137" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.macosx.base">
 								<option id="gnu.cpp.compiler.option.optimization.level.453488960" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.1045593744" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.other.other.2113591517" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -fPIC   -m64   -arch x86_64    -fexceptions     -Wextra" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.2113591517" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -v   -mthreads    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.toerrors.937183763" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors" value="false" valueType="boolean"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.385753180" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1134231421" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
@@ -6249,7 +6249,7 @@
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.level.1176230458" name="Optimization Level" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.more" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.debugging.level.321258357" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.other.other.865644080" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -fPIC   -m32   -arch i386    -fexceptions     -Wextra" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.865644080" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -v   -mthreads    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.preprocessor.def.488247243" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="OSX"/>
 									<listOptionValue builtIn="false" value="IA32"/>
@@ -7729,7 +7729,7 @@
 			</storageModule>
 		</cconfiguration>
 		<cconfiguration id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.217727484">
-			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.217727484" moduleId="org.eclipse.cdt.core.settings" name="cdt_x86_64-Windows-g++">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.217727484" moduleId="org.eclipse.cdt.core.settings" name="cdt_amd64-Windows-g++">
 				<externalSettings>
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/sourceforge-udt-wrapper"/>
@@ -7738,7 +7738,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/build-windows-x86-32"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/cdt_x86-Windows-g++"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/barchart-udt4/cdt_x86_64-Windows-g++"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="barchart-udt4-x86_64-Windows-g++"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="barchart-udt4-amd64-Windows-g++"/>
 					</externalSetting>
 				</externalSettings>
 				<extensions>
@@ -7759,7 +7759,7 @@
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="dll" artifactName="barchart-udt4-x86_64-Windows-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.CWDLocator" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.217727484" name="cdt_x86_64-Windows-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
+				<configuration artifactExtension="dll" artifactName="barchart-udt4-amd64-Windows-g++" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.sharedLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.sharedLib" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GmakeErrorParser;org.eclipse.cdt.core.VCErrorParser;org.eclipse.cdt.core.CWDLocator" id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.217727484" name="cdt_amd64-Windows-g++" parent="cdt.managedbuild.config.gnu.cygwin.so.debug" postannouncebuildStep="finish" postbuildStep="sh -c &quot;../build/script/build-eclipse.sh finish&quot;" preannouncebuildStep="start" prebuildStep="sh -c &quot;../build/script/build-eclipse.sh start&quot;">
 					<folderInfo id="cdt.managedbuild.config.gnu.cygwin.so.debug.274883714.217727484." name="/" resourcePath="">
 						<toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.base.160926761" name="MinGW GCC" nonInternalBuilderId="cdt.managedbuild.target.gnu.builder.base" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE;org.eclipse.cdt.core.Cygwin_PE;org.eclipse.cdt.core.GNU_ELF;org.eclipse.cdt.core.MachO;org.eclipse.cdt.core.MachO64" id="cdt.managedbuild.target.gnu.platform.mingw.base.1290419424" name="Debug Platform" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
@@ -7786,7 +7786,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/main/c++/jni}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/barchart-udt4/src/main/c++/udt/src}&quot;"/>
 								</option>
-								<option id="gnu.cpp.compiler.option.other.other.669169413" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -mthreads    -fexceptions     -Wextra" valueType="string"/>
+								<option id="gnu.cpp.compiler.option.other.other.669169413" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c   -v   -mthreads    -fexceptions     -Wextra" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.1421087918" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-fno-strict-aliasing   -fno-omit-frame-pointer" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.warnings.toerrors.853763244" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors" value="false" valueType="boolean"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.658548365" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -7807,7 +7807,7 @@
 									<listOptionValue builtIn="false" value="ws2_32"/>
 									<listOptionValue builtIn="false" value="stdc++"/>
 								</option>
-								<option id="gnu.cpp.link.option.flags.1193583959" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-v -shared -shared-libgcc -fexceptions  -mthreads  -Wl,--kill-at -Wl,--add-stdcall-alias -Wl,--image-base,0x10000000 -Wl,-Map,barchart-udt4-x86-Windows-g++.map" valueType="string"/>
+								<option id="gnu.cpp.link.option.flags.1193583959" name="Linker flags" superClass="gnu.cpp.link.option.flags" value="-v -shared -shared-libgcc -fexceptions  -mthreads  -Wl,--kill-at -Wl,--add-stdcall-alias -Wl,--image-base,0x10000000 -Wl,-Map,barchart-udt4-amd64-Windows-g++.map" valueType="string"/>
 								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1567365621" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>

@@ -56,6 +56,11 @@ class AOL {
 	/** The Constant OS_ARCH. */
 	public final static String OS_ARCH = System.getProperty("os.arch");
 
+	static{
+		log.info("OS_NAME={}", OS_NAME);
+		log.info("OS_ARCH={}", OS_ARCH);
+	}
+
 	AOL(final String line) {
 
 		String[] entry = line.split("=");
