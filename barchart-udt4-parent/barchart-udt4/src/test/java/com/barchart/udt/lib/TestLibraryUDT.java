@@ -42,15 +42,15 @@ public class TestLibraryUDT {
 	public void testPath() {
 
 		assertEquals(I386_LINUX_GPP.sourceLibRealNAR(),//
-				"/lib/i386-Linux-g++/jni/" + coreName());
+				"/lib/i386-Linux-gpp/jni/" + coreName());
 
 		assertEquals(I386_LINUX_GPP.targetResPath("./lib", coreName()),
-				"./lib/i386-Linux-g++/" + coreName());
+				"./lib/i386-Linux-gpp/" + coreName());
 
 		//
 
 		assertEquals(X86_WINDOWS_GPP.sourceDepTestNAR("nar.dll"),
-				"/aol/x86-Windows-g++/lib/nar.dll");
+				"/aol/x86-Windows-gpp/lib/nar.dll");
 
 	}
 
