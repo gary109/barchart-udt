@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#
+export CYGWIN=nodosfilewarning
+
 # used by eclipse cdt interactive builder
 
 SCRIPT=`basename $0`
