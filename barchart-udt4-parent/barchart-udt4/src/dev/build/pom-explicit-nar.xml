@@ -135,7 +135,7 @@
 				<configuration>
 					<!--"arguments" are overwritten by overriding profiles -->
 					<arguments>--define skipTests --activate-profiles
-						sonatype-oss-release,release-properties,release-versions,release-attach</arguments>
+						sonatype-oss-release,release-properties,release-versions,release-attach,!nar_i386-Linux-g++</arguments>
 				</configuration>
 			</plugin>
 
@@ -168,10 +168,456 @@
 			</build>
 		</profile>
 
+		<profile>
+			<!-- native build configuration -->
+			<id>nar</id>
+			<build>
+				<plugins>
 
+					<!-- disable most nar "smart options processing" and use explicit aol.properties
+						instead -->
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<extensions>true</extensions>
+						<configuration>
+							<!-- place nar artifacts into test classpath for unit tests; will
+								also use for jar/nar packaging -->
+							<targetDirectory>target/test-classes</targetDirectory>
+							<libraries>
+								<library>
+									<type>jni</type>
+									<narSystemPackage>com.barchart.udt</narSystemPackage>
+									<linkCPP>false</linkCPP>
+								</library>
+							</libraries>
+							<cpp>
+								<debug>false</debug>
+								<optimize>none</optimize>
+								<exceptions>true</exceptions>
+								<multiThreaded>true</multiThreaded>
+								<clearDefaultOptions>false</clearDefaultOptions>
+								<options>
+									<!--these options are ignored by overriding profiles -->
+								</options>
+								<clearDefaultDefines>false</clearDefaultDefines>
+								<clearDefaultUndefines>false</clearDefaultUndefines>
+								<sourceDirectory>${nativeSrc}</sourceDirectory>
+								<includes>
+									<include>${folderJNI}/*.cpp</include>
+									<include>${folderUDT}/src/*.cpp</include>
+								</includes>
+								<includePaths>
+									<includePath>${nativeSrcJNI}</includePath>
+									<includePath>${nativeSrcUDT}/src</includePath>
+								</includePaths>
+							</cpp>
+							<java>
+								<include>true</include>
+							</java>
+							<javah>
+								<jniDirectory>${nativeSrcJNI}</jniDirectory>
+							</javah>
+							<linker>
+								<map>false</map>
+								<clearDefaultOptions>false</clearDefaultOptions>
+								<options>
+									<!--these options are ignored by overriding profiles -->
+								</options>
+							</linker>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>nar-resources</goal>
+									<goal>nar-javah</goal>
+									<goal>nar-compile</goal>
+									<goal>nar-package</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
 
 		<profile>
-			<!-- TODO enable during release -->
+			<id>nar_i386-Linux-g++</id>
+			<activation>
+				<os>
+					<family>DISABLED</family>
+					<arch>i386</arch>
+					<name>Linux</name>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<configuration>
+							<cpp>
+								<defines>
+									<define>IA32</define>
+									<define>LINUX</define>
+								</defines>
+								<options>
+									<option>-m32</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-Wextra</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
+								</options>
+							</cpp>
+							<linker>
+								<options>
+									<option>-m32</option>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_amd64-Linux-g++</id>
+			<activation>
+				<os>
+					<family>DISABLED</family>
+					<arch>amd64</arch>
+					<name>Linux</name>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<configuration>
+							<cpp>
+								<defines>
+									<define>AMD64</define>
+									<define>LINUX</define>
+								</defines>
+								<options>
+									<option>-m64</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-Wextra</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
+								</options>
+							</cpp>
+							<linker>
+								<options>
+									<option>-m64</option>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_i386-MacOSX-g++</id>
+			<activation>
+				<os>
+					<family>DISABLED</family>
+					<arch>i386</arch>
+					<name>Mac OS X</name>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<configuration>
+							<cpp>
+								<defines>
+									<define>IA32</define>
+									<define>OSX</define>
+								</defines>
+								<options>
+									<option>-m32</option>
+									<option>-arch</option>
+									<option>i386</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-Wextra</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
+								</options>
+							</cpp>
+							<linker>
+								<options>
+									<option>-m32</option>
+									<option>-Wl,-arch,i386</option>
+									<option>-Wl,-map,${project.build.finalName}.map</option>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_x86_64-MacOSX-g++</id>
+			<activation>
+				<os>
+					<family>DISABLED</family>
+					<arch>x86_64</arch>
+					<name>Mac OS X</name>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<configuration>
+							<cpp>
+								<defines>
+									<define>AMD64</define>
+									<define>OSX</define>
+								</defines>
+								<options>
+									<option>-m64</option>
+									<option>-arch</option>
+									<option>x86_64</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-Wextra</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
+								</options>
+							</cpp>
+							<linker>
+								<options>
+									<option>-m64</option>
+									<option>-Wl,-arch,x86_64</option>
+									<option>-Wl,-map,${project.build.finalName}.map</option>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_x86-Windows-g++</id>
+			<activation>
+				<os>
+					<name>DISABLED</name>
+					<arch>x86</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<configuration>
+							<cpp>
+								<name>g++</name>
+								<!-- in fact, nar calls g++ as compiler -->
+								<defines>
+									<define>IA32</define>
+									<define>WIN32</define>
+									<define>_WIN32_WINNT=0x0501</define>
+									<define>__MINGW__</define>
+								</defines>
+								<options>
+									<option>-mthreads</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-Wextra</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
+								</options>
+							</cpp>
+							<linker>
+								<name>g++</name>
+								<!-- in fact, nar calls cpp as linker -->
+								<options>
+									<option>-mthreads</option>
+									<option>-Wl,--kill-at</option>
+									<option>-Wl,--add-stdcall-alias</option>
+									<option>-Wl,--image-base,0x10000000</option>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
+									<option>-shared-libgcc</option>
+								</options>
+								<sysLibs>
+									<sysLib>
+										<name>stdc++</name>
+									</sysLib>
+									<sysLib>
+										<name>ws2_32</name>
+									</sysLib>
+								</sysLibs>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_x86_64-Windows-g++</id>
+			<activation>
+				<os>
+					<name>DISABLED</name>
+					<arch>x86_64</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<configuration>
+							<cpp>
+								<name>g++</name>
+								<!-- in fact, nar calls g++ as compiler -->
+								<defines>
+									<define>AMD64</define>
+									<define>WIN32</define>
+									<define>_WIN32_WINNT=0x0501</define>
+									<define>__MINGW__</define>
+								</defines>
+								<options>
+									<option>-mthreads</option>
+									<option>-O2</option>
+									<option>-Wall</option>
+									<option>-Wextra</option>
+									<option>-fno-strict-aliasing</option>
+									<option>-fno-omit-frame-pointer</option>
+								</options>
+							</cpp>
+							<linker>
+								<name>g++</name>
+								<!-- in fact, nar calls cpp as linker -->
+								<options>
+									<option>-mthreads</option>
+									<option>-Wl,--kill-at</option>
+									<option>-Wl,--add-stdcall-alias</option>
+									<option>-Wl,--image-base,0x10000000</option>
+									<option>-Wl,-Map,${project.build.finalName}.map</option>
+									<option>-shared-libgcc</option>
+								</options>
+								<sysLibs>
+									<sysLib>
+										<name>stdc++</name>
+									</sysLib>
+									<sysLib>
+										<name>ws2_32</name>
+									</sysLib>
+								</sysLibs>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_x86-Windows-msvc</id>
+			<activation>
+				<os>
+					<name>DISABLED</name>
+					<arch>x86</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<configuration>
+							<cpp>
+								<name>msvc</name>
+								<defines>
+									<define>WIN32</define>
+									<define>UDT_EXPORTS</define>
+									<define>_CONSOLE</define>
+									<define>_WINDLL</define>
+								</defines>
+								<options>
+									<option>/W4</option>
+									<option>/RTC1</option>
+									<option>/MD</option>
+								</options>
+							</cpp>
+							<linker>
+								<name>msvc</name>
+								<options>
+									<option>/DYNAMICBASE:NO</option>
+								</options>
+								<sysLibs>
+									<sysLib>
+										<name>kernel32</name>
+									</sysLib>
+									<sysLib>
+										<name>user32</name>
+									</sysLib>
+									<sysLib>
+										<name>ws2_32</name>
+									</sysLib>
+								</sysLibs>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<!-- TODO -->
+		<profile>
+			<id>nar_x86_64-Windows-msvc</id>
+			<activation>
+				<os>
+					<name>DISABLED</name>
+					<arch>x86_64</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>${narGroupId}</groupId>
+						<artifactId>${narArtifactId}</artifactId>
+						<configuration>
+							<cpp>
+								<name>msvc</name>
+								<defines>
+								</defines>
+								<options>
+								</options>
+							</cpp>
+							<linker>
+								<name>msvc</name>
+								<options>
+								</options>
+							</linker>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<!-- TODO enable duting release -->
 			<!-- update license headers -->
 			<id>license</id>
 			<build>
@@ -362,42 +808,35 @@
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>i386-Linux-gpp-jni</classifier>
+											<classifier>i386-Linux-g++-jni</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>amd64-Linux-gpp-jni</classifier>
+											<classifier>amd64-Linux-g++-jni</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>i386-MacOSX-gpp-jni</classifier>
+											<classifier>i386-MacOSX-g++-jni</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>x86_64-MacOSX-gpp-jni</classifier>
+											<classifier>x86_64-MacOSX-g++-jni</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>x86-Windows-gpp-jni</classifier>
-											<version>${snapshotVersion}</version>
-											<type>nar</type>
-										</artifactItem>
-										<artifactItem>
-											<groupId>${project.groupId}</groupId>
-											<artifactId>${project.artifactId}</artifactId>
-											<classifier>amd64-Windows-gpp-jni</classifier>
+											<classifier>x86-Windows-g++-jni</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
 										</artifactItem>
@@ -424,33 +863,28 @@
 								<configuration>
 									<artifacts>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-Linux-gpp-jni.nar</file>
-											<classifier>i386-Linux-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-Linux-g++-jni.nar</file>
+											<classifier>i386-Linux-g++-jni</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-amd64-Linux-gpp-jni.nar</file>
-											<classifier>amd64-Linux-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-amd64-Linux-g++-jni.nar</file>
+											<classifier>amd64-Linux-g++-jni</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-MacOSX-gpp-jni.nar</file>
-											<classifier>i386-MacOSX-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-MacOSX-g++-jni.nar</file>
+											<classifier>i386-MacOSX-g++-jni</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-x86_64-MacOSX-gpp-jni.nar</file>
-											<classifier>x86_64-MacOSX-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-x86_64-MacOSX-g++-jni.nar</file>
+											<classifier>x86_64-MacOSX-g++-jni</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-x86-Windows-gpp-jni.nar</file>
-											<classifier>x86-Windows-gpp-jni</classifier>
-											<type>nar</type>
-										</artifact>
-										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-amd64-Windows-gpp-jni.nar</file>
-											<classifier>amd64-Windows-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-x86-Windows-g++-jni.nar</file>
+											<classifier>x86-Windows-g++-jni</classifier>
 											<type>nar</type>
 										</artifact>
 									</artifacts>
@@ -537,81 +971,6 @@
 							</execution>
 						</executions>
 					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-
-		<profile>
-			<!-- native build configuration -->
-			<id>nar</id>
-			<build>
-				<plugins>
-
-					<!-- disable most nar "smart options processing" and use explicit aol.properties
-						instead -->
-					<plugin>
-						<groupId>${narGroupId}</groupId>
-						<artifactId>${narArtifactId}</artifactId>
-						<extensions>true</extensions>
-						<configuration>
-							<!-- place nar artifacts into test classpath for unit tests; will
-								also use for jar/nar packaging -->
-							<targetDirectory>target/test-classes</targetDirectory>
-							<libraries>
-								<library>
-									<type>jni</type>
-									<narSystemPackage>com.barchart.udt</narSystemPackage>
-									<linkCPP>false</linkCPP>
-								</library>
-							</libraries>
-							<cpp>
-								<debug>false</debug>
-								<optimize>none</optimize>
-								<exceptions>true</exceptions>
-								<multiThreaded>true</multiThreaded>
-								<clearDefaultOptions>false</clearDefaultOptions>
-								<options>
-									<!--these options are ignored by overriding profiles -->
-								</options>
-								<clearDefaultDefines>false</clearDefaultDefines>
-								<clearDefaultUndefines>false</clearDefaultUndefines>
-								<sourceDirectory>${nativeSrc}</sourceDirectory>
-								<includes>
-									<include>${folderJNI}/*.cpp</include>
-									<include>${folderUDT}/src/*.cpp</include>
-								</includes>
-								<includePaths>
-									<includePath>${nativeSrcJNI}</includePath>
-									<includePath>${nativeSrcUDT}/src</includePath>
-								</includePaths>
-							</cpp>
-							<java>
-								<include>true</include>
-							</java>
-							<javah>
-								<jniDirectory>${nativeSrcJNI}</jniDirectory>
-							</javah>
-							<linker>
-								<map>false</map>
-								<clearDefaultOptions>false</clearDefaultOptions>
-								<options>
-									<!--these options are ignored by overriding profiles -->
-								</options>
-							</linker>
-						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>nar-resources</goal>
-									<goal>nar-javah</goal>
-									<goal>nar-compile</goal>
-									<goal>nar-package</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-
 				</plugins>
 			</build>
 		</profile>
