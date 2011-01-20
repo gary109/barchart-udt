@@ -488,7 +488,7 @@
 					<password>${scmServerPassword}</password>
 					<!--"arguments" are overwritten by overriding profiles -->
 					<arguments>--define skipTests --activate-profiles \
-						sonatype-oss-release,release-properties,release-versions,release-attach,package-bundle,!nar_i386-Linux-g++</arguments>
+						sonatype-oss-release,release-properties,release-versions,release-attach,package-bundle</arguments>
 					<preparationGoals>clean verify</preparationGoals>
 					<goals>deploy</goals>
 				</configuration>
