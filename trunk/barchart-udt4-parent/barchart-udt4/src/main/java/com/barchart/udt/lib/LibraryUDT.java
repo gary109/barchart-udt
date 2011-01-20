@@ -59,10 +59,9 @@ public enum LibraryUDT {
 	 * NOTE: mingw dependency libraries must come from the same build of mingw
 	 * compiler
 	 */
-	// X86_WINDOWS_GPP("x86.Windows.gpp",
-	// "libgcc_s_sjlj-1.dll,libstdc++-6.dll"),
-	X86_WINDOWS_GPP("x86.Windows.gpp", "libgcc_s_dw2-1.dll,libstdc++-6.dll"), //
-	AMD64_WINDOWS_GPP("amd64.Windows.gpp",
+	X86_WINDOWS_GPP("x86.Windows.gpp", //
+			"libgcc_s_sjlj-1.dll,libstdc++-6.dll"), //
+	AMD64_WINDOWS_GPP("amd64.Windows.gpp", //
 			"libgcc_s_sjlj_64-1.dll,libstdc++_64-6.dll"), //
 
 	;
