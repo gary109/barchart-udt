@@ -37,7 +37,7 @@
 	<profiles>
 
 		<profile>
-			<id>nar_i386-Linux-g++</id>
+			<id>nar_i386-Linux-gpp</id>
 			<activation>
 				<os>
 					<arch>i386</arch>
@@ -49,14 +49,14 @@
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
 					<version>${barchartVersion}</version>
-					<classifier>i386-Linux-g++-jni</classifier>
+					<classifier>i386-Linux-gpp-jni</classifier>
 					<type>nar</type>
 				</dependency>
 			</dependencies>
 		</profile>
 
 		<profile>
-			<id>nar_amd64-Linux-g++</id>
+			<id>nar_amd64-Linux-gpp</id>
 			<activation>
 				<os>
 					<name>Linux</name>
@@ -68,14 +68,14 @@
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
 					<version>${barchartVersion}</version>
-					<classifier>amd64-Linux-g++-jni</classifier>
+					<classifier>amd64-Linux-gpp-jni</classifier>
 					<type>nar</type>
 				</dependency>
 			</dependencies>
 		</profile>
 
 		<profile>
-			<id>nar_i386-MacOSX-g++</id>
+			<id>nar_i386-MacOSX-gpp</id>
 			<activation>
 				<os>
 					<arch>i386</arch>
@@ -87,14 +87,14 @@
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
 					<version>${barchartVersion}</version>
-					<classifier>i386-MacOSX-g++-jni</classifier>
+					<classifier>i386-MacOSX-gpp-jni</classifier>
 					<type>nar</type>
 				</dependency>
 			</dependencies>
 		</profile>
 
 		<profile>
-			<id>nar_x86_64-MacOSX-g++</id>
+			<id>nar_x86_64-MacOSX-gpp</id>
 			<activation>
 				<os>
 					<arch>x86_64</arch>
@@ -106,14 +106,14 @@
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
 					<version>${barchartVersion}</version>
-					<classifier>x86_64-MacOSX-g++-jni</classifier>
+					<classifier>x86_64-MacOSX-gpp-jni</classifier>
 					<type>nar</type>
 				</dependency>
 			</dependencies>
 		</profile>
 
 		<profile>
-			<id>nar_x86-Windows-g++</id>
+			<id>nar_x86-Windows-gpp</id>
 			<activation>
 				<os>
 					<arch>x86</arch>
@@ -125,7 +125,7 @@
 					<groupId>com.barchart.udt</groupId>
 					<artifactId>barchart-udt4</artifactId>
 					<version>${barchartVersion}</version>
-					<classifier>x86-Windows-g++-jni</classifier>
+					<classifier>x86-Windows-gpp-jni</classifier>
 					<type>nar</type>
 				</dependency>
 			</dependencies>
