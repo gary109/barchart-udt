@@ -911,8 +911,8 @@
 						<artifactId>maven-resources-plugin</artifactId>
 						<executions>
 							<execution>
-								<id>copy-deps-libs</id>
-								<phase>process-resources</phase>
+								<id>copy-deps-libs_x86-Windows-gpp</id>
+								<phase>generate-resources</phase>
 								<goals>
 									<goal>copy-resources</goal>
 								</goals>
@@ -928,6 +928,45 @@
 										</resource>
 									</resources>
 									<outputDirectory>${basedir}/src/nar/resources/aol/x86-Windows-gpp/lib</outputDirectory>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>nar_amd64-Windows-gpp_dependencies</id>
+			<activation>
+				<os>
+					<arch>amd64</arch>
+					<family>windows</family>
+				</os>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-resources-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>copy-deps-libs_amd64-Windows-gpp</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<resources>
+										<resource>
+											<directory>c:/mingw64/bin</directory>
+											<filtering>false</filtering>
+											<includes>
+												<include>libgcc_s_sjlj_64-1.dll</include>
+												<include>libstdc++_64-6.dll</include>
+											</includes>
+										</resource>
+									</resources>
+									<outputDirectory>${basedir}/src/nar/resources/aol/amd64-Windows-gpp/lib</outputDirectory>
 								</configuration>
 							</execution>
 						</executions>
