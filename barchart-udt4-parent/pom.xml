@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -452,6 +453,23 @@
 		<plugins>
 
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>set-maven-version-property</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>maven-version</goal>
+						</goals>
+						<configuration>
+							<versionProperty>maven.version</versionProperty>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version>1.0</version>
@@ -470,7 +488,7 @@
 								</requireJavaVersion>
 								<requireMavenVersion>
 									<message>### You must run Maven version ${mavenVersion}; you
-										are running now: ${build.maven.version} ###</message>
+										are running now: ${maven.version} ###</message>
 									<version>${mavenVersion}</version>
 								</requireMavenVersion>
 							</rules>

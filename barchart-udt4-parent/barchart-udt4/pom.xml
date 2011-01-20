@@ -428,6 +428,7 @@
 									<artifacts>
 										<artifact>
 											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-Linux-gpp-jni.nar</file>
+											<version>${releaseVersion}</version>
 											<classifier>i386-Linux-gpp-jni</classifier>
 											<type>nar</type>
 										</artifact>
