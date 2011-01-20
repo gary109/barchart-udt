@@ -15,7 +15,7 @@ REM #####################
 
 ECHO ### pwd   = %CD%
 ECHO ### label = %label%
-ECHO ### jde   = %jdk%
+ECHO ### jdk   = %jdk%
 
 IF [%jdk%]==[java32] call :do_mingw_32
 
