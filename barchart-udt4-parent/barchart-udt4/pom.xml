@@ -365,44 +365,50 @@
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>i386-Linux-gpp-jni</classifier>
+											<classifier>${lin32}</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
+											<destFileName>${project.artifactId}-${project.version}-${lin32}.nar</destFileName>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>amd64-Linux-gpp-jni</classifier>
+											<classifier>${lin64}</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
+											<destFileName>${project.artifactId}-${project.version}-${lin64}.nar</destFileName>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>i386-MacOSX-gpp-jni</classifier>
+											<classifier>${mac32}</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
+											<destFileName>${project.artifactId}-${project.version}-${mac32}.nar</destFileName>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>x86_64-MacOSX-gpp-jni</classifier>
+											<classifier>${mac64}</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
+											<destFileName>${project.artifactId}-${project.version}-${mac64}.nar</destFileName>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>x86-Windows-gpp-jni</classifier>
+											<classifier>${win32}</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
+											<destFileName>${project.artifactId}-${project.version}-${win32}.nar</destFileName>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${project.artifactId}</artifactId>
-											<classifier>amd64-Windows-gpp-jni</classifier>
+											<classifier>${win64}</classifier>
 											<version>${snapshotVersion}</version>
 											<type>nar</type>
+											<destFileName>${project.artifactId}-${project.version}-${win64}.nar</destFileName>
 										</artifactItem>
 									</artifactItems>
 									<outputDirectory>target/nar-all</outputDirectory>
@@ -427,33 +433,33 @@
 								<configuration>
 									<artifacts>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-Linux-gpp-jni.nar</file>
-											<classifier>i386-Linux-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${project.version}-${lin32}.nar</file>
+											<classifier>${lin32}</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-amd64-Linux-gpp-jni.nar</file>
-											<classifier>amd64-Linux-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${project.version}-${lin64}.nar</file>
+											<classifier>${lin64}</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-i386-MacOSX-gpp-jni.nar</file>
-											<classifier>i386-MacOSX-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${project.version}-${mac32}.nar</file>
+											<classifier>${mac32}</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-x86_64-MacOSX-gpp-jni.nar</file>
-											<classifier>x86_64-MacOSX-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${project.version}-${mac64}.nar</file>
+											<classifier>${mac64}</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-x86-Windows-gpp-jni.nar</file>
-											<classifier>x86-Windows-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${project.version}-${win32}.nar</file>
+											<classifier>${win32}</classifier>
 											<type>nar</type>
 										</artifact>
 										<artifact>
-											<file>target/nar-all/${project.artifactId}-${snapshotVersion}-amd64-Windows-gpp-jni.nar</file>
-											<classifier>amd64-Windows-gpp-jni</classifier>
+											<file>target/nar-all/${project.artifactId}-${project.version}-${win64}.nar</file>
+											<classifier>${win64}</classifier>
 											<type>nar</type>
 										</artifact>
 									</artifacts>

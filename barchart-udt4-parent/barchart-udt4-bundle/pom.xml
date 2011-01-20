@@ -73,42 +73,42 @@
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${dependencyArtifactId}</artifactId>
-											<classifier>i386-Linux-gpp-jni</classifier>
+											<classifier>${lin32}</classifier>
 											<version>${dependencyVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${dependencyArtifactId}</artifactId>
-											<classifier>amd64-Linux-gpp-jni</classifier>
+											<classifier>${lin64}</classifier>
 											<version>${dependencyVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${dependencyArtifactId}</artifactId>
-											<classifier>i386-MacOSX-gpp-jni</classifier>
+											<classifier>${mac32}</classifier>
 											<version>${dependencyVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${dependencyArtifactId}</artifactId>
-											<classifier>x86_64-MacOSX-gpp-jni</classifier>
+											<classifier>${mac64}</classifier>
 											<version>${dependencyVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${dependencyArtifactId}</artifactId>
-											<classifier>x86-Windows-gpp-jni</classifier>
+											<classifier>${win32}</classifier>
 											<version>${dependencyVersion}</version>
 											<type>nar</type>
 										</artifactItem>
 										<artifactItem>
 											<groupId>${project.groupId}</groupId>
 											<artifactId>${dependencyArtifactId}</artifactId>
-											<classifier>amd64-Windows-gpp-jni</classifier>
+											<classifier>${win64}</classifier>
 											<version>${dependencyVersion}</version>
 											<type>nar</type>
 										</artifactItem>
