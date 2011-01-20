@@ -487,9 +487,12 @@
 					<username>${scmServerUsername}</username>
 					<password>${scmServerPassword}</password>
 					<!--"arguments" are overwritten by overriding profiles -->
-					<arguments>--update-snapshots --define skipTests
+					<arguments>
+						--update-snapshots \
+						--define skipTests \
 						--activate-profiles \
-						sonatype-oss-release,release-properties,release-versions,release-attach,package-bundle</arguments>
+						sonatype-oss-release,release-properties,release-versions,release-attach,package-bundle
+					</arguments>
 					<preparationGoals>clean verify</preparationGoals>
 					<goals>deploy</goals>
 				</configuration>
