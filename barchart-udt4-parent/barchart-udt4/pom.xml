@@ -501,7 +501,7 @@
 											</includes>
 										</resource>
 									</resources>
-									<outputDirectory>${basedir}/src/nar/resources/aol/${win32}/lib</outputDirectory>
+									<outputDirectory>${basedir}/src/nar/resources/aol/x86-Windows-gpp/lib</outputDirectory>
 								</configuration>
 							</execution>
 						</executions>
@@ -540,7 +540,7 @@
 											</includes>
 										</resource>
 									</resources>
-									<outputDirectory>${basedir}/src/nar/resources/aol/${win64}/lib</outputDirectory>
+									<outputDirectory>${basedir}/src/nar/resources/aol/amd64-Windows-gpp/lib</outputDirectory>
 								</configuration>
 							</execution>
 						</executions>
