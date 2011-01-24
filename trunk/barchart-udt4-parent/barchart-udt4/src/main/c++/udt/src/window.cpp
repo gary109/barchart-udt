@@ -1,5 +1,5 @@
 /*****************************************************************************
-Copyright (c) 2001 - 2009, The Board of Trustees of the University of Illinois.
+Copyright (c) 2001 - 2011, The Board of Trustees of the University of Illinois.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,12 +35,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 07/09/2009
+   Yunhong Gu, last updated 01/22/2011
 *****************************************************************************/
 
 #include <cmath>
 #include "common.h"
 #include "window.h"
+#include <algorithm>
 
 
 CACKWindow::CACKWindow():
@@ -125,6 +126,7 @@ int CACKWindow::acknowledge(const int32_t& seq, int32_t& ack)
 
    // Head has exceeded the physical window boundary, so it is behind tail
    for (int j = m_iTail, n = m_iHead + m_iSize; j < n; ++ j)
+   {
       // looking for indentical ACK seq. no.
       if (seq == m_piACKSeqNo[j % m_iSize])
       {
@@ -144,6 +146,7 @@ int CACKWindow::acknowledge(const int32_t& seq, int32_t& ack)
 
          return rtt;
       }
+   }
 
    // bad input, the ACK node has been overwritten
    return -1;
@@ -165,7 +168,9 @@ m_CurrArrTime(),
 m_ProbeTime()
 {
    m_piPktWindow = new int[m_iAWSize];
+   m_piPktReplica = new int[m_iAWSize];
    m_piProbeWindow = new int[m_iPWSize];
+   m_piProbeReplica = new int[m_iPWSize];
 
    m_LastArrTime = CTimer::getTime();
 
@@ -190,7 +195,9 @@ m_CurrArrTime(),
 m_ProbeTime()
 {
    m_piPktWindow = new int[m_iAWSize];
+   m_piPktReplica = new int[m_iAWSize];
    m_piProbeWindow = new int[m_iPWSize];
+   m_piProbeReplica = new int[m_iPWSize];
 
    m_LastArrTime = CTimer::getTime();
 
@@ -204,7 +211,9 @@ m_ProbeTime()
 CPktTimeWindow::~CPktTimeWindow()
 {
    delete [] m_piPktWindow;
+   delete [] m_piPktReplica;
    delete [] m_piProbeWindow;
+   delete [] m_piProbeReplica;
 }
 
 int CPktTimeWindow::getMinPktSndInt() const
@@ -214,26 +223,11 @@ int CPktTimeWindow::getMinPktSndInt() const
 
 int CPktTimeWindow::getPktRcvSpeed() const
 {
-   // sorting
-   int* pi = m_piPktWindow;
-   for (int i = 0, n = (m_iAWSize >> 1) + 1; i < n; ++ i)
-   {
-      int* pj = pi;
-      for (int j = i, m = m_iAWSize; j < m; ++ j)
-      {
-         if (*pi > *pj)
-         {
-            int temp = *pi;
-            *pi = *pj;
-            *pj = temp;
-         }
-         ++ pj;
-      }
-      ++ pi;
-   }
+   // get median value, but cannot change the original value order in the window
+   std::copy(m_piPktWindow, m_piPktWindow + m_iAWSize - 1, m_piPktReplica);
+   std::nth_element(m_piPktReplica, m_piPktReplica + (m_iAWSize / 2), m_piPktReplica + m_iAWSize - 1);
+   int median = m_piPktReplica[m_iAWSize / 2];
 
-   // read the median value
-   int median = (m_piPktWindow[(m_iAWSize >> 1) - 1] + m_piPktWindow[m_iAWSize >> 1]) >> 1;
    int count = 0;
    int sum = 0;
    int upper = median << 3;
@@ -260,26 +254,11 @@ int CPktTimeWindow::getPktRcvSpeed() const
 
 int CPktTimeWindow::getBandwidth() const
 {
-   // sorting
-   int* pi = m_piProbeWindow;
-   for (int i = 0, n = (m_iPWSize >> 1) + 1; i < n; ++ i)
-   {
-      int* pj = pi;
-      for (int j = i, m = m_iPWSize; j < m; ++ j)
-      {
-         if (*pi > *pj)
-         {
-            int temp = *pi;
-            *pi = *pj;
-            *pj = temp;
-         }
-         ++ pj;
-      }
-      ++ pi;
-   }
+   // get median value, but cannot change the original value order in the window
+   std::copy(m_piProbeWindow, m_piProbeWindow + m_iPWSize - 1, m_piProbeReplica);
+   std::nth_element(m_piProbeReplica, m_piProbeReplica + (m_iPWSize / 2), m_piProbeReplica + m_iPWSize - 1);
+   int median = m_piProbeReplica[m_iPWSize / 2];
 
-   // read the median value
-   int median = (m_piProbeWindow[(m_iPWSize >> 1) - 1] + m_piProbeWindow[m_iPWSize >> 1]) >> 1;
    int count = 1;
    int sum = median;
    int upper = median << 3;

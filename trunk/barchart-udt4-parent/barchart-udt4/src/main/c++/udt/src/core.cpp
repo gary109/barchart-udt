@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 01/02/2011
+   Yunhong Gu, last updated 01/22/2011
 *****************************************************************************/
 
 #ifndef WIN32
@@ -483,10 +483,12 @@ void CUDT::open()
    // set up the timers
    m_ullSYNInt = m_iSYNInterval * m_ullCPUFrequency;
   
+   // set minimum NAK and EXP timeout to 100ms
+   m_ullMinNakInt = 100000 * m_ullCPUFrequency;
    m_ullMinExpInt = 100000 * m_ullCPUFrequency;
 
    m_ullACKInt = m_ullSYNInt;
-   m_ullNAKInt = (m_iRTT + 4 * m_iRTTVar) * m_ullCPUFrequency;
+   m_ullNAKInt = m_ullMinNakInt;
    m_ullEXPInt = m_ullMinExpInt;
    m_llLastRspTime = CTimer::getTime();
 
@@ -1734,6 +1736,7 @@ void CUDT::sendCtrl(const int& pkttype, void* lparam, void* rparam, const int& s
       break;
 
    case 3: //011 - Loss Report
+      {
       if (NULL != rparam)
       {
          if (1 == size)
@@ -1755,12 +1758,12 @@ void CUDT::sendCtrl(const int& pkttype, void* lparam, void* rparam, const int& s
       }
       else if (m_pRcvLossList->getLossLength() > 0)
       {
-         // this is periodically NAK report
+         // this is periodically NAK report; make sure NAK cannot be sent back too often
 
          // read loss list from the local receiver loss list
          int32_t* data = new int32_t[m_iPayloadSize / 4];
          int losslen;
-         m_pRcvLossList->getLossArray(data, losslen, m_iPayloadSize / 4, m_iRTT + 4 * m_iRTTVar);
+         m_pRcvLossList->getLossArray(data, losslen, m_iPayloadSize / 4);
 
          if (0 < losslen)
          {
@@ -1775,7 +1778,16 @@ void CUDT::sendCtrl(const int& pkttype, void* lparam, void* rparam, const int& s
          delete [] data;
       }
 
+      // update next NAK time, which should wait enough time for the retansmission, but not too long
+      m_ullNAKInt = (m_iRTT + 4 * m_iRTTVar) * m_ullCPUFrequency;
+      int rcv_speed = m_pRcvTimeWindow->getPktRcvSpeed();
+      if (rcv_speed > 0)
+         m_ullNAKInt += (m_pRcvLossList->getLossLength() * 1000000ULL / rcv_speed) * m_ullCPUFrequency;
+      if (m_ullNAKInt < m_ullMinNakInt)
+         m_ullNAKInt = m_ullMinNakInt;
+
       break;
+      }
 
    case 4: //100 - Congestion Warning
       ctrlpkt.pack(pkttype);
@@ -1834,14 +1846,15 @@ void CUDT::processCtrl(CPacket& ctrlpkt)
    // Just heard from the peer, reset the expiration count.
    m_iEXPCount = 1;
    m_llLastRspTime = CTimer::getTime();
-   m_ullEXPInt = (m_iRTT + 4 * m_iRTTVar) * m_ullCPUFrequency + m_ullSYNInt;
-   if (m_ullEXPInt < m_ullMinExpInt)
-       m_ullEXPInt = m_ullMinExpInt;
 
    if ((CSeqNo::incseq(m_iSndCurrSeqNo) == m_iSndLastAck) || (2 == ctrlpkt.getType()) || (3 == ctrlpkt.getType()))
    {
-      CTimer::rdtsc(m_ullNextEXPTime);
-      m_ullNextEXPTime += m_ullEXPInt;
+      uint64_t currtime;
+      CTimer::rdtsc(currtime);
+      if (!m_pCC->m_bUserDefinedRTO)
+         m_ullNextEXPTime = currtime + m_ullEXPInt;
+      else
+         m_ullNextEXPTime = currtime + m_pCC->m_iRTO * m_ullCPUFrequency;
    }
 
    switch (ctrlpkt.getType())
@@ -1867,7 +1880,7 @@ void CUDT::processCtrl(CPacket& ctrlpkt)
       ack = ctrlpkt.getAckSeqNo();
 
       // send ACK acknowledgement
-      // ACK2 can be much less than ACK
+      // number of ACK2 can be much less than number of ACK
       uint64_t currtime = CTimer::getTime();
       if ((currtime - m_ullSndLastAck2Time > (uint64_t)m_iSYNInterval) || (ack == m_iSndLastAck2))
       {
@@ -1947,7 +1960,7 @@ void CUDT::processCtrl(CPacket& ctrlpkt)
 
       m_ullEXPInt = (m_iRTT + 4 * m_iRTTVar) * m_ullCPUFrequency + m_ullSYNInt;
       if (m_ullEXPInt < m_ullMinExpInt)
-          m_ullEXPInt = m_ullMinExpInt;
+         m_ullEXPInt = m_ullMinExpInt;
 
       if (ctrlpkt.getLength() > 16)
       {
@@ -1980,7 +1993,6 @@ void CUDT::processCtrl(CPacket& ctrlpkt)
 
       // update RTT
       rtt = m_pACKWindow->acknowledge(ctrlpkt.getAckSeqNo(), ack);
-
       if (rtt <= 0)
          break;
 
@@ -1995,7 +2007,7 @@ void CUDT::processCtrl(CPacket& ctrlpkt)
 
       m_ullEXPInt = (m_iRTT + 4 * m_iRTTVar) * m_ullCPUFrequency + m_ullSYNInt;
       if (m_ullEXPInt < m_ullMinExpInt)
-          m_ullEXPInt = m_ullMinExpInt;
+         m_ullEXPInt = m_ullMinExpInt;
 
       // update last ACK that has been received by the sender
       if (CSeqNo::seqcmp(ack, m_iRcvLastAckAck) > 0)
@@ -2287,17 +2299,15 @@ int CUDT::processData(CUnit* unit)
    // Just heard from the peer, reset the expiration count.
    m_iEXPCount = 1;
    m_llLastRspTime = CTimer::getTime();
-   m_ullEXPInt = (m_iRTT + 4 * m_iRTTVar) * m_ullCPUFrequency + m_ullSYNInt;
-   if (m_ullEXPInt < m_ullMinExpInt)
-       m_ullEXPInt = m_ullMinExpInt;
 
    if (CSeqNo::incseq(m_iSndCurrSeqNo) == m_iSndLastAck)
    {
-      CTimer::rdtsc(m_ullNextEXPTime);
+      uint64_t currtime;
+      CTimer::rdtsc(currtime);
       if (!m_pCC->m_bUserDefinedRTO)
-         m_ullNextEXPTime += m_ullEXPInt;
+         m_ullNextEXPTime = currtime + m_ullEXPInt;
       else
-         m_ullNextEXPTime += m_pCC->m_iRTO * m_ullCPUFrequency;
+         m_ullNextEXPTime = currtime + m_pCC->m_iRTO * m_ullCPUFrequency;
    }
 
    m_pCC->onPktReceived(&packet);
@@ -2451,11 +2461,10 @@ void CUDT::checkTimers()
 
    uint64_t currtime;
    CTimer::rdtsc(currtime);
-   int32_t loss = m_pRcvLossList->getFirstLostSeq();
 
    if ((currtime > m_ullNextACKTime) || ((m_pCC->m_iACKInterval > 0) && (m_pCC->m_iACKInterval <= m_iPktCount)))
    {
-      // ACK timer expired or ACK interval reached
+      // ACK timer expired or ACK interval is reached
 
       sendCtrl(2);
       CTimer::rdtsc(currtime);
@@ -2474,14 +2483,15 @@ void CUDT::checkTimers()
       ++ m_iLightACKCount;
    }
 
-   if ((loss >= 0) && (currtime > m_ullNextNAKTime))
-   {
-      // NAK timer expired, and there is loss to be reported.
-      sendCtrl(3);
-
-      CTimer::rdtsc(currtime);
-      m_ullNextNAKTime = currtime + m_ullNAKInt;
-   }
+   // we are not sending back repeated NAK anymore and rely on the sender's EXP for retransmission
+   //if ((m_pRcvLossList->getLossLength() > 0) && (currtime > m_ullNextNAKTime))
+   //{
+   //   // NAK timer expired, and there is loss to be reported.
+   //   sendCtrl(3);
+   //
+   //   CTimer::rdtsc(currtime);
+   //   m_ullNextNAKTime = currtime + m_ullNAKInt;
+   //}
 
    if (currtime > m_ullNextEXPTime)
    {
@@ -2515,8 +2525,9 @@ void CUDT::checkTimers()
       // recver: Send out a keep-alive packet
       if (m_pSndBuffer->getCurrBufSize() > 0)
       {
-         if (CSeqNo::incseq(m_iSndCurrSeqNo) != m_iSndLastAck)
+         if ((CSeqNo::incseq(m_iSndCurrSeqNo) != m_iSndLastAck) && (m_pSndLossList->getLossLength() == 0))
          {
+            // resend all unacknowledged packets on timeout, but only if there is no packet in the loss list
             int32_t csn = m_iSndCurrSeqNo;
             int num = m_pSndLossList->insert(const_cast<int32_t&>(m_iSndLastAck), csn);
             m_iTraceSndLoss += num;
