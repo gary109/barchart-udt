@@ -37,6 +37,7 @@ every time you update/save your java / c++ code in eclipse the following will ha
   * c++ will get compiled and placed in cdt-{arch}-{os}-gpp folder as well as into target/test-classes
   * console will show c++ build errors, if any;
 
+double-click on the highlighted c++ console error will bring you back to the c++ source at the location of the error;
 
 
 = Development NAR =
@@ -58,6 +59,6 @@ alternatively, you do not have to have eclipse to run these builds; you can run 
 
 = Production NAR =
 
-use for multi-platform hudson build with maven-nar-plugin 
+used for multi-platform hudson build with maven-nar-plugin 
 
 the process involves brining up all target platforms, building libraries, running unit tests, integration tests and uploading jars and nars to the snapshot repo;
