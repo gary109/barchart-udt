@@ -30,6 +30,10 @@ sudo apt-get install gcc build-essential libc6-dev ia32-libs g++-multilib  libc6
 == MaxOSX 10.6.5 ==
 use 64 bit os
 
+use [http://developer.apple.com/technologies/tools/xcode.html xcode]
+
+use [https://issues.sonatype.org/browse/NAR-177 java developer package]
+
 == Windows 7 ==
 use 64 bit os
 
