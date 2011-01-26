@@ -16,7 +16,7 @@
 
 	<target name="target-copy-artifact">
 		<echo message="basedir : ${basedir}" />
-		<!-- TODO finish this so we can stop using bash in cdt buld steps -->
+		<!-- TODO finish this so we can stop using bash in cdt build steps -->
 	</target>
 
 </project>
