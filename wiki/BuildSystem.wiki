@@ -72,7 +72,7 @@ there are 6 cdt configs in this project (for each arch and os):
   * cdt_x86-Windows-gpp
   * cdt_amd64-Windows-gpp
 
-when cdt makes a build, you will see that a resource folder appears in you project with the same name as configuraton name; if you want cdt to re-build given configuration w/o "project clean" - just delete the resource folder;
+when cdt makes a build, you will see that a resource folder appears in you project with the same name as configuraton name; if you want cdt to re-build given configuration w/o "project clean" - just delete the resource folder; this folder is not part of svn;
 
 you must select active build configuratin that matches your plaform arch and current java bitness;
 
