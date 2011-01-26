@@ -86,8 +86,6 @@ you must have 2 named java jre defined in your eclipse: "java32" and "java64" (o
 
 you must map one of these java jre to the "java se 1.6" in your eclipse;
 
-you must have /usr/bin/bash or c:/cygwin/bin/bash available;
-
 every time you update/save your java / c++ code in eclipse the following will happen:
   * java will get compiled and placed in target/classes
   * c++ will get compiled and placed in cdt-{arch}-{os}-gpp folder as well as into target/test-classes
