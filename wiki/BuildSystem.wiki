@@ -39,6 +39,8 @@ use 64 bit os;
 
 use [http://tdm-gcc.tdragon.net/ tdm-gcc] (install in c:\mingw32 & c:\mingw64);
 
+use eclipse [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/hudson/slave-job-windows-gpp.cmd launch script] to set PATH for mingw32 or mingw64;
+
 == JDK 1.6 ==
 install both 32 and 64 bit java in separate folders;
 
