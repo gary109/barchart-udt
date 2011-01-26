@@ -54,13 +54,19 @@ ask for current barchart-udt pulse-eclipse profile to be shared for you;
 
 setup both 32 and 64 bit jre in your eclipse under the names "java32" and "java64"; macosx needs -d32 or -d64 options;
 
+== Tutorials ==
+
+[http://www.ibm.com/developerworks/opensource/library/os-eclipse-stlcdt/ intro for cdt]
+
+
+
 = Development CDT =
 
 used for interactive development of both java and c++ code inside eclipse; allows to handle only single target os at a time; allows to test both 32/64 bits builds on the same os;
 
 you must have eclipse cdt installed in your eclipse before you will be able to see cdt project configuration settings; 
 
-you must also activate eclipse cdt perspective;
+you must also activate [http://www.ibm.com/developerworks/opensource/library/os-eclipse-stlcdt/fig08.jpg eclipse cdt perspective];
 
 you must select your matching [http://wiki.eclipse.org/images/f/ff/New_cdtwsconfig_wsContextMenu.png build configuration] Project->Build Configurations->Set Active->cdt-{arch}-{os}-gpp
 
