@@ -1241,7 +1241,7 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_receive1(JNIEnv *env,
 	}
 
 	if (rv > 0) { // normal
-		env->SetByteArrayRegion(arrayObj, position, size, data);
+		env->SetByteArrayRegion(arrayObj, position, rv, data);
 		free(data);
 		return rv;
 	} else if (rv < 0) { // UDT::ERROR
