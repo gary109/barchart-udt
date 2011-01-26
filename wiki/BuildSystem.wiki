@@ -114,6 +114,6 @@ ${project}/target/test-classes/barchart-udt4-1.0.3-SNAPSHOT-i386-Linux-gpp-jni/l
 
 = Production NAR =
 
-used for multi-platform hudson build with maven-nar-plugin 
+used for multi-platform hudson auto build with maven-nar-plugin;
 
-the process involves brining up all target platforms, building libraries, running unit tests, integration tests and uploading jars and nars to the snapshot repo;
+the process involves brining up all target platforms, building libraries, running unit tests, running integration tests, and uploading jars and nars to the snapshot repo;
