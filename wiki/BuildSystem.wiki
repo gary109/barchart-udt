@@ -46,7 +46,7 @@ do not include either java on the path;
 
 macosx java comes as "bundle"; regardles of what (32/64 java) is active on your system by default you must explicitly provide -d32 / -d64 for all java invocations for this project;
 
-== Eclipse 3.6.x ==
+== Eclipse 3.6 ==
 
 use [http://www.poweredbypulse.com/ pulse-eclipse];
 
