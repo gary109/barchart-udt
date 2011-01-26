@@ -58,7 +58,7 @@ setup both 32 and 64 bit jre in your eclipse under the names "java32" and "java6
 
 [http://www.ibm.com/developerworks/opensource/library/os-eclipse-stlcdt/ intro for cdt]
 
-[http://www.cs.umanitoba.ca/~eclipse/7-EclipseCDT.pdf intro for jni]
+[http://www.cs.umanitoba.ca/~eclipse/8-JNI.pdf intro for jni]
 
 = Development CDT =
 
