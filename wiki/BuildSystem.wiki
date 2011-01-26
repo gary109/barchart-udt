@@ -93,12 +93,12 @@ every time you update/save your java / c++ code in eclipse the following will ha
   * double-click on the highlighted c++ console error will bring you back to the c++ source at the location of the error;
 
 to disspell the black magic of cdt build, take a look here: Project->Properties->Builders ; you will see, that when eclipse detects change, the following steps are performed:
-  * Java Builder (provided by [http://www.eclipse.org/jdt/ JDT], runs incremental javac)
-  * [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/script/build-eclipse.ant Eclipse JNI Build] (provided by this project, runs incremental javah)
-  * CDT Builder (provided by CDT, runs incremental gcc)
-  * [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/script/build-eclipse.ant Eclipse LIB Copy] (provided by this project, runs artifact copy)
-  * Scanner Configuration Builder (provided by [http://www.eclipse.org/cdt/ CDT], runs cdt indexer)
-  * Maven Project Builder (provided by [http://www.eclipse.org/m2e/ M2E], copies extra resources as defined in pom.xml)
+  * Java Builder (provided by [http://www.eclipse.org/jdt/ JDT], runs incremental *javac*)
+  * [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/script/build-eclipse.ant Eclipse JNI Build] (provided by this project, runs incremental *javah*)
+  * CDT Builder (provided by CDT, runs incremental *gcc*)
+  * [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/script/build-eclipse.ant Eclipse LIB Copy] (provided by this project, runs artifact *copy*)
+  * Scanner Configuration Builder (provided by [http://www.eclipse.org/cdt/ CDT], runs cdt *parsers*)
+  * Maven Project Builder (provided by [http://www.eclipse.org/m2e/ M2E], copies extra resources as defined in *pom.xml*)
 
 location of "development cdt" native libs:<br>
 ${project}/target/test-classes/
