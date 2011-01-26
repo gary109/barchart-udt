@@ -38,7 +38,7 @@ when cdt makes a build, you will see that a resource folder appears in you proje
 
 you must select active build configuratin that matches your plaform arch and current java bitness;
 
-you must have 2 named java jre defined in your eclipse: "java32" and "java64"
+you must have 2 named java jre defined in your eclipse: "java32" and "java64" (on macosx you must provide -d32/-d64 options to your java)
 
 you must map one of these java jre to the "java se 1.6" in your eclipse;
 
