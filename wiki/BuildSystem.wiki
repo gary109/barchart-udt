@@ -1,13 +1,63 @@
 #summary Build System
 
+<wiki:toc />
+
 = Introduction =
 
-Add your content here.
+This project has 3 build systems:
+  * Development CDT
+  * Development NAR
+  * Production NAR
 
 
-= Details =
+= Development CDT =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+used for interactive development of both java and c++ code inside eclipse; allows to handle only single target platform at a time;
+
+you must have eclipse cdt installed in your eclipse before you will be able to see cdt project configuration settings; you must also activate eclipse cdt perspective;
+
+there are 6 cdt configs in this project (for each arch and os):
+  * cdt_i386-Linux-gpp
+  * cdt_amd64-Linux-gpp
+  * cdt_i386-MacOSX-gpp
+  * cdt_x86_64-MacOSX-gpp
+  * cdt_x86-Windows-gpp
+  * cdt_amd64-Windows-gpp
+
+you must select active build configuratin that matches your plaform arch and current java bitness;
+
+you must have 2 named java jre defined in your eclipse: "java32" and "java64"
+
+you must map one of these java jre to the "java se 1.6" in your eclipse;
+
+you must have /usr/bin/bash or c:/cygwin/bin/bash available;
+
+every time you update/save your java / c++ code in eclipse the following will happen:
+  * java will get compiled and placed in target/classes
+  * c++ will get compiled and placed in cdt-{arch}-{os}-gpp folder as well as into target/test-classes
+  * console will show c++ build errors, if any;
+
+
+
+= Development NAR =
+
+used for verification that maven-nar-plugin settings match to cdt settings; and that both cdt and nar produce identical libraries/artifacts;
+
+there are numerous "maven launch configurations" provided for various maven-related tasks; study them and create your own;
+
+for example:
+  * "barchart-udt4_nar_macosx-32.m2e" will produce "development nar" libraries;
+  * "barchart-udt4_test-macosx-32.m2e" will run all unit tests;
+
+you must run appropriate version of m2e plugin in your eclipse;
+
+you must have appropriate version on maven installed in
+/opt/apache-maven-3.0.2
+
+
+= Production NAR =
+
+use for multi-platform hudson build with maven-nar-plugin 
+
+the process involves brining up all target platforms, building libraries, running unit tests, integration tests and uploading jars and nars to the snapshot repo;
+
