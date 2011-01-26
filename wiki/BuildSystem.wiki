@@ -87,6 +87,8 @@ ${project}/target/test-classes/
 
 used for verification that maven-nar-plugin settings match to cdt settings; and that both cdt and nar produce identical libraries/artifacts;
 
+[http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/aol.properties current nar settings]
+
 there are numerous "maven launch configurations" provided for various maven-related tasks; study them and create your own;
 
 for example:
@@ -99,8 +101,6 @@ you must have appropriate version on maven installed in
 /opt/apache-maven-3.0.2
 
 alternatively, you do not have to have eclipse to run these builds; you can run these maven builds from command line;
-
-[http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/aol.properties current nar settings]
 
 location of "development nar" native libs (example):<br>
 ${project}/target/test-classes/barchart-udt4-1.0.3-SNAPSHOT-i386-Linux-gpp-jni/lib/i386-Linux-gpp/jni
