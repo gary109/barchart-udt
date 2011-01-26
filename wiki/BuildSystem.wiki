@@ -49,6 +49,8 @@ every time you update/save your java / c++ code in eclipse the following will ha
 
 double-click on the highlighted c++ console error will bring you back to the c++ source at the location of the error;
 
+location of "development cdt" native libs:
+${workspace}/barchart-udt4-parent/barchart-udt4/target/test-classes/
 
 = Development NAR =
 
@@ -68,6 +70,9 @@ you must have appropriate version on maven installed in
 alternatively, you do not have to have eclipse to run these builds; you can run these maven builds from command line;
 
 [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/aol.properties current nar settings]
+
+location of "development nar" native libs (example):
+${workspace}/barchart-udt4-parent/barchart-udt4/target/test-classes/barchart-udt4-1.0.3-SNAPSHOT-i386-Linux-gpp-jni/lib/i386-Linux-gpp/jni
 
 = Production NAR =
 
