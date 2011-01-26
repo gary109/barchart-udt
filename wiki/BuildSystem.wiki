@@ -37,6 +37,7 @@ use [https://issues.sonatype.org/browse/NAR-177 java developer package]
 == Windows 7 ==
 use 64 bit os
 
+use [http://tdm-gcc.tdragon.net/ tdm-gcc] (install in c:\mingw32 & c:\mingw64)
 
 = Development CDT =
 
