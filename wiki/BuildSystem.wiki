@@ -27,7 +27,7 @@ use [https://help.ubuntu.com/community/InstallingCompilers multi-libs]
 sudo apt-get install gcc build-essential libc6-dev ia32-libs g++-multilib  libc6-dev-i386
 
 
-== MaxOSX 10.6.5 ==
+== MacOSX 10.6.5 ==
 use 64 bit os
 
 use [http://developer.apple.com/technologies/tools/xcode.html xcode]
