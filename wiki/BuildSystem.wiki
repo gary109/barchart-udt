@@ -50,6 +50,8 @@ use [http://www.poweredbypulse.com/ pulse-eclipse];
 
 ask for current barchart-udt pulse-eclipse profile to be shared for you;
 
+setup both 32 and 64 bit jre in your eclipse under the names "java32" and "java64"; macosx needs -d32 or -d64 options;
+
 = Development CDT =
 
 used for interactive development of both java and c++ code inside eclipse; allows to handle only single target platform at a time;
