@@ -90,8 +90,7 @@ every time you update/save your java / c++ code in eclipse the following will ha
   * java will get compiled and placed in target/classes
   * c++ will get compiled and placed in cdt-{arch}-{os}-gpp folder as well as into target/test-classes
   * console will show c++ build errors, if any;
-
-double-click on the highlighted c++ console error will bring you back to the c++ source at the location of the error;
+  * double-click on the highlighted c++ console error will bring you back to the c++ source at the location of the error;
 
 to disspell the black magic of cdt build, take a look here: Project->Properties->Builders ; you will see, that when eclipse detects change, the following steps are performed:
   * Java Builder (provided by [http://www.eclipse.org/jdt/ JDT], runs incremental javac)
