@@ -15,7 +15,7 @@
 	</target>
 
 	<target name="target-copy-artifact">
-		<copy todir="target/test-classes" flatten="true">
+		<copy todir="target/test-classes" flatten="true" verbose="true">
 			<fileset dir="${basedir}" includes="cdt_*/*barchart-udt*" />
 		</copy>
 	</target>
