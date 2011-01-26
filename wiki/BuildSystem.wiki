@@ -18,7 +18,7 @@ you may want to delete specific artifact and/or location to force your java test
 
 = Pre-Requisits =
 
-== JDK ==
+== JDK 1.6 ==
 install both 32 and 64 bit java in separate folders;
 
 do not include either java on the path;
