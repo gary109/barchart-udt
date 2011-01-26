@@ -9,7 +9,7 @@ This project has 3 build systems:
   * Development NAR
   * Production NAR
 
-each build system will produce artifacts with specific names and at specific locations; barchart-udt native libarary loader will use the following search priority:
+each build system will produce artifacts with specific names and at specific locations; barchart-udt native libarary loader will use the following search priority when looking for these artifacts:
   * Production NAR
   * Development CDT
   * Development NAR
