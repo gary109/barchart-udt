@@ -1,6 +1,7 @@
 <project name="build-eclipse" default="target-test" basedir=".">
 
-	<!-- used by eclipse cdt builder -->
+	<!-- used by eclipse project builder -->
+
 	<!-- you might need to set "allocate console" in builder properteies to enalbe logging -->
 
 	<property environment="env" />
