@@ -9,6 +9,12 @@ This project has 3 build systems:
   * Development NAR
   * Production NAR
 
+each build system will produce artifacts with specific names and at specific locations; barchart-udt native libarary loader will use the following search priority:
+  * Production NAR
+  * Development CDT
+  * Development NAR
+
+you may want to delete specific artifact and/or location to force your java tests run only against the native artifacts you are interested in at the moment;
 
 = Development CDT =
 
