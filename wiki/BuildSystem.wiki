@@ -20,30 +20,35 @@ you may want to delete specific artifact and/or location to force your java test
 
 == Ubuntu 10.10 ==
 
-use 64 bit os
+use 64 bit os;
 
-use [https://help.ubuntu.com/community/InstallingCompilers multi-libs]
+use [https://help.ubuntu.com/community/InstallingCompilers multi-libs];
 
 sudo apt-get install gcc build-essential libc6-dev ia32-libs g++-multilib  libc6-dev-i386
 
 
 == MacOSX 10.6.5 ==
-use 64 bit os
+use 64 bit os;
 
-use [http://developer.apple.com/technologies/tools/xcode.html xcode]
+use [http://developer.apple.com/technologies/tools/xcode.html xcode];
 
-use [https://issues.sonatype.org/browse/NAR-177 java developer package]
+use [https://issues.sonatype.org/browse/NAR-177 java developer package];
 
 == Windows 7 ==
-use 64 bit os
+use 64 bit os;
 
-use [http://tdm-gcc.tdragon.net/ tdm-gcc] (install in c:\mingw32 & c:\mingw64)
+use [http://tdm-gcc.tdragon.net/ tdm-gcc] (install in c:\mingw32 & c:\mingw64);
 
 == JDK 1.6 ==
 install both 32 and 64 bit java in separate folders;
 
 do not include either java on the path;
 
+== Eclipse & Plugs ==
+
+use [http://www.poweredbypulse.com/ pulse-eclipse];
+
+ask for current barchart-udt pulse-eclipse profile to be shared for you;
 
 = Development CDT =
 
