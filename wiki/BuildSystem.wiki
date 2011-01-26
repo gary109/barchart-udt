@@ -44,7 +44,7 @@ install both 32 and 64 bit java in separate folders;
 
 do not include either java on the path;
 
-== Eclipse & Plugs ==
+== Eclipse 3.6.1 & Plugs ==
 
 use [http://www.poweredbypulse.com/ pulse-eclipse];
 
