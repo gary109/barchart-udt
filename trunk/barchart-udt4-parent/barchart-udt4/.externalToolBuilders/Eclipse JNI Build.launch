@@ -5,6 +5,7 @@
 <stringAttribute key="org.eclipse.ant.ui.ATTR_ANT_MANUAL_TARGETS" value="target-run-javah,"/>
 <booleanAttribute key="org.eclipse.ant.ui.ATTR_TARGETS_UPDATED" value="true"/>
 <booleanAttribute key="org.eclipse.ant.ui.DEFAULT_VM_INSTALL" value="false"/>
+<booleanAttribute key="org.eclipse.ant.uiSET_INPUTHANDLER" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/barchart-udt4"/>
 </listAttribute>

@@ -1,11 +1,11 @@
-<project name="build-eclipse" default="target-info" basedir=".">
+<project name="build-eclipse" default="target-test" basedir=".">
 
 	<!-- used by eclipse cdt builder -->
 
 	<property environment="env" />
 
-	<target name="target-info">
-		<echo message="hello" />
+	<target name="target-test">
+		<echo message="test" />
 	</target>
 
 	<target name="target-run-javah">
@@ -15,8 +15,9 @@
 	</target>
 
 	<target name="target-copy-artifact">
-		<echo message="basedir : ${basedir}" />
-		<!-- TODO finish this so we can stop using bash in cdt build steps -->
+		<copy todir="target/test-classes" flatten="true">
+			<fileset dir="${basedir}" includes="cdt_*/*barchart-udt*" />
+		</copy>
 	</target>
 
 </project>
