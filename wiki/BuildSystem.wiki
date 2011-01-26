@@ -20,7 +20,11 @@ you may want to delete specific artifact and/or location to force your java test
 
 used for interactive development of both java and c++ code inside eclipse; allows to handle only single target platform at a time;
 
-you must have eclipse cdt installed in your eclipse before you will be able to see cdt project configuration settings; you must also activate eclipse cdt perspective;
+you must have eclipse cdt installed in your eclipse before you will be able to see cdt project configuration settings; 
+
+you must also activate eclipse cdt perspective;
+
+you must select your matching [http://wiki.eclipse.org/images/f/ff/New_cdtwsconfig_wsContextMenu.png build configuration]
 
 there are 6 cdt configs in this project (for each arch and os):
   * cdt_i386-Linux-gpp
