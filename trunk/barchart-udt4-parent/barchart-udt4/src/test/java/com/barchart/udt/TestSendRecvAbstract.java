@@ -61,7 +61,7 @@ public abstract class TestSendRecvAbstract<T> {
 	final static Logger log = LoggerFactory
 			.getLogger(TestSendRecvAbstract.class);
 
-	final static int TEST_TIMEOUT = 10; // seconds
+	final static int TEST_TIMEOUT = 30; // seconds
 
 	final static int SIZE = 1460;
 	final static int COUNT = 1000;
