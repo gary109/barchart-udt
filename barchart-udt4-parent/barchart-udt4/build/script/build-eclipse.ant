@@ -2,7 +2,7 @@
 
 	<!-- used by eclipse project builder -->
 
-	<!-- you might need to set "allocate console" in builder properteies to enalbe logging -->
+	<!-- you might need to set "allocate console" in builder properteies to enable logging -->
 
 	<property environment="env" />
 
