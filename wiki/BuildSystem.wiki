@@ -54,10 +54,10 @@ you must run appropriate version of m2e plugin in your eclipse;
 you must have appropriate version on maven installed in
 /opt/apache-maven-3.0.2
 
+alternatively, you do not have to have eclipse to run these builds; you can run these maven builds from command line;
 
 = Production NAR =
 
 use for multi-platform hudson build with maven-nar-plugin 
 
 the process involves brining up all target platforms, building libraries, running unit tests, integration tests and uploading jars and nars to the snapshot repo;
-
