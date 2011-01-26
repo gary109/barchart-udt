@@ -121,12 +121,12 @@ location of "development nar" native libs (example):<br>
 ${project}/target/test-classes/barchart-udt4-1.0.3-SNAPSHOT-i386-Linux-gpp-jni/lib/i386-Linux-gpp/jni
 
 to disspell the black magic of cdt build, take a look here: Project->Properties->Builders ; you will see:
-  * Java Builder (provided by [http://www.eclipse.org/jdt/ JDT])
-  * [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/script/build-eclipse.ant Eclipse JNI Builder] (provided by this project)
-  * CDT Builder (provided by CDT)
-  * [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/script/build-eclipse.ant Eclipse LIB Copy] (provided by this project)
-  * Scanner Configuration Builder (provided by [http://www.eclipse.org/cdt/ CDT])
-  * Maven Project Builder (provided by [http://www.eclipse.org/m2e/ M2E])
+  * Java Builder (provided by [http://www.eclipse.org/jdt/ JDT], runs incrementsl javac)
+  * [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/script/build-eclipse.ant Eclipse JNI Builder] (provided by this project, runs incremental javah)
+  * CDT Builder (provided by CDT, runs incremental gcc)
+  * [http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/build/script/build-eclipse.ant Eclipse LIB Copy] (provided by this project, runs artifact copy)
+  * Scanner Configuration Builder (provided by [http://www.eclipse.org/cdt/ CDT], runs cdt indexer)
+  * Maven Project Builder (provided by [http://www.eclipse.org/m2e/ M2E], copies extra resources as defined in pom.xml)
 
 = Production NAR =
 
