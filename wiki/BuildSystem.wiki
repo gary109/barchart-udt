@@ -24,7 +24,7 @@ you must have eclipse cdt installed in your eclipse before you will be able to s
 
 you must also activate eclipse cdt perspective;
 
-you must select your matching [http://wiki.eclipse.org/images/f/ff/New_cdtwsconfig_wsContextMenu.png build configuration]
+you must select your matching [http://wiki.eclipse.org/images/f/ff/New_cdtwsconfig_wsContextMenu.png build configuration] Project->Build Configurations->Set Active->cdt-{arch}-{os}-gpp
 
 there are 6 cdt configs in this project (for each arch and os):
   * cdt_i386-Linux-gpp
