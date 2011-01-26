@@ -16,7 +16,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/Eclipse JNI Build.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/Eclipse_JNI_Build.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
@@ -75,7 +75,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/Eclipse LIB Copy.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/Eclipse_LIB_Copy.launch</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
