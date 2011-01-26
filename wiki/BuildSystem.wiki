@@ -57,6 +57,8 @@ you must have appropriate version on maven installed in
 
 alternatively, you do not have to have eclipse to run these builds; you can run these maven builds from command line;
 
+[http://code.google.com/p/barchart-udt/source/browse/trunk/barchart-udt4-parent/barchart-udt4/aol.properties current nar settings]
+
 = Production NAR =
 
 used for multi-platform hudson build with maven-nar-plugin 
