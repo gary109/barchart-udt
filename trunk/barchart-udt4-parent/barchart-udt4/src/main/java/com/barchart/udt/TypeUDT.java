@@ -57,9 +57,9 @@ public enum TypeUDT {
 	/** The DATAGRAM. Defines datagram/message - oriented UDT mode. */
 	DATAGRAM(2), //
 
-	/** The code. */
 	;
 
+	/** The code */
 	public final int code;
 
 	/**
