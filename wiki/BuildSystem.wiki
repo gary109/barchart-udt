@@ -1,4 +1,4 @@
-#summary Build System
+#summary build system - for barchart-udt develpers only
 
 <wiki:toc />
 
