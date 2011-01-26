@@ -56,7 +56,7 @@ setup both 32 and 64 bit jre in your eclipse under the names "java32" and "java6
 
 = Development CDT =
 
-used for interactive development of both java and c++ code inside eclipse; allows to handle only single target platform at a time;
+used for interactive development of both java and c++ code inside eclipse; allows to handle only single target os at a time; allows to test both 32/64 bits builds on the same os;
 
 you must have eclipse cdt installed in your eclipse before you will be able to see cdt project configuration settings; 
 
