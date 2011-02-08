@@ -52,6 +52,8 @@ import java.nio.channels.SocketChannel;
 import com.barchart.udt.ExceptionUDT;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.net.IceSocket;
+import com.barchart.udt.net.InputStreamUDT;
+import com.barchart.udt.net.OutputStreamUDT;
 
 class AdapterSocketUDT extends Socket implements IceSocket {
 
@@ -98,7 +100,13 @@ class AdapterSocketUDT extends Socket implements IceSocket {
 
 	@Override
 	public InputStream getInputStream() throws IOException {
-		throw new RuntimeException("feature not available");
+		if (isClosed())
+			throw new SocketException("Socket is closed");
+		if (!isConnected())
+			throw new SocketException("Socket is not connected");
+		if (isInputShutdown())
+			throw new SocketException("Socket input is shutdown");
+		return new InputStreamUDT(this.channelUDT, this);
 	}
 
 	@Override
@@ -132,7 +140,13 @@ class AdapterSocketUDT extends Socket implements IceSocket {
 
 	@Override
 	public OutputStream getOutputStream() throws IOException {
-		throw new RuntimeException("feature not available");
+		if (isClosed())
+			throw new SocketException("Socket is closed");
+		if (!isConnected())
+			throw new SocketException("Socket is not connected");
+		if (isOutputShutdown())
+			throw new SocketException("Socket output is shutdown");
+		return new OutputStreamUDT(this.channelUDT, this);
 	}
 
 	@Override
