@@ -71,11 +71,11 @@ public class TestSocketUDT {
 
 		try {
 
-			InetSocketAddress localAddress1 = new InetSocketAddress(//
-					"localhost", 9001);
+			InetSocketAddress localAddress1 = HelperTestUtilities
+					.getLocalSocketAddress();
 
-			InetSocketAddress localAddress2 = new InetSocketAddress(//
-					"localhost", 9002);
+			InetSocketAddress localAddress2 = HelperTestUtilities
+					.getLocalSocketAddress();
 
 			SocketUDT socketServer = new SocketUDT(TypeUDT.DATAGRAM);
 			socketServer.setOption(OptionUDT.UDT_RCVSYN, false);
@@ -161,8 +161,8 @@ public class TestSocketUDT {
 		socket.setOption(OptionUDT.Is_Send_Synchronous, false);
 		assertTrue(socket.isOpen());
 
-		final InetSocketAddress localSocketAddress = //
-		new InetSocketAddress("0.0.0.0", 0);
+		final InetSocketAddress localSocketAddress = HelperTestUtilities
+				.getLocalSocketAddress();
 
 		socket.bind(localSocketAddress);
 		assertTrue(socket.isOpen());

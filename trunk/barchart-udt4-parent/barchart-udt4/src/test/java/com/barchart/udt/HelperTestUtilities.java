@@ -69,8 +69,10 @@ public class HelperTestUtilities {
 
 	public static InetSocketAddress getLocalSocketAddress() {
 
-		InetSocketAddress address = new InetSocketAddress("localhost",
+		final InetSocketAddress address = new InetSocketAddress("localhost",
 				portCounter.getAndIncrement());
+
+		log.info("\n\t### allocated address={} ###", address);
 
 		return address;
 
