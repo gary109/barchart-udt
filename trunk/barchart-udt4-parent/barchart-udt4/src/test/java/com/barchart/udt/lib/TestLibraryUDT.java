@@ -7,15 +7,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.barchart.udt.HelperTestUtilities;
+import com.barchart.udt.util.HelperUtils;
 
 public class TestLibraryUDT {
 
 	static {
 
-		HelperTestUtilities.logOsArch();
-		HelperTestUtilities.logClassPath();
-		HelperTestUtilities.logLibraryPath();
+		HelperUtils.logOsArch();
+		HelperUtils.logClassPath();
+		HelperUtils.logLibraryPath();
 
 	}
 

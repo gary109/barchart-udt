@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.util.HelperUtils;
+
 public class TestStatusUDT {
 
 	static final Logger log = LoggerFactory.getLogger(TestStatusUDT.class);
@@ -40,16 +42,14 @@ public class TestStatusUDT {
 		final SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
 		assertEquals(StatusUDT.INIT, socket.getStatus());
 
-		final InetSocketAddress localAddress1 = new InetSocketAddress(
-				"0.0.0.0", 8001);
+		final InetSocketAddress localAddress1 = HelperUtils
+				.getLocalSocketAddress();
 
 		socket.bind(localAddress1);
 		assertEquals(StatusUDT.OPENED, socket.getStatus());
 
 		socket.close();
 		assertEquals(StatusUDT.CLOSED, socket.getStatus());
-
-		log.info("finished");
 
 	}
 
@@ -59,8 +59,8 @@ public class TestStatusUDT {
 		final SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
 		assertEquals(StatusUDT.INIT, socket.getStatus());
 
-		final InetSocketAddress localAddress1 = new InetSocketAddress(
-				"0.0.0.0", 8002);
+		final InetSocketAddress localAddress1 = HelperUtils
+				.getLocalSocketAddress();
 
 		socket.bind(localAddress1);
 		assertEquals(StatusUDT.OPENED, socket.getStatus());
@@ -71,18 +71,16 @@ public class TestStatusUDT {
 		socket.close();
 		assertEquals(StatusUDT.BROKEN, socket.getStatus());
 
-		log.info("finished");
-
 	}
 
 	@Test
 	public void testSocketStatus3() throws Exception {
 
-		final InetSocketAddress clientAddress = new InetSocketAddress(
-				"0.0.0.0", 8031);
+		final InetSocketAddress clientAddress = HelperUtils
+				.getLocalSocketAddress();
 
-		final InetSocketAddress serverAddress = new InetSocketAddress(
-				"0.0.0.0", 8032);
+		final InetSocketAddress serverAddress = HelperUtils
+				.getLocalSocketAddress();
 
 		//
 
