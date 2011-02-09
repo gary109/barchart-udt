@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.barchart.udt.nio.SelectorProviderUDT;
+import com.barchart.udt.util.HelperUtils;
 
 /**
  * Sets up a simple UDT client and server to test sending messages between them.
@@ -34,7 +35,7 @@ public class SimpleUdtTest {
 
 		// final InetSocketAddress serverAddress =
 		// new InetSocketAddress("127.0.0.1", 12356);
-		final InetSocketAddress serverAddress = HelperTestUtilities
+		final InetSocketAddress serverAddress = HelperUtils
 				.getLocalSocketAddress();
 
 		startThreadedServer(serverAddress, ref);
@@ -45,7 +46,7 @@ public class SimpleUdtTest {
 
 		// final InetSocketAddress clientAddress = new InetSocketAddress(
 		// "127.0.0.1", 10011);
-		final InetSocketAddress clientAddress = HelperTestUtilities
+		final InetSocketAddress clientAddress = HelperUtils
 				.getLocalSocketAddress();
 
 		sock.bind(clientAddress);

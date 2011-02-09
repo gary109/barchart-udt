@@ -37,7 +37,7 @@
  *
  * =================================================================================
  */
-package com.barchart.udt;
+package com.barchart.udt.util;
 
 import java.io.File;
 import java.net.InetSocketAddress;
@@ -47,10 +47,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HelperTestUtilities {
+public class HelperUtils {
 
 	private static Logger log = LoggerFactory
-			.getLogger(HelperTestUtilities.class);
+			.getLogger(HelperUtils.class);
 
 	public static String getProperty(String name) {
 

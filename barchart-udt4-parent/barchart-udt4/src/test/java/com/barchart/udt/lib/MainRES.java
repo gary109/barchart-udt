@@ -5,7 +5,7 @@ import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.barchart.udt.HelperTestUtilities;
+import com.barchart.udt.util.HelperUtils;
 
 public class MainRES {
 
@@ -15,8 +15,8 @@ public class MainRES {
 
 		log.info("started");
 
-		HelperTestUtilities.logOsArch();
-		HelperTestUtilities.logClassPath();
+		HelperUtils.logOsArch();
+		HelperUtils.logClassPath();
 
 		String name;
 		URL url;

@@ -1,6 +1,6 @@
 package com.barchart.udt.nio;
 
-import static com.barchart.udt.HelperTestUtilities.*;
+import static com.barchart.udt.util.HelperUtils.*;
 import static java.nio.channels.SelectionKey.*;
 import static org.junit.Assert.*;
 

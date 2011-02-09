@@ -1,6 +1,6 @@
 package com.barchart.udt;
 
-import static com.barchart.udt.HelperTestUtilities.*;
+import static com.barchart.udt.util.HelperUtils.*;
 import static org.junit.Assert.*;
 
 import java.net.InetSocketAddress;
