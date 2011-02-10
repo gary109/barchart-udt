@@ -73,22 +73,6 @@ public class InputStreamUDT extends InputStream {
 	public int read(final byte[] bytes, final int off, final int len)
 			throws IOException {
 
-		if (bytes == null) {
-			throw new NullPointerException("Bytes are null!!");
-		}
-
-		if (off < 0) {
-			throw new IndexOutOfBoundsException("Negative offset: " + off);
-		}
-
-		if (len < 0) {
-			throw new IndexOutOfBoundsException("Negative length: " + len);
-		}
-
-		if (len > bytes.length - off) {
-			throw new IndexOutOfBoundsException("Length too long");
-		}
-
 		final int count = socketUDT.receive(bytes, off, off + len);
 
 		if (count > 0) {
