@@ -10,7 +10,6 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
 
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +71,7 @@ public class TestStreamUDT {
 
 	}
 
-	@Test
+	// @Test
 	public void testSingleRead() throws Exception {
 
 		genericInputOutputTest(singleReadStrategy);

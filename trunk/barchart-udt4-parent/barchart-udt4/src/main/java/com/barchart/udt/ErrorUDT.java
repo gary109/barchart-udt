@@ -124,16 +124,27 @@ public enum ErrorUDT {
 
 	;
 
-	public final int code;
-	public final String description;
+	private final int code;
 
-	private ErrorUDT(int code, String description) {
+	public int getCode() {
+		return code;
+	}
+
+	private final String description;
+
+	public String getDescription() {
+		return description;
+	}
+
+	private ErrorUDT(final int code, final String description) {
 		this.code = code;
 		this.description = description;
 	}
 
-	public static ErrorUDT of(int code) {
-		for (ErrorUDT known : values()) {
+	static final ErrorUDT[] ENUM_VALS = values();
+
+	public static ErrorUDT errorFrom(final int code) {
+		for (final ErrorUDT known : ENUM_VALS) {
 			if (known.code == code) {
 				return known;
 			}
@@ -141,11 +152,11 @@ public enum ErrorUDT {
 		return WRAPPER_UNKNOWN;
 	}
 
-	// 
+	//
 
-	public static String descriptionFrom(int socketID, int errorCode,
-			String errorComment) {
-		ErrorUDT error = ErrorUDT.of(errorCode);
+	public static String descriptionFrom(final int socketID,
+			final int errorCode, String errorComment) {
+		final ErrorUDT error = ErrorUDT.errorFrom(errorCode);
 		return String.format("UDT Error : %d : %s : %s (socketID=%d)", //
 				errorCode, error.description, errorComment, socketID);
 	}

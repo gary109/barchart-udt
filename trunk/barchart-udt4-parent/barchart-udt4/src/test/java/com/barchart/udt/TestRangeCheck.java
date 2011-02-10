@@ -77,7 +77,7 @@ public class TestRangeCheck {
 		} catch (Throwable e) {
 			if (e instanceof ExceptionUDT) {
 				ExceptionUDT eUDT = (ExceptionUDT) e;
-				switch (eUDT.errorUDT) {
+				switch (eUDT.getError()) {
 				case WRAPPER_MESSAGE:
 					log.info("message={}", eUDT.getMessage());
 					return;
@@ -98,7 +98,7 @@ public class TestRangeCheck {
 		} catch (Throwable e) {
 			if (e instanceof ExceptionUDT) {
 				ExceptionUDT eUDT = (ExceptionUDT) e;
-				switch (eUDT.errorUDT) {
+				switch (eUDT.getError()) {
 				case WRAPPER_MESSAGE:
 					log.info("message={}", eUDT.getMessage());
 					return;
@@ -119,7 +119,7 @@ public class TestRangeCheck {
 		} catch (Throwable e) {
 			if (e instanceof ExceptionUDT) {
 				ExceptionUDT eUDT = (ExceptionUDT) e;
-				switch (eUDT.errorUDT) {
+				switch (eUDT.getError()) {
 				case WRAPPER_MESSAGE:
 					log.info("message={}", eUDT.getMessage());
 					return;
@@ -140,7 +140,7 @@ public class TestRangeCheck {
 		} catch (Throwable e) {
 			if (e instanceof ExceptionUDT) {
 				ExceptionUDT eUDT = (ExceptionUDT) e;
-				switch (eUDT.errorUDT) {
+				switch (eUDT.getError()) {
 				case WRAPPER_MESSAGE:
 					log.info("message={}", eUDT.getMessage());
 					return;
@@ -161,7 +161,7 @@ public class TestRangeCheck {
 		} catch (Throwable e) {
 			if (e instanceof ExceptionUDT) {
 				ExceptionUDT eUDT = (ExceptionUDT) e;
-				switch (eUDT.errorUDT) {
+				switch (eUDT.getError()) {
 				case WRAPPER_MESSAGE:
 					log.info("message={}", eUDT.getMessage());
 					return;

@@ -140,13 +140,25 @@ public enum OptionUDT {
 	/** The code. */
 	;
 
-	public final int code;
+	private final int code;
+
+	public int getCode() {
+		return code;
+	}
 
 	/** The klaz. */
-	public final Class<?> klaz;
+	private final Class<?> klaz;
+
+	public Class<?> getKlaz() {
+		return klaz;
+	}
 
 	/** The format. */
-	public final OptionFormatUDT format;
+	private final OptionFormatUDT format;
+
+	public OptionFormatUDT getFormat() {
+		return format;
+	}
 
 	/**
 	 * Instantiates a new option udt.
@@ -158,7 +170,8 @@ public enum OptionUDT {
 	 * @param format
 	 *            the format
 	 */
-	private OptionUDT(int code, Class<?> klaz, OptionFormatUDT format) {
+	private OptionUDT(final int code, final Class<?> klaz,
+			final OptionFormatUDT format) {
 		this.code = code;
 		this.klaz = klaz;
 		this.format = format;
@@ -175,7 +188,8 @@ public enum OptionUDT {
 	 * @param text
 	 *            the text
 	 */
-	public static void appendSnapshot(SocketUDT socketUDT, StringBuilder text) {
+	public static void appendSnapshot(final SocketUDT socketUDT,
+			final StringBuilder text) {
 
 		text.append("\n\t");
 		text.append("socketID");

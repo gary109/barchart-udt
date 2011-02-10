@@ -54,14 +54,22 @@ public class ExceptionUDT extends SocketException {
 	 * The error udt. Keeps error description for this exception. Use this enum
 	 * in switch/case to fine tune exception processing.
 	 */
-	public final ErrorUDT errorUDT;
+	private final ErrorUDT errorUDT;
+
+	public ErrorUDT getError() {
+		return errorUDT;
+	}
 
 	/**
 	 * The socket id. Keeps socketID of the socket that produced this exception.
 	 * Can possibly contain '0' when particular method can not determine
 	 * {@link #socketID} that produced the exception.
 	 */
-	public final int socketID;
+	private final int socketID;
+
+	public int getSocketID() {
+		return socketID;
+	}
 
 	/**
 	 * Instantiates a new exception udt for native UDT::Exception. This
@@ -74,9 +82,10 @@ public class ExceptionUDT extends SocketException {
 	 * @param comment
 	 *            the comment
 	 */
-	protected ExceptionUDT(int socketID, int errorCode, String comment) {
+	protected ExceptionUDT(final int socketID, final int errorCode,
+			final String comment) {
 		super(ErrorUDT.descriptionFrom(socketID, errorCode, comment));
-		errorUDT = ErrorUDT.of(errorCode);
+		errorUDT = ErrorUDT.errorFrom(errorCode);
 		this.socketID = socketID;
 	}
 
@@ -92,8 +101,9 @@ public class ExceptionUDT extends SocketException {
 	 * @param comment
 	 *            the comment
 	 */
-	protected ExceptionUDT(int socketID, ErrorUDT error, String comment) {
-		super(ErrorUDT.descriptionFrom(socketID, error.code, comment));
+	protected ExceptionUDT(final int socketID, final ErrorUDT error,
+			final String comment) {
+		super(ErrorUDT.descriptionFrom(socketID, error.getCode(), comment));
 		errorUDT = error;
 		this.socketID = socketID;
 	}
