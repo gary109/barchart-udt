@@ -2,58 +2,73 @@ package com.barchart.udt.net;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
+import java.nio.channels.IllegalBlockingModeException;
+
+import com.barchart.udt.SocketUDT;
 
 /**
- * {@link OutputStream} for UDT sockets. 
+ * {@link OutputStream} for UDT sockets.
  */
 public class OutputStreamUDT extends OutputStream {
 
-	private final SocketChannel channel;
-	private final Socket socket;
-	private volatile boolean closing = false;
+	private final SocketUDT socketUDT;
 
 	/**
-	 * Creates a new UDT output stream.
 	 * 
-	 * @param channel The UDT socket channel.
-	 * @param socketUDT The UDT socket.
+	 * @param socketUDT
+	 *            The UDT socket.
 	 */
-	public OutputStreamUDT(final SocketChannel channel, 
-		final Socket socketUDT) {
-		this.channel = channel;
-		this.socket = socketUDT;
-	}
+	public OutputStreamUDT(final SocketUDT socketUDT) {
 
-	@Override
-	public void write(final byte[] bytes, final int off, final int len) 
-		throws IOException {
-		channel.write(ByteBuffer.wrap(bytes, off, len));
-	}
+		if (!socketUDT.isBlocking()) {
+			throw new IllegalBlockingModeException();
+		}
 
-	@Override
-	public void write(final byte[] bytes) throws IOException {
-		channel.write(ByteBuffer.wrap(bytes));
+		this.socketUDT = socketUDT;
+
 	}
 
 	@Override
 	public void write(final int b) throws IOException {
+
 		// Just cast it -- this is the same thing SocketOutputStream does.
-		final byte[] bytes = {(byte) b};
-		channel.write(ByteBuffer.wrap(bytes));
+		final byte[] bytes = { (byte) b };
+
+		write(bytes);
+
 	}
 
 	@Override
-	public void close() throws IOException {
-		if (closing) {
+	public void write(final byte[] bytes) throws IOException {
+
+		write(bytes, 0, bytes.length);
+
+	}
+
+	@Override
+	public void write(final byte[] bytes, final int off, final int len)
+			throws IOException {
+
+		final int count = socketUDT.send(bytes, off, off + len);
+
+		if (count > 0) {
+			assert count == len;
 			return;
 		}
-		closing = true;
-		if (!socket.isClosed()) {
-			socket.close();
+
+		if (count == 0) {
+			throw new IOException("UDT send time out");
 		}
-		closing = false;
+
+		throw new IllegalStateException("should not happen");
+
 	}
+
+	@Override
+	public synchronized void close() throws IOException {
+		if (socketUDT.isOpen()) {
+			socketUDT.close();
+		}
+	}
+
 }

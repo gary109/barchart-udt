@@ -1,4 +1,4 @@
-package com.barchart.udt.net;
+package com.barchart.udt.nio;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -20,6 +20,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.nio.InputStreamUDT;
+import com.barchart.udt.nio.OutputStreamUDT;
 import com.barchart.udt.nio.SelectorProviderUDT;
 
 /**

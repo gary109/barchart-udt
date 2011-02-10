@@ -22,7 +22,7 @@ import com.barchart.udt.util.HelperUtils;
 /**
  * Test for UDT socket input streams and output streams.
  */
-public class TestStreamUDT_2 {
+public class TestStreamUDT {
 
 	private static final int DEFAULT_BUFFER_SIZE = 8000;
 
@@ -104,7 +104,7 @@ public class TestStreamUDT_2 {
 
 		final InputStream dataIn = new ByteArrayInputStream(TEST_BYTES);
 
-		final OutputStream socketOut = new OutputStreamUDT_2(clientSocket);
+		final OutputStream socketOut = new OutputStreamUDT(clientSocket);
 
 		copy(dataIn, socketOut);
 
@@ -112,7 +112,7 @@ public class TestStreamUDT_2 {
 
 		log.info("\n\t### Copied test bytes from TEST_BYTES through client socket");
 
-		final InputStream socketIn = new InputStreamUDT_2(clientSocket);
+		final InputStream socketIn = new InputStreamUDT(clientSocket);
 
 		final ByteArrayOutputStream dataOut = new ByteArrayOutputStream();
 
@@ -293,9 +293,9 @@ public class TestStreamUDT_2 {
 	private void echo(final SocketUDT socketUDT,
 			final ReadStrategy activeReadStrategy) {
 
-		final InputStream is = new InputStreamUDT_2(socketUDT);
+		final InputStream is = new InputStreamUDT(socketUDT);
 
-		final OutputStream os = new OutputStreamUDT_2(socketUDT);
+		final OutputStream os = new OutputStreamUDT(socketUDT);
 
 		final Runnable runner = new Runnable() {
 			@Override

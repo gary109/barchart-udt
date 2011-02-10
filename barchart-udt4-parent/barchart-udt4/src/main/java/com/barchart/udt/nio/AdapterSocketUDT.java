@@ -52,8 +52,6 @@ import java.nio.channels.SocketChannel;
 import com.barchart.udt.ExceptionUDT;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.net.IceSocket;
-import com.barchart.udt.net.InputStreamUDT;
-import com.barchart.udt.net.OutputStreamUDT;
 
 class AdapterSocketUDT extends Socket implements IceSocket {
 
