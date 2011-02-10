@@ -1,33 +1,38 @@
-package com.barchart.udt.net;
+package com.barchart.udt.nio;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.nio.channels.IllegalBlockingModeException;
-
-import com.barchart.udt.SocketUDT;
+import java.nio.channels.SocketChannel;
 
 /**
  * {@link InputStream} implementation for UDT sockets.
  */
-public class InputStreamUDT_2 extends InputStream {
+class InputStreamUDT extends InputStream {
 
-	public static int EOF = -1;
-
-	private final SocketUDT socketUDT;
+	private final SocketChannel channel;
+	private final Socket socket;
+	private volatile boolean closing = false;
 
 	/**
+	 * Creates a new input stream for the specified channel.
 	 * 
+	 * @param channel
+	 *            The UDT socket channel.
 	 * @param socketUDT
 	 *            The UDT socket.
 	 */
-	public InputStreamUDT_2(final SocketUDT socketUDT) {
-
-		if (!socketUDT.isBlocking()) {
+	public InputStreamUDT(final SocketChannel channel, final Socket socketUDT) {
+		if (channel == null) {
+			throw new NullPointerException("Null SocketChannel");
+		}
+		if (!channel.isBlocking()) {
 			throw new IllegalBlockingModeException();
 		}
-
-		this.socketUDT = socketUDT;
-
+		this.channel = channel;
+		this.socket = socketUDT;
 	}
 
 	@Override
@@ -53,62 +58,43 @@ public class InputStreamUDT_2 extends InputStream {
 		 */
 
 		final byte[] data = new byte[1];
-
-		final int count = read(data);
-
-		assert count == 1;
-
+		read(data);
 		return data[0];
-
 	}
 
 	@Override
 	public int read(final byte[] bytes) throws IOException {
-
 		return read(bytes, 0, bytes.length);
-
 	}
 
 	@Override
 	public int read(final byte[] bytes, final int off, final int len)
 			throws IOException {
-
 		if (bytes == null) {
 			throw new NullPointerException("Bytes are null!!");
 		}
-
 		if (off < 0) {
 			throw new IndexOutOfBoundsException("Negative offset: " + off);
 		}
-
 		if (len < 0) {
 			throw new IndexOutOfBoundsException("Negative length: " + len);
 		}
-
 		if (len > bytes.length - off) {
 			throw new IndexOutOfBoundsException("Length too long");
 		}
-
-		final int count = socketUDT.receive(bytes, off, off + len);
-
-		if (count > 0) {
-			assert count <= len;
-			return count;
+		if (!this.channel.isBlocking()) {
+			throw new IllegalBlockingModeException();
 		}
+		final ByteBuffer bb = ByteBuffer.wrap(bytes);
+		bb.position(off);
 
-		if (count == 0) {
-			throw new IOException("UDT receive time out");
-		}
-
-		throw new IllegalStateException("should not happen");
-
+		final int read = channel.read(bb);
+		return read;
 	}
 
 	@Override
-	public synchronized void close() throws IOException {
-		if (socketUDT.isOpen()) {
-			socketUDT.close();
-		}
+	public long skip(final long n) throws IOException {
+		throw new UnsupportedOperationException("skip not supported");
 	}
 
 	@Override
@@ -120,8 +106,15 @@ public class InputStreamUDT_2 extends InputStream {
 	}
 
 	@Override
-	public long skip(final long n) throws IOException {
-		throw new UnsupportedOperationException("skip not supported");
+	public void close() throws IOException {
+		if (closing) {
+			return;
+		}
+		closing = true;
+		if (!this.socket.isClosed()) {
+			this.channel.close();
+		}
+		closing = false;
 	}
 
 	@Override
@@ -138,5 +131,4 @@ public class InputStreamUDT_2 extends InputStream {
 	public boolean markSupported() {
 		return false;
 	}
-
 }

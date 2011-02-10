@@ -2,117 +2,126 @@ package com.barchart.udt.net;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.Socket;
-import java.nio.ByteBuffer;
 import java.nio.channels.IllegalBlockingModeException;
-import java.nio.channels.SocketChannel;
+
+import com.barchart.udt.SocketUDT;
 
 /**
  * {@link InputStream} implementation for UDT sockets.
  */
 public class InputStreamUDT extends InputStream {
-	
-	private final SocketChannel channel;
-	private final Socket socket;
-	private volatile boolean closing = false;
+
+	public static int EOF = -1;
+
+	private final SocketUDT socketUDT;
 
 	/**
-	 * Creates a new input stream for the specified channel.
 	 * 
-	 * @param channel The UDT socket channel.
-	 * @param socketUDT The UDT socket.
+	 * @param socketUDT
+	 *            The UDT socket.
 	 */
-	public InputStreamUDT(final SocketChannel channel, final Socket socketUDT) {
-		if (channel == null) {
-			throw new NullPointerException("Null SocketChannel");
-		}
-		if (!channel.isBlocking()) {
+	public InputStreamUDT(final SocketUDT socketUDT) {
+
+		if (!socketUDT.isBlocking()) {
 			throw new IllegalBlockingModeException();
 		}
-		this.channel = channel;
-		this.socket = socketUDT;
+
+		this.socketUDT = socketUDT;
+
 	}
-	
+
 	@Override
 	public int read() throws IOException {
-		
+
 		/*
 		 * Here's the contract from the JavaDoc on this for SocketChannel:
 		 * 
-		 * A read operation might not fill the buffer, and in fact it might 
-		 * not read any bytes at all. Whether or not it does so depends 
-		 * upon the nature and state of the channel. A socket channel in 
-		 * non-blocking mode, for example, cannot read any more bytes than 
-		 * are immediately available from the socket's input buffer; 
-		 * similarly, a file channel cannot read any more bytes than remain 
-		 * in the file. It is guaranteed, however, that if a channel is in 
-		 * blocking mode and there is at least one byte remaining in the 
-		 * buffer then this method will block until at least one byte is read.
+		 * A read operation might not fill the buffer, and in fact it might not
+		 * read any bytes at all. Whether or not it does so depends upon the
+		 * nature and state of the channel. A socket channel in non-blocking
+		 * mode, for example, cannot read any more bytes than are immediately
+		 * available from the socket's input buffer; similarly, a file channel
+		 * cannot read any more bytes than remain in the file. It is guaranteed,
+		 * however, that if a channel is in blocking mode and there is at least
+		 * one byte remaining in the buffer then this method will block until at
+		 * least one byte is read.
 		 * 
 		 * Long story short: This UDT InputStream should only ever be created
-		 * when the SocketChannel's in blocking mode, and when it's in 
-		 * blocking mode the SocketChannel read call below will block just like
-		 * we need it too.
+		 * when the SocketChannel's in blocking mode, and when it's in blocking
+		 * mode the SocketChannel read call below will block just like we need
+		 * it too.
 		 */
-		
+
 		final byte[] data = new byte[1];
-		read(data);
+
+		final int count = read(data);
+
+		assert count == 1;
+
 		return data[0];
+
 	}
 
 	@Override
 	public int read(final byte[] bytes) throws IOException {
+
 		return read(bytes, 0, bytes.length);
+
 	}
 
 	@Override
-	public int read(final byte[] bytes, final int off, final int len) 
-		throws IOException {
+	public int read(final byte[] bytes, final int off, final int len)
+			throws IOException {
+
 		if (bytes == null) {
 			throw new NullPointerException("Bytes are null!!");
 		}
+
 		if (off < 0) {
-			throw new IndexOutOfBoundsException("Negative offset: "+off);
+			throw new IndexOutOfBoundsException("Negative offset: " + off);
 		}
+
 		if (len < 0) {
-			throw new IndexOutOfBoundsException("Negative length: "+len);
+			throw new IndexOutOfBoundsException("Negative length: " + len);
 		}
+
 		if (len > bytes.length - off) {
 			throw new IndexOutOfBoundsException("Length too long");
 		}
-		if (!this.channel.isBlocking()) {
-			throw new IllegalBlockingModeException();
+
+		final int count = socketUDT.receive(bytes, off, off + len);
+
+		if (count > 0) {
+			assert count <= len;
+			return count;
 		}
-		final ByteBuffer bb = ByteBuffer.wrap(bytes);
-		bb.position(off);
-		
-		final int read = channel.read(bb);
-		return read;
+
+		if (count == 0) {
+			throw new IOException("UDT receive time out");
+		}
+
+		throw new IllegalStateException("should not happen");
+
 	}
 
 	@Override
-	public long skip(final long n) throws IOException {
-		throw new UnsupportedOperationException("skip not supported");
+	public synchronized void close() throws IOException {
+		if (socketUDT.isOpen()) {
+			socketUDT.close();
+		}
 	}
 
 	@Override
 	public int available() throws IOException {
-		// This is the default InputStream return value. 
+		// This is the default InputStream return value.
 		// The java/net/SocketInputStream.java implementation delegates to
 		// the native implementation, which returns 0 on at least some OSes.
 		return 0;
 	}
 
 	@Override
-	public void close() throws IOException {
-		if (closing) {
-			return;
-		}
-		closing = true;
-		if (!this.socket.isClosed()) {
-			this.channel.close();
-		}
-		closing = false;
+	public long skip(final long n) throws IOException {
+		throw new UnsupportedOperationException("skip not supported");
 	}
 
 	@Override
@@ -129,4 +138,5 @@ public class InputStreamUDT extends InputStream {
 	public boolean markSupported() {
 		return false;
 	}
+
 }
