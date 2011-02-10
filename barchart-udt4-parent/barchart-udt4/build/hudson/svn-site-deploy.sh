@@ -13,8 +13,8 @@ echo "### SITE=$SITE"
 ### REMOVE
 
 echo "### svn cleanup/update"
-svn cleanup
-svn update
+svn cleanup  "$SITE"
+svn update  "$SITE"
 
 echo "### svn delete"
 svn delete --force "$SITE"
@@ -25,8 +25,8 @@ svn commit --message "hudson: remove site" "$SITE"
 ### PUBLISH
 
 echo "### svn cleanup/update"
-svn cleanup
-svn update
+svn cleanup  "$SITE"
+svn update  "$SITE"
 
 echo "### mkdir new"
 mkdir --parents "$SITE"
@@ -44,8 +44,10 @@ echo "### svn propset css"
 find "$SITE" -name '*.css'  -exec svn propset --force svn:mime-type text/css {} \;
 
 echo "### svn cleanup/update"
-svn cleanup
-svn update
+svn cleanup  "$SITE"
+svn update  "$SITE"
 
 echo "### svn commit"
 svn commit --message "hudson: publish site" "$SITE"
+
+###
