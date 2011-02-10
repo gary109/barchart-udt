@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.IllegalBlockingModeException;
 
+import com.barchart.udt.ErrorUDT;
 import com.barchart.udt.SocketUDT;
 
 /**
@@ -81,7 +82,8 @@ public class InputStreamUDT extends InputStream {
 		}
 
 		if (count == 0) {
-			throw new IOException("UDT receive time out");
+			throw new ExceptionReceiveUDT(socketUDT.getSocketId(),
+					ErrorUDT.USER_DEFINED_MESSAGE, "UDT receive time out");
 		}
 
 		throw new IllegalStateException("should not happen");

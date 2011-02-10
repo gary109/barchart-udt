@@ -408,7 +408,7 @@ public class SocketUDT {
 		if (option == null) {
 			throw new IllegalArgumentException("option == null");
 		}
-		return getOption0(option.code, option.klaz);
+		return getOption0(option.getCode(), option.getKlaz());
 	}
 
 	/**
@@ -427,12 +427,12 @@ public class SocketUDT {
 			throw new IllegalArgumentException(
 					"option == null || value == null");
 		}
-		if (value.getClass() == option.klaz) {
-			setOption0(option.code, option.klaz, value);
+		if (value.getClass() == option.getKlaz()) {
+			setOption0(option.getCode(), option.getKlaz(), value);
 		} else {
 			throw new ExceptionUDT(socketID, ErrorUDT.WRAPPER_MESSAGE,
 					"option and value types do not match: "
-							+ option.klaz.getName() + " vs "
+							+ option.getKlaz().getName() + " vs "
 							+ value.getClass().getName());
 		}
 	}
@@ -1046,7 +1046,7 @@ public class SocketUDT {
 	 **/
 	public final ErrorUDT getError() {
 		int code = getErrorCode();
-		return ErrorUDT.of(code);
+		return ErrorUDT.errorFrom(code);
 	}
 
 	//
