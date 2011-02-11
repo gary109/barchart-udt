@@ -91,10 +91,8 @@ public class InputStreamUDT extends InputStream {
 	}
 
 	@Override
-	public synchronized void close() throws IOException {
-		if (socketUDT.isOpen()) {
-			socketUDT.close();
-		}
+	public void close() throws IOException {
+		socketUDT.close();
 	}
 
 	@Override
