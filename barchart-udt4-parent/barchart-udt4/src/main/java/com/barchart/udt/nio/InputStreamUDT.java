@@ -13,8 +13,6 @@ import java.nio.channels.SocketChannel;
 class InputStreamUDT extends InputStream {
 
 	private final SocketChannel channel;
-	private final Socket socket;
-	private volatile boolean closing = false;
 
 	/**
 	 * Creates a new input stream for the specified channel.
@@ -24,7 +22,7 @@ class InputStreamUDT extends InputStream {
 	 * @param socketUDT
 	 *            The UDT socket.
 	 */
-	public InputStreamUDT(final SocketChannel channel, final Socket socketUDT) {
+	InputStreamUDT(final SocketChannel channel, final Socket socketUDT) {
 		if (channel == null) {
 			throw new NullPointerException("Null SocketChannel");
 		}
@@ -32,7 +30,6 @@ class InputStreamUDT extends InputStream {
 			throw new IllegalBlockingModeException();
 		}
 		this.channel = channel;
-		this.socket = socketUDT;
 	}
 
 	@Override
@@ -70,21 +67,7 @@ class InputStreamUDT extends InputStream {
 	@Override
 	public int read(final byte[] bytes, final int off, final int len)
 			throws IOException {
-		if (bytes == null) {
-			throw new NullPointerException("Bytes are null!!");
-		}
-		if (off < 0) {
-			throw new IndexOutOfBoundsException("Negative offset: " + off);
-		}
-		if (len < 0) {
-			throw new IndexOutOfBoundsException("Negative length: " + len);
-		}
-		if (len > bytes.length - off) {
-			throw new IndexOutOfBoundsException("Length too long");
-		}
-		if (!this.channel.isBlocking()) {
-			throw new IllegalBlockingModeException();
-		}
+
 		final ByteBuffer bb = ByteBuffer.wrap(bytes);
 		bb.position(off);
 
@@ -107,14 +90,7 @@ class InputStreamUDT extends InputStream {
 
 	@Override
 	public void close() throws IOException {
-		if (closing) {
-			return;
-		}
-		closing = true;
-		if (!this.socket.isClosed()) {
-			this.channel.close();
-		}
-		closing = false;
+		channel.close();
 	}
 
 	@Override
@@ -131,4 +107,5 @@ class InputStreamUDT extends InputStream {
 	public boolean markSupported() {
 		return false;
 	}
+
 }
