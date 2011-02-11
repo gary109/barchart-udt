@@ -15,6 +15,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.channels.spi.SelectorProvider;
 import java.util.Arrays;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +29,8 @@ public class TestUdtInputAndOutputStream {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	private static final byte[] TEST_BYTES = testBytes();
+	
+	private static final boolean USE_UDT = true;
 
 	private final ReadStrategy bulkReadStrategy = new ReadStrategy() {
 		@Override
@@ -41,9 +44,9 @@ public class TestUdtInputAndOutputStream {
 		@Override
 		public int read(final InputStream is, final byte[] bytes,
 				final int off, final int len) throws IOException {
-			log.info("ReadStrategy::ABOUT TO READ...");
+			//log.info("ReadStrategy::ABOUT TO READ...");
 			bytes[off] = (byte) is.read();
-			log.info("ReadStrategy::JUST READ: " + bytes[off]);
+			//log.info("ReadStrategy::JUST READ: " + bytes[off]);
 			return 1;
 		}
 	};
@@ -65,7 +68,7 @@ public class TestUdtInputAndOutputStream {
 		genericInputOutputRest(activeReadStrategy, 47921);
 	}
 
-	// @Test TODO: FIX THIS!!
+	//@Test //TODO: FIX THIS!!
 	public void testSingleRead() throws Exception {
 		activeReadStrategy = singleReadStrategy;
 		genericInputOutputRest(activeReadStrategy, 6822);
@@ -130,7 +133,7 @@ public class TestUdtInputAndOutputStream {
 			os.write(buffer, 0, n);
 			count += n;
 		}
-		log.trace("Wrote " + count + " bytes.");
+		//log.trace("Wrote " + count + " bytes.");
 		return count;
 	}
 
@@ -159,7 +162,6 @@ public class TestUdtInputAndOutputStream {
 		long byteCount = originalByteCount;
 		try {
 			while (byteCount > 0) {
-				log.info("IN LOOP");
 				if (byteCount < bufSize) {
 					len = readStrategy.read(in, buffer, 0, (int) byteCount);
 					// len = in.read(buffer, 0, (int) byteCount);
@@ -172,10 +174,10 @@ public class TestUdtInputAndOutputStream {
 					break;
 				}
 				byteCount -= len;
-				log.info("Decrementing byte count by " + len + " to "
-						+ byteCount);
+				//log.info("Decrementing byte count by " + len + " to "
+				//		+ byteCount);
 				out.write(buffer, 0, len);
-				log.info("WROTE DATA");
+				//log.info("WROTE DATA");
 				written += len;
 			}
 			return written;
@@ -194,19 +196,26 @@ public class TestUdtInputAndOutputStream {
 		}
 	}
 
-	private OutputStream toOutputStream(final SocketChannel clientChannel) {
-		return new OutputStreamUDT(clientChannel, clientChannel.socket());
-		// return clientChannel.socket().getOutputStream();
+	private OutputStream toOutputStream(final SocketChannel clientChannel) 
+		throws IOException {
+		if (USE_UDT) {
+			return new OutputStreamUDT(clientChannel, clientChannel.socket());
+		}
+		return clientChannel.socket().getOutputStream();
 	}
 
-	private InputStream toInputStream(final SocketChannel sc) {
-		return new InputStreamUDT(sc, sc.socket());
-		// return sc.socket().getInputStream();
+	private InputStream toInputStream(final SocketChannel sc) throws IOException {
+		if (USE_UDT) {
+			return new InputStreamUDT(sc, sc.socket());
+		}
+		return sc.socket().getInputStream();
 	}
 
 	private SelectorProvider newSelectorProvider() {
-		return SelectorProviderUDT.DATAGRAM;
-		// return SelectorProvider.provider();
+		if (USE_UDT) {
+			return SelectorProviderUDT.DATAGRAM;
+		}
+		return SelectorProvider.provider();
 	}
 
 	private void runTestServer(final InetSocketAddress serverAddress)
@@ -246,7 +255,7 @@ public class TestUdtInputAndOutputStream {
 		}
 	}
 
-	private void echo(final SocketChannel sc) {
+	private void echo(final SocketChannel sc) throws IOException {
 		final InputStream is = toInputStream(sc);
 		final Runnable runner = new Runnable() {
 
@@ -256,7 +265,7 @@ public class TestUdtInputAndOutputStream {
 					final OutputStream os = toOutputStream(sc);
 					log.info("About to echo bytes back to client");
 					copy(is, os, TEST_BYTES.length, activeReadStrategy);
-					log.info("DONE COPYING...SLEEPING");
+					log.info("DONE COPYING...CLOSING");
 					os.close();
 				} catch (final IOException e) {
 					e.printStackTrace();
