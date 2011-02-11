@@ -68,10 +68,8 @@ public class OutputStreamUDT extends OutputStream {
 	}
 
 	@Override
-	public synchronized void close() throws IOException {
-		if (socketUDT.isOpen()) {
-			socketUDT.close();
-		}
+	public void close() throws IOException {
+		socketUDT.close();
 	}
 
 }
