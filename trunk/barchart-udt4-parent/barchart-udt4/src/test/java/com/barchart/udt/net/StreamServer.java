@@ -4,6 +4,9 @@ import java.net.InetSocketAddress;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.StatusUDT;
 import com.barchart.udt.TypeUDT;
@@ -11,48 +14,60 @@ import com.barchart.udt.util.HelperUtils;
 
 class StreamServer extends StreamBase {
 
+	private static final Logger log = LoggerFactory
+			.getLogger(StreamServer.class);
+
 	final ExecutorService executor;
 
-	final Runnable taskAccept = new Runnable() {
-		@Override
-		public void run() {
+	final ServiceFactory factory;
 
-			try {
+	@Override
+	public void run() {
 
-				socket.bind(localAddress);
-				assert socket.isBound();
+		try {
 
-				socket.listen(1);
-				assert socket.getStatus() == StatusUDT.LISTENING;
+			SocketUDT connectorSocket = socket.accept();
 
-				SocketUDT connectorSocket = socket.accept();
+			Runnable serviceTask = factory.newService(connectorSocket);
 
-				Runnable taskService = new StreamService(connectorSocket);
+			executor.submit(serviceTask);
 
-				executor.submit(taskService);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	};
 
-	StreamServer(final InetSocketAddress acceptorAddress) throws Exception {
+	}
+
+	StreamServer(final InetSocketAddress serverAddress,
+			final ServiceFactory factory) throws Exception {
 
 		super(new SocketUDT(TypeUDT.DATAGRAM), HelperUtils
-				.getLocalSocketAddress(), acceptorAddress);
+				.getLocalSocketAddress(), serverAddress);
+
+		this.factory = factory;
 
 		this.executor = Executors.newCachedThreadPool();
 
 	}
 
-	void showtime() {
-		executor.submit(taskAccept);
+	void showtime() throws Exception {
+
+		socket.bind(remoteAddress);
+		assert socket.isBound();
+
+		socket.listen(1);
+		assert socket.getStatus() == StatusUDT.LISTENING;
+
+		executor.submit(this);
+
 	}
 
-	void shutdown() {
+	void shutdown() throws Exception {
+
+		socket.close();
+
 		executor.shutdown();
+
 	}
 
 }

@@ -7,7 +7,7 @@ import java.net.InetSocketAddress;
 import com.barchart.udt.SocketUDT;
 import com.barchart.udt.TypeUDT;
 
-class StreamBase {
+abstract class StreamBase implements Runnable {
 
 	final InetSocketAddress localAddress;
 	final InetSocketAddress remoteAddress;
@@ -15,7 +15,6 @@ class StreamBase {
 	final SocketUDT socket;
 
 	final InputStream streamIn;
-
 	final OutputStream streamOut;
 
 	StreamBase(final SocketUDT socket, final InetSocketAddress localAddress,
@@ -39,8 +38,6 @@ class StreamBase {
 			final InetSocketAddress remoteAddress) throws Exception {
 
 		this(new SocketUDT(TypeUDT.DATAGRAM), localAddress, remoteAddress);
-
-		socket.configureBlocking(true);
 
 	}
 

@@ -1,16 +1,30 @@
 package com.barchart.udt.net;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.barchart.udt.util.HelperUtils;
 
-class StreamClient extends StreamBase {
+abstract class StreamClient extends StreamBase implements Runnable {
+
+	private static final Logger log = LoggerFactory
+			.getLogger(StreamClient.class);
+
+	final ExecutorService executor;
 
 	StreamClient(final InetSocketAddress remoteAddress) throws Exception {
+
 		super(HelperUtils.getLocalSocketAddress(), remoteAddress);
+
+		this.executor = Executors.newCachedThreadPool();
+
 	}
 
-	void connect() throws Exception {
+	void showtime() throws Exception {
 
 		socket.bind(localAddress);
 		assert socket.isBound();
@@ -18,11 +32,15 @@ class StreamClient extends StreamBase {
 		socket.connect(remoteAddress);
 		assert socket.isConnected();
 
+		executor.submit(this);
+
 	}
 
-	void disconnect() throws Exception {
+	void shutdown() throws Exception {
 
 		socket.close();
+
+		executor.shutdown();
 
 	}
 
