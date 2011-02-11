@@ -1,32 +1,27 @@
 package com.barchart.udt.net;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.barchart.udt.SocketUDT;
 
-class StreamService extends StreamBase implements Runnable {
+abstract class StreamService extends StreamBase {
+
+	private static final Logger log = LoggerFactory
+			.getLogger(StreamService.class);
 
 	StreamService(final SocketUDT socket) throws Exception {
 
 		super(socket, socket.getLocalSocketAddress(), socket
 				.getRemoteSocketAddress());
 
+		assert socket.isConnected();
+
 	}
 
-	@Override
-	public void run() {
+	void shutdown() throws Exception {
 
-		while (true) {
-
-			try {
-
-				int value = streamIn.read();
-
-				streamOut.write(value);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}
+		socket.close();
 
 	}
 
