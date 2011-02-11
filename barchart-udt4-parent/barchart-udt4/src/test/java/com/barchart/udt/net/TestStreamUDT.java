@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
 
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,13 +24,22 @@ import com.barchart.udt.util.HelperUtils;
  */
 public class TestStreamUDT {
 
-	private static final int DEFAULT_BUFFER_SIZE = 8000;
+	private interface ReadStrategy {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+		int read(InputStream is, byte[] bytes, int off, int len)
+				throws IOException;
+	}
+
+	private static final int DATA_ARRAY_SIZE = 23456;
+
+	private static final int DEFAULT_BUFFER_SIZE = 6789;
+
+	private static final Logger log = LoggerFactory
+			.getLogger(TestStreamUDT.class);
 
 	private static final byte[] TEST_BYTES = testBytes();
 
-	private final ReadStrategy bulkReadStrategy = new ReadStrategy() {
+	static final ReadStrategy bulkReadStrategy = new ReadStrategy() {
 		@Override
 		public int read(final InputStream is, final byte[] bytes,
 				final int off, final int len) throws IOException {
@@ -39,31 +49,21 @@ public class TestStreamUDT {
 		}
 	};
 
-	private final ReadStrategy singleReadStrategy = new ReadStrategy() {
+	static final ReadStrategy singleReadStrategy = new ReadStrategy() {
 		@Override
 		public int read(final InputStream is, final byte[] bytes,
 				final int off, final int len) throws IOException {
 
-			log.info("ReadStrategy::ABOUT TO READ...");
+			final byte val = (byte) is.read();
+			bytes[off] = val;
 
-			bytes[off] = (byte) is.read();
-
-			log.info("ReadStrategy::JUST READ: " + bytes[off]);
+			// log.info("READ: val={}", val);
 
 			return 1;
 
 		}
 	};
 
-	/**
-	 * This test creates a UDT server socket, connects to it, and sends it data.
-	 * That data is then echoed back, and the test makes sure the echoed data
-	 * equals the original data. It uses UDT input and output streams
-	 * throughout.
-	 * 
-	 * @throws Exception
-	 *             If any unexpected error occurs.
-	 */
 	// @Test
 	public void testBulkRead() throws Exception {
 
@@ -71,7 +71,7 @@ public class TestStreamUDT {
 
 	}
 
-	// @Test
+	@Test
 	public void testSingleRead() throws Exception {
 
 		genericInputOutputTest(singleReadStrategy);
@@ -81,7 +81,9 @@ public class TestStreamUDT {
 	private void genericInputOutputTest(final ReadStrategy readStrategy)
 			throws Exception {
 
-		Thread.currentThread().setName("### main");
+		Thread.currentThread().setName("### client");
+
+		log.info("STARTED");
 
 		final InetSocketAddress serverAddress = HelperUtils
 				.getLocalSocketAddress();
@@ -90,7 +92,7 @@ public class TestStreamUDT {
 
 		//
 
-		final SocketUDT clientSocket = new SocketUDT(TypeUDT.DATAGRAM);
+		final SocketUDT clientSocket = new SocketUDT(TypeUDT.STREAM);
 
 		final InetSocketAddress clientAddress = HelperUtils
 				.getLocalSocketAddress();
@@ -101,44 +103,53 @@ public class TestStreamUDT {
 		clientSocket.connect(serverAddress);
 		assertTrue("Socket not connected!", clientSocket.isConnected());
 
-		final InputStream dataIn = new ByteArrayInputStream(TEST_BYTES);
-
+		final InputStream socketIn = new InputStreamUDT(clientSocket);
 		final OutputStream socketOut = new OutputStreamUDT(clientSocket);
+
+		Thread.sleep(1000);
+
+		//
+
+		log.info("\n\t ### COPY START");
+
+		final InputStream dataIn = new ByteArrayInputStream(TEST_BYTES.clone());
 
 		copy(dataIn, socketOut);
 
-		dataIn.close();
+		// dataIn.close();
 
-		log.info("\n\t### Copied test bytes from TEST_BYTES through client socket");
-
-		final InputStream socketIn = new InputStreamUDT(clientSocket);
+		log.info("\n\t ### COPY OUT DONE");
 
 		final ByteArrayOutputStream dataOut = new ByteArrayOutputStream();
 
 		copy(socketIn, dataOut, TEST_BYTES.length, readStrategy);
 
-		dataOut.close();
+		// dataOut.close();
+
+		log.info("\n\t ### COPY IN DONE");
 
 		final byte[] bytesCopy = dataOut.toByteArray();
 
-		assertEquals("byte array lengths aren't equal", TEST_BYTES.length,
-				bytesCopy.length);
-
 		assertTrue(Arrays.equals(TEST_BYTES, bytesCopy));
 
-		clientSocket.close();
+		// clientSocket.close();
 
 	}
 
 	private static byte[] testBytes() {
-		final byte[] data = new byte[20000];
+
+		final byte[] data = new byte[DATA_ARRAY_SIZE];
+
 		for (int i = 0; i < data.length; i++) {
 			data[i] = (byte) (i % 127);
+			// data[i] = (byte) i;
 		}
+
 		return data;
+
 	}
 
-	private int copy(final InputStream is, final OutputStream os)
+	static int copy(final InputStream is, final OutputStream os)
 			throws IOException {
 
 		if (is == null) {
@@ -152,28 +163,37 @@ public class TestStreamUDT {
 		final byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
 
 		int countTotal = 0;
-		int countRead = 0;
 
-		while (-1 != (countRead = is.read(buffer))) {
+		while (true) {
+
+			final int countRead = is.read(buffer);
+
+			if (countRead < 0) {
+				break;
+			}
+
+			assert countRead > 0;
+
 			os.write(buffer, 0, countRead);
+			//
+			// log.info("buffer[0]={}", buffer[0]);
+			// log.info("buffer[1]={}", buffer[1]);
+			// log.info("buffer[2]={}", buffer[2]);
+			// log.info("countRead={}", countRead);
+
 			countTotal += countRead;
+
 		}
 
-		log.info("Wrote " + countTotal + " bytes.");
+		log.info("\n\t ### Wrote " + countTotal + " bytes.");
 
 		return countTotal;
 
 	}
 
-	private interface ReadStrategy {
-
-		int read(InputStream is, byte[] bytes, int off, int len)
-				throws IOException;
-	}
-
-	private long copy(final InputStream is, final OutputStream os,
+	static long copy(final InputStream is, final OutputStream os,
 			final int copyTotal, final ReadStrategy readStrategy)
-			throws IOException {
+			throws Exception {
 
 		if (copyTotal < 0) {
 			throw new IllegalArgumentException("Invalid byte count: "
@@ -181,7 +201,6 @@ public class TestStreamUDT {
 		}
 
 		final int arraySize;
-
 		if (copyTotal < DEFAULT_BUFFER_SIZE) {
 			arraySize = copyTotal;
 		} else {
@@ -190,7 +209,6 @@ public class TestStreamUDT {
 
 		final byte array[] = new byte[arraySize];
 
-		int readCount = 0;
 		int writeCount = 0;
 
 		int pendingCount = copyTotal;
@@ -199,28 +217,31 @@ public class TestStreamUDT {
 
 			while (pendingCount > 0) {
 
-				log.info("IN LOOP; pendingCount={}", pendingCount);
+				// log.info("IN LOOP; pendingCount={}", pendingCount);
+
+				final int readCount, readLimit;
 
 				if (pendingCount < arraySize) {
-					readCount = readStrategy.read(is, array, 0, pendingCount);
-					// len = in.read(buffer, 0, (int) byteCount);
+					readLimit = pendingCount;
 				} else {
-					readCount = readStrategy.read(is, array, 0, arraySize);
-					// len = in.read(buffer, 0, bufSize);
+					readLimit = arraySize;
 				}
-
+				readCount = readStrategy.read(is, array, 0, readLimit);
 				assert readCount > 0;
+				assert readCount <= readLimit;
 
-				assert readCount <= arraySize;
+				// log.info("DATA IN readCount={}", readCount);
+				// log.info("@@@ array[0]={}", array[0]);
+				// log.info("@@@ array[1]={}", array[1]);
+				// log.info("@@@ array[2]={}", array[2]);
 
 				pendingCount -= readCount;
 
-				log.info("Decrementing; readCount=" + readCount
-						+ " pendingCount=" + pendingCount);
+				// log.info("Decrementing; readCount=" + readCount
+				// + " pendingCount=" + pendingCount);
 
 				os.write(array, 0, readCount);
-
-				log.info("WROTE DATA");
+				// log.info("DATA OUT");
 
 				writeCount += readCount;
 
@@ -228,18 +249,11 @@ public class TestStreamUDT {
 
 			return writeCount;
 
-		} catch (final IOException e) {
-			log.debug("Got IOException during copy after writing " + writeCount
-					+ " of " + copyTotal, e);
-			e.printStackTrace();
-			throw e;
-		} catch (final RuntimeException e) {
-			log.debug("Runtime error after writing " + writeCount + " of "
-					+ copyTotal, e);
+		} catch (final Exception e) {
 			e.printStackTrace();
 			throw e;
 		} finally {
-			os.flush();
+			// os.flush();
 		}
 
 	}
@@ -247,7 +261,9 @@ public class TestStreamUDT {
 	private void runTestServer(final InetSocketAddress serverAddress,
 			final ReadStrategy readStrategy) throws Exception {
 
-		final SocketUDT acceptorSocket = new SocketUDT(TypeUDT.DATAGRAM);
+		log.info("STARTED");
+
+		final SocketUDT acceptorSocket = new SocketUDT(TypeUDT.STREAM);
 
 		acceptorSocket.bind(serverAddress);
 		assertTrue("Acceptor should be bound", acceptorSocket.isBound());
@@ -257,6 +273,8 @@ public class TestStreamUDT {
 				StatusUDT.LISTENING);
 
 		final SocketUDT connectorSocket = acceptorSocket.accept();
+		assertTrue(connectorSocket.isBound());
+		assertTrue(connectorSocket.isConnected());
 
 		echo(connectorSocket, readStrategy);
 
@@ -277,45 +295,44 @@ public class TestStreamUDT {
 			}
 		};
 
-		final Thread t = new Thread(runner, "### test-thread");
+		final Thread t = new Thread(runner, "### starter");
 		t.setDaemon(true);
 		t.start();
 
 		try {
-			Thread.sleep(800);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	private void echo(final SocketUDT socketUDT,
-			final ReadStrategy activeReadStrategy) {
+	private void echo(final SocketUDT connectorSocket,
+			final ReadStrategy readStrategy) {
 
-		final InputStream is = new InputStreamUDT(socketUDT);
-
-		final OutputStream os = new OutputStreamUDT(socketUDT);
+		final InputStream is = new InputStreamUDT(connectorSocket);
+		final OutputStream os = new OutputStreamUDT(connectorSocket);
 
 		final Runnable runner = new Runnable() {
 			@Override
 			public void run() {
 				try {
 
-					log.info("About to echo bytes back to client");
+					log.info("\n\t ### ECHO: START");
 
-					copy(is, os, TEST_BYTES.length, activeReadStrategy);
+					copy(is, os, TEST_BYTES.length, readStrategy);
 
-					log.info("DONE COPYING...SLEEPING");
+					log.info("\n\t ### ECHO: FINISH");
 
-					os.close();
+					// os.close();
 
-				} catch (final IOException e) {
+				} catch (final Exception e) {
 					e.printStackTrace();
 				}
 			}
 		};
 
-		final Thread dt = new Thread(runner, "### Server-Echo-Thread");
+		final Thread dt = new Thread(runner, "### server");
 		dt.setDaemon(true);
 		dt.start();
 
