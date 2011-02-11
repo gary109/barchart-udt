@@ -12,8 +12,6 @@ import java.nio.channels.SocketChannel;
 class OutputStreamUDT extends OutputStream {
 
 	private final SocketChannel channel;
-	private final Socket socket;
-	private volatile boolean closing = false;
 
 	/**
 	 * Creates a new UDT output stream.
@@ -23,9 +21,8 @@ class OutputStreamUDT extends OutputStream {
 	 * @param socketUDT
 	 *            The UDT socket.
 	 */
-	public OutputStreamUDT(final SocketChannel channel, final Socket socketUDT) {
+	OutputStreamUDT(final SocketChannel channel, final Socket socketUDT) {
 		this.channel = channel;
-		this.socket = socketUDT;
 	}
 
 	@Override
@@ -48,13 +45,7 @@ class OutputStreamUDT extends OutputStream {
 
 	@Override
 	public void close() throws IOException {
-		if (closing) {
-			return;
-		}
-		closing = true;
-		if (!socket.isClosed()) {
-			socket.close();
-		}
-		closing = false;
+		channel.close();
 	}
+
 }
