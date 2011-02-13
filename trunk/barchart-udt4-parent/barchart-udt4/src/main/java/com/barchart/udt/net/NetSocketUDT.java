@@ -54,9 +54,12 @@ import com.barchart.udt.SocketUDT;
 
 public class NetSocketUDT extends Socket implements IceSocket {
 
+	protected InputStream inputStream;
+	protected OutputStream outputStream;
+
 	protected final SocketUDT socketUDT;
 
-	protected NetSocketUDT(SocketUDT socketUDT) {
+	public NetSocketUDT(final SocketUDT socketUDT) {
 		this.socketUDT = socketUDT;
 	}
 
@@ -94,8 +97,11 @@ public class NetSocketUDT extends Socket implements IceSocket {
 	}
 
 	@Override
-	public InputStream getInputStream() throws IOException {
-		return new NetInputStreamUDT(socketUDT);
+	public synchronized InputStream getInputStream() throws IOException {
+		if (inputStream == null) {
+			inputStream = new NetInputStreamUDT(socketUDT);
+		}
+		return inputStream;
 	}
 
 	@Override
@@ -128,8 +134,11 @@ public class NetSocketUDT extends Socket implements IceSocket {
 	}
 
 	@Override
-	public OutputStream getOutputStream() throws IOException {
-		return new NetOutputStreamUDT(socketUDT);
+	public synchronized OutputStream getOutputStream() throws IOException {
+		if (outputStream == null) {
+			outputStream = new NetOutputStreamUDT(socketUDT);
+		}
+		return outputStream;
 	}
 
 	@Override

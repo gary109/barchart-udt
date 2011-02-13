@@ -56,7 +56,7 @@ public class NetServerSocketUDT extends ServerSocket implements IceServerSocket 
 	protected final SocketUDT serverSocketUDT;
 
 	// exception thanks to JDK designers
-	protected NetServerSocketUDT(SocketUDT socketUDT) throws IOException {
+	public NetServerSocketUDT(final SocketUDT socketUDT) throws IOException {
 		this.serverSocketUDT = socketUDT;
 	}
 

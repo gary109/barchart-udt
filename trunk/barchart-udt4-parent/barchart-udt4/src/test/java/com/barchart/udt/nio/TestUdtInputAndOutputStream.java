@@ -199,14 +199,14 @@ public class TestUdtInputAndOutputStream {
 	private OutputStream toOutputStream(final SocketChannel clientChannel) 
 		throws IOException {
 		if (USE_UDT) {
-			return new OutputStreamUDT(clientChannel, clientChannel.socket());
+			return new AdapterOutputStreamUDT(clientChannel, clientChannel.socket());
 		}
 		return clientChannel.socket().getOutputStream();
 	}
 
 	private InputStream toInputStream(final SocketChannel sc) throws IOException {
 		if (USE_UDT) {
-			return new InputStreamUDT(sc, sc.socket());
+			return new AdapterInputStreamUDT(sc, sc.socket());
 		}
 		return sc.socket().getInputStream();
 	}
