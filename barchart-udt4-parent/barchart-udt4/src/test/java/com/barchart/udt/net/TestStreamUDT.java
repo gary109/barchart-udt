@@ -103,8 +103,8 @@ public class TestStreamUDT {
 		clientSocket.connect(serverAddress);
 		assertTrue("Socket not connected!", clientSocket.isConnected());
 
-		final InputStream socketIn = new InputStreamUDT(clientSocket);
-		final OutputStream socketOut = new OutputStreamUDT(clientSocket);
+		final InputStream socketIn = new NetInputStreamUDT(clientSocket);
+		final OutputStream socketOut = new NetOutputStreamUDT(clientSocket);
 
 		Thread.sleep(1000);
 
@@ -310,8 +310,8 @@ public class TestStreamUDT {
 	private void echo(final SocketUDT connectorSocket,
 			final ReadStrategy readStrategy) {
 
-		final InputStream is = new InputStreamUDT(connectorSocket);
-		final OutputStream os = new OutputStreamUDT(connectorSocket);
+		final InputStream is = new NetInputStreamUDT(connectorSocket);
+		final OutputStream os = new NetOutputStreamUDT(connectorSocket);
 
 		final Runnable runner = new Runnable() {
 			@Override

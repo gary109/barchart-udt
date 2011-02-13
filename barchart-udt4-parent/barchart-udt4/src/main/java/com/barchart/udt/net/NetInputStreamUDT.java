@@ -10,7 +10,7 @@ import com.barchart.udt.SocketUDT;
 /**
  * {@link InputStream} implementation for UDT sockets.
  */
-public class InputStreamUDT extends InputStream {
+public class NetInputStreamUDT extends InputStream {
 
 	public static int EOF = -1;
 
@@ -21,7 +21,7 @@ public class InputStreamUDT extends InputStream {
 	 * @param socketUDT
 	 *            The UDT socket.
 	 */
-	public InputStreamUDT(final SocketUDT socketUDT) {
+	public NetInputStreamUDT(final SocketUDT socketUDT) {
 
 		if (!socketUDT.isBlocking()) {
 			throw new IllegalBlockingModeException();
