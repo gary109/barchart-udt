@@ -9,7 +9,7 @@ import java.nio.channels.SocketChannel;
 /**
  * {@link OutputStream} for UDT sockets.
  */
-class OutputStreamUDT extends OutputStream {
+class AdapterOutputStreamUDT extends OutputStream {
 
 	private final SocketChannel channel;
 
@@ -21,7 +21,7 @@ class OutputStreamUDT extends OutputStream {
 	 * @param socketUDT
 	 *            The UDT socket.
 	 */
-	OutputStreamUDT(final SocketChannel channel, final Socket socketUDT) {
+	AdapterOutputStreamUDT(final SocketChannel channel, final Socket socketUDT) {
 		this.channel = channel;
 	}
 

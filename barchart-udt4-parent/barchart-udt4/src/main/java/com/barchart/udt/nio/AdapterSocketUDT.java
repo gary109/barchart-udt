@@ -62,13 +62,19 @@ class AdapterSocketUDT extends NetSocketUDT {
 	}
 
 	@Override
-	public InputStream getInputStream() throws IOException {
-		return new InputStreamUDT(this.channelUDT, this);
+	public synchronized InputStream getInputStream() throws IOException {
+		if (inputStream == null) {
+			inputStream = new AdapterInputStreamUDT(this.channelUDT, this);
+		}
+		return inputStream;
 	}
 
 	@Override
-	public OutputStream getOutputStream() throws IOException {
-		return new OutputStreamUDT(this.channelUDT, this);
+	public synchronized OutputStream getOutputStream() throws IOException {
+		if (outputStream == null) {
+			outputStream = new AdapterOutputStreamUDT(this.channelUDT, this);
+		}
+		return outputStream;
 	}
 
 }
