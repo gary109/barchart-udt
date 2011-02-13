@@ -29,8 +29,8 @@ abstract class StreamBase implements Runnable {
 
 		socket.configureBlocking(true);
 
-		streamIn = new InputStreamUDT(socket);
-		streamOut = new OutputStreamUDT(socket);
+		streamIn = new NetInputStreamUDT(socket);
+		streamOut = new NetOutputStreamUDT(socket);
 
 	}
 
