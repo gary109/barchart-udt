@@ -103,7 +103,7 @@ public class NetServerSocketUDT extends ServerSocket implements IceServerSocket 
 
 	@Override
 	public InetAddress getInetAddress() {
-		return serverSocketUDT.getRemoteInetAddress();
+		return serverSocketUDT.getLocalInetAddress();
 	}
 
 	@Override
