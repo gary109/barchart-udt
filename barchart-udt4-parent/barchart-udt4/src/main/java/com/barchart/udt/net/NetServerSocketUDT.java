@@ -58,6 +58,7 @@ public class NetServerSocketUDT extends ServerSocket implements IceServerSocket 
 
 	public NetServerSocketUDT() throws IOException {
 		this.serverSocketUDT = new SocketUDT(TypeUDT.STREAM);
+		this.serverSocketUDT.configureBlocking(true);
 	}
 
 	// exception thanks to JDK designers
