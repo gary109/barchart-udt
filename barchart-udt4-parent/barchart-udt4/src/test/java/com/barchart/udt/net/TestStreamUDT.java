@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -106,7 +107,7 @@ public class TestStreamUDT {
 		final InputStream socketIn = new NetInputStreamUDT(clientSocket);
 		final OutputStream socketOut = new NetOutputStreamUDT(clientSocket);
 
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 
 		//
 
@@ -259,7 +260,8 @@ public class TestStreamUDT {
 	}
 
 	private void runTestServer(final InetSocketAddress serverAddress,
-			final ReadStrategy readStrategy) throws Exception {
+			final ReadStrategy readStrategy, 
+			final AtomicBoolean readyToAccept) throws Exception {
 
 		log.info("STARTED");
 
@@ -272,6 +274,10 @@ public class TestStreamUDT {
 		assertEquals("Acceptor should be listenin", acceptorSocket.getStatus(),
 				StatusUDT.LISTENING);
 
+		readyToAccept.set(true);
+		synchronized(readyToAccept) {
+			readyToAccept.notifyAll();
+		}
 		final SocketUDT connectorSocket = acceptorSocket.accept();
 		assertTrue(connectorSocket.isBound());
 		assertTrue(connectorSocket.isConnected());
@@ -281,14 +287,15 @@ public class TestStreamUDT {
 	}
 
 	private void startThreadedServer(final InetSocketAddress serverAddress,
-			final ReadStrategy readStrategy) {
+			final ReadStrategy readStrategy) throws Exception {
 
+		final AtomicBoolean readyToAccept = new AtomicBoolean(false);
 		final Runnable runner = new Runnable() {
 			@Override
 			public void run() {
 				// startServer();
 				try {
-					runTestServer(serverAddress, readStrategy);
+					runTestServer(serverAddress, readStrategy, readyToAccept);
 				} catch (final Exception e) {
 					e.printStackTrace();
 				}
@@ -299,12 +306,16 @@ public class TestStreamUDT {
 		t.setDaemon(true);
 		t.start();
 
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		synchronized (readyToAccept) {
+			if (!readyToAccept.get()) {
+				readyToAccept.wait(4000);
+			}
 		}
-
+		assertTrue("Not ready to accept?", readyToAccept.get());
+		Thread.yield();
+		Thread.yield();
+		Thread.yield();
+		Thread.yield();
 	}
 
 	private void echo(final SocketUDT connectorSocket,
