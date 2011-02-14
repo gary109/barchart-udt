@@ -1,4 +1,4 @@
-package com.barchart.udt.nio;
+package com.barchart.udt.net;
 
 import static org.junit.Assert.*;
 
@@ -10,14 +10,13 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
-import java.nio.channels.spi.SelectorProvider;
 import java.util.Arrays;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.barchart.udt.util.HelperUtils;
 
 /**
  * Test for UDT socket input streams and output streams.
@@ -29,7 +28,7 @@ public class TestUdtInputAndOutputStream {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	private static final byte[] TEST_BYTES = testBytes();
-	
+
 	private static final boolean USE_UDT = true;
 
 	private final ReadStrategy bulkReadStrategy = new ReadStrategy() {
@@ -44,9 +43,9 @@ public class TestUdtInputAndOutputStream {
 		@Override
 		public int read(final InputStream is, final byte[] bytes,
 				final int off, final int len) throws IOException {
-			//log.info("ReadStrategy::ABOUT TO READ...");
+			// log.info("ReadStrategy::ABOUT TO READ...");
 			bytes[off] = (byte) is.read();
-			//log.info("ReadStrategy::JUST READ: " + bytes[off]);
+			// log.info("ReadStrategy::JUST READ: " + bytes[off]);
 			return 1;
 		}
 	};
@@ -62,52 +61,63 @@ public class TestUdtInputAndOutputStream {
 	 * @throws Exception
 	 *             If any unexpected error occurs.
 	 */
-	// @Test
+	@Test
 	public void testBulkRead() throws Exception {
 		activeReadStrategy = bulkReadStrategy;
-		genericInputOutputRest(activeReadStrategy, 47921);
+		genericInputOutputRest(activeReadStrategy);
 	}
 
-	//@Test //TODO: FIX THIS!!
+	@Test
 	public void testSingleRead() throws Exception {
 		activeReadStrategy = singleReadStrategy;
-		genericInputOutputRest(activeReadStrategy, 6822);
+		genericInputOutputRest(activeReadStrategy);
 	}
 
-	private void genericInputOutputRest(final ReadStrategy readStrategy,
-			final int serverPort) throws Exception {
-		final InetSocketAddress serverAddress = new InetSocketAddress(
-				"127.0.0.1", serverPort);
+	private void genericInputOutputRest(final ReadStrategy readStrategy)
+			throws Exception {
+
+		final InetSocketAddress serverAddress = HelperUtils
+				.getLocalSocketAddress();
+
 		startThreadedServer(serverAddress);
-		final SelectorProvider provider = newSelectorProvider();
-		final SocketChannel clientChannel = provider.openSocketChannel();
-		clientChannel.configureBlocking(true);
-		final Socket sock = clientChannel.socket();
-		final InetSocketAddress clientAddress = new InetSocketAddress(
-				"127.0.0.1", 10000);
-		sock.bind(clientAddress);
-		assertTrue("Socket not bound!!", sock.isBound());
 
-		clientChannel.connect(serverAddress);
-		assertTrue("Socket not connected!", sock.isConnected());
+		final Socket clientSocket = new NetSocketUDT();
 
-		final OutputStream os = toOutputStream(clientChannel);
+		final InetSocketAddress clientAddress = HelperUtils
+				.getLocalSocketAddress();
+
+		clientSocket.bind(clientAddress);
+		assertTrue("Socket not bound!!", clientSocket.isBound());
+
+		clientSocket.connect(serverAddress);
+		assertTrue("Socket not connected!", clientSocket.isConnected());
+
+		final OutputStream os = clientSocket.getOutputStream();
 
 		final InputStream bais = new ByteArrayInputStream(TEST_BYTES);
+
 		copy(bais, os);
+
 		log.info("Copied test bytes from TEST_BYTES through client socket");
 
-		final InputStream is = toInputStream(clientChannel);
+		final InputStream is = clientSocket.getInputStream();
+
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
 		copy(is, baos, TEST_BYTES.length, readStrategy);
+
 		baos.close();
 		bais.close();
 
 		final byte[] bytesCopy = baos.toByteArray();
+
 		assertEquals("byte array lengths aren't equal", TEST_BYTES.length,
 				bytesCopy.length);
+
 		assertTrue(Arrays.equals(TEST_BYTES, bytesCopy));
-		clientChannel.close();
+
+		clientSocket.close();
+
 	}
 
 	private static byte[] testBytes() {
@@ -133,7 +143,7 @@ public class TestUdtInputAndOutputStream {
 			os.write(buffer, 0, n);
 			count += n;
 		}
-		//log.trace("Wrote " + count + " bytes.");
+		// log.trace("Wrote " + count + " bytes.");
 		return count;
 	}
 
@@ -174,10 +184,10 @@ public class TestUdtInputAndOutputStream {
 					break;
 				}
 				byteCount -= len;
-				//log.info("Decrementing byte count by " + len + " to "
-				//		+ byteCount);
+				// log.info("Decrementing byte count by " + len + " to "
+				// + byteCount);
 				out.write(buffer, 0, len);
-				//log.info("WROTE DATA");
+				// log.info("WROTE DATA");
 				written += len;
 			}
 			return written;
@@ -196,40 +206,18 @@ public class TestUdtInputAndOutputStream {
 		}
 	}
 
-	private OutputStream toOutputStream(final SocketChannel clientChannel) 
-		throws IOException {
-		if (USE_UDT) {
-			return new AdapterOutputStreamUDT(clientChannel, clientChannel.socket());
-		}
-		return clientChannel.socket().getOutputStream();
-	}
-
-	private InputStream toInputStream(final SocketChannel sc) throws IOException {
-		if (USE_UDT) {
-			return new AdapterInputStreamUDT(sc, sc.socket());
-		}
-		return sc.socket().getInputStream();
-	}
-
-	private SelectorProvider newSelectorProvider() {
-		if (USE_UDT) {
-			return SelectorProviderUDT.DATAGRAM;
-		}
-		return SelectorProvider.provider();
-	}
-
 	private void runTestServer(final InetSocketAddress serverAddress)
 			throws Exception {
-		final SelectorProvider provider = newSelectorProvider();
-		final ServerSocketChannel acceptorChannel = provider
-				.openServerSocketChannel();
-		final ServerSocket acceptorSocket = acceptorChannel.socket();
+
+		final ServerSocket acceptorSocket = new NetServerSocketUDT();
+
 		acceptorSocket.bind(serverAddress);
-
 		assertTrue("Acceptor should be bound", acceptorSocket.isBound());
-		final SocketChannel connectorChannel = acceptorChannel.accept();
 
-		echo(connectorChannel);
+		final Socket connectorSocket = acceptorSocket.accept();
+
+		echo(connectorSocket);
+
 	}
 
 	private void startThreadedServer(final InetSocketAddress serverAddress) {
@@ -255,14 +243,16 @@ public class TestUdtInputAndOutputStream {
 		}
 	}
 
-	private void echo(final SocketChannel sc) throws IOException {
-		final InputStream is = toInputStream(sc);
+	private void echo(final Socket connectorSocket) throws IOException {
+
+		final InputStream is = connectorSocket.getInputStream();
+		final OutputStream os = connectorSocket.getOutputStream();
+
 		final Runnable runner = new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					final OutputStream os = toOutputStream(sc);
 					log.info("About to echo bytes back to client");
 					copy(is, os, TEST_BYTES.length, activeReadStrategy);
 					log.info("DONE COPYING...CLOSING");
@@ -272,8 +262,11 @@ public class TestUdtInputAndOutputStream {
 				}
 			}
 		};
+
 		final Thread dt = new Thread(runner, "Server-Echo-Thread");
 		dt.setDaemon(true);
 		dt.start();
+
 	}
+
 }

@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
 import com.barchart.udt.SocketUDT;
-import com.barchart.udt.TypeUDT;
 
 abstract class StreamBase implements Runnable {
 
@@ -34,11 +33,11 @@ abstract class StreamBase implements Runnable {
 
 	}
 
-	StreamBase(final InetSocketAddress localAddress,
-			final InetSocketAddress remoteAddress) throws Exception {
-
-		this(new SocketUDT(TypeUDT.DATAGRAM), localAddress, remoteAddress);
-
-	}
+	// StreamBase(final InetSocketAddress localAddress,
+	// final InetSocketAddress remoteAddress) throws Exception {
+	//
+	// this(new SocketUDT(TypeUDT.DATAGRAM), localAddress, remoteAddress);
+	//
+	// }
 
 }

@@ -7,6 +7,8 @@ import java.util.concurrent.Executors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
 import com.barchart.udt.util.HelperUtils;
 
 abstract class StreamClient extends StreamBase implements Runnable {
@@ -16,9 +18,11 @@ abstract class StreamClient extends StreamBase implements Runnable {
 
 	final ExecutorService executor;
 
-	StreamClient(final InetSocketAddress remoteAddress) throws Exception {
+	StreamClient(final TypeUDT type, final InetSocketAddress remoteAddress)
+			throws Exception {
 
-		super(HelperUtils.getLocalSocketAddress(), remoteAddress);
+		super(new SocketUDT(type), HelperUtils.getLocalSocketAddress(),
+				remoteAddress);
 
 		this.executor = Executors.newCachedThreadPool();
 
