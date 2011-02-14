@@ -62,6 +62,7 @@ public class NetSocketUDT extends Socket implements IceSocket {
 
 	public NetSocketUDT() throws ExceptionUDT {
 		this.socketUDT = new SocketUDT(TypeUDT.STREAM);
+		this.socketUDT.configureBlocking(true);
 	}
 
 	/** NOTE: you just carefully choose TypeUDT */
