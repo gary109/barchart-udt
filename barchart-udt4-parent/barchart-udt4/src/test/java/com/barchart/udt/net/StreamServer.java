@@ -26,9 +26,9 @@ class StreamServer extends StreamBase {
 
 		try {
 
-			SocketUDT connectorSocket = socket.accept();
+			final SocketUDT connectorSocket = socket.accept();
 
-			Runnable serviceTask = factory.newService(connectorSocket);
+			final Runnable serviceTask = factory.newService(connectorSocket);
 
 			executor.submit(serviceTask);
 
@@ -38,11 +38,11 @@ class StreamServer extends StreamBase {
 
 	}
 
-	StreamServer(final InetSocketAddress serverAddress,
+	StreamServer(final TypeUDT type, final InetSocketAddress serverAddress,
 			final ServiceFactory factory) throws Exception {
 
-		super(new SocketUDT(TypeUDT.DATAGRAM), HelperUtils
-				.getLocalSocketAddress(), serverAddress);
+		super(new SocketUDT(type), HelperUtils.getLocalSocketAddress(),
+				serverAddress);
 
 		this.factory = factory;
 

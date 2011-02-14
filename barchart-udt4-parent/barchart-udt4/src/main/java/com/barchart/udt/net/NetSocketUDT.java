@@ -51,6 +51,7 @@ import java.nio.channels.SocketChannel;
 
 import com.barchart.udt.ExceptionUDT;
 import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
 
 public class NetSocketUDT extends Socket implements IceSocket {
 
@@ -59,6 +60,11 @@ public class NetSocketUDT extends Socket implements IceSocket {
 
 	protected final SocketUDT socketUDT;
 
+	public NetSocketUDT() throws ExceptionUDT {
+		this.socketUDT = new SocketUDT(TypeUDT.STREAM);
+	}
+
+	/** NOTE: you just carefully choose TypeUDT */
 	public NetSocketUDT(final SocketUDT socketUDT) {
 		this.socketUDT = socketUDT;
 	}

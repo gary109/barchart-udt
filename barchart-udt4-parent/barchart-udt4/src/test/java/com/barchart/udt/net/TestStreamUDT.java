@@ -64,7 +64,7 @@ public class TestStreamUDT {
 		}
 	};
 
-	// @Test
+	@Test
 	public void testBulkRead() throws Exception {
 
 		genericInputOutputTest(bulkReadStrategy);

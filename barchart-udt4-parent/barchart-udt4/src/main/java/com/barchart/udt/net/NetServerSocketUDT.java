@@ -50,12 +50,18 @@ import java.nio.channels.ServerSocketChannel;
 
 import com.barchart.udt.ExceptionUDT;
 import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
 
 public class NetServerSocketUDT extends ServerSocket implements IceServerSocket {
 
 	protected final SocketUDT serverSocketUDT;
 
+	public NetServerSocketUDT() throws IOException {
+		this.serverSocketUDT = new SocketUDT(TypeUDT.STREAM);
+	}
+
 	// exception thanks to JDK designers
+	/** NOTE: you just carefully choose TypeUDT */
 	public NetServerSocketUDT(final SocketUDT socketUDT) throws IOException {
 		this.serverSocketUDT = socketUDT;
 	}

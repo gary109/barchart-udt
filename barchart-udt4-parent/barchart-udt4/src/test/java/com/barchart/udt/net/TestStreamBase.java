@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
 import com.barchart.udt.util.HelperUtils;
 import com.barchart.udt.util.StopWatch;
 
@@ -42,13 +43,14 @@ public class TestStreamBase {
 	};
 
 	@Test
-	public void testStream1() throws Exception {
+	public void testStream11() throws Exception {
 
 		InetSocketAddress serverAddress = HelperUtils.getLocalSocketAddress();
 
-		StreamServer server = new StreamServer(serverAddress, factory1);
+		StreamServer server = new StreamServer(TypeUDT.DATAGRAM, serverAddress,
+				factory1);
 
-		StreamClient client = new StreamClient(serverAddress) {
+		StreamClient client = new StreamClient(TypeUDT.DATAGRAM, serverAddress) {
 			@Override
 			public void run() {
 				try {
@@ -113,18 +115,70 @@ public class TestStreamBase {
 	};
 
 	@Test
-	public void testStream2() throws Exception {
+	public void testStream22() throws Exception {
 
 		InetSocketAddress serverAddress = HelperUtils.getLocalSocketAddress();
 
-		StreamServer server = new StreamServer(serverAddress, factory2);
+		StreamServer server = new StreamServer(TypeUDT.DATAGRAM, serverAddress,
+				factory2);
 
-		StreamClient client = new StreamClient(serverAddress) {
+		StreamClient client = new StreamClient(TypeUDT.DATAGRAM, serverAddress) {
 			@Override
 			public void run() {
 				final Random random = new Random();
 				final int loop = 10000;
 				final int size = 1000;
+				final byte[] arrayOut = new byte[size];
+				final byte[] arrayIn = new byte[size];
+				try {
+					final StopWatch timer = new StopWatch();
+					timer.start();
+					for (int k = 0; k < loop; k++) {
+						random.nextBytes(arrayOut);
+						streamOut.write(arrayOut);
+						final int count = streamIn.read(arrayIn);
+						assertEquals(count, size);
+						assertTrue(Arrays.equals(arrayIn, arrayOut));
+					}
+					timer.stop();
+					log.info("timer : {}", timer.nanoString());
+					synchronized (this) {
+						this.notifyAll();
+					}
+				} catch (Exception e) {
+					log.error("client; {}", e.getMessage());
+				}
+			}
+		};
+
+		server.showtime();
+		client.showtime();
+
+		synchronized (client) {
+			client.wait();
+		}
+
+		client.shutdown();
+		server.shutdown();
+
+	}
+
+	// #########################################################
+
+	// @Test
+	public void testStream12() throws Exception {
+
+		InetSocketAddress serverAddress = HelperUtils.getLocalSocketAddress();
+
+		StreamServer server = new StreamServer(TypeUDT.STREAM, serverAddress,
+				factory1);
+
+		StreamClient client = new StreamClient(TypeUDT.STREAM, serverAddress) {
+			@Override
+			public void run() {
+				final Random random = new Random();
+				final int loop = 3;
+				final int size = 100;
 				final byte[] arrayOut = new byte[size];
 				final byte[] arrayIn = new byte[size];
 				try {
