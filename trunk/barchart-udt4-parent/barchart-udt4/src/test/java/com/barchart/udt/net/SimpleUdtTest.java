@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.Test;
@@ -77,13 +78,15 @@ public class SimpleUdtTest {
 	}
 
 	private void startThreadedServer(final InetSocketAddress serverAddress,
-			final AtomicReference<String> ref) {
+			final AtomicReference<String> ref) throws InterruptedException {
+		
+		final AtomicBoolean readyToAccept = new AtomicBoolean(false);
 		final Runnable runner = new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					startUdtServer(serverAddress, ref);
+					startUdtServer(serverAddress, ref, readyToAccept);
 				} catch (final IOException e) {
 					e.printStackTrace();
 				}
@@ -95,22 +98,31 @@ public class SimpleUdtTest {
 		t.start();
 
 		// We need to wait for a second to make sure the server thread starts.
-		try {
-			Thread.sleep(3 * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		synchronized (readyToAccept) {
+			if (!readyToAccept.get()) {
+				readyToAccept.wait(4000);
+			}
 		}
-
+		assertTrue("Not ready to accept?", readyToAccept.get());
+		Thread.yield();
+		Thread.yield();
+		Thread.yield();
+		Thread.yield();
 	}
 
 	private void startUdtServer(final InetSocketAddress serverAddress,
-			final AtomicReference<String> ref) throws IOException {
+			final AtomicReference<String> ref, 
+			final AtomicBoolean readyToAccept) throws IOException {
 
 		final ServerSocket acceptorSocket = new NetServerSocketUDT();
 
 		acceptorSocket.bind(serverAddress);
 		assert acceptorSocket.isBound();
 
+		readyToAccept.set(true);
+		synchronized(readyToAccept) {
+			readyToAccept.notifyAll();
+		}
 		final Socket connectorSocket = acceptorSocket.accept();
 		assert connectorSocket.isConnected();
 
