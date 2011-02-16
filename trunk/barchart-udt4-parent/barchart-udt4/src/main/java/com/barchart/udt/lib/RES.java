@@ -165,7 +165,7 @@ class RES {
 
 	}
 
-	public static void makeTargetFolder(final File folder) {
+	public static void makeTargetFolder(final File folder) throws Exception {
 		if (folder.exists()) {
 			if (folder.isDirectory()) {
 				log.warn("found folder={}", folder);
