@@ -152,8 +152,9 @@ class RES {
 			targetStream.write(array, 0, readCount);
 		}
 
-		sourceStream.close();
+		targetStream.flush();
 
+		sourceStream.close();
 		targetStream.close();
 
 		// synchronize target time stamp with source to avoid repeated copy
@@ -164,7 +165,7 @@ class RES {
 
 	}
 
-	public static void makeTargetFolder(final File folder){
+	public static void makeTargetFolder(final File folder) {
 		if (folder.exists()) {
 			if (folder.isDirectory()) {
 				log.warn("found folder={}", folder);
@@ -183,7 +184,6 @@ class RES {
 			}
 		}
 	}
-
 
 	public static void makeTargetFolder(final String targetFolder)
 			throws Exception {
