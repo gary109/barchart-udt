@@ -48,6 +48,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.barchart.udt.lib.LibraryLoaderUDT;
 import com.barchart.udt.lib.LibraryUDT;
 
 /* note: do not change field names; used by JNI */
@@ -57,9 +58,6 @@ import com.barchart.udt.lib.LibraryUDT;
  * current implementation supports IPv4 only (no IPv6)
  */
 public class SocketUDT {
-
-	private static final String PACKAGE_NAME = //
-	SocketUDT.class.getPackage().getName();
 
 	private static final Logger log = LoggerFactory.getLogger(SocketUDT.class);
 
@@ -118,41 +116,46 @@ public class SocketUDT {
 
 	// native library extractor and loader
 
-	/**
-	 * target destination of native wrapper library *.dll or *.so files that are
-	 * extracted from this library jar;
-	 */
-	public static final String DEFAULT_LIBRARY_EXTRACT_LOCATION = "./lib/bin";
-
-	/**
-	 * system property which if provided will override
-	 * {@link #DEFAULT_LIBRARY_EXTRACT_LOCATION}
-	 */
-	public static final String PROPERTY_LIBRARY_EXTRACT_LOCATION = //
-	PACKAGE_NAME + ".library.extract.location";
-
 	/** native loader */
 	static {
+
 		try {
+
 			final String location = System.getProperty(
-					PROPERTY_LIBRARY_EXTRACT_LOCATION,
-					DEFAULT_LIBRARY_EXTRACT_LOCATION);
-			LibraryUDT.load(location);
+					ResourceUDT.PROPERTY_LIBRARY_EXTRACT_LOCATION, //
+					ResourceUDT.DEFAULT_LIBRARY_EXTRACT_LOCATION);
+
+			final String loaderName = System.getProperty(
+					ResourceUDT.PROPERTY_LOADER_CLASS_NAME, //
+					ResourceUDT.DEFAULT_LIBRARY_LOADER_CLASS);
+
+			@SuppressWarnings("unchecked")
+			final Class<LibraryLoaderUDT> loaderClass = (Class<LibraryLoaderUDT>) Class
+					.forName(loaderName);
+
+			final LibraryLoaderUDT loaderInstance = loaderClass.newInstance();
+
+			loaderInstance.load(location);
+
 		} catch (Throwable e) {
 			log.error("failed to LOAD native library; terminating", e);
 			System.exit(1);
 		}
+
 		try {
 			initClass0();
 		} catch (Throwable e) {
 			log.error("failed to INIT native library; terminating", e);
 			System.exit(2);
 		}
+
 		if (SIGNATURE_JNI != getSignatureJNI0()) {
 			log.error("java/native SIGNATURE inconsistent; terminating");
 			System.exit(3);
 		}
+
 		log.debug("native library load & init OK");
+
 	}
 
 	// ###################################################
@@ -188,7 +191,7 @@ public class SocketUDT {
 
 	/**
 	 * performance monitor; updated by {@link #updateMonitor(boolean)} in JNI
-	 * 
+	 *
 	 * @see #updateMonitor(boolean)
 	 */
 	protected final MonitorUDT monitor;
@@ -235,14 +238,14 @@ public class SocketUDT {
 
 	/**
 	 * Verify that java code and c++ code builds are consistent.
-	 * 
+	 *
 	 * @see #SIGNATURE_JNI
 	 */
 	protected static native int getSignatureJNI0();
 
 	/**
 	 * Call this after loading native library.
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/startup.htm">UDT::startup()</a>
 	 */
@@ -250,7 +253,7 @@ public class SocketUDT {
 
 	/**
 	 * Call this before unloading native library.
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/cleanup.htm.htm">UDT::cleanup()</a>
 	 */
@@ -341,7 +344,7 @@ public class SocketUDT {
 
 	/**
 	 * Note: this is always a blocking call.
-	 * 
+	 *
 	 * @see #connect0(InetSocketAddress)
 	 */
 	public void connect(final InetSocketAddress remoteSocketAddress) //
@@ -352,7 +355,7 @@ public class SocketUDT {
 
 	/**
 	 * Load {@link #remoteSocketAddress} value.
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/peername.htm">UDT::peername()</a>
 	 */
@@ -374,7 +377,7 @@ public class SocketUDT {
 
 	/**
 	 * Load {@link #localSocketAddress} value.
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sockname.htm">UDT::sockname()</a>
 	 */
@@ -445,7 +448,7 @@ public class SocketUDT {
 
 	/**
 	 * java copy of underlying native accept queue size parameter
-	 * 
+	 *
 	 * @see #listen(int)
 	 * @see #accept()
 	 */
@@ -454,7 +457,7 @@ public class SocketUDT {
 	/**
 	 * @param queueSize
 	 *            maximum number of queued clients
-	 * 
+	 *
 	 * @see #listen0(int)
 	 */
 	public void listen(final int queueSize) throws ExceptionUDT {
@@ -475,7 +478,7 @@ public class SocketUDT {
 
 	/**
 	 * receive into a complete byte array
-	 * 
+	 *
 	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recv()</a>
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recvmsg()</a>
@@ -485,7 +488,7 @@ public class SocketUDT {
 
 	/**
 	 * receive into a portion of a byte array
-	 * 
+	 *
 	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recv()</a>
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recvmsg()</a>
@@ -496,7 +499,7 @@ public class SocketUDT {
 
 	/**
 	 * receive into a {@link java.nio.channels.DirectByteBuffer}
-	 * 
+	 *
 	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recv()</a>
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/recv.htm">UDT::recvmsg()</a>
@@ -507,7 +510,7 @@ public class SocketUDT {
 
 	/**
 	 * receive into byte[] array upto <code>array.length</code> bytes
-	 * 
+	 *
 	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
 	 *         <code>=0</code> : timeout expired (blocking only)<br>
 	 *         <code>>0</code> : normal receive, byte count<br>
@@ -520,7 +523,7 @@ public class SocketUDT {
 
 	/**
 	 * receive into byte[] array upto <code>size=limit-position</code> bytes
-	 * 
+	 *
 	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
 	 *         <code>=0</code> : timeout expired (blocking only)<br>
 	 *         <code>>0</code> : normal receive, byte count<br>
@@ -535,7 +538,7 @@ public class SocketUDT {
 	/**
 	 * receive into {@link java.nio.channels.DirectByteBuffer}; upto
 	 * {@link java.nio.ByteBuffer#remaining()} bytes
-	 * 
+	 *
 	 * @return <code>-1</code> : nothing received (non-blocking only)<br>
 	 *         <code>=0</code> : timeout expired (blocking only)<br>
 	 *         <code>>0</code> : normal receive, byte count<br>
@@ -562,7 +565,7 @@ public class SocketUDT {
 
 	/**
 	 * WRAPPER_UNIMPLEMENTED
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/recvfile.htm">UDT::recvfile()</a>
 	 */
@@ -587,7 +590,7 @@ public class SocketUDT {
 	/**
 	 * Basic access to UDT socket readiness selection feature. Based on int[]
 	 * array info exchange. Timeout is in milliseconds.
-	 * 
+	 *
 	 * @return <code><0</code> : should not happen<br>
 	 *         <code>=0</code> : timeout, no ready sockets<br>
 	 *         <code>>0</code> : total number or reads, writes, exceptions<br>
@@ -636,7 +639,7 @@ public class SocketUDT {
 	 * Basic access to UDT socket readiness selection feature. Based on
 	 * {@link java.nio.DirectIntBuffer} info exchange.Timeout is in
 	 * milliseconds.
-	 * 
+	 *
 	 * @return <code><0</code> : should not happen<br>
 	 *         <code>=0</code> : timeout, no ready sockets<br>
 	 *         <code>>0</code> : total number or reads, writes, exceptions<br>
@@ -703,9 +706,9 @@ public class SocketUDT {
 
 	/**
 	 * send from a complete byte[] array;
-	 * 
+	 *
 	 * wrapper for <em>UDT::send()</em>, <em>UDT::sendmsg()</em>
-	 * 
+	 *
 	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/send.htm">UDT::send()</a>
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm">UDT::sendmsg()</a>
@@ -716,9 +719,9 @@ public class SocketUDT {
 
 	/**
 	 * send from a portion of a byte[] array;
-	 * 
+	 *
 	 * wrapper for <em>UDT::send()</em>, <em>UDT::sendmsg()</em>
-	 * 
+	 *
 	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/send.htm">UDT::send()</a>
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm">UDT::sendmsg()</a>
@@ -730,9 +733,9 @@ public class SocketUDT {
 
 	/**
 	 * send from {@link java.nio.DirectByteBuffer};
-	 * 
+	 *
 	 * wrapper for <em>UDT::send()</em>, <em>UDT::sendmsg()</em>
-	 * 
+	 *
 	 * @see <a href="http://www.cs.uic.edu/~ygu1/doc/send.htm">UDT::send()</a>
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm">UDT::sendmsg()</a>
@@ -746,7 +749,7 @@ public class SocketUDT {
 
 	/**
 	 * send from byte[] array upto <code>size=array.length</code> bytes
-	 * 
+	 *
 	 * @param array
 	 *            array to send
 	 * @return <code>-1</code> : no buffer space (non-blocking only) <br>
@@ -763,7 +766,7 @@ public class SocketUDT {
 
 	/**
 	 * send from byte[] array upto <code>size=limit-position</code> bytes
-	 * 
+	 *
 	 * @param array
 	 *            array to send
 	 * @param position
@@ -786,7 +789,7 @@ public class SocketUDT {
 	/**
 	 * send from {@link java.nio.DirectByteBuffer}, upto
 	 * {@link java.nio.ByteBuffer#remaining()} bytes
-	 * 
+	 *
 	 * @param buffer
 	 *            buffer to send
 	 * @return <code>-1</code> : no buffer space (non-blocking only)<br>
@@ -816,7 +819,7 @@ public class SocketUDT {
 
 	/**
 	 * default timeToLive value used by sendmsg mode
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm">UDT::sendmsg()</a>
 	 */
@@ -827,7 +830,7 @@ public class SocketUDT {
 
 	/**
 	 * default isOrdered value used by sendmsg mode
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendmsg.htm">UDT::sendmsg()</a>
 	 */
@@ -838,7 +841,7 @@ public class SocketUDT {
 
 	/**
 	 * WRAPPER_UNIMPLEMENTED
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/sendfile.htm">UDT::sendfile()</a>
 	 */
@@ -857,7 +860,7 @@ public class SocketUDT {
 	/**
 	 * Load updated statistics values into {@link #monitor} object. Must call
 	 * this methos only on connected socket.
-	 * 
+	 *
 	 * @param makeClear
 	 *            true : reset all statistics with this call; false : keep
 	 *            collecting statistics, load updated values.
@@ -876,7 +879,7 @@ public class SocketUDT {
 
 	/**
 	 * Error code set by last operation on a socket.
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
@@ -892,7 +895,7 @@ public class SocketUDT {
 
 	/**
 	 * Native error message set by last operation on a socket.
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
@@ -908,7 +911,7 @@ public class SocketUDT {
 
 	/**
 	 * Clear error status on a socket, if any.
-	 * 
+	 *
 	 * @see <a
 	 *      href="http://www.cs.uic.edu/~ygu1/doc/t-error.htm">t-error.htm</a>
 	 */
@@ -919,7 +922,7 @@ public class SocketUDT {
 	/**
 	 * Check if socket is open. (JDK semantics). The status of underlying UDT
 	 * socket is mapped into JDK expected categories
-	 * 
+	 *
 	 * @see StatusUDT#isOpenEmulateJDK()
 	 */
 	public final boolean isOpen() {
@@ -932,7 +935,7 @@ public class SocketUDT {
 
 	/**
 	 * Check if socket is closed. A convenience !isOpen();
-	 * 
+	 *
 	 * @see #isOpen()
 	 */
 	public boolean isClosed() {
@@ -971,7 +974,7 @@ public class SocketUDT {
 	/**
 	 * "Primary" socket. Default constructor; will apply
 	 * {@link #setDefaultMessageSendMode()}
-	 * 
+	 *
 	 * @param type
 	 *            UDT socket type
 	 */
@@ -989,7 +992,7 @@ public class SocketUDT {
 	/**
 	 * "Secondary" socket. Made by {@link #accept0()}, will apply
 	 * {@link #setDefaultMessageSendMode()}
-	 * 
+	 *
 	 * @param socketID
 	 *            UDT socket descriptor;
 	 */
@@ -1007,7 +1010,7 @@ public class SocketUDT {
 
 	/**
 	 * Check if socket is bound. (JDK semantics)
-	 * 
+	 *
 	 * @return true : {@link #bind(InetSocketAddress)} was successful<br>
 	 *         false : otherwise<br>
 	 */
@@ -1024,7 +1027,7 @@ public class SocketUDT {
 
 	/**
 	 * Check if socket is connected. (JDK semantics)
-	 * 
+	 *
 	 * @return true : {@link #connect(InetSocketAddress)} was successful<br>
 	 *         false : otherwise<br>
 	 */
@@ -1041,7 +1044,7 @@ public class SocketUDT {
 
 	/**
 	 * Error object wrapper.
-	 * 
+	 *
 	 * @return error status set by last socket operation
 	 **/
 	public final ErrorUDT getError() {
@@ -1053,7 +1056,7 @@ public class SocketUDT {
 
 	/**
 	 * Configure socket in blocking/non-blocking mode. (JDK semantics)
-	 * 
+	 *
 	 * @param block
 	 *            true : set both send and receive to blocking mode; false : set
 	 *            both send and receive to non-blocking mode
@@ -1072,11 +1075,11 @@ public class SocketUDT {
 
 	/**
 	 * Check if socket is in strict blocking mode. (JDK semantics)
-	 * 
+	 *
 	 * @return true : socket is valid and both send and receive are set to
 	 *         blocking mode; false : at least one channel is set to
 	 *         non-blocking mode or socket is invalid;
-	 * 
+	 *
 	 * @see #isNonBlocking()
 	 * @see #configureBlocking(boolean)
 	 */
@@ -1095,7 +1098,7 @@ public class SocketUDT {
 
 	/**
 	 * Check if socket is in strict non-blocking mode.
-	 * 
+	 *
 	 * @return true : socket is valid and both send and receive are set to NON
 	 *         blocking mode; false : at least one channel is set to blocking
 	 *         mode or socket is invalid;
@@ -1118,7 +1121,7 @@ public class SocketUDT {
 	/**
 	 * Get maximum send buffer size. Reflects minimum of protocol-level (UDT)
 	 * and kernel-level(UDP) settings.
-	 * 
+	 *
 	 * @see java.net.Socket#getSendBufferSize()
 	 */
 	public final int getSendBufferSize() throws ExceptionUDT {
@@ -1130,7 +1133,7 @@ public class SocketUDT {
 	/**
 	 * Get maximum receive buffer size. Reflects minimum of protocol-level (UDT)
 	 * and kernel-level(UDP) settings.
-	 * 
+	 *
 	 * @see java.net.Socket#getReceiveBufferSize()
 	 */
 	public final int getReceiveBufferSize() throws ExceptionUDT {
@@ -1141,7 +1144,7 @@ public class SocketUDT {
 
 	/**
 	 * Check if local bind address is set to reuse mode.
-	 * 
+	 *
 	 * @see java.net.Socket#getReuseAddress()
 	 */
 	public final boolean getReuseAddress() throws ExceptionUDT {
@@ -1150,7 +1153,7 @@ public class SocketUDT {
 
 	/**
 	 * Get time to linger on close (seconds).
-	 * 
+	 *
 	 * @see java.net.Socket#getSoLinger()
 	 */
 	public final int getSoLinger() throws ExceptionUDT {
@@ -1160,10 +1163,10 @@ public class SocketUDT {
 
 	/**
 	 * Get "any blocking operation" timeout setting.
-	 * 
+	 *
 	 * Returns milliseconds; zero return means "infinite"; negative means
 	 * invalid
-	 * 
+	 *
 	 * @see java.net.Socket#getSoTimeout()
 	 */
 	public final int getSoTimeout() throws ExceptionUDT {
@@ -1192,7 +1195,7 @@ public class SocketUDT {
 	/**
 	 * Set maximum send buffer size. Affects both protocol-level (UDT) and
 	 * kernel-level(UDP) settings
-	 * 
+	 *
 	 * @see java.net.Socket#setSendBufferSize(int)
 	 */
 	public final void setSendBufferSize(final int size) throws ExceptionUDT {

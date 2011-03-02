@@ -42,6 +42,7 @@ package com.barchart.udt.util;
 import java.io.File;
 import java.net.InetSocketAddress;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.slf4j.Logger;
@@ -136,6 +137,10 @@ public class HelperUtils {
 
 		log.info("{}", text);
 
+	}
+
+	public static String getRandomString(){
+		return UUID.randomUUID().toString();
 	}
 
 }
