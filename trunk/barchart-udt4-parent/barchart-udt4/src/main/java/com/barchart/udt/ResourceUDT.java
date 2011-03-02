@@ -23,10 +23,6 @@ public final class ResourceUDT {
 	public static final String PROPERTY_LOADER_CLASS_NAME = //
 	PACKAGE_NAME + ".loader.class.name";
 
-	/** */
-	public static final String DEFAULT_LIBRARY_LOADER_CLASS = //
-	LibraryLoaderDefaultUDT.class.getName();
-
 	/**
 	 * target destination of native wrapper library *.dll or *.so files that are
 	 * extracted from this library jar;
@@ -34,9 +30,27 @@ public final class ResourceUDT {
 	public static final String DEFAULT_LIBRARY_EXTRACT_LOCATION = //
 	"./lib/bin";
 
+	/** */
+	public static final String DEFAULT_LIBRARY_LOADER_CLASS = //
+	LibraryLoaderDefaultUDT.class.getName();
+
+	/***/
+	public static String getLibraryExtractLocation() {
+		return System.getProperty( //
+				PROPERTY_LIBRARY_EXTRACT_LOCATION, //
+				DEFAULT_LIBRARY_EXTRACT_LOCATION);
+	}
+
 	/***/
 	public static void setLibraryExtractLocation(final String location) {
 		System.setProperty(PROPERTY_LIBRARY_EXTRACT_LOCATION, location);
+	}
+
+	/***/
+	public static String getLibraryLoaderClassName() {
+		return System.getProperty( //
+				PROPERTY_LOADER_CLASS_NAME, //
+				DEFAULT_LIBRARY_LOADER_CLASS);
 	}
 
 	/***/
