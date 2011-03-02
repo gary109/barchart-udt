@@ -42,7 +42,7 @@ package com.barchart.udt.lib;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum LibraryUDT {
+enum LibraryUDT {
 
 	UNKNOWN("xxx.xxx.xxx", null), //
 
