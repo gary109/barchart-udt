@@ -7,6 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.barchart.udt.ResourceUDT;
+import com.barchart.udt.SocketUDT;
+import com.barchart.udt.TypeUDT;
 import com.barchart.udt.util.HelperUtils;
 
 public class TestLibraryUDT {
@@ -19,18 +22,23 @@ public class TestLibraryUDT {
 
 	}
 
-	@Before
-	public void setUp() throws Exception {
-	}
+	@Test
+	public void testLoadWithProps() throws Exception {
 
-	@After
-	public void tearDown() throws Exception {
+		ResourceUDT.setLibraryLoaderClassName(LibraryLoaderDefaultUDT.class.getName());
+
+		ResourceUDT.setLibraryExtractLocation("./target/test-testLoadWithProps-" + HelperUtils.getRandomString());
+
+		SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
+
+		assertTrue(socket.isOpen());
+
 	}
 
 	@Test
 	public void testLoadString() throws Exception {
 
-		String targetFolder = "./target/test-lib-3";
+		String targetFolder = "./target/testLoadString-" + HelperUtils.getRandomString();
 
 		LibraryUDT.load(targetFolder);
 
@@ -53,5 +61,6 @@ public class TestLibraryUDT {
 				"/aol/x86-Windows-gpp/lib/nar.dll");
 
 	}
+
 
 }
