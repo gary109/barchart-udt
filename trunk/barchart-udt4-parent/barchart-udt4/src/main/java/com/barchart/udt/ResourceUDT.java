@@ -10,7 +10,7 @@ public final class ResourceUDT {
 
 	/** */
 	public static final String PACKAGE_NAME = //
-	SocketUDT.class.getPackage().getName();
+	ResourceUDT.class.getPackage().getName();
 
 	/**
 	 * system property which if provided will override
