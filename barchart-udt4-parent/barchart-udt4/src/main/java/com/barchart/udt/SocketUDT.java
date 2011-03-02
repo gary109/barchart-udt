@@ -49,7 +49,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.barchart.udt.lib.LibraryLoaderUDT;
-import com.barchart.udt.lib.LibraryUDT;
 
 /* note: do not change field names; used by JNI */
 /* note: must synchronize create/destroy - workaround for bug in UDT */
