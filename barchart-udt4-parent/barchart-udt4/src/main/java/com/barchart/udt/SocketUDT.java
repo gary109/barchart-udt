@@ -121,13 +121,9 @@ public class SocketUDT {
 
 		try {
 
-			final String location = System.getProperty(
-					ResourceUDT.PROPERTY_LIBRARY_EXTRACT_LOCATION, //
-					ResourceUDT.DEFAULT_LIBRARY_EXTRACT_LOCATION);
+			final String location = ResourceUDT.getLibraryExtractLocation();
 
-			final String loaderName = System.getProperty(
-					ResourceUDT.PROPERTY_LOADER_CLASS_NAME, //
-					ResourceUDT.DEFAULT_LIBRARY_LOADER_CLASS);
+			final String loaderName = ResourceUDT.getLibraryLoaderClassName();
 
 			@SuppressWarnings("unchecked")
 			final Class<LibraryLoaderUDT> loaderClass = (Class<LibraryLoaderUDT>) Class
