@@ -23,7 +23,7 @@ echo "### svn delete"
 svn delete --force "$SITE"
 
 echo "### svn commit"
-svn commit --message "hudson: remove site" "$SITE" "$CRED"
+svn commit "$CRED" --message "jenkins: remove site" "$SITE"
 
 ### PUBLISH
 
@@ -51,6 +51,6 @@ svn cleanup  "$SITE"
 svn update  "$SITE"
 
 echo "### svn commit"
-svn commit --message "hudson: publish site" "$SITE"  "$CRED"
+svn commit "$CRED" --message "jenkins: publish site" "$SITE"
 
 ###
