@@ -7,3 +7,10 @@ Ths solution seems to be a bit of a hack, you need to create a symlink for the 3
 $ sudo ln -s /usr/lib32/libstdc++.so.6 /usr/lib32/libstdc++.so
 
 
+#####################################################
+
+http://code.google.com/p/barchart-udt/wiki/BuildSystem
+
+sudo apt-get install gcc build-essential libc6-dev ia32-libs g++-multilib libc6-dev-i386
+
+yum install gcc glibc glibc-devel libgcc libstdc++
