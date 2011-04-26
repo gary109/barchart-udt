@@ -7,6 +7,9 @@ PROJ="barchart-udt4"
 BASE="$WORKSPACE/$PROJ"
 SITE="$WORKSPACE/site/$PROJ"
 
+# google code credentials
+CRED=" --username $SVN_USER --password $SVN_PASS "
+
 echo "### BASE=$BASE"
 echo "### SITE=$SITE"
 
@@ -20,7 +23,7 @@ echo "### svn delete"
 svn delete --force "$SITE"
 
 echo "### svn commit"
-svn commit --message "hudson: remove site" "$SITE"
+svn commit --message "hudson: remove site" "$SITE" "$CRED"
 
 ### PUBLISH
 
@@ -48,6 +51,6 @@ svn cleanup  "$SITE"
 svn update  "$SITE"
 
 echo "### svn commit"
-svn commit --message "hudson: publish site" "$SITE"
+svn commit --message "hudson: publish site" "$SITE"  "$CRED"
 
 ###
