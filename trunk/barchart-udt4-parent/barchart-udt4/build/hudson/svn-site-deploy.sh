@@ -8,7 +8,7 @@ BASE="$WORKSPACE/$PROJ"
 SITE="$WORKSPACE/site/$PROJ"
 
 # google code credentials
-CRED=" --username $SVN_USER --password $SVN_PASS "
+CRED=" --non-interactive --no-auth-cache --username $SVN_USER --password $SVN_PASS "
 
 echo "### PWD=$PWD"
 echo "### BASE=$BASE"
