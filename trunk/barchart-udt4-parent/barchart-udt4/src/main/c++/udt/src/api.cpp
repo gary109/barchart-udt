@@ -1,5 +1,5 @@
 /*****************************************************************************
-Copyright (c) 2001 - 2010, The Board of Trustees of the University of Illinois.
+Copyright (c) 2001 - 2011, The Board of Trustees of the University of Illinois.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 12/28/2010
+   Yunhong Gu, last updated 03/07/2011
 *****************************************************************************/
 
 #ifdef WIN32
@@ -741,14 +741,14 @@ int CUDTUnited::connect(const UDTSOCKET u, const sockaddr* name, const int& name
    else if (OPENED != s->m_Status)
       throw CUDTException(5, 2, 0);
 
+   s->m_pUDT->connect(name);
+   s->m_Status = CONNECTED;
+
    // copy address information of local node
    // the local port must be correctly assigned BEFORE CUDT::connect(),
    // otherwise if connect() fails, the multiplexer cannot be located by garbage collection and will cause leak
    s->m_pUDT->m_pSndQueue->m_pChannel->getSockAddr(s->m_pSelfAddr);
    CIPAddress::pton(s->m_pSelfAddr, s->m_pUDT->m_piSelfIP, s->m_iIPversion);
-
-   s->m_pUDT->connect(name);
-   s->m_Status = CONNECTED;
 
    // record peer address
    if (AF_INET == s->m_iIPversion)
@@ -1073,10 +1073,10 @@ int CUDTUnited::epoll_remove_usock(const int eid, const UDTSOCKET u, const int* 
    {
       s->m_pUDT->removeEPoll(eid);
    }
-   else
-   {
-      throw CUDTException(5, 4);
-   }
+   //else
+   //{
+   //   throw CUDTException(5, 4);
+   //}
 
    return m_EPoll.remove_usock(eid, u, events);
 }
@@ -1179,10 +1179,19 @@ void CUDTUnited::checkBrokenSockets()
 
    for (map<UDTSOCKET, CUDTSocket*>::iterator j = m_ClosedSockets.begin(); j != m_ClosedSockets.end(); ++ j)
    {
-      // timeout 1 second to destroy a socket AND it has been removed from RcvUList AND no linger data to send
-      if ((CTimer::getTime() - j->second->m_TimeStamp > 1000000) && 
-          ((NULL == j->second->m_pUDT->m_pRNode) || !j->second->m_pUDT->m_pRNode->m_bOnList) &&
-          ((NULL == j->second->m_pUDT->m_pSndBuffer) || (0 == j->second->m_pUDT->m_pSndBuffer->getCurrBufSize()) || (j->second->m_pUDT->m_ullLingerExpiration <= CTimer::getTime())))
+      if (j->second->m_pUDT->m_ullLingerExpiration > 0)
+      {
+         // asynchronous close: 
+         if ((NULL == j->second->m_pUDT->m_pSndBuffer) || (0 == j->second->m_pUDT->m_pSndBuffer->getCurrBufSize()) || (j->second->m_pUDT->m_ullLingerExpiration <= CTimer::getTime()))
+         {
+            j->second->m_pUDT->m_ullLingerExpiration = 0;
+            j->second->m_pUDT->m_bClosing = true;
+            j->second->m_TimeStamp = CTimer::getTime();
+         }
+      }
+
+      // timeout 1 second to destroy a socket AND it has been removed from RcvUList
+      if ((CTimer::getTime() - j->second->m_TimeStamp > 1000000) && ((NULL == j->second->m_pUDT->m_pRNode) || !j->second->m_pUDT->m_pRNode->m_bOnList))
       {
          tbr.push_back(j->first);
       }

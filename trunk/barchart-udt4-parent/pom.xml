@@ -15,8 +15,7 @@
 
 	<name>${project.artifactId}</name>
 
-	<description>Java wrapper around native C++ UDT protocol implementation
-		UDT version: 4.8</description>
+	<description>Java wrapper around native C++ UDT protocol implementation UDT version: 4.9</description>
 
 	<url>http://code.google.com/p/barchart-udt/</url>
 
