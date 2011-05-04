@@ -1334,7 +1334,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send0(JNIEnv *env,
 		const jint timeToLive, const jboolean isOrdered, jbyteArray arrayObj) {
 
 	// printf("native: udt-send0\n");
-
 	UNUSED(self);
 
 	jboolean isCopy; // whether JVM returned reference or copy
@@ -1379,7 +1378,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send1(JNIEnv *env,
 		jbyteArray arrayObj, const jint position, const jint limit) {
 
 	// printf("native: udt-send1\n");
-
 	UNUSED(self);
 
 	const jsize capacity = env->GetArrayLength(arrayObj);
@@ -1437,7 +1435,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_send2(JNIEnv *env,
 		jobject bufferObj, const jint position, const jint limit) {
 
 	// printf("native: udt-send2\n");
-
 	UNUSED(self);
 
 	const jlong capacity = env->GetDirectBufferCapacity(bufferObj);
@@ -1488,7 +1485,6 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_getErrorCode0(
 		JNIEnv *env, jobject self) {
 
 	//	printf("native: udt-getErrorCode0\n");
-
 	UNUSED(env);
 	UNUSED(self);
 
@@ -1502,7 +1498,6 @@ JNIEXPORT jstring JNICALL Java_com_barchart_udt_SocketUDT_getErrorMessage0(
 		JNIEnv *env, jobject self) {
 
 	//	printf("native: udt-getErrorMessage0\n");
-
 	UNUSED(self);
 
 	const char* errorMessage = UDT::getlasterror().getErrorMessage();
@@ -1975,7 +1970,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_selectEx1(JNIEnv *env,
 
 	int count = 0;
 	while (JNI_TRUE == env->CallBooleanMethod(iteratorRegistered,
-			jdk_clsIterator_hasNextID)) {
+					jdk_clsIterator_hasNextID)) {
 		jobject keyUDT = env->CallObjectMethod(iteratorRegistered,
 				jdk_clsIterator_nextID);
 		jint socketID = env->GetIntField(keyUDT, socketIDID);
@@ -2023,6 +2018,75 @@ JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_getStatus0(JNIEnv *env,
 
 }
 
+//
+
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_epollCreate(JNIEnv *env,
+		jclass clsSocketUDT) {
+
+	UNUSED(env);
+	UNUSED(clsSocketUDT);
+
+	const int rv = UDT::epoll_create();
+
+	if (rv == UDT::ERROR) {
+		UDT::ERRORINFO errorInfo = UDT::getlasterror();
+		UDT_ThrowExceptionUDT_ErrorInfo(env, 0, "epollCreate", &errorInfo);
+		return JNI_ERR;
+	}
+
+	return static_cast<jint> (rv);
+
+}
+
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_epollRelease (
+		JNIEnv *env, jclass clsSocketUDT, const jint pollID) {
+
+	UNUSED(env);
+	UNUSED(clsSocketUDT);
+
+	const int rv = UDT::epoll_release(pollID);
+
+	if (rv == UDT::ERROR) {
+		UDT::ERRORINFO errorInfo = UDT::getlasterror();
+		UDT_ThrowExceptionUDT_ErrorInfo(env, 0, "epollRelease", &errorInfo);
+		return;
+	}
+
+}
+
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_epollAdd(
+		JNIEnv *env, jclass clsSocketUDT, const jint pollID, const jint socketID){
+
+	UNUSED(env);
+	UNUSED(clsSocketUDT);
+
+	const int rv = UDT::epoll_add_usock(pollID, socketID, NULL);
+
+	if (rv == UDT::ERROR) {
+		UDT::ERRORINFO errorInfo = UDT::getlasterror();
+		UDT_ThrowExceptionUDT_ErrorInfo(env, socketID, "epollAdd", &errorInfo);
+		return;
+	}
+
+}
+
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_epollRemove(
+		JNIEnv *env, jclass clsSocketUDT, const jint pollID, const jint socketID){
+
+	UNUSED(env);
+	UNUSED(clsSocketUDT);
+
+	const int rv = UDT::epoll_remove_usock(pollID, socketID, NULL);
+
+	if (rv == UDT::ERROR) {
+		UDT::ERRORINFO errorInfo = UDT::getlasterror();
+		UDT_ThrowExceptionUDT_ErrorInfo(env, socketID, "epollRemove", &errorInfo);
+		return;
+	}
+
+}
+
+
 // #########################################3
 // start - used for development only
 
@@ -2064,9 +2128,9 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testIterateSet0(
 	jint count = 0;
 
 	while (JNI_TRUE == env->CallBooleanMethod(iterator,
-			jdk_clsIterator_hasNextID)) {
+					jdk_clsIterator_hasNextID)) {
 		jobject objAny =
-				env->CallObjectMethod(iterator, jdk_clsIterator_nextID);
+		env->CallObjectMethod(iterator, jdk_clsIterator_nextID);
 		objAny = NULL;
 		count++;
 	}
@@ -2077,7 +2141,6 @@ JNIEXPORT jintArray JNICALL JNICALL Java_com_barchart_udt_SocketUDT_testMakeArra
 		JNIEnv *env, jobject self, jint size) {
 
 	// test cost of JNI-to-Java make array
-
 	UNUSED(self);
 
 	jintArray array = env->NewIntArray(size);
@@ -2149,7 +2212,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectByteBufferAcces
 	UNUSED(self);
 
 	jbyte* byteBuffer = static_cast<jbyte*> (env->GetDirectBufferAddress(
-			bufferObj));
+					bufferObj));
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
 	int capacityInt = (int) capacity;
@@ -2170,7 +2233,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testDirectIntBufferAccess
 	UNUSED(self);
 
 	jint* intBuffer =
-			static_cast<jint*> (env->GetDirectBufferAddress(bufferObj));
+	static_cast<jint*> (env->GetDirectBufferAddress(bufferObj));
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
 	int capacityInt = (int) capacity;
@@ -2210,7 +2273,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testFillBuffer0(
 	UNUSED(self);
 
 	jbyte* buffer =
-			static_cast<jbyte*> (env->GetDirectBufferAddress(bufferObj));
+	static_cast<jbyte*> (env->GetDirectBufferAddress(bufferObj));
 
 	jlong capacity = env->GetDirectBufferCapacity(bufferObj);
 
@@ -2235,9 +2298,21 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testSocketStatus0(
 
 }
 
+JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_testEpoll0
+(JNIEnv *env, jobject self) {
+
+	const jint socketID = UDT_GetSocketID(env, self);
+
+	printf("native: test epoll; socketID=%d \n", socketID);
+
+	const int epollID = UDT::epoll_create();
+
+	printf("native: test epoll; epollID=%d \n", epollID);
+
+}
+
 // finish - used for development only
 // #########################################
 
 
 } // [extern "C"]
-
