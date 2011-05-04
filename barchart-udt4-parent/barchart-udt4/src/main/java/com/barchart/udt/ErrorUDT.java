@@ -109,6 +109,8 @@ public enum ErrorUDT {
 
 	ELARGEMSG(5012, "message is too large to be hold in the sending buffer"), //
 
+	EINVPOLLID(5013, "epoll ID is invalid"), //
+
 	EASYNCFAIL(6000, "non-blocking call failure"), //
 
 	EASYNCSND(6001, "no buffer available for sending"), //

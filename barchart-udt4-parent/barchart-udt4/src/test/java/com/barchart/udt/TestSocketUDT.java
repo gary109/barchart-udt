@@ -198,4 +198,61 @@ public class TestSocketUDT {
 
 	}
 
+	@Test
+	// no exceptions is pass
+	public void testEpollCreate() throws Exception {
+
+		int epollID = SocketUDT.epollCreate();
+		SocketUDT.epollRelease(epollID);
+
+	}
+
+	@Test(expected = ExceptionUDT.class)
+	public void testEpollRelease() throws Exception {
+
+		SocketUDT.epollRelease(-1);
+
+	}
+
+	@Test
+	// no exceptions is pass
+	public void testEpollAddRemove() throws Exception {
+
+		SocketUDT socket = new SocketUDT(TypeUDT.DATAGRAM);
+
+		//
+
+		final int epollID = SocketUDT.epollCreate();
+
+		SocketUDT.epollAdd(epollID, socket.socketID);
+
+		SocketUDT.epollRemove(epollID, socket.socketID);
+
+		SocketUDT.epollRelease(epollID);
+
+	}
+
+	@Test(expected = ExceptionUDT.class)
+	public void testEpollAddRemoveException1() throws Exception {
+
+		final int epollID = SocketUDT.epollCreate();
+
+		SocketUDT.epollAdd(epollID, -1);
+
+		SocketUDT.epollRelease(epollID);
+
+	}
+
+	@Test
+	// (expected = ExceptionUDT.class)
+	public void testEpollAddRemoveException2() throws Exception {
+
+		final int epollID = SocketUDT.epollCreate();
+
+		SocketUDT.epollRemove(epollID, -1);
+
+		SocketUDT.epollRelease(epollID);
+
+	}
+
 }
