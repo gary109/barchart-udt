@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /*****************************************************************************
 written by
-   Yunhong Gu, last updated 01/22/2011
+   Yunhong Gu, last updated 03/07/2011
 *****************************************************************************/
 
 #ifndef WIN32
@@ -53,6 +53,7 @@ written by
    #endif
 #endif
 #include <cmath>
+#include <sstream>
 #include "queue.h"
 #include "core.h"
 
@@ -484,8 +485,8 @@ void CUDT::open()
    m_ullSYNInt = m_iSYNInterval * m_ullCPUFrequency;
   
    // set minimum NAK and EXP timeout to 100ms
-   m_ullMinNakInt = 100000 * m_ullCPUFrequency;
-   m_ullMinExpInt = 100000 * m_ullCPUFrequency;
+   m_ullMinNakInt = 300000 * m_ullCPUFrequency;
+   m_ullMinExpInt = 300000 * m_ullCPUFrequency;
 
    m_ullACKInt = m_ullSYNInt;
    m_ullNAKInt = m_ullMinNakInt;
@@ -719,11 +720,6 @@ void CUDT::connect(const sockaddr* serv_addr)
       throw CUDTException(3, 2, 0);
    }
 
-   m_pCC = m_pCCFactory->create();
-   m_pCC->m_UDT = m_SocketID;
-   m_ullInterval = (uint64_t)(m_pCC->m_dPktSndPeriod * m_ullCPUFrequency);
-   m_dCongestionWindow = m_pCC->m_dCWndSize;
-
    CInfoBlock ib;
    ib.m_iIPversion = m_iIPversion;
    CInfoBlock::convert(serv_addr, m_iIPversion, ib.m_piIP);
@@ -733,6 +729,8 @@ void CUDT::connect(const sockaddr* serv_addr)
       m_iBandwidth = ib.m_iBandwidth;
    }
 
+   m_pCC = m_pCCFactory->create();
+   m_pCC->m_UDT = m_SocketID;
    m_pCC->setMSS(m_iMSS);
    m_pCC->setMaxCWndSize((int&)m_iFlowWindowSize);
    m_pCC->setSndCurrSeqNo((int32_t&)m_iSndCurrSeqNo);
@@ -741,6 +739,9 @@ void CUDT::connect(const sockaddr* serv_addr)
    m_pCC->setBandwidth(m_iBandwidth);
    if (m_llMaxBW > 0) m_pCC->setUserParam((char*)&(m_llMaxBW), 8);
    m_pCC->init();
+
+   m_ullInterval = (uint64_t)(m_pCC->m_dPktSndPeriod * m_ullCPUFrequency);
+   m_dCongestionWindow = m_pCC->m_dCWndSize;
 
    m_pPeerAddr = (AF_INET == m_iIPversion) ? (sockaddr*)new sockaddr_in : (sockaddr*)new sockaddr_in6;
    memcpy(m_pPeerAddr, serv_addr, (AF_INET == m_iIPversion) ? sizeof(sockaddr_in) : sizeof(sockaddr_in6));
@@ -816,11 +817,6 @@ void CUDT::connect(const sockaddr* peer, CHandShake* hs)
       throw CUDTException(3, 2, 0);
    }
 
-   m_pCC = m_pCCFactory->create();
-   m_pCC->m_UDT = m_SocketID;
-   m_ullInterval = (uint64_t)(m_pCC->m_dPktSndPeriod * m_ullCPUFrequency);
-   m_dCongestionWindow = m_pCC->m_dCWndSize;
-
    CInfoBlock ib;
    ib.m_iIPversion = m_iIPversion;
    CInfoBlock::convert(peer, m_iIPversion, ib.m_piIP);
@@ -830,6 +826,8 @@ void CUDT::connect(const sockaddr* peer, CHandShake* hs)
       m_iBandwidth = ib.m_iBandwidth;
    }
 
+   m_pCC = m_pCCFactory->create();
+   m_pCC->m_UDT = m_SocketID;
    m_pCC->setMSS(m_iMSS);
    m_pCC->setMaxCWndSize((int&)m_iFlowWindowSize);
    m_pCC->setSndCurrSeqNo((int32_t&)m_iSndCurrSeqNo);
@@ -838,6 +836,9 @@ void CUDT::connect(const sockaddr* peer, CHandShake* hs)
    m_pCC->setBandwidth(m_iBandwidth);
    if (m_llMaxBW > 0) m_pCC->setUserParam((char*)&(m_llMaxBW), 8);
    m_pCC->init();
+
+   m_ullInterval = (uint64_t)(m_pCC->m_dPktSndPeriod * m_ullCPUFrequency);
+   m_dCongestionWindow = m_pCC->m_dCWndSize;
 
    m_pPeerAddr = (AF_INET == m_iIPversion) ? (sockaddr*)new sockaddr_in : (sockaddr*)new sockaddr_in6;
    memcpy(m_pPeerAddr, peer, (AF_INET == m_iIPversion) ? sizeof(sockaddr_in) : sizeof(sockaddr_in6));
@@ -903,13 +904,13 @@ void CUDT::close()
    for (set<int>::iterator i = m_sPollID.begin(); i != m_sPollID.end(); ++ i)
       s_UDTUnited.m_EPoll.remove_usock(*i, m_SocketID);
 
-   CGuard cg(m_ConnectionLock);
-
    if (!m_bOpened)
       return;
 
    // Inform the threads handler to stop.
    m_bClosing = true;
+
+   CGuard cg(m_ConnectionLock);
 
    // Signal the sender and recver if they are waiting for data.
    releaseSynch();
@@ -919,6 +920,7 @@ void CUDT::close()
       m_bListening = false;
       m_pRcvQueue->removeListener(this);
    }
+
    if (m_bConnected)
    {
       if (!m_bShutdown)
@@ -959,6 +961,14 @@ int CUDT::send(const char* data, const int& len)
       return 0;
 
    CGuard sendguard(m_SendLock);
+
+   if (m_pSndBuffer->getCurrBufSize() == 0)
+   {
+      // delay the EXP timer to avoid mis-fired timeout
+      uint64_t currtime;
+      CTimer::rdtsc(currtime);
+      m_ullNextEXPTime = currtime + m_ullEXPInt;
+   }
 
    if (m_iSndBufSize <= m_pSndBuffer->getCurrBufSize())
    {
@@ -1151,6 +1161,14 @@ int CUDT::sendmsg(const char* data, const int& len, const int& msttl, const bool
 
    CGuard sendguard(m_SendLock);
 
+   if (m_pSndBuffer->getCurrBufSize() == 0)
+   {
+      // delay the EXP timer to avoid mis-fired timeout
+      uint64_t currtime;
+      CTimer::rdtsc(currtime);
+      m_ullNextEXPTime = currtime + m_ullEXPInt;
+   }
+
    if ((m_iSndBufSize - m_pSndBuffer->getCurrBufSize()) * m_iPayloadSize < len)
    {
       if (!m_bSynSending)
@@ -1338,6 +1356,14 @@ int64_t CUDT::sendfile(fstream& ifs, int64_t& offset, const int64_t& size, const
       return 0;
 
    CGuard sendguard(m_SendLock);
+
+   if (m_pSndBuffer->getCurrBufSize() == 0)
+   {
+      // delay the EXP timer to avoid mis-fired timeout
+      uint64_t currtime;
+      CTimer::rdtsc(currtime);
+      m_ullNextEXPTime = currtime + m_ullEXPInt;
+   }
 
    int64_t tosend = size;
    int unitsize;
@@ -2386,10 +2412,10 @@ int CUDT::listen(sockaddr* addr, CPacket& packet)
    char clientport[NI_MAXSERV];
    getnameinfo(addr, (AF_INET == m_iVersion) ? sizeof(sockaddr_in) : sizeof(sockaddr_in6), clienthost, sizeof(clienthost), clientport, sizeof(clientport), NI_NUMERICHOST|NI_NUMERICSERV);
    int64_t timestamp = (CTimer::getTime() - m_StartTime) / 60000000; // secret changes every one minute
-   char cookiestr[1024];
-   sprintf(cookiestr, "%s:%s:%lld", clienthost, clientport, (long long int)timestamp);
+   stringstream cookiestr;
+   cookiestr << clienthost << ":" << clientport << ":" << timestamp;
    unsigned char cookie[16];
-   CMD5::compute(cookiestr, cookie);
+   CMD5::compute(cookiestr.str().c_str(), cookie);
 
    if (1 == hs.m_iReqType)
    {
@@ -2405,8 +2431,8 @@ int CUDT::listen(sockaddr* addr, CPacket& packet)
       if (hs.m_iCookie != *(int*)cookie)
       {
          timestamp --;
-         sprintf(cookiestr, "%s:%s:%lld", clienthost, clientport, (long long int)timestamp);
-         CMD5::compute(cookiestr, cookie);
+         cookiestr << clienthost << ":" << clientport << ":" << timestamp;
+         CMD5::compute(cookiestr.str().c_str(), cookie);
 
          if (hs.m_iCookie != *(int*)cookie)
             return -1;
@@ -2516,7 +2542,8 @@ void CUDT::checkTimers()
 
          releaseSynch();
 
-         // a broken socket can be "write" to learn the error
+         // app can call any UDT API to learn the connection_broken error
+         s_UDTUnited.m_EPoll.enable_read(m_SocketID, m_sPollID);
          s_UDTUnited.m_EPoll.enable_write(m_SocketID, m_sPollID);
 
          CTimer::triggerEvent();
@@ -2579,10 +2606,12 @@ void CUDT::addEPoll(const int eid)
 
 void CUDT::removeEPoll(const int eid)
 {
-   s_UDTUnited.m_EPoll.disable_read(m_SocketID, m_sPollID);
-   s_UDTUnited.m_EPoll.disable_write(m_SocketID, m_sPollID);
-
    CGuard::enterCS(s_UDTUnited.m_EPoll.m_EPollLock);
    m_sPollID.erase(eid);
    CGuard::leaveCS(s_UDTUnited.m_EPoll.m_EPollLock);
+
+   // clear IO events notifications;
+   // since this happens after the epoll ID has been removed, they cannot be set again
+   s_UDTUnited.m_EPoll.disable_read(m_SocketID, m_sPollID);
+   s_UDTUnited.m_EPoll.disable_write(m_SocketID, m_sPollID);
 }
