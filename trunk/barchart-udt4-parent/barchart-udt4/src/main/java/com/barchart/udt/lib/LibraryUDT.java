@@ -182,7 +182,6 @@ enum LibraryUDT {
 			return;
 		} catch (Exception e) {
 			log.warn("\n\t {} {}", e.getClass().getSimpleName(), e.getMessage());
-			log.error("", e);
 		}
 
 		try {
