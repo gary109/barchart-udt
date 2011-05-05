@@ -1,10 +1,6 @@
 #!/bin/bash
 
 #
-# custom macosx hudson build to fix apple's "think different"
-#
-
-#
 # must provide maven home via
 # http://wiki.hudson-ci.org/display/HUDSON/Tool+Environment+Plugin
 #
