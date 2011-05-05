@@ -321,12 +321,13 @@
 							<localRepositoryPath>${project.build.directory}/int-repo</localRepositoryPath>
 							<invokerPropertiesFile>invoker-${label}-${jdk}.properties</invokerPropertiesFile>
 							<setupIncludes>
-								<setupInclude>int-00-parent/pom.xml</setupInclude>
+								<!-- <setupInclude>int-00-parent/pom.xml</setupInclude> -->
 								<!-- <setupInclude>int-01-bundle/pom.xml</setupInclude> -->
 							</setupIncludes>
 							<pomIncludes>
-								<pomInclude>int-01-bundle/pom.xml</pomInclude>
-								<pomInclude>int-02-bundle-test/pom.xml</pomInclude>
+								<!-- <pomInclude>int-01-bundle/pom.xml</pomInclude> -->
+								<!-- <pomInclude>int-02-bundle-test/pom.xml</pomInclude> -->
+								<pomInclude>all/pom.xml</pomInclude>
 							</pomIncludes>
 							<goals>
 								<!-- goals for child maven invocation -->

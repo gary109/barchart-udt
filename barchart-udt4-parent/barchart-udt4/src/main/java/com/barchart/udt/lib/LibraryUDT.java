@@ -178,10 +178,12 @@ enum LibraryUDT {
 		try {
 			log.info("library source: NAR production");
 			final String sourcePath = sourceLibRealNAR();
+			log.error("\n{} \n{}", sourcePath, targetPath);
 			RES.systemLoad(sourcePath, targetPath);
 			return;
 		} catch (Exception e) {
 			log.warn("\n\t {} {}", e.getClass().getSimpleName(), e.getMessage());
+			log.error("", e);
 		}
 
 		try {
