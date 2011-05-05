@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -321,9 +322,13 @@
 							<invokerPropertiesFile>invoker-${label}-${jdk}.properties</invokerPropertiesFile>
 							<setupIncludes>
 								<setupInclude>int-00-parent/pom.xml</setupInclude>
-								<setupInclude>int-01-bundle/pom.xml</setupInclude>
+								<!-- <setupInclude>int-01-bundle/pom.xml</setupInclude> -->
 							</setupIncludes>
+							<pomIncludes>
+								<pomInclude>*/pom.xml</pomInclude>
+							</pomIncludes>
 							<goals>
+								<!-- goals for child maven invocation -->
 								<goal>clean</goal>
 								<goal>install</goal>
 							</goals>
@@ -333,6 +338,7 @@
 								<id>install-and-run</id>
 								<phase>integration-test</phase>
 								<goals>
+									<!-- goals for parent maven invocation -->
 									<goal>install</goal>
 									<goal>run</goal>
 								</goals>
@@ -556,14 +562,14 @@
 			<build>
 				<plugins>
 
-					<!-- disable most nar "smart options processing" and use explicit aol.properties
+					<!-- disable most nar "smart options processing" and use explicit aol.properties 
 						instead -->
 					<plugin>
 						<groupId>${narGroupId}</groupId>
 						<artifactId>${narArtifactId}</artifactId>
 						<extensions>true</extensions>
 						<configuration>
-							<!-- place nar artifacts into test classpath for unit tests; will
+							<!-- place nar artifacts into test classpath for unit tests; will 
 								also use for jar/nar packaging -->
 							<targetDirectory>target/test-classes</targetDirectory>
 							<libraries>
