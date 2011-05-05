@@ -324,8 +324,8 @@
 								<setupInclude>int-00-parent/pom.xml</setupInclude>
 							</setupIncludes>
 							<pomIncludes>
-								<setupInclude>int-01-bundle/pom.xml</setupInclude>
-								<setupInclude>int-02-bundle-test/pom.xml</setupInclude>
+								<pomInclude>int-01-bundle/pom.xml</pomInclude>
+								<pomInclude>int-02-bundle-test/pom.xml</pomInclude>
 							</pomIncludes>
 							<goals>
 								<!-- goals for child maven invocation -->
