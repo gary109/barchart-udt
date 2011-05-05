@@ -42,6 +42,7 @@ package com.barchart.udt;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.util.Set;
 
@@ -70,7 +71,7 @@ public class SocketUDT {
 	 * do not use automatic signature based on time stamp until all platforms
 	 * are built at once by hudson
 	 */
-	public static final int SIGNATURE_JNI = 20101231; // VersionUDT.BUILDTIME;
+	public static final int SIGNATURE_JNI = 20110501; // VersionUDT.BUILDTIME;
 
 	/**
 	 * infinite message time to live;
@@ -213,11 +214,20 @@ public class SocketUDT {
 	protected volatile InetSocketAddress remoteSocketAddress;
 
 	/**
-	 * UDT::select() sizeArray/sizeBuffer indexes
+	 * UDT::select() sizeArray/sizeBuffer index offset for READ interest
 	 */
 	public static final int UDT_READ_INDEX = 0;
+	/**
+	 * UDT::select() sizeArray/sizeBuffer index offset for WRITE interest
+	 */
 	public static final int UDT_WRITE_INDEX = 1;
+	/**
+	 * UDT::select() sizeArray/sizeBuffer index offset for EXCEPTION report
+	 */
 	public static final int UDT_EXCEPT_INDEX = 2;
+	/**
+	 * UDT::select() sizeArray/sizeBuffer size count or number of arrays/buffers
+	 */
 	public static final int UDT_SIZE_COUNT = 3;
 
 	/**
@@ -449,6 +459,8 @@ public class SocketUDT {
 	 */
 	protected volatile int listenQueueSize;
 
+	private final static int JAVA_INT_SIZE_IN_BYTES = 4;
+
 	/**
 	 * @param queueSize
 	 *            maximum number of queued clients
@@ -663,6 +675,51 @@ public class SocketUDT {
 
 		return select1(readBuffer, writeBuffer, exceptBuffer, sizeBuffer,
 				millisTimeout);
+
+	}
+
+	/**
+	 * Basic access to UDT socket readiness selection feature. Based on
+	 * {@link java.nio.DirectIntBuffer} info exchange.Timeout is in
+	 * milliseconds.
+	 * 
+	 * @return <code><0</code> : should not happen<br>
+	 *         <code>=0</code> : timeout, no ready sockets<br>
+	 *         <code>>0</code> : total number or reads, writes, exceptions<br>
+	 * @see #epollWait0(int, IntBuffer, IntBuffer, IntBuffer, IntBuffer, long)
+	 */
+	// asserts are contracts
+	public final static int selectEpoll( //
+			final IntBuffer readBuffer, //
+			final IntBuffer writeBuffer, //
+			final IntBuffer exceptBuffer, //
+			final IntBuffer sizeBuffer, //
+			/* var */long millisTimeout) throws ExceptionUDT {
+
+		if (millisTimeout < 0) {
+			millisTimeout = Long.MAX_VALUE;
+		}
+
+		assert readBuffer != null && readBuffer.isDirect();
+		assert writeBuffer != null && writeBuffer.isDirect();
+		assert exceptBuffer != null && exceptBuffer.isDirect();
+		assert sizeBuffer != null && sizeBuffer.isDirect();
+
+		// TODO
+
+		// assert readBuffer.capacity() >= sizeBuffer.get(UDT_READ_INDEX);
+		// assert writeBuffer.capacity() >= sizeBuffer.get(UDT_WRITE_INDEX);
+		// assert exceptBuffer.capacity() >= readBuffer.capacity();
+		// assert exceptBuffer.capacity() >= writeBuffer.capacity();
+		// assert millisTimeout >= DEFAULT_MIN_SELECTOR_TIMEOUT
+		// || millisTimeout <= 0;
+
+		int epollID = 0; // XXX
+
+		// return epollWait(epollID, readBuffer, writeBuffer, exceptBuffer,
+		// sizeBuffer, millisTimeout);
+
+		throw new RuntimeException("TODO");
 
 	}
 
@@ -1457,6 +1514,13 @@ public class SocketUDT {
 	native void testSocketStatus0();
 
 	native void testEpoll0(); //
+
+	public static final IntBuffer newDirectIntBufer(int capacity) {
+		return ByteBuffer. //
+				allocateDirect(capacity * SocketUDT.JAVA_INT_SIZE_IN_BYTES). //
+				order(ByteOrder.nativeOrder()). //
+				asIntBuffer();
+	}
 
 	// ###
 	// ### used for development & testing only

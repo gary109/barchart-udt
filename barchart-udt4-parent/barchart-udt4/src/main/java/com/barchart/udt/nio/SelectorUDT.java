@@ -44,8 +44,6 @@ import static java.nio.channels.SelectionKey.*;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.nio.channels.ClosedSelectorException;
 import java.nio.channels.IllegalSelectorException;
@@ -263,15 +261,6 @@ public class SelectorUDT extends AbstractSelector {
 	private final IntBuffer exceptBuffer;
 	private final IntBuffer sizeBuffer;
 
-	private final static int JAVA_INT_SIZE_IN_BYTES = 4;
-
-	public static final IntBuffer newDirectIntBufer(int capacity) {
-		return ByteBuffer. //
-				allocateDirect(capacity * JAVA_INT_SIZE_IN_BYTES). //
-				order(ByteOrder.nativeOrder()). //
-				asIntBuffer();
-	}
-
 	/**
 	 * connector thread pool limit
 	 */
@@ -294,10 +283,10 @@ public class SelectorUDT extends AbstractSelector {
 
 		this.maximimSelectorSize = maximumSelectorSize;
 		if (isBufferBased) {
-			readBuffer = newDirectIntBufer(maximumSelectorSize);
-			writeBuffer = newDirectIntBufer(maximumSelectorSize);
-			exceptBuffer = newDirectIntBufer(maximumSelectorSize);
-			sizeBuffer = newDirectIntBufer(UDT_SIZE_COUNT);
+			readBuffer = SocketUDT.newDirectIntBufer(maximumSelectorSize);
+			writeBuffer = SocketUDT.newDirectIntBufer(maximumSelectorSize);
+			exceptBuffer = SocketUDT.newDirectIntBufer(maximumSelectorSize);
+			sizeBuffer = SocketUDT.newDirectIntBufer(UDT_SIZE_COUNT);
 			readArray = null;
 			writeArray = null;
 			exceptArray = null;
