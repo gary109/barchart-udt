@@ -313,7 +313,7 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-invoker-plugin</artifactId>
 						<configuration>
-							<debug>true</debug>
+							<debug>false</debug>
 							<ignoreFailures>false</ignoreFailures>
 							<projectsDirectory>src/int/</projectsDirectory>
 							<settingsFile>src/int/settings.xml</settingsFile>
@@ -322,10 +322,10 @@
 							<invokerPropertiesFile>invoker-${label}-${jdk}.properties</invokerPropertiesFile>
 							<setupIncludes>
 								<setupInclude>int-00-parent/pom.xml</setupInclude>
-								<!-- <setupInclude>int-01-bundle/pom.xml</setupInclude> -->
 							</setupIncludes>
 							<pomIncludes>
-								<pomInclude>*/pom.xml</pomInclude>
+								<setupInclude>int-01-bundle/pom.xml</setupInclude>
+								<setupInclude>int-02-bundle-test/pom.xml</setupInclude>
 							</pomIncludes>
 							<goals>
 								<!-- goals for child maven invocation -->
@@ -562,14 +562,14 @@
 			<build>
 				<plugins>
 
-					<!-- disable most nar "smart options processing" and use explicit aol.properties 
+					<!-- disable most nar "smart options processing" and use explicit aol.properties
 						instead -->
 					<plugin>
 						<groupId>${narGroupId}</groupId>
 						<artifactId>${narArtifactId}</artifactId>
 						<extensions>true</extensions>
 						<configuration>
-							<!-- place nar artifacts into test classpath for unit tests; will 
+							<!-- place nar artifacts into test classpath for unit tests; will
 								also use for jar/nar packaging -->
 							<targetDirectory>target/test-classes</targetDirectory>
 							<libraries>
