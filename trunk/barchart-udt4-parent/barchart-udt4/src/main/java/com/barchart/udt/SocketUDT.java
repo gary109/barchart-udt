@@ -1417,6 +1417,17 @@ public class SocketUDT {
 	protected static native void epollRemove(//
 			final int epollID, final int socketID) throws ExceptionUDT;
 
+	/**
+	 * @see <a http://udt.sourceforge.net/udt4/doc/epoll.htm</a>
+	 */
+	protected static native int epollWait( //
+			final int epollID, //
+			final IntBuffer readBuffer, //
+			final IntBuffer writeBuffer, //
+			final IntBuffer exceptBuffer, //
+			final IntBuffer sizeBuffer, //
+			final long millisTimeout) throws ExceptionUDT;
+
 	// ###########################################
 	// ### used for development & testing only
 	// ###

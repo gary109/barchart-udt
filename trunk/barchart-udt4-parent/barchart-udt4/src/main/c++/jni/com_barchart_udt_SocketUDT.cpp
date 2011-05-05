@@ -2055,7 +2055,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_epollRelease (
 }
 
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_epollAdd(
-		JNIEnv *env, jclass clsSocketUDT, const jint pollID, const jint socketID){
+		JNIEnv *env, jclass clsSocketUDT, const jint pollID, const jint socketID) {
 
 	UNUSED(env);
 	UNUSED(clsSocketUDT);
@@ -2071,7 +2071,7 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_epollAdd(
 }
 
 JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_epollRemove(
-		JNIEnv *env, jclass clsSocketUDT, const jint pollID, const jint socketID){
+		JNIEnv *env, jclass clsSocketUDT, const jint pollID, const jint socketID) {
 
 	UNUSED(env);
 	UNUSED(clsSocketUDT);
@@ -2086,6 +2086,54 @@ JNIEXPORT void JNICALL Java_com_barchart_udt_SocketUDT_epollRemove(
 
 }
 
+JNIEXPORT jint JNICALL Java_com_barchart_udt_SocketUDT_epollWait (
+		JNIEnv *env ,
+		jclass clsSocketUDT, //
+		const jint pollID, //
+		const jobject objReadBuffer, //
+		const jobject objWriteBuffer, //
+		const jobject objExceptBuffer, //
+		const jobject objSizeBuffer, //
+		const jlong millisTimeout) {
+
+	UNUSED(clsSocketUDT);
+
+	// get interest sizes
+	jint* sizeArray = static_cast<jint*> //
+	(env->GetDirectBufferAddress(objSizeBuffer));
+
+	//	const jsize readSize = sizeArray[UDT_READ_INDEX];
+	//	const jsize writeSize = sizeArray[UDT_WRITE_INDEX];
+
+	//	const bool isInterestedInRead = readSize > 0;
+	//	const bool isInterestedInWrite = writeSize > 0;
+
+	// make empty sets
+	UDT::UDSET readSet;
+	UDT::UDSET writeSet;
+	UDT::UDSET exceptSet;
+
+	// do select
+	const int rv = UDT::epoll_wait(pollID, &readSet, &writeSet, millisTimeout, NULL, NULL);
+
+	// process timeout & errors
+	if (rv <= 0) { // UDT::ERROR is '-1'; UDT_TIMEOUT is '=0';
+		if (rv == UDT_TIMEOUT) { // timeout
+			return UDT_TIMEOUT;
+		} else {
+			UDT::ERRORINFO errorInfo = UDT::getlasterror();
+			UDT_ThrowExceptionUDT_ErrorInfo(env, 0, "epollWait", &errorInfo);
+			return JNI_ERR;
+		}
+	}
+
+	//
+//	const bool isInterestedInRead = readSet.epmty();
+//	const bool isInterestedInWrite = writeSet.epmty();
+
+	return rv;
+
+}
 
 // #########################################3
 // start - used for development only
